@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+        <html>
+          <head>
+            <title data-id="th-modified">Web Page</title>
+            
+          <meta property="og:title" content="Web Page" data-id="th-modified" ><meta name="description" content="code" data-id="th-modified" ><meta property="og:description" content="code" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="https://verbhalten.tiiny.site/" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="verbhalten.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+          <body>
+            <!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Das Verb „halten" – Übungen B1/B2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F5F0;
+    --surface: #FFFFFF;
+    --surface2: #F0EDE7;
+    --accent: #2D5A3D;
+    --accent-light: #E8F0EB;
+    --accent2: #8B4513;
+    --accent2-light: #F5EDE6;
+    --text: #1A1A1A;
+    --text2: #555550;
+    --text3: #888882;
+    --border: #DDD9D0;
+    --correct: #2D6A4F;
+    --correct-bg: #D8F3DC;
+    --wrong: #C1121F;
+    --wrong-bg: #FFE5E5;
+    --radius: 10px;
+    --radius-lg: 16px;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--accent);
+    color: white;
+    padding: 48px 40px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: 'HALTEN';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Fraunces', serif;
+    font-size: 120px;
+    font-weight: 600;
+    opacity: 0.07;
+    letter-spacing: -4px;
+    white-space: nowrap;
+  }
+  .hero-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .hero h1 em { font-style: italic; opacity: 0.7; }
+  .hero p {
+    font-size: 15px;
+    opacity: 0.75;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+  .hero-badges {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* NAV TABS */
+  .nav-wrapper {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .nav-tabs {
+    display: flex;
+    gap: 0;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    padding: 16px 22px;
+    border: none;
+    background: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text3);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tab-btn:hover { color: var(--text2); }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .tab-icon { font-size: 15px; }
+
+  /* MAIN CONTENT */
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* SECTION HEADER */
+  .sec-header {
+    margin-bottom: 28px;
+  }
+  .sec-header h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .sec-header p {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  /* SCORE BAR */
+  .score-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: var(--text2);
+  }
+  .score-val {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .score-bar .progress {
+    flex: 1;
+    height: 6px;
+    background: var(--surface2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px 24px;
+    margin-bottom: 14px;
+  }
+  .q-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 10px;
+  }
+  .q-text {
+    font-size: 17px;
+    color: var(--text);
+    margin-bottom: 16px;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  /* OPTIONS */
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    text-align: left;
+    padding: 11px 14px;
+    margin-bottom: 7px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+    line-height: 1.5;
+  }
+  .option:hover:not(:disabled) {
+    background: var(--accent-light);
+    border-color: #A8C4B0;
+  }
+  .option:disabled { cursor: default; }
+  .option.correct { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); font-weight: 500; }
+  .option.wrong { background: var(--wrong-bg); border-color: var(--wrong); color: var(--wrong); }
+  .opt-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    transition: all 0.15s;
+  }
+  .option.correct .opt-indicator { background: var(--correct); border-color: var(--correct); color: white; }
+  .option.wrong .opt-indicator { background: var(--wrong); border-color: var(--wrong); color: white; }
+
+  /* FEEDBACK */
+  .feedback {
+    display: none;
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    line-height: 1.55;
+    margin-top: 4px;
+  }
+  .feedback.show { display: block; }
+  .feedback.ok { background: var(--correct-bg); color: var(--correct); }
+  .feedback.no { background: var(--wrong-bg); color: var(--wrong); }
+
+  /* LÜCKENTEXT */
+  .gap-sentence {
+    font-size: 16px;
+    line-height: 2.2;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .gap-hint {
+    font-size: 11px;
+    color: var(--text3);
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+  input.gap {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    border: none;
+    border-bottom: 2px solid var(--accent);
+    background: transparent;
+    padding: 2px 6px;
+    color: var(--text);
+    width: 130px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  input.gap:focus { border-bottom-color: var(--accent2); }
+  input.gap.correct { border-bottom-color: var(--correct); color: var(--correct); font-weight: 500; }
+  input.gap.wrong { border-bottom-color: var(--wrong); color: var(--wrong); }
+  input.gap:disabled { cursor: default; }
+
+  .check-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    padding: 12px 28px;
+    border-radius: var(--radius);
+    border: 2px solid var(--accent);
+    background: var(--accent);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .check-all-btn:hover { background: #234a30; border-color: #234a30; }
+  .reset-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    margin-left: 12px;
+    padding: 12px 22px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text2);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .reset-btn:hover { background: var(--surface2); }
+
+  /* BEDEUTUNGEN */
+  .bedeutung-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .bed-header {
+    padding: 16px 20px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .bed-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .bed-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .bed-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 5px;
+  }
+  .pill {
+    padding: 2px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    background: var(--accent-light);
+    color: var(--accent);
+    border: 1px solid #B8D4BF;
+  }
+  .bed-examples { padding: 14px 20px; }
+  .example-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--surface2);
+    align-items: start;
+  }
+  .example-row:last-child { border-bottom: none; }
+  .ex-de {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  .ex-de::before { content: '🇩🇪 '; font-style: normal; }
+  .ex-en {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.5;
+    font-style: italic;
+  }
+  .ex-en::before { content: '🇬🇧 '; font-style: normal; }
+
+  /* WORTSTELLUNG */
+  .wo-list {
+    min-height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px;
+    background: var(--surface2);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+  }
+  .wo-word {
+    padding: 7px 13px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: grab;
+    user-select: none;
+    color: var(--text);
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .wo-word:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .wo-word.dragging { opacity: 0.4; cursor: grabbing; }
+  .wo-word .handle { color: var(--text3); font-size: 11px; }
+  .wo-btn-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .wo-check {
+    padding: 9px 20px;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--accent);
+    background: var(--accent);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .wo-check:hover { background: #234a30; }
+  .wo-reset {
+    padding: 9px 18px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text2);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .wo-reset:hover { background: var(--surface2); }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 32px 20px;
+    font-size: 13px;
+    color: var(--text3);
+    border-top: 1px solid var(--border);
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .footer a { color: var(--accent); text-decoration: none; font-weight: 500; }
+
+  @media (max-width: 600px) {
+    .hero { padding: 32px 20px 28px; }
+    .hero h1 { font-size: 30px; }
+    .example-row { grid-template-columns: 1fr; }
+    .tab-btn { padding: 14px 14px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-label">Deutschübungen · Niveau B1/B2</div>
+  <h1>Das Verb<br><em>„halten"</em></h1>
+  <p>Interaktive Übungen zum Video von deutschoderwas – Quiz, Lückentext, Bedeutungen & Wortstellung.</p>
+  <div class="hero-badges">
+    <span class="badge">🎯 B1/B2</span>
+    <span class="badge">📺 deutschoderwas</span>
+    <span class="badge">⏱ ca. 20 Minuten</span>
+  </div>
+</div>
+
+<div class="nav-wrapper">
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showTab('quiz', this)"><span class="tab-icon">🧠</span> Quiz</button>
+    <button class="tab-btn" onclick="showTab('luecken', this)"><span class="tab-icon">✏️</span> Lückentext</button>
+    <button class="tab-btn" onclick="showTab('bedeutungen', this)"><span class="tab-icon">📖</span> Bedeutungen</button>
+    <button class="tab-btn" onclick="showTab('wortstellung', this)"><span class="tab-icon">🔀</span> Wortstellung</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ===================== QUIZ ===================== -->
+  <div id="sec-quiz" class="section active">
+    <div class="sec-header">
+      <h2>Multiple Choice Quiz</h2>
+      <p>Wähle die richtige Bedeutung oder Ergänzung. Klicke auf eine Antwort und erhalte sofort Feedback.</p>
+    </div>
+    <div class="score-bar">
+      <div>
+        <div style="font-size:12px;color:var(--text3);margin-bottom:2px;">Punktestand</div>
+        <div><span class="score-val" id="score-val">0</span> <span style="font-size:14px;color:var(--text3);">/ 6</span></div>
+      </div>
+      <div class="progress">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+    <div id="quiz-container"></div>
+  </div>
+
+  <!-- ===================== LÜCKENTEXT ===================== -->
+  <div id="sec-luecken" class="section">
+    <div class="sec-header">
+      <h2>Lückentext</h2>
+      <p>Schreibe die richtige Form von „halten" in die Lücke. Beachte den Hinweis in Klammern.</p>
+    </div>
+    <div id="luecken-container"></div>
+    <div style="margin-top:8px;">
+      <button class="check-all-btn" onclick="checkAllLuecken()">✓ Alle prüfen</button>
+      <button class="reset-btn" onclick="resetLuecken()">↺ Zurücksetzen</button>
+    </div>
+    <div id="luecken-result" class="feedback" style="margin-top:16px;font-size:14px;"></div>
+  </div>
+
+  <!-- ===================== BEDEUTUNGEN ===================== -->
+  <div id="sec-bedeutungen" class="section">
+    <div class="sec-header">
+      <h2>Bedeutungen &amp; Beispiele</h2>
+      <p>Das Verb „halten" ist eines der vielseitigsten deutschen Verben. Hier sind alle wichtigen Bedeutungen mit Beispielen.</p>
+    </div>
+    <div id="bed-container"></div>
+  </div>
+
+  <!-- ===================== WORTSTELLUNG ===================== -->
+  <div id="sec-wortstellung" class="section">
+    <div class="sec-header">
+      <h2>Wortstellung</h2>
+      <p>Ziehe die Wörter per Drag &amp; Drop in die richtige Reihenfolge und bilde einen korrekten deutschen Satz.</p>
+    </div>
+    <div id="wo-container"></div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Übungen passend zum Video <a href="https://youtu.be/BdnBHoBiUrI" target="_blank">„halten – Wann benutzen die Deutschen das Verb?"</a> von <strong>deutschoderwas</strong>
+</div>
+
+<script>
+const quizData = [
+  {
+    q: 'Was bedeutet „Ich halte das für einen Fehler"?',
+    opts: ['Ich trage den Fehler.', 'Ich denke, das ist ein Fehler.', 'Ich stoppe den Fehler.'],
+    ans: 1,
+    exp: '„Halten für" = jemanden/etwas als etwas einschätzen. Man bewertet oder beurteilt etwas.'
+  },
+  {
+    q: 'Wie übersetzt man „He kept his promise" auf Deutsch?',
+    opts: ['Er hielt sein Versprechen.', 'Er hielt sein Versprechen hoch.', 'Er stoppte sein Versprechen.'],
+    ans: 0,
+    exp: '„Ein Versprechen halten" = to keep a promise. Auch: eine Diät halten, eine Regel halten.'
+  },
+  {
+    q: 'Was bedeutet die Redewendung „Halt die Klappe!"?',
+    opts: ['Öffne die Tür!', 'Sei still! Sag nichts!', 'Komm her!'],
+    ans: 1,
+    exp: '„Die Klappe halten" ist umgangssprachlich und bedeutet „schweigen" oder „Mund zu". Etwas unhöflich!'
+  },
+  {
+    q: 'In welchem Satz wird „halten" im Sinne von „stoppen/anhalten" benutzt?',
+    opts: ['Was hältst du von ihm?', 'Der Bus hält an der Haltestelle.', 'Sie hält große Stücke auf ihn.'],
+    ans: 1,
+    exp: '„Der Bus hält" = der Bus stoppt, kommt zum Stillstand. Daher auch das Wort „Haltestelle"!'
+  },
+  {
+    q: 'Was bedeutet „Ich halte viel von dieser Idee"?',
+    opts: ['Ich trage die Idee weit weg.', 'Ich finde die Idee sehr gut.', 'Ich behalte die Idee für mich.'],
+    ans: 1,
+    exp: '„Viel von etwas halten" = etwas gut/positiv bewerten. Gegenteil: „Ich halte wenig/nichts von dieser Idee."'
+  },
+  {
+    q: 'Welcher Ausdruck passt NICHT zu „halten" in der Bedeutung „to give/deliver"?',
+    opts: ['eine Rede halten', 'einen Vortrag halten', 'eine Pause halten'],
+    ans: 2,
+    exp: '„Eine Pause halten" heißt eher „eine Pause machen" oder „pausieren". Aber: eine Rede halten, einen Vortrag halten, eine Vorlesung halten – das sind alle typische Kombinationen.'
+  },
+];
+
+const lueckenData = [
+  { pre: 'Der Zug ', suf: ' pünktlich an Gleis 3 an.', ans: ['hält'], hint: 'Präsens · 3. Pers. Sg.' },
+  { pre: 'Was ', suf: ' du von dem neuen Projekt?', ans: ['hältst'], hint: 'Präsens · 2. Pers. Sg.' },
+  { pre: 'Sie hat ihr Wort ', suf: '. Ich vertraue ihr sehr.', ans: ['gehalten'], hint: 'Perfekt · Partizip II' },
+  { pre: 'Er ', suf: ' sie für sehr intelligent.', ans: ['hält'], hint: 'Präsens · 3. Pers. Sg.' },
+  { pre: 'Bitte ', suf: ' mal kurz an! Ich muss aussteigen.', ans: ['halt', 'halte'], hint: 'Imperativ' },
+  { pre: 'Der Professor ', suf: ' morgen eine Vorlesung über Klimawandel.', ans: ['hält'], hint: 'Präsens · 3. Pers. Sg.' },
+  { pre: 'Die Milch ', suf: ' sich noch drei Tage im Kühlschrank.', ans: ['hält'], hint: 'reflexiv · Präsens · 3. Pers. Sg.' },
+  { pre: 'Wir haben die Regel immer ', suf: ' – keine Ausnahmen.', ans: ['gehalten', 'eingehalten'], hint: 'Perfekt · Partizip II' },
+];
+
+const bedeutungenData = [
+  {
+    title: '1. Stoppen / Anhalten',
+    pills: ['Fahrzeuge', 'Bewegung', 'Haltestelle'],
+    examples: [
+      { de: 'Der Bus hält an der nächsten Station.', en: 'The bus stops at the next stop.' },
+      { de: 'Kannst du kurz anhalten? Ich muss was kaufen.', en: 'Can you stop for a moment? I need to buy something.' },
+    ]
+  },
+  {
+    title: '2. Festhalten / Nicht loslassen',
+    pills: ['physisch', 'greifen', 'aufhalten'],
+    examples: [
+      { de: 'Halt meine Hand, bitte!', en: 'Hold my hand, please!' },
+      { de: 'Er hält die Tür für sie auf.', en: 'He holds the door open for her.' },
+    ]
+  },
+  {
+    title: '3. Einhalten / Respektieren',
+    pills: ['Versprechen', 'Regeln', 'Diät'],
+    examples: [
+      { de: 'Sie hat ihr Versprechen gehalten.', en: 'She kept her promise.' },
+      { de: 'Du musst die Regeln einhalten.', en: 'You have to follow the rules.' },
+    ]
+  },
+  {
+    title: '4. Etwas für etwas halten',
+    pills: ['Meinung', 'Einschätzung', 'Bewertung'],
+    examples: [
+      { de: 'Ich halte das für eine gute Idee.', en: 'I think that\'s a good idea.' },
+      { de: 'Er hält sie für sehr kompetent.', en: 'He considers her very competent.' },
+    ]
+  },
+  {
+    title: '5. Viel / wenig von etwas halten',
+    pills: ['Wertschätzung', 'Meinung'],
+    examples: [
+      { de: 'Ich halte sehr viel von ihr – sie ist toll!', en: 'I think highly of her – she\'s great!' },
+      { de: 'Er hält nichts von Überstunden.', en: 'He\'s not a fan of overtime.' },
+    ]
+  },
+  {
+    title: '6. Eine Rede / Vorlesung halten',
+    pills: ['sprechen', 'Präsentation', 'Vortrag'],
+    examples: [
+      { de: 'Der Minister hielt eine lange Rede.', en: 'The minister gave a long speech.' },
+      { de: 'Sie hält morgen eine Vorlesung über KI.', en: 'She\'s giving a lecture on AI tomorrow.' },
+    ]
+  },
+  {
+    title: '7. Sich halten (reflexiv)',
+    pills: ['Haltbarkeit', 'reflexiv', 'bestehen'],
+    examples: [
+      { de: 'Die Milch hält sich drei Tage im Kühlschrank.', en: 'The milk keeps for three days in the fridge.' },
+      { de: 'Das Team hält sich gut in der Tabelle.', en: 'The team is holding its position in the table.' },
+    ]
+  },
+];
+
+const wortstellungData = [
+  { words: ['für', 'Ich', 'halte', 'das', 'Fehler.', 'einen'], sol: 'Ich halte das für einen Fehler.' },
+  { words: ['Versprechen', 'Sie', 'hat', 'immer', 'gehalten.', 'ihr'], sol: 'Sie hat ihr Versprechen immer gehalten.' },
+  { words: ['Haltestelle?', 'hält', 'der', 'Bus', 'Wann', 'an', 'der'], sol: 'Wann hält der Bus an der Haltestelle?' },
+  { words: ['hältst', 'neuen', 'Was', 'von', 'du', 'Kollegen?', 'dem'], sol: 'Was hältst du von dem neuen Kollegen?' },
+  { words: ['viel', 'halte', 'Ich', 'ihm.', 'von', 'sehr'], sol: 'Ich halte sehr viel von ihm.' },
+];
+
+// ---- TABS ----
+function showTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ---- QUIZ ----
+let quizScore = 0;
+function buildQuiz() {
+  const c = document.getElementById('quiz-container');
+  quizData.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `<div class="q-label">Frage ${i+1} von ${quizData.length}</div>
+      <div class="q-text">${q.q}</div>` +
+      q.opts.map((o, j) =>
+        `<button class="option" onclick="answerQ(${i},${j},this)" id="q${i}o${j}">
+          <span class="opt-indicator">${String.fromCharCode(65+j)}</span>${o}
+        </button>`
+      ).join('') +
+      `<div class="feedback" id="fb${i}"></div>`;
+    c.appendChild(div);
+  });
+}
+function answerQ(qi, oi, btn) {
+  const q = quizData[qi];
+  for (let j = 0; j < q.opts.length; j++) document.getElementById(`q${qi}o${j}`).disabled = true;
+  const fb = document.getElementById('fb'+qi);
+  if (oi === q.ans) {
+    btn.classList.add('correct');
+    btn.querySelector('.opt-indicator').textContent = '✓';
+    fb.className = 'feedback show ok';
+    fb.innerHTML = '<strong>Richtig!</strong> ' + q.exp;
+    quizScore++;
+    document.getElementById('score-val').textContent = quizScore;
+    document.getElementById('progress-fill').style.width = (quizScore / quizData.length * 100) + '%';
+  } else {
+    btn.classList.add('wrong');
+    btn.querySelector('.opt-indicator').textContent = '✗';
+    document.getElementById(`q${qi}o${q.ans}`).classList.add('correct');
+    document.getElementById(`q${qi}o${q.ans}`).querySelector('.opt-indicator').textContent = '✓';
+    fb.className = 'feedback show no';
+    fb.innerHTML = '<strong>Leider falsch.</strong> ' + q.exp;
+  }
+}
+
+// ---- LÜCKENTEXT ----
+function buildLuecken() {
+  const c = document.getElementById('luecken-container');
+  lueckenData.forEach((l, i) => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `<div class="gap-hint">Hinweis: ${l.hint}</div>
+      <div class="gap-sentence">
+        <span>${l.pre}</span>
+        <input type="text" class="gap" id="li${i}" placeholder="…" autocomplete="off" autocorrect="off" spellcheck="false">
+        <span>${l.suf}</span>
+      </div>
+      <div class="feedback" id="lfb${i}"></div>`;
+    c.appendChild(div);
+  });
+}
+function checkAllLuecken() {
+  let correct = 0;
+  lueckenData.forEach((l, i) => {
+    const inp = document.getElementById('li'+i);
+    const fb = document.getElementById('lfb'+i);
+    const val = inp.value.trim().toLowerCase();
+    const ok = l.ans.map(a=>a.toLowerCase()).includes(val);
+    inp.className = 'gap ' + (ok ? 'correct' : 'wrong');
+    inp.disabled = true;
+    fb.className = 'feedback show ' + (ok ? 'ok' : 'no');
+    fb.innerHTML = ok ? '✓ Richtig!' : `✗ Lösung: <strong>${l.ans[0]}</strong>`;
+    if (ok) correct++;
+  });
+  const r = document.getElementById('luecken-result');
+  r.className = 'feedback show ' + (correct === lueckenData.length ? 'ok' : 'no');
+  r.innerHTML = `Ergebnis: <strong>${correct} von ${lueckenData.length}</strong> richtig. ${correct === lueckenData.length ? '🎉 Perfekt!' : 'Nicht aufgeben – üb weiter!'}`;
+}
+function resetLuecken() {
+  lueckenData.forEach((l, i) => {
+    const inp = document.getElementById('li'+i);
+    inp.value = '';
+    inp.className = 'gap';
+    inp.disabled = false;
+    document.getElementById('lfb'+i).className = 'feedback';
+  });
+  document.getElementById('luecken-result').className = 'feedback';
+}
+
+// ---- BEDEUTUNGEN ----
+function buildBedeutungen() {
+  const c = document.getElementById('bed-container');
+  bedeutungenData.forEach((b, i) => {
+    const div = document.createElement('div');
+    div.className = 'bedeutung-card';
+    div.innerHTML = `<div class="bed-header">
+      <div class="bed-num">${i+1}</div>
+      <div>
+        <div class="bed-title">${b.title}</div>
+        <div class="bed-pills">${b.pills.map(p=>`<span class="pill">${p}</span>`).join('')}</div>
+      </div>
+    </div>
+    <div class="bed-examples">
+      ${b.examples.map(e => `<div class="example-row">
+        <div class="ex-de">${e.de}</div>
+        <div class="ex-en">${e.en}</div>
+      </div>`).join('')}
+    </div>`;
+    c.appendChild(div);
+  });
+}
+
+// ---- WORTSTELLUNG ----
+let woOrders = [];
+let dragSrcIdx = null;
+let dragSentenceIdx = null;
+
+function buildWortstellung() {
+  const c = document.getElementById('wo-container');
+  wortstellungData.forEach((wo, i) => {
+    woOrders[i] = [...wo.words];
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `<div class="q-label">Satz ${i+1} von ${wortstellungData.length}</div>
+      <div class="wo-list" id="wol${i}"></div>
+      <div class="wo-btn-row">
+        <button class="wo-check" onclick="checkWo(${i})">✓ Prüfen</button>
+        <button class="wo-reset" onclick="resetWo(${i})">↺ Zurücksetzen</button>
+      </div>
+      <div class="feedback" id="wofb${i}"></div>`;
+    c.appendChild(div);
+    renderWo(i);
+  });
+}
+
+function renderWo(si) {
+  const list = document.getElementById('wol'+si);
+  list.innerHTML = '';
+  woOrders[si].forEach((w, j) => {
+    const item = document.createElement('div');
+    item.className = 'wo-word';
+    item.draggable = true;
+    item.dataset.j = j;
+    item.innerHTML = `<span class="handle">⠿⠿</span>${w}`;
+    item.addEventListener('dragstart', e => {
+      dragSrcIdx = j; dragSentenceIdx = si;
+      setTimeout(() => item.classList.add('dragging'), 0);
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    item.addEventListener('dragend', () => item.classList.remove('dragging'));
+    item.addEventListener('dragover', e => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; });
+    item.addEventListener('drop', e => {
+      e.preventDefault();
+      if (dragSentenceIdx === si && dragSrcIdx !== j) {
+        const arr = woOrders[si];
+        const tmp = arr[dragSrcIdx]; arr[dragSrcIdx] = arr[j]; arr[j] = tmp;
+        renderWo(si);
+        document.getElementById('wofb'+si).className = 'feedback';
+      }
+    });
+    list.appendChild(item);
+  });
+}
+
+function checkWo(si) {
+  const attempt = woOrders[si].join(' ');
+  const fb = document.getElementById('wofb'+si);
+  if (attempt === wortstellungData[si].sol) {
+    fb.className = 'feedback show ok';
+    fb.innerHTML = '✓ <strong>Richtig!</strong> Super gemacht!';
+  } else {
+    fb.className = 'feedback show no';
+    fb.innerHTML = `✗ Noch nicht ganz. Lösung: <strong>${wortstellungData[si].sol}</strong>`;
+  }
+}
+
+function resetWo(si) {
+  woOrders[si] = [...wortstellungData[si].words];
+  renderWo(si);
+  document.getElementById('wofb'+si).className = 'feedback';
+}
+
+// ---- INIT ----
+buildQuiz();
+buildLuecken();
+buildBedeutungen();
+buildWortstellung();
+</script>
+</body>
+</html>
+          </body>
+        </html>

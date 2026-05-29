@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+        <html>
+          <head>
+            <title data-id="th-modified">Web Page</title>
+            
+          <meta property="og:title" content="Web Page" data-id="th-modified" ><meta name="description" content="code" data-id="th-modified" ><meta property="og:description" content="code" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="https://grammatik.deutschoderwas-lernen.de/" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="grammatik.deutschoderwas-lernen.de" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+          <body>
+            <!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deutsch Grammatik Trainer A2-B2</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Nunito', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; color: #333; }
+        .app-container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .start-screen { text-align: center; padding: 60px 20px; color: white; }
+        .start-screen h1 { font-size: 2.8em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .start-screen .subtitle { font-size: 1.3em; margin-bottom: 40px; opacity: 0.9; }
+        .level-select { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
+        .level-btn { padding: 15px 35px; border: 3px solid white; background: rgba(255,255,255,0.15); color: white; font-size: 1.2em; font-weight: 700; border-radius: 50px; cursor: pointer; transition: all 0.3s; backdrop-filter: blur(10px); }
+        .level-btn:hover, .level-btn.active { background: white; color: #764ba2; transform: scale(1.05); }
+        .start-btn { padding: 18px 60px; background: #FFD700; color: #333; border: none; font-size: 1.4em; font-weight: 800; border-radius: 50px; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+        .start-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(0,0,0,0.3); }
+        .main-app { display: none; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .app-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .app-header h2 { font-size: 1.5em; }
+        .stats-bar { display: flex; gap: 20px; align-items: center; }
+        .stat { background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 20px; font-weight: 600; }
+        .stat .icon { margin-right: 5px; }
+        .nav-tabs { display: flex; background: #f8f9fa; border-bottom: 2px solid #e9ecef; overflow-x: auto; }
+        .nav-tab { padding: 15px 20px; cursor: pointer; border: none; background: none; font-size: 0.95em; font-weight: 600; color: #666; white-space: nowrap; transition: all 0.3s; border-bottom: 3px solid transparent; }
+        .nav-tab:hover { color: #764ba2; background: rgba(118, 75, 162, 0.05); }
+        .nav-tab.active { color: #764ba2; border-bottom-color: #764ba2; background: white; }
+        .content-area { padding: 30px; min-height: 500px; }
+        .topics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .topic-card { background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%); border-radius: 15px; padding: 25px; cursor: pointer; transition: all 0.3s; border: 2px solid transparent; position: relative; overflow: hidden; }
+        .topic-card::before { content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%; background: #764ba2; transform: scaleY(0); transition: transform 0.3s; }
+        .topic-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-color: #764ba2; }
+        .topic-card:hover::before { transform: scaleY(1); }
+        .topic-card .emoji { font-size: 2.5em; margin-bottom: 10px; display: block; }
+        .topic-card h3 { color: #333; margin-bottom: 8px; font-size: 1.1em; }
+        .topic-card p { color: #666; font-size: 0.9em; }
+        .topic-card .progress-bar { margin-top: 15px; height: 6px; background: #ddd; border-radius: 3px; overflow: hidden; }
+        .topic-card .progress-fill { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); border-radius: 3px; transition: width 0.5s; }
+        .exercise-screen { display: none; }
+        .exercise-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #e9ecef; }
+        .back-btn { padding: 10px 20px; background: #f0f0f0; border: none; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .back-btn:hover { background: #e0e0e0; }
+        .exercise-progress { font-weight: 700; color: #764ba2; }
+        .question-card { background: #f8f9fa; border-radius: 15px; padding: 30px; margin-bottom: 25px; border-left: 5px solid #764ba2; }
+        .question-number { display: inline-block; background: #764ba2; color: white; width: 30px; height: 30px; border-radius: 50%; text-align: center; line-height: 30px; font-weight: 700; margin-bottom: 15px; }
+        .question-text { font-size: 1.2em; margin-bottom: 20px; line-height: 1.6; }
+        .question-text .blank { display: inline-block; min-width: 120px; border-bottom: 2px dashed #764ba2; text-align: center; margin: 0 5px; font-weight: 700; color: #764ba2; }
+        .situation-box { background: #e3f2fd; border-radius: 10px; padding: 15px; margin-bottom: 20px; border-left: 4px solid #2196F3; }
+        .situation-box .label { font-weight: 700; color: #1976D2; margin-bottom: 5px; font-size: 0.9em; text-transform: uppercase; }
+        .options-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+        .option-btn { padding: 15px 20px; background: white; border: 2px solid #ddd; border-radius: 12px; cursor: pointer; font-size: 1em; font-weight: 600; transition: all 0.3s; text-align: left; }
+        .option-btn:hover { border-color: #764ba2; background: rgba(118, 75, 162, 0.05); transform: translateX(5px); }
+        .option-btn.selected { border-color: #764ba2; background: rgba(118, 75, 162, 0.1); }
+        .option-btn.correct { border-color: #4CAF50; background: #e8f5e9; color: #2e7d32; }
+        .option-btn.wrong { border-color: #f44336; background: #ffebee; color: #c62828; }
+        .fill-input { border: 2px solid #ddd; border-radius: 8px; padding: 10px 15px; font-size: 1em; font-family: inherit; min-width: 150px; transition: border-color 0.3s; }
+        .fill-input:focus { outline: none; border-color: #764ba2; }
+        .fill-input.correct { border-color: #4CAF50; background: #e8f5e9; }
+        .fill-input.wrong { border-color: #f44336; background: #ffebee; }
+        .check-btn { display: block; width: 100%; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; font-size: 1.1em; font-weight: 700; cursor: pointer; transition: all 0.3s; margin-top: 20px; }
+        .check-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(118, 75, 162, 0.3); }
+        .check-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .feedback { margin-top: 20px; padding: 20px; border-radius: 12px; display: none; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .feedback.correct { display: block; background: #e8f5e9; border: 2px solid #4CAF50; color: #2e7d32; }
+        .feedback.wrong { display: block; background: #ffebee; border: 2px solid #f44336; color: #c62828; }
+        .feedback h4 { margin-bottom: 10px; font-size: 1.1em; }
+        .feedback .explanation { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.1); font-size: 0.95em; }
+        .next-btn { display: none; width: 100%; padding: 15px; background: #4CAF50; color: white; border: none; border-radius: 12px; font-size: 1.1em; font-weight: 700; cursor: pointer; margin-top: 15px; transition: all 0.3s; }
+        .next-btn:hover { background: #45a049; transform: translateY(-2px); }
+        .results-screen { display: none; text-align: center; padding: 40px; }
+        .results-screen .trophy { font-size: 5em; margin-bottom: 20px; }
+        .results-screen h2 { font-size: 2em; margin-bottom: 15px; color: #333; }
+        .score-circle { width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 20px auto; font-size: 2.5em; font-weight: 800; }
+        .score-circle span { font-size: 0.4em; font-weight: 400; }
+        .results-message { font-size: 1.2em; color: #666; margin-bottom: 30px; }
+        .restart-btn { padding: 15px 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 50px; font-size: 1.1em; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+        .restart-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(118, 75, 162, 0.3); }
+        .hint-btn { padding: 8px 16px; background: #FF9800; color: white; border: none; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.9em; margin-bottom: 15px; transition: all 0.3s; }
+        .hint-btn:hover { background: #F57C00; }
+        .hint-text { display: none; background: #fff8e1; padding: 12px; border-radius: 8px; margin-bottom: 15px; color: #666; font-style: italic; border-left: 3px solid #FF9800; }
+        .timer { font-size: 1.2em; font-weight: 700; color: #764ba2; }
+        @media (max-width: 600px) { .options-grid { grid-template-columns: 1fr; } .start-screen h1 { font-size: 2em; } .app-header { flex-direction: column; gap: 10px; } }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="app-container">
+        <div class="start-screen" id="startScreen">
+            <h1>🇩🇪 Deutsch Grammatik Trainer</h1>
+            <p class="subtitle">Interaktive Übungen von A2 bis B2</p>
+            <div class="level-select">
+                <button class="level-btn" data-level="A2" onclick="selectLevel('A2')">A2</button>
+                <button class="level-btn" data-level="B1" onclick="selectLevel('B1')">B1</button>
+                <button class="level-btn" data-level="B2" onclick="selectLevel('B2')">B2</button>
+                <button class="level-btn active" data-level="mixed" onclick="selectLevel('mixed')">Gemischt</button>
+            </div>
+            <button class="start-btn" onclick="startApp()">🚀 Los geht's!</button>
+        </div>
+        <div class="main-app" id="mainApp">
+            <div class="app-header">
+                <h2>📚 Grammatik Übungen</h2>
+                <div class="stats-bar">
+                    <div class="stat"><span class="icon">⭐</span> <span id="score">0</span></div>
+                    <div class="stat"><span class="icon">🔥</span> <span id="streak">0</span></div>
+                    <div class="stat"><span class="icon">📊</span> <span id="level">Gemischt</span></div>
+                </div>
+            </div>
+            <div class="nav-tabs" id="navTabs">
+                <button class="nav-tab active" onclick="showSection('topics')">Themen</button>
+                <button class="nav-tab" onclick="showSection('practice')">Übungen</button>
+                <button class="nav-tab" onclick="showSection('review')">Wiederholung</button>
+            </div>
+            <div class="content-area" id="contentArea">
+                <div id="topicsSection">
+                    <div class="topics-grid" id="topicsGrid"></div>
+                </div>
+                <div id="exerciseSection" class="exercise-screen">
+                    <div class="exercise-header">
+                        <button class="back-btn" onclick="backToTopics()">← Zurück</button>
+                        <span class="exercise-progress" id="exerciseProgress">Frage 1 von 10</span>
+                        <span class="timer" id="timer">⏱️ 00:00</span>
+                    </div>
+                    <div id="exerciseContent"></div>
+                </div>
+                <div id="resultsSection" class="results-screen">
+                    <div class="trophy">🏆</div>
+                    <h2>Übung abgeschlossen!</h2>
+                    <div class="score-circle"><span id="finalScore">0%</span><span>Richtig</span></div>
+                    <p class="results-message" id="resultsMessage"></p>
+                    <button class="restart-btn" onclick="backToTopics()">Weiter üben →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+// ==================== DATA ====================
+const grammarData = {
+    A2: [
+        {
+            id: 'a2_verben', title: 'Verben im Präsens', emoji: '🏃', description: 'Konjugation und Gebrauch',
+            exercises: [
+                { type: 'multiple_choice', situation: 'Im Café: Du bestellst etwas zu trinken.', question: 'Der Kellner ___ (fragen): "Was ___ (möchten) Sie trinken?"', options: ['fragt / möchten', 'frage / möchte', 'fragt / möchte', 'fragen / möchten'], correct: 0, explanation: 'Der Kellner fragt (3. Person Singular), Sie möchten (Höflichkeitsform).' },
+                { type: 'fill_blank', situation: 'Alltag: Du erzählst von deiner Familie.', question: 'Meine Schwester ___ (arbeiten) als Ärztin und ___ (wohnen) in Berlin.', answer: ['arbeitet', 'wohnt'], explanation: 'Schwester = sie (3. Person Singular): arbeitet, wohnt.' },
+                { type: 'multiple_choice', situation: 'Im Supermarkt: Du triffst einen Nachbarn.', question: 'Wir ___ (sein) oft hier einkaufen. Mein Sohn ___ (mögen) besonders die Süßigkeiten.', options: ['sind / mag', 'seid / mag', 'sind / mögt', 'sein / mag'], correct: 0, explanation: 'Wir sind (1. Person Plural), mein Sohn mag (3. Person Singular).' },
+                { type: 'fill_blank', situation: 'Im Büro: Du telefonierst mit einem Kollegen.', question: 'Ich ___ (rufen) Sie an, weil ich ___ (brauchen) Ihre Hilfe.', answer: ['rufe', 'brauche'], explanation: 'Ich rufe, ich brauche (1. Person Singular).' },
+                { type: 'multiple_choice', situation: 'Bei Freunden: Ihr plant einen Ausflug.', question: '___ (fahren) wir morgen in den Park? Das Wetter ___ (sein) super!', options: ['Fahren / ist', 'Fahrt / ist', 'Fahren / sind', 'Fahre / ist'], correct: 0, explanation: 'Wir fahren (1. Person Plural), das Wetter ist (3. Person Singular).' },
+                { type: 'fill_blank', situation: 'In der Schule: Der Lehrer fragt die Klasse.', question: 'Die Schüler ___ (lernen) Deutsch und ___ (schreiben) einen Test.', answer: ['lernen', 'schreiben'], explanation: 'Die Schüler = sie (3. Person Plural): lernen, schreiben.' },
+                { type: 'multiple_choice', situation: 'Zu Hause: Du beschreibst deinen Tagesablauf.', question: 'Jeden Tag ___ (stehen) ich um 7 Uhr auf und ___ (frühstücken) dann.', options: ['stehe / frühstücke', 'stehst / frühstückst', 'stehe / frühstückst', 'steht / frühstückt'], correct: 0, explanation: 'Ich stehe, ich frühstücke (1. Person Singular).' },
+                { type: 'fill_blank', situation: 'Im Restaurant: Du bestellst für deine Familie.', question: 'Meine Eltern ___ (nehmen) die Suppe und ich ___ (essen) ein Schnitzel.', answer: ['nehmen', 'esse'], explanation: 'Meine Eltern = sie (3. Person Plural): nehmen. Ich esse (1. Person Singular).' },
+                { type: 'multiple_choice', situation: 'Im Zug: Du sprichst mit einem Mitfahrer.', question: 'Wohin ___ (fahren) Sie? Ich ___ (fahren) nach München.', options: ['fahren / fahre', 'fahrt / fahre', 'fahren / fahrt', 'fahre / fahre'], correct: 0, explanation: 'Sie fahren (Höflichkeitsform = Plural), ich fahre (1. Person Singular).' },
+                { type: 'fill_blank', situation: 'Im Park: Kinder spielen Fußball.', question: 'Die Kinder ___ (spielen) Fußball und ___ (laufen) sehr schnell.', answer: ['spielen', 'laufen'], explanation: 'Die Kinder = sie (3. Person Plural): spielen, laufen.' }
+            ]
+        },
+        {
+            id: 'a2_akkusativ', title: 'Akkusativ', emoji: '🎯', description: 'Wen oder was?',
+            exercises: [
+                { type: 'multiple_choice', situation: 'Im Supermarkt: Du kaufst ein.', question: 'Ich kaufe ___ (der Apfel).', options: ['den Apfel', 'der Apfel', 'dem Apfel', 'die Apfel'], correct: 0, explanation: 'Maskulin im Akkusativ: der → den.' },
+                { type: 'fill_blank', situation: 'Im Café: Du bestellst.', question: 'Ich nehme ___ (die Tasse) Kaffee und ___ (das Brötchen).', answer: ['die Tasse', 'das Brötchen'], explanation: 'Feminin bleibt: die Tasse. Neutral bleibt: das Brötchen.' },
+                { type: 'multiple_choice', situation: 'Im Park: Du siehst jemanden.', question: 'Ich sehe ___ (ein Hund) im Park.', options: ['einen Hund', 'ein Hund', 'einem Hund', 'eine Hund'], correct: 0, explanation: 'Maskulin mit unbestimmtem Artikel: ein → einen im Akkusativ.' },
+                { type: 'fill_blank', situation: 'Zu Hause: Du räumst auf.', question: 'Ich putze ___ (der Tisch) und wasche ___ (die Fenster).', answer: ['den Tisch', 'die Fenster'], explanation: 'Der Tisch → den Tisch. Die Fenster (Plural) bleibt gleich.' },
+                { type: 'multiple_choice', situation: 'In der Stadt: Du triffst Freunde.', question: 'Ich treffe ___ (mein Freund) und ___ (meine Freundin).', options: ['meinen Freund / meine Freundin', 'mein Freund / meine Freundin', 'meinem Freund / meiner Freundin', 'meinen Freund / meiner Freundin'], correct: 0, explanation: 'Meinen Freund (Maskulin Akkusativ), meine Freundin (Feminin bleibt).' },
+                { type: 'fill_blank', situation: 'Im Restaurant: Du isst.', question: 'Ich esse ___ (der Salat) und trinke ___ (das Wasser).', answer: ['den Salat', 'das Wasser'], explanation: 'Der Salat → den Salat. Das Wasser bleibt (Neutral).' },
+                { type: 'multiple_choice', situation: 'Im Büro: Du schreibst eine E-Mail.', question: 'Ich schreibe ___ (der Brief) heute Abend.', options: ['den Brief', 'der Brief', 'dem Brief', 'die Brief'], correct: 0, explanation: 'Der Brief → den Brief im Akkusativ.' },
+                { type: 'fill_blank', situation: 'Im Geschäft: Du suchst etwas.', question: 'Ich suche ___ (ein Buch) für meine Schwester.', answer: ['ein Buch'], explanation: 'Ein Buch (Neutral) bleibt im Akkusativ.' },
+                { type: 'multiple_choice', situation: 'Im Garten: Du gießt Blumen.', question: 'Ich gieße ___ (die Blumen) jeden Tag.', options: ['die Blumen', 'der Blumen', 'den Blumen', 'das Blumen'], correct: 0, explanation: 'Plural im Akkusativ bleibt gleich: die Blumen.' },
+                { type: 'fill_blank', situation: 'Im Zug: Du liest.', question: 'Ich lese ___ (die Zeitung) während der Fahrt.', answer: ['die Zeitung'], explanation: 'Feminin im Akkusativ bleibt: die Zeitung.' }
+            ]
+        },
+        {
+            id: 'a2_dativ', title: 'Dativ', emoji: '📍', description: 'Wem? Mit wem?',
+            exercises: [
+                { type: 'multiple_choice', situation: 'Im Restaurant: Du dankst dem Kellner.', question: 'Ich danke ___ (der Kellner) für ___ (das Essen).', options: ['dem Kellner / das Essen', 'den Kellner / das Essen', 'dem Kellner / dem Essen', 'der Kellner / das Essen'], correct: 0, explanation: 'Dativ: der Kellner → dem Kellner. Das Essen bleibt (Akkusativ nach für).' },
+                { type: 'fill_blank', situation: 'Zu Hause: Du hilfst deiner Mutter.', question: 'Ich helfe ___ (meine Mutter) in ___ (die Küche).', answer: ['meiner Mutter', 'der Küche'], explanation: 'Dativ: meine Mutter → meiner Mutter. Die Küche → der Küche (in + Dativ).' },
+                { type: 'multiple_choice', situation: 'Im Geschäft: Du gibst Geld.', question: 'Ich gebe ___ (der Verkäufer) ___ (das Geld).', options: ['dem Verkäufer / das Geld', 'den Verkäufer / das Geld', 'dem Verkäufer / dem Geld', 'der Verkäufer / das Geld'], correct: 0, explanation: 'Dativ: der Verkäufer → dem Verkäufer. Das Geld bleibt (Akkusativ).' },
+                { type: 'fill_blank', situation: 'In der Stadt: Du begegnest jemandem.', question: 'Ich begegne ___ (ein alter Freund) auf ___ (die Straße).', answer: ['einem alten Freund', 'der Straße'], explanation: 'Dativ: ein alter Freund → einem alten Freund. Die Straße → der Straße (auf + Dativ).' },
+                { type: 'multiple_choice', situation: 'Im Büro: Du antwortest dem Chef.', question: 'Ich antworte ___ (der Chef) sofort.', options: ['dem Chef', 'den Chef', 'der Chef', 'die Chef'], correct: 0, explanation: 'Dativ: der Chef → dem Chef. Verben wie antworten, danken, helfen verlangen Dativ.' },
+                { type: 'fill_blank', situation: 'Im Park: Du sitzt auf einer Bank.', question: 'Ich sitze auf ___ (die Bank) neben ___ (der Brunnen).', answer: ['der Bank', 'dem Brunnen'], explanation: 'Auf + Dativ (wo?): die Bank → der Bank. Neben + Dativ: der Brunnen → dem Brunnen.' },
+                { type: 'multiple_choice', situation: 'Im Restaurant: Du bestellst für Freunde.', question: 'Ich bestelle für ___ (meine Freunde) ___ (das Essen).', options: ['meine Freunde / das Essen', 'meinen Freunde / das Essen', 'meinen Freunden / das Essen', 'meine Freunde / dem Essen'], correct: 2, explanation: 'Für + Dativ: meine Freunde → meinen Freunden. Das Essen bleibt (Akkusativ).' },
+                { type: 'fill_blank', situation: 'Im Kino: Du gehst mit jemandem.', question: 'Ich gehe mit ___ (mein Bruder) ins Kino.', answer: ['meinem Bruder'], explanation: 'Mit + Dativ: mein Bruder → meinem Bruder.' },
+                { type: 'multiple_choice', situation: 'Im Geschäft: Du kaufst etwas für jemanden.', question: 'Ich kaufe ___ (meine Schwester) ___ (ein Buch).', options: ['meiner Schwester / ein Buch', 'meine Schwester / ein Buch', 'meiner Schwester / einem Buch', 'meinen Schwester / ein Buch'], correct: 0, explanation: 'Dativ: meine Schwester → meiner Schwester. Ein Buch bleibt (Akkusativ).' },
+                { type: 'fill_blank', situation: 'Zu Hause: Du telefonierst.', question: 'Ich telefoniere mit ___ (mein Vater) über ___ (die Arbeit).', answer: ['meinem Vater', 'die Arbeit'], explanation: 'Mit + Dativ: mein Vater → meinem Vater. Über + Akkusativ: die Arbeit bleibt.' }
+            ]
+        },
+        {
+            id: 'a2_perfect', title: 'Perfekt', emoji: '✅', description: 'Vergangenheit bilden',
+            exercises: [
+                { type: 'multiple_choice', situation: 'Gestern: Du warst im Kino.', question: 'Gestern ___ ich ___ (sein / im Kino).', options: ['bin / im Kino gewesen', 'habe / im Kino gewesen', 'bin / im Kino sein', 'war / im Kino gewesen'], correct: 0, explanation: 'Perfekt von sein: ich bin ... gewesen. Partizip II von sein = gewesen.' },
+                { type: 'fill_blank', situation: 'Heute Morgen: Du hast gefrühstückt.', question: 'Ich ___ (frühstücken) heute Morgen ___ (Brot und Käse).', answer: ['habe', 'Brot und Käse gefrühstückt'], explanation: 'Haben + Partizip II: ich habe ... gefrühstückt. Regelmäßig: ge-...-t.' },
+                { type: 'multiple_choice', situation: 'Letzte Woche: Du hast gearbeitet.', question: 'Letzte Woche ___ ich viel ___ (arbeiten).', options: ['habe / gearbeitet', 'bin / gearbeitet', 'habe / arbeitet', 'bin / arbeitet'], correct: 0, explanation: 'Haben + Partizip II: ich habe gearbeitet. Regelmäßig: ge-arbeit-et.' },
+                { type: 'fill_blank', situation: 'Gestern Abend: Du bist gelaufen.', question: 'Ich ___ (laufen) gestern Abend im Park ___.', answer: ['bin', 'gelaufen'], explanation: 'Sein + Partizip II: ich bin gelaufen. Unregelmäßig: laufen → gelaufen.' },
+                { type: 'multiple_choice', situation: 'Am Wochenende: Du hast gegessen.', question: 'Am Wochenende ___ wir in einem Restaurant ___. (essen)', options: ['haben / gegessen', 'sind / gegessen', 'haben / essen', 'sind / essen'], correct: 0, explanation: 'Haben + Partizip II: wir haben gegessen. Unregelmäßig: essen → gegessen.' },
+                { type: 'fill_blank', situation: 'Vorgestern: Du hast geschlafen.', question: 'Ich ___ (schlafen) vorgestern sehr gut ___.', answer: ['habe', 'geschlafen'], explanation: 'Haben + Partizip II: ich habe geschlafen. Unregelmäßig: schlafen → geschlafen.' },
+                { type: 'multiple_choice', situation: 'Letztes Jahr: Du bist gereist.', question: 'Letztes Jahr ___ ich nach Spanien ___. (reisen)', options: ['bin / gereist', 'habe / gereist', 'bin / reist', 'habe / reist'], correct: 0, explanation: 'Sein + Partizip II: ich bin gereist. Reisen bildet Perfekt mit sein (Bewegung).' },
+                { type: 'fill_blank', situation: 'Gestern: Du hast gelernt.', question: 'Ich ___ (lernen) gestern für ___ (der Test).', answer: ['habe', 'den Test gelernt'], explanation: 'Haben + Partizip II: ich habe ... gelernt. Akkusativ: der Test → den Test.' },
+                { type: 'multiple_choice', situation: 'Heute Morgen: Du bist aufgestanden.', question: 'Heute Morgen ___ ich sehr früh ___. (aufstehen)', options: ['bin / aufgestanden', 'habe / aufgestanden', 'bin / aufstehen', 'habe / aufstehen'], correct: 0, explanation: 'Sein + Partizip II: ich bin aufgestanden. Trennbares Verb: auf|stehen → aufgestanden.' },
+                { type: 'fill_blank', situation: 'Letzte Nacht: Du hast geträumt.', question: 'Ich ___ (träumen) letzte Nacht von ___ (ein Urlaub).', answer: ['habe', 'einem Urlaub geträumt'], explanation: 'Haben + Partizip II: ich habe geträumt. Von + Dativ: ein Urlaub → einem Urlaub.' }
+            ]
+        },
+        {
+            id: 'a2_wechsel', title: 'Wechselpräpositionen', emoji: '🔄', description: 'Akkusativ oder Dativ?',
+            exercises: [
+                { type: 'multiple_choice', situation: 'Du gehst in ein Café (hin = Bewegung).', question: 'Ich gehe ___ (das Café).', options: ['in das Café', 'in dem Café', 'auf das Café', 'zu dem Café'], correct: 0, explanation: 'In + Akkusativ (Bewegung/Wohin?): in das Café (ins Café).' },
+                { type: 'fill_blank', situation: 'Du sitzt im Café (wo = Ort).', question: 'Ich sitze ___ (das Café) und trinke Kaffee.', answer: ['in dem Café'], explanation: 'In + Dativ (Ort/Wo?): in dem Café (im Café).' },
+                { type: 'multiple_choice', situation: 'Du legst das Buch auf den Tisch (Bewegung).', question: 'Ich lege das Buch ___ (der Tisch).', options: ['auf den Tisch', 'auf dem Tisch', 'an den Tisch', 'an dem Tisch'], correct: 0, explanation: 'Auf + Akkusativ (Bewegung): auf den Tisch. Legen = Bewegung!' },
+                { type: 'fill_blank', situation: 'Das Buch liegt auf dem Tisch (Ort).', question: 'Das Buch liegt ___ (der Tisch).', answer: ['auf dem Tisch'], explanation: 'Auf + Dativ (Ort): auf dem Tisch. Liegen = kein Ortwechsel!' },
+                { type: 'multiple_choice', situation: 'Du hängst das Bild an die Wand (Bewegung).', question: 'Ich hänge das Bild ___ (die Wand).', options: ['an die Wand', 'an der Wand', 'auf die Wand', 'in die Wand'], correct: 0, explanation: 'An + Akkusativ (Bewegung): an die Wand. Hängen (bewegt) = Bewegung!' },
+                { type: 'fill_blank', situation: 'Das Bild hängt an der Wand (Ort).', question: 'Das Bild hängt ___ (die Wand).', answer: ['an der Wand'], explanation: 'An + Dativ (Ort): an der Wand. Hängen (statisch) = Ort!' },
+                { type: 'multiple_choice', situation: 'Du stellst die Vase neben die Blume (Bewegung).', question: 'Ich stelle die Vase ___ (die Blume).', options: ['neben die Blume', 'neben der Blume', 'unter die Blume', 'über die Blume'], correct: 0, explanation: 'Neben + Akkusativ (Bewegung): neben die Blume. Stellen = Bewegung!' },
+                { type: 'fill_blank', situation: 'Die Vase steht neben der Blume (Ort).', question: 'Die Vase steht ___ (die Blume).', answer: ['neben der Blume'], explanation: 'Neben + Dativ (Ort): neben der Blume. Stehen = kein Ortwechsel!' },
+                { type: 'multiple_choice', situation: 'Du gehst unter die Brücke (Bewegung).', question: 'Ich gehe ___ (die Brücke), weil es regnet.', options: ['unter die Brücke', 'unter der Brücke', 'über die Brücke', 'vor die Brücke'], correct: 0, explanation: 'Unter + Akkusativ (Bewegung): unter die Brücke. Gehen = Bewegung!' },
+                { type: 'fill_blank', situation: 'Du wartest unter der Brücke (Ort).', question: 'Ich warte ___ (die Brücke) auf meinen Bus.', answer: ['unter der Brücke'], explanation: 'Unter + Dativ (Ort): unter der Brücke. Warten = kein Ortwechsel!' }
+            ]
+        }
+    ],
+    B1: [
+        {
+            id: 'b1_praeteritum', title: 'Präteritum', emoji: '📜', description: 'Vergangenheit im Schriftlichen',
+            exercises: [
+                { type: 'multiple_choice', situation: 'In einer Geschichte: Gestern passierte etwas.', question: 'Gestern ___ (gehen) ich ins Kino und ___ (sehen) einen tollen Film.', options: ['ging / sah', 'gehte / sehte', 'ging / sehte', 'gehte / sah'], correct: 0, explanation: 'Präteritum: gehen → ging, sehen → sah. Unregelmäßige Verben!' },
+                { type: 'fill_blank', situation: 'Ein Brief: Du beschreibst deinen Urlaub.', question: 'Letztes Jahr ___ (fahren) ich nach Italien und ___ (essen) viel Pasta.', answer: ['fuhr', 'aß'], explanation: 'Präteritum: fahren → fuhr, essen → aß. Starke Verben ändern den Vokal!' },
+                { type: 'multiple_choice', situation: 'Ein Bericht: Was passierte im Büro?', question: 'Der Chef ___ (kommen) spät und ___ (haben) viel Arbeit.', options: ['kam / hatte', 'kommte / hatte', 'kam / hat', 'kommte / hat'], correct: 0, explanation: 'Präteritum: kommen → kam, haben → hatte. Beide unregelmäßig!' },
+                { type: 'fill_blank', situation: 'Eine Geschichte: Du erzählst von gestern.', question: 'Ich ___ (sein) müde und ___ (schlafen) lange.', answer: ['war', 'schlief'], explanation: 'Präteritum: sein → war, schlafen → schlief. Sehr häufige Verben!' },
+                { type: 'multiple_choice', situation: 'Ein Tagebucheintrag: Du schreibst über deinen Tag.', question: 'Ich ___ (stehen) früh auf und ___ (trinken) Kaffee.', options: ['stand / trank', 'stand / trinkte', 'stande / trank', 'stande / trinkte'], correct: 0, explanation: 'Präteritum: stehen → stand, trinken → trank. Starke Verben!' },
+                { type: 'fill_blank', situation: 'Eine Nachricht: Du berichtest von einem Unfall.', question: 'Das Auto ___ (fahren) zu schnell und ___ (brechen) zusammen.', answer: ['fuhr', 'brach'], explanation: 'Präteritum: fahren → fuhr, brechen → brach. Vokaländerung!' },
+                { type: 'multiple_choice', situation: 'Ein Artikel: Über das Wetter gestern.', question: 'Gestern ___ (regnen) es stark und ___ (sein) kalt.', options: ['regnete / war', 'regnete / ware', 'regnet / war', 'regnete / sein'], correct: 0, explanation: 'Präteritum: regnen (regelmäßig) → regnete, sein → war. Gemischt!' },
+                { type: 'fill_blank', situation: 'Ein Brief: Du erzählst von deiner Familie.', question: 'Meine Mutter ___ (kochen) gut und mein Vater ___ (lesen) viel.', answer: ['kochte', 'las'], explanation: 'Präteritum: kochen (regelmäßig) → kochte, lesen → las. Gemischt!' },
+                { type: 'multiple_choice', situation: 'Eine Geschichte: Du beschreibst einen Spaziergang.', question: 'Wir ___ (laufen) durch den Park und ___ (finden) einen Hund.', options: ['liefen / fanden', 'lauften / fanden', 'liefen / findeten', 'lauften / findeten'], correct: 0, explanation: 'Präteritum: laufen → liefen, finden → fanden. Pluralformen!' },
+                { type: 'fill_blank', situation: 'Ein Bericht: Über die Arbeit gestern.', question: 'Ich ___ (arbeiten) den ganzen Tag und ___ (werden) müde.', answer: ['arbeitete', 'wurde'], explanation: 'Präteritum: arbeiten (regelmäßig) → arbeitete, werden → wurde. Gemischt!' }
+            ]
+        },
+        {
+            id: 'b1_konjunktiv2', title: 'Konjunktiv II', emoji: '🎭', description: 'Höflichkeit & Irrealität',
+            exercises: [
+                { type: 'multiple_choice', situation: 'Im Restaurant: Höflich bestellen.', question: 'Ich ___ (haben) gerne ein Glas Wasser.', options: ['hätte', 'habe', 'hatte', 'haben'], correct: 0, explanation: 'Konjunktiv II von haben: hätte. Höfliche Bitte!' },
+                { type: 'fill_blank', situation: 'Im Geschäft: Höflich nachfragen.', question: '___ (können) Sie mir bitte helfen? Ich ___ (suchen) ein Geschenk.', answer: ['Könnten', 'suche'], explanation: 'Konjunktiv II: könnten (höflich), suche (Indikativ Präsens).' },
+                { type: 'multiple_choice', situation: 'Bei Freunden: Einen Wunsch äußern.', question: 'Ich ___ (sein) so gerne mal in Paris!', options: ['wäre', 'war', 'bin', 'sei'], correct: 0, explanation: 'Konjunktiv II von sein: wäre. Irrealer Wunsch!' },
+                { type: 'fill_blank', situation: 'Im Büro: Höflich ablehnen.', question: 'Ich ___ (kommen) gerne, aber ich ___ (haben) leider keine Zeit.', answer: ['käme', 'hätte'], explanation: 'Konjunktiv II: käme (kommen), hätte (haben). Höfliche Absage!' },
+                { type: 'multiple_choice', situation: 'Im Café: Höflich etwas vorschlagen.', question: '___ (sollen) wir vielleicht einen Kuchen bestellen?', options: ['Sollten', 'Sollen', 'Sollte', 'Soll'], correct: 0, explanation: 'Konjunktiv II von sollen: sollten. Höflicher Vorschlag!' },
+                { type: 'fill_blank', situation: 'Am Telefon: Höflich nachfragen.', question: '___ (dürfen) ich fragen, wer ___ (sein) Sie?', answer: ['Dürfte', 'sind'], explanation: 'Konjunktiv II: dürfte (höflich), sind (Indikativ).' },
+                { type: 'multiple_choice', situation: 'Bei Freunden: Etwas bereuen.', question: 'Wenn ich mehr Zeit ___ (haben), ___ (fahren) ich mit euch.', options: ['hätte / führe', 'hatte / führe', 'hätte / fahre', 'habe / führe'], correct: 0, explanation: 'Konjunktiv II: hätte (haben), führe (fahren). Irreale Bedingung!' },
+                { type: 'fill_blank', situation: 'Im Restaurant: Höflich empfehlen.', question: 'Ich ___ (empfehlen) Ihnen ___ (der Fisch). Er ist sehr frisch.', answer: ['würde empfehlen', 'den Fisch'], explanation: 'Umschreibung mit würde: würde empfehlen. Akkusativ: der Fisch → den Fisch.' },
+                { type: 'multiple_choice', situation: 'Im Zug: Höflich um etwas bitten.', question: '___ (können) Sie mir bitte ___ (das Fenster) öffnen?', options: ['Könnten / das Fenster', 'Könnten / dem Fenster', 'Könnte / das Fenster', 'Können / das Fenster'], correct: 0, explanation: 'Konjunktiv II: könnten (höflich). Akkusativ: das Fenster bleibt.' },
+                { type: 'fill_blank', situation: 'Bei der Arbeit: Höflich um Urlaub bitten.', question: 'Ich ___ (wollen) gerne nächste Woche Urlaub ___ (machen).', answer: ['wollte', 'machen'], explanation: 'Konjunktiv II: wollte (wollen). Infinitiv: machen. Höfliche Bitte!' }
+            ]
+        },
+        {
+            id: 'b1_relativ', title: 'Relativsätze', emoji: '🔗', description: 'Sätze verbinden',
+            exercises: [
+                { type: 'multiple_choice', situation: 'Du beschreibst deinen Nachbarn.', question: 'Das ist der Mann, ___ gestern eingezogen ist.', options: ['der', 'den', 'dem', 'dessen'], correct: 0, explanation: 'Relativpronomen: der Mann (Maskulin, Nominativ) → der. Verb am Ende!' },
+                { type: 'fill_blank', situation: 'Du sprichst über eine Freundin.', question: 'Das ist die Frau, ___ ich gestern ___ (treffen) habe.', answer: ['die', 'getroffen'], explanation: 'Relativpronomen: die Frau (Feminin, Akkusativ) → die. Perfekt: getroffen.' },
+                { type: 'multiple_choice', situation: 'Du zeigst auf ein Gebäude.', question: 'Das ist das Haus, ___ sehr alt ist.', options: ['das', 'der', 'die', 'dem'], correct: 0, explanation: 'Relativpronomen: das Haus (Neutral, Nominativ) → das.' },
+                { type: 'fill_blank', situation: 'Du sprichst über Kinder.', question: 'Das sind die Kinder, ___ ___ (spielen) im Park.', answer: ['die', 'spielen'], explanation: 'Relativpronomen: die Kinder (Plural, Nominativ) → die. Verb am Ende!' },
+                { type: 'multiple_choice', situation: 'Du beschreibst einen Film.', question: 'Der Film, ___ ich gestern gesehen habe, war toll.', options: ['den', 'der', 'dem', 'dessen'], correct: 0, explanation: 'Relativpronomen: der Film (Maskulin, Akkusativ) → den. Verb am Ende!' },
+                { type: 'fill_blank', situation: 'Du sprichst über eine Stadt.', question: 'Berlin ist eine Stadt, ___ ich sehr ___ (mögen).', answer: ['die', 'mag'], explanation: 'Relativpronomen: die Stadt (Feminin, Akkusativ) → die. Verb am Ende: mag.' },
+                { type: 'multiple_choice', situation: 'Du beschreibst einen Mann mit einem Hund.', question: 'Das ist der Mann, ___ Hund sehr laut ist.', options: ['dessen', 'der', 'den', 'dem'], correct: 0, explanation: 'Possessiv-Relativpronomen: dessen (Maskulin/Neutral Genitiv).' },
+                { type: 'fill_blank', situation: 'Du sprichst über eine Frau mit Kindern.', question: 'Das ist die Frau, ___ Kinder in ___ (meine Klasse) sind.', answer: ['deren', 'meiner Klasse'], explanation: 'Possessiv-Relativpronomen: deren (Feminin/Plural Genitiv). Dativ: meine Klasse → meiner Klasse.' },
+                { type: 'multiple_choice', situation: 'Du beschreibst einen Tisch mit einem Buch.', question: 'Das ist der Tisch, ___ das Buch liegt.', options: ['auf dem', 'auf den', 'auf der', 'auf das'], correct: 0, explanation: 'Relativpronomen mit Präposition: auf + Dativ (Ort) → auf dem (der Tisch = Maskulin).' },
+                { type: 'fill_blank', situation: 'Du sprichst über eine Schule.', question: 'Das ist die Schule, ___ ich ___ (lernen).', answer: ['in der', 'gelernt habe'], explanation: 'Relativpronomen mit Präposition: in + Dativ → in der. Perfekt: gelernt habe.' }
+            ]
+        },
+        {
+            id: 'b1_passiv', title: 'Passiv', emoji: '🔄', description: 'Werden + Partizip II',
+            exercises: [
+                { type: 'multiple_choice', situation: 'Im Restaurant: Das Essen wird serviert.', question: 'Das Essen ___ (servieren) jetzt.', options: ['wird serviert', 'ist serviert', 'wurde serviert', 'werden serviert'], correct: 0, explanation: 'Passiv Präsens: werden + Partizip II. Das Essen wird serviert.' },
+                { type: 'fill_blank', situation: 'Im Büro: Ein Brief wurde geschrieben.', question: 'Der Brief ___ (schreiben) gestern von ___ (der Chef).', answer: ['wurde geschrieben', 'dem Chef'], explanation: 'Passiv Präteritum: wurde + Partizip II. Von + Dativ: der Chef → dem Chef.' },
+                { type: 'multiple_choice', situation: 'In der Stadt: Eine Straße wird gebaut.', question: 'Die neue Straße ___ (bauen) seit letztem Jahr.', options: ['wird gebaut', 'ist gebaut', 'wurde gebaut', 'werden gebaut'], correct: 0, explanation: 'Passiv Präsens: wird gebaut. Seit = Präsens (noch andauernd)!' },
+                { type: 'fill_blank', situation: 'Zu Hause: Das Fenster wurde geöffnet.', question: 'Das Fenster ___ (öffnen) von ___ (mein Bruder).', answer: ['wurde geöffnet', 'meinem Bruder'], explanation: 'Passiv Präteritum: wurde + Partizip II. Von + Dativ: mein Bruder → meinem Bruder.' },
+                { type: 'multiple_choice', situation: 'Im Geschäft: Ein Paket wird abgeholt.', question: 'Das Paket ___ (abholen) morgen.', options: ['wird abgeholt', 'ist abgeholt', 'wurde abgeholt', 'werden abgeholt'], correct: 0, explanation: 'Passiv Präsens: wird abgeholt. Trennbares Verb: ab|holen → abgeholt.' },
+                { type: 'fill_blank', situation: 'In der Schule: Ein Test wurde geschrieben.', question: 'Der Test ___ (schreiben) gestern von ___ (die Schüler).', answer: ['wurde geschrieben', 'den Schülern'], explanation: 'Passiv Präteritum: wurde + Partizip II. Von + Dativ: die Schüler → den Schülern.' },
+                { type: 'multiple_choice', situation: 'Im Restaurant: Die Rechnung wurde bezahlt.', question: 'Die Rechnung ___ (bezahlen) schon.', options: ['wurde bezahlt', 'ist bezahlt', 'wird bezahlt', 'werden bezahlt'], correct: 0, explanation: 'Passiv Präteritum: wurde bezahlt. Schon = Vergangenheit!' },
+                { type: 'fill_blank', situation: 'Im Büro: Ein Brief wird verschickt.', question: 'Der Brief ___ (verschicken) morgen an ___ (der Kunde).', answer: ['wird verschickt', 'den Kunden'], explanation: 'Passiv Präsens: wird verschickt. An + Akkusativ: der Kunde → den Kunden.' },
+                { type: 'multiple_choice', situation: 'Zu Hause: Die Wäsche wird gewaschen.', question: 'Die Wäsche ___ (waschen) jetzt von ___ (meine Mutter).', options: ['wird gewaschen / meiner Mutter', 'wurde gewaschen / meiner Mutter', 'wird gewaschen / meine Mutter', 'wurde gewaschen / meine Mutter'], correct: 0, explanation: 'Passiv Präsens: wird gewaschen. Von + Dativ: meine Mutter → meiner Mutter.' },
+                { type: 'fill_blank', situation: 'In der Stadt: Ein Haus wird gebaut.', question: 'Das Haus ___ (bauen) seit letztem Jahr von ___ (ein Unternehmen).', answer: ['wird gebaut', 'einem Unternehmen'], explanation: 'Passiv Präsens: wird gebaut. Seit = andauernd. Von + Dativ: ein Unternehmen → einem Unternehmen.' }
+            ]
+        }
+    ],
+    B2: [
+        {
+            id: 'b2_plusquamperfekt', title: 'Plusquamperfekt', emoji: '⏮️', description: 'Vorvergangenheit',
+            exercises: [
+                { type: 'multiple_choice', situation: 'Du erzählst eine Geschichte: Vor dem Kino warst du schon essen.', question: 'Ich ___ (essen) schon, bevor ich ins Kino ___ (gehen).', options: ['hatte gegessen / ging', 'habe gegessen / ging', 'hatte gegessen / gehe', 'habe gegessen / gehe'], correct: 0, explanation: 'Plusquamperfekt: hatte + Partizip II. Vorvergangenheit vor einer anderen Vergangenheit!' },
+                { type: 'fill_blank', situation: 'Ein Bericht: Bevor der Chef kam, war alles fertig.', question: 'Wir ___ (arbeiten) den ganzen Tag, bevor der Chef ___ (kommen).', answer: ['hatten gearbeitet', 'kam'], explanation: 'Plusquamperfekt: hatten + Partizip II. Kam = Präteritum (spätere Vergangenheit).' },
+                { type: 'multiple_choice', situation: 'Eine Geschichte: Sie hatte das Buch schon gelesen.', question: 'Sie ___ (lesen) das Buch, bevor sie den Film ___ (sehen).', options: ['hatte gelesen / sah', 'hatte gelesen / sehe', 'habe gelesen / sah', 'hatte lesen / sah'], correct: 0, explanation: 'Plusquamperfekt: hatte gelesen. Sah = Präteritum (spätere Handlung).' },
+                { type: 'fill_blank', situation: 'Ein Brief: Du warst schon angekommen.', question: 'Ich ___ (ankommen) schon, als du ___ (rufen).', answer: ['war angekommen', 'riefst'], explanation: 'Plusquamperfekt mit sein: war + Partizip II. Riefst = Präteritum (später).' },
+                { type: 'multiple_choice', situation: 'Eine Erzählung: Er hatte alles verstanden.', question: 'Er ___ (verstehen) alles, nachdem ich es ihm ___ (erklären).', options: ['hatte verstanden / erklärt', 'hatte verstanden / erklärte', 'habe verstanden / erklärt', 'hatte verstehen / erklärt'], correct: 0, explanation: 'Plusquamperfekt: hatte verstanden. Erklärt = Partizip II (nachdem + Perfekt).' },
+                { type: 'fill_blank', situation: 'Ein Tagebucheintrag: Du hattest geschlafen.', question: 'Ich ___ (schlafen) gut, bevor ich ___ (aufwachen).', answer: ['hatte geschlafen', 'aufwachte'], explanation: 'Plusquamperfekt: hatte geschlafen. Aufwachte = Präteritum (später).' },
+                { type: 'multiple_choice', situation: 'Eine Geschichte: Sie war schon gegangen.', question: 'Sie ___ (gehen) schon, als wir ___ (ankommen).', options: ['war gegangen / ankamen', 'war gegangen / ankommen', 'ist gegangen / ankamen', 'war gegangen / kamen an'], correct: 0, explanation: 'Plusquamperfekt mit sein: war gegangen. Ankamen = Präteritum (später).' },
+                { type: 'fill_blank', situation: 'Ein Bericht: Du hattest gelernt.', question: 'Ich ___ (lernen) den ganzen Tag, bevor ich ___ (den Test / schreiben).', answer: ['hatte gelernt', 'den Test schrieb'], explanation: 'Plusquamperfekt: hatte gelernt. Schrieb = Präteritum (später). Akkusativ: der Test.' },
+                { type: 'multiple_choice', situation: 'Eine Erzählung: Er hatte das Geld verloren.', question: 'Er ___ (verlieren) das Geld, bevor er ___ (nach Hause / kommen).', options: ['hatte verloren / nach Hause kam', 'hatte verloren / nach Hause kommt', 'hat verloren / nach Hause kam', 'hatte verlieren / nach Hause kam'], correct: 0, explanation: 'Plusquamperfekt: hatte verloren. Kam = Präteritum (später).' },
+                { type: 'fill_blank', situation: 'Ein Brief: Du hattest alles gekauft.', question: 'Ich ___ (kaufen) alles, bevor ich ___ (nach Hause / fahren).', answer: ['hatte gekauft', 'nach Hause fuhr'], explanation: 'Plusquamperfekt: hatte gekauft. Fuhr = Präteritum (später).' }
+            ]
+        },
+        {
+            id: 'b2_futur', title: 'Futur I & II', emoji: '🔮', description: 'Zukunft ausdrücken',
+            exercises: [
+                { type: 'multiple_choice', situation: 'Du planst deinen Urlaub.', question: 'Nächstes Jahr ___ ich nach Japan ___ (reisen).', options: ['werde / reisen', 'wirst / reisen', 'werde / gereist', 'werden / reisen'], correct: 0, explanation: 'Futur I: werden + Infinitiv. Ich werde reisen.' },
+                { type: 'fill_blank', situation: 'Du machst Pläne für morgen.', question: 'Morgen ___ ich ___ (arbeiten) und dann ___ (feiern).', answer: ['werde', 'arbeiten', 'feiern'], explanation: 'Futur I: werden + Infinitiv. Ich werde arbeiten und feiern.' },
+                { type: 'multiple_choice', situation: 'Du prognostizierst das Wetter.', question: 'Morgen ___ es bestimmt ___ (regnen).', options: ['wird / regnen', 'werde / regnen', 'wird / geregnet', 'werden / regnen'], correct: 0, explanation: 'Futur I: wird + Infinitiv. Es wird regnen.' },
+                { type: 'fill_blank', situation: 'Du planst eine Party.', question: 'Nächste Woche ___ wir eine große Party ___ (feiern).', answer: ['werden', 'feiern'], explanation: 'Futur I: werden + Infinitiv. Wir werden feiern.' },
+                { type: 'multiple_choice', situation: 'Du vermutest etwas.', question: 'Er ___ das bestimmt schon ___ (wissen).', options: ['wird / wissen', 'wird / gewusst', 'werde / wissen', 'wird / wussten'], correct: 0, explanation: 'Futur I für Vermutung: wird + Infinitiv. Er wird das wissen.' },
+                { type: 'fill_blank', situation: 'Du vermutest, dass jemand fertig ist.', question: 'Sie ___ den Bericht bestimmt schon ___ (schreiben).', answer: ['wird', 'geschrieben haben'], explanation: 'Futur II für Vermutung: wird + Partizip II + haben/sein. Sie wird geschrieben haben.' },
+                { type: 'multiple_choice', situation: 'Du vermutest, dass jemand angekommen ist.', question: 'Er ___ bestimmt schon ___ (ankommen).', options: ['wird / angekommen sein', 'wird / ankommen', 'wird / angekommen', 'werde / angekommen sein'], correct: 0, explanation: 'Futur II für Vermutung: wird + Partizip II + sein. Er wird angekommen sein.' },
+                { type: 'fill_blank', situation: 'Du planst deine Zukunft.', question: 'In 10 Jahren ___ ich ___ (leben) in ___ (ein anderes Land).', answer: ['werde', 'leben', 'einem anderen Land'], explanation: 'Futur I: werde + Infinitiv. In + Dativ: ein anderes Land → einem anderen Land.' },
+                { type: 'multiple_choice', situation: 'Du vermutest, dass etwas passiert ist.', question: 'Das ___ sie bestimmt schon ___ (hören).', options: ['wird / gehört haben', 'wird / hören', 'wird / gehört', 'werde / gehört haben'], correct: 0, explanation: 'Futur II für Vermutung: wird + Partizip II + haben. Sie wird gehört haben.' },
+                { type: 'fill_blank', situation: 'Du machst Pläne für das Wochenende.', question: 'Am Wochenende ___ wir ___ (wandern) gehen.', answer: ['werden', 'wandern'], explanation: 'Futur I: werden + Infinitiv. Wir werden wandern gehen.' }
+            ]
+        },
+        {
+            id: 'b2_konjunktiv1', title: 'Konjunktiv I', emoji: '📰', description: 'Indirekte Rede',
+            exercises: [
+                { type: 'multiple_choice', situation: 'Du berichtest, was jemand gesagt hat.', question: 'Er sagt: "Ich bin krank." → Er sage, er ___ krank.', options: ['sei', 'wäre', 'ist', 'war'], correct: 0, explanation: 'Konjunktiv I: sei (sein). Er sagt, er sei krank.' },
+                { type: 'fill_blank', situation: 'Du berichtest aus der Zeitung.', question: 'Die Zeitung berichtet, der Präsident ___ (kommen) morgen.', answer: ['komme'], explanation: 'Konjunktiv I: komme (kommen). Die Zeitung berichtet, der Präsident komme morgen.' },
+                { type: 'multiple_choice', situation: 'Du berichtest, was dein Freund sagte.', question: 'Er sagte: "Ich habe keine Zeit." → Er sagte, er ___ keine Zeit.', options: ['habe', 'hätte', 'hat', 'hatte'], correct: 0, explanation: 'Konjunktiv I: habe (haben). Er sagte, er habe keine Zeit.' },
+                { type: 'fill_blank', situation: 'Du berichtest aus einer Nachricht.', question: 'Die Polizei teilte mit, der Dieb ___ (festnehmen).', answer: ['sei festgenommen worden'], explanation: 'Konjunktiv I Passiv: sei + Partizip II + worden. Der Dieb sei festgenommen worden.' },
+                { type: 'multiple_choice', situation: 'Du berichtest, was jemand behauptet.', question: 'Sie behauptet: "Ich war nicht dort." → Sie behauptet, sie ___ nicht dort.', options: ['sei', 'wäre', 'ist', 'war'], correct: 0, explanation: 'Konjunktiv I: sei (sein). Sie behauptet, sie sei nicht dort.' },
+                { type: 'fill_blank', situation: 'Du berichtest aus einem Interview.', question: 'Der Künstler sagte, er ___ (arbeiten) an ___ (ein neues Projekt).', answer: ['arbeite', 'einem neuen Projekt'], explanation: 'Konjunktiv I: arbeite (arbeiten). An + Dativ: ein neues Projekt → einem neuen Projekt.' },
+                { type: 'multiple_choice', situation: 'Du berichtest, was jemand versprach.', question: 'Er versprach: "Ich werde kommen." → Er versprach, er ___ kommen.', options: ['werde', 'würde', 'wird', 'wolle'], correct: 0, explanation: 'Konjunktiv I: werde (werden). Er versprach, er werde kommen.' },
+                { type: 'fill_blank', situation: 'Du berichtest aus einer Rede.', question: 'Der Politiker sagte, die Wirtschaft ___ (wachsen) schnell.', answer: ['wachse'], explanation: 'Konjunktiv I: wachse (wachsen). Der Politiker sagte, die Wirtschaft wachse schnell.' },
+                { type: 'multiple_choice', situation: 'Du berichtest, was jemand dachte.', question: 'Sie dachte: "Ich kann das schaffen." → Sie dachte, sie ___ das schaffen.', options: ['könne', 'könnte', 'kann', 'konnte'], correct: 0, explanation: 'Konjunktiv I: könne (können). Sie dachte, sie könne das schaffen.' },
+                { type: 'fill_blank', situation: 'Du berichtest aus einer Studie.', question: 'Die Studie zeigt, die Menschen ___ (werden) immer ___ (alt).', answer: ['werden', 'älter'], explanation: 'Konjunktiv I: werden (werden). Die Studie zeigt, die Menschen werden immer älter.' }
+            ]
+        },
+        {
+            id: 'b2_partizipial', title: 'Partizipialkonstruktionen', emoji: '📝', description: 'Verkürzte Nebensätze',
+            exercises: [
+                { type: 'multiple_choice', situation: 'Du beschreibst eine Straße.', question: 'Die ___ (viele Autos / fahren) Straße ist sehr laut.', options: ['von vielen Autos befahrene', 'von vielen Autos fahrende', 'viele Autos fahrende', 'viele Autos befahrene'], correct: 0, explanation: 'Partizip II als Adjektiv: von + Dativ + Partizip II. Die von vielen Autos befahrene Straße.' },
+                { type: 'fill_blank', situation: 'Du beschreibst einen Mann.', question: 'Der ___ (sein Hund / bellen) Mann ist sehr nervös.', answer: ['von seinem Hund belästigte'], explanation: 'Partizip II: von + Dativ + Partizip II. Der von seinem Hund belästigte Mann.' },
+                { type: 'multiple_choice', situation: 'Du beschreibst eine Frau.', question: 'Die ___ (ein Buch / lesen) Frau sitzt im Café.', options: ['ein Buch lesende', 'ein Buch gelesene', 'von einem Buch lesende', 'ein Buch lesende'], correct: 0, explanation: 'Partizip I (aktiv): ein Buch lesende. Die ein Buch lesende Frau.' },
+                { type: 'fill_blank', situation: 'Du beschreibst ein Kind.', question: 'Das ___ (seine Mutter / rufen) Kind läuft schnell.', answer: ['von seiner Mutter gerufene'], explanation: 'Partizip II: von + Dativ + Partizip II. Das von seiner Mutter gerufene Kind.' },
+                { type: 'multiple_choice', situation: 'Du beschreibst ein Haus.', question: 'Das ___ (ein Architekt / bauen) Haus ist sehr modern.', options: ['von einem Architekten gebaute', 'von einem Architekt bauende', 'ein Architekt bauende', 'ein Architekt gebaute'], correct: 0, explanation: 'Partizip II: von + Dativ + Partizip II. Das von einem Architekten gebaute Haus.' },
+                { type: 'fill_blank', situation: 'Du beschreibst eine Stadt.', question: 'Die ___ (viele Touristen / besuchen) Stadt ist immer voll.', answer: ['von vielen Touristen besuchte'], explanation: 'Partizip II: von + Dativ + Partizip II. Die von vielen Touristen besuchte Stadt.' },
+                { type: 'multiple_choice', situation: 'Du beschreibst einen Film.', question: 'Der ___ (alle / lieben) Film gewann einen Oscar.', options: ['von allen geliebte', 'von allen liebende', 'alle liebende', 'alle geliebte'], correct: 0, explanation: 'Partizip II: von + Dativ + Partizip II. Der von allen geliebte Film.' },
+                { type: 'fill_blank', situation: 'Du beschreibst ein Problem.', question: 'Das ___ (niemand / lösen) Problem ist sehr schwierig.', answer: ['von niemandem gelöste'], explanation: 'Partizip II: von + Dativ + Partizip II. Das von niemandem gelöste Problem.' },
+                { type: 'multiple_choice', situation: 'Du beschreibst eine Entscheidung.', question: 'Die ___ (der Chef / treffen) Entscheidung war wichtig.', options: ['vom Chef getroffene', 'vom Chef treffende', 'der Chef treffende', 'der Chef getroffene'], correct: 0, explanation: 'Partizip II: von + Dativ + Partizip II. Die vom Chef getroffene Entscheidung.' },
+                { type: 'fill_blank', situation: 'Du beschreibst ein Buch.', question: 'Das ___ (ein berühmter Autor / schreiben) Buch ist ein Bestseller.', answer: ['von einem berühmten Autor geschriebene'], explanation: 'Partizip II: von + Dativ + Partizip II. Das von einem berühmten Autor geschriebene Buch.' }
+            ]
+        }
+    ]
+};
+
+// ==================== APP STATE ====================
+let currentLevel = 'mixed';
+let currentTopic = null;
+let currentExerciseIndex = 0;
+let score = 0;
+let streak = 0;
+let timerInterval = null;
+let seconds = 0;
+let userAnswers = {};
+let topicProgress = {};
+
+// ==================== INITIALIZATION ====================
+function selectLevel(level) {
+    currentLevel = level;
+    document.querySelectorAll('.level-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.level === level);
+    });
+}
+
+function startApp() {
+    document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+    document.getElementById('level').textContent = currentLevel === 'mixed' ? 'Gemischt' : currentLevel;
+    renderTopics();
+}
+
+function showSection(section) {
+    document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+    event.target.classList.add('active');
+
+    if (section === 'topics') {
+        document.getElementById('topicsSection').style.display = 'block';
+        document.getElementById('exerciseSection').style.display = 'none';
+        document.getElementById('resultsSection').style.display = 'none';
+        renderTopics();
+    } else if (section === 'practice') {
+        startMixedPractice();
+    } else if (section === 'review') {
+        showReview();
+    }
+}
+
+// ==================== TOPICS ====================
+function renderTopics() {
+    const grid = document.getElementById('topicsGrid');
+    grid.innerHTML = '';
+
+    let topics = [];
+    if (currentLevel === 'mixed') {
+        topics = [...grammarData.A2, ...grammarData.B1, ...grammarData.B2];
+    } else {
+        topics = grammarData[currentLevel] || [];
+    }
+
+    topics.forEach(topic => {
+        const progress = topicProgress[topic.id] || 0;
+        const card = document.createElement('div');
+        card.className = 'topic-card';
+        card.innerHTML = `
+            <span class="emoji">${topic.emoji}</span>
+            <h3>${topic.title}</h3>
+            <p>${topic.description}</p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: ${progress}%"></div>
+            </div>
+            <p style="font-size:0.8em;color:#999;margin-top:5px">${topic.exercises.length} Übungen</p>
+        `;
+        card.onclick = () => startTopic(topic);
+        grid.appendChild(card);
+    });
+}
+
+// ==================== EXERCISES ====================
+function startTopic(topic) {
+    currentTopic = topic;
+    currentExerciseIndex = 0;
+    score = 0;
+    streak = 0;
+    seconds = 0;
+    userAnswers = {};
+
+    document.getElementById('topicsSection').style.display = 'none';
+    document.getElementById('exerciseSection').style.display = 'block';
+    document.getElementById('resultsSection').style.display = 'none';
+
+    startTimer();
+    renderExercise();
+}
+
+function startMixedPractice() {
+    let allExercises = [];
+    if (currentLevel === 'mixed') {
+        Object.values(grammarData).forEach(level => {
+            level.forEach(topic => {
+                topic.exercises.forEach(ex => {
+                    allExercises.push({...ex, topicTitle: topic.title, topicEmoji: topic.emoji});
+                });
+            });
+        });
+    } else {
+        grammarData[currentLevel].forEach(topic => {
+            topic.exercises.forEach(ex => {
+                allExercises.push({...ex, topicTitle: topic.title, topicEmoji: topic.emoji});
+            });
+        });
+    }
+
+    // Shuffle and take 10
+    allExercises = allExercises.sort(() => Math.random() - 0.5).slice(0, 10);
+
+    currentTopic = { title: 'Gemischte Übung', emoji: '🎲', exercises: allExercises };
+    currentExerciseIndex = 0;
+    score = 0;
+    streak = 0;
+    seconds = 0;
+    userAnswers = {};
+
+    document.getElementById('topicsSection').style.display = 'none';
+    document.getElementById('exerciseSection').style.display = 'block';
+    document.getElementById('resultsSection').style.display = 'none';
+
+    startTimer();
+    renderExercise();
+}
+
+function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        seconds++;
+        const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const secs = (seconds % 60).toString().padStart(2, '0');
+        document.getElementById('timer').textContent = `⏱️ ${mins}:${secs}`;
+    }, 1000);
+}
+
+function renderExercise() {
+    const ex = currentTopic.exercises[currentExerciseIndex];
+    const total = currentTopic.exercises.length;
+
+    document.getElementById('exerciseProgress').textContent = `Frage ${currentExerciseIndex + 1} von ${total}`;
+
+    let html = `
+        <div class="question-card">
+            <span class="question-number">${currentExerciseIndex + 1}</span>
+            <div class="situation-box">
+                <div class="label">Alltagssituation</div>
+                <div>${ex.situation}</div>
+            </div>
+            <div class="question-text">${ex.question}</div>
+    `;
+
+    if (ex.type === 'multiple_choice') {
+        html += `<div class="options-grid" id="optionsGrid">`;
+        ex.options.forEach((opt, idx) => {
+            html += `<button class="option-btn" onclick="selectOption(${idx})" data-idx="${idx}">${opt}</button>`;
+        });
+        html += `</div>`;
+    } else if (ex.type === 'fill_blank') {
+        if (Array.isArray(ex.answer)) {
+            // Multiple blanks
+            let qText = ex.question;
+            ex.answer.forEach((ans, idx) => {
+                qText = qText.replace('___', `<input type="text" class="fill-input" id="blank${idx}" placeholder="Antwort ${idx + 1}">`);
+            });
+            html += `<div class="question-text">${qText}</div>`;
+        } else {
+            html += `<input type="text" class="fill-input" id="blank0" placeholder="Deine Antwort" style="width:100%;max-width:300px;">`;
+        }
+    }
+
+    html += `
+            <button class="hint-btn" onclick="toggleHint()">💡 Hinweis anzeigen</button>
+            <div class="hint-text" id="hintText">${ex.explanation.split('.')[0]}...</div>
+            <button class="check-btn" id="checkBtn" onclick="checkAnswer()">✓ Antwort prüfen</button>
+            <div class="feedback" id="feedback">
+                <h4 id="feedbackTitle"></h4>
+                <div id="feedbackText"></div>
+                <div class="explanation" id="explanation"></div>
+            </div>
+            <button class="next-btn" id="nextBtn" onclick="nextExercise()">Weiter →</button>
+        </div>
+    `;
+
+    document.getElementById('exerciseContent').innerHTML = html;
+}
+
+function toggleHint() {
+    const hint = document.getElementById('hintText');
+    hint.style.display = hint.style.display === 'block' ? 'none' : 'block';
+}
+
+function selectOption(idx) {
+    document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
+    document.querySelector(`[data-idx="${idx}"]`).classList.add('selected');
+    userAnswers[currentExerciseIndex] = idx;
+}
+
+function checkAnswer() {
+    const ex = currentTopic.exercises[currentExerciseIndex];
+    let isCorrect = false;
+    let userAnswer = '';
+
+    if (ex.type === 'multiple_choice') {
+        const selected = document.querySelector('.option-btn.selected');
+        if (!selected) {
+            alert('Bitte wähle eine Antwort!');
+            return;
+        }
+        const selectedIdx = parseInt(selected.dataset.idx);
+        isCorrect = selectedIdx === ex.correct;
+        userAnswer = ex.options[selectedIdx];
+
+        document.querySelectorAll('.option-btn').forEach((btn, idx) => {
+            btn.disabled = true;
+            if (idx === ex.correct) btn.classList.add('correct');
+            else if (idx === selectedIdx && !isCorrect) btn.classList.add('wrong');
+        });
+    } else if (ex.type === 'fill_blank') {
+        if (Array.isArray(ex.answer)) {
+            let allCorrect = true;
+            ex.answer.forEach((ans, idx) => {
+                const input = document.getElementById(`blank${idx}`);
+                const val = input.value.trim().toLowerCase();
+                const correct = ans.toLowerCase();
+                if (val === correct) {
+                    input.classList.add('correct');
+                } else {
+                    input.classList.add('wrong');
+                    allCorrect = false;
+                }
+                input.disabled = true;
+            });
+            isCorrect = allCorrect;
+            userAnswer = ex.answer.join(' / ');
+        } else {
+            const input = document.getElementById('blank0');
+            const val = input.value.trim().toLowerCase();
+            const correct = ex.answer.toLowerCase();
+            isCorrect = val === correct;
+            if (isCorrect) input.classList.add('correct');
+            else input.classList.add('wrong');
+            input.disabled = true;
+            userAnswer = input.value;
+        }
+    }
+
+    const feedback = document.getElementById('feedback');
+    const feedbackTitle = document.getElementById('feedbackTitle');
+    const feedbackText = document.getElementById('feedbackText');
+    const explanation = document.getElementById('explanation');
+
+    if (isCorrect) {
+        feedback.className = 'feedback correct';
+        feedbackTitle.textContent = '🎉 Richtig! Sehr gut!';
+        feedbackText.textContent = `Deine Antwort: "${userAnswer}"`;
+        score += 10 + (streak * 2);
+        streak++;
+        createConfetti();
+    } else {
+        feedback.className = 'feedback wrong';
+        feedbackTitle.textContent = '❌ Leider falsch';
+        if (ex.type === 'multiple_choice') {
+            feedbackText.textContent = `Richtig wäre: "${ex.options[ex.correct]}"`;
+        } else {
+            feedbackText.textContent = `Richtig wäre: "${Array.isArray(ex.answer) ? ex.answer.join(' / ') : ex.answer}"`;
+        }
+        streak = 0;
+    }
+
+    explanation.textContent = `💡 Erklärung: ${ex.explanation}`;
+
+    document.getElementById('score').textContent = score;
+    document.getElementById('streak').textContent = streak;
+    document.getElementById('checkBtn').style.display = 'none';
+    document.getElementById('nextBtn').style.display = 'block';
+}
+
+function nextExercise() {
+    currentExerciseIndex++;
+    if (currentExerciseIndex >= currentTopic.exercises.length) {
+        showResults();
+    } else {
+        renderExercise();
+    }
+}
+
+function showResults() {
+    clearInterval(timerInterval);
+    document.getElementById('exerciseSection').style.display = 'none';
+    document.getElementById('resultsSection').style.display = 'block';
+
+    const total = currentTopic.exercises.length;
+    const maxScore = total * 10;
+    const percentage = Math.round((score / maxScore) * 100);
+
+    document.getElementById('finalScore').textContent = `${percentage}%`;
+
+    let message = '';
+    if (percentage >= 90) message = '🌟 Hervorragend! Du bist ein Grammatik-Profi!';
+    else if (percentage >= 70) message = '👍 Sehr gut! Du hast das meiste verstanden.';
+    else if (percentage >= 50) message = '💪 Gut gemacht! Übe noch ein bisschen mehr.';
+    else message = '📚 Nicht aufgeben! Jede Übung bringt dich weiter.';
+
+    document.getElementById('resultsMessage').textContent = message;
+
+    // Update topic progress
+    if (currentTopic.id) {
+        topicProgress[currentTopic.id] = Math.max(topicProgress[currentTopic.id] || 0, percentage);
+    }
+
+    if (percentage >= 80) createConfetti();
+}
+
+function backToTopics() {
+    clearInterval(timerInterval);
+    document.getElementById('exerciseSection').style.display = 'none';
+    document.getElementById('resultsSection').style.display = 'none';
+    document.getElementById('topicsSection').style.display = 'block';
+    renderTopics();
+}
+
+function showReview() {
+    const grid = document.getElementById('topicsGrid');
+    grid.innerHTML = '<div style="text-align:center;padding:40px;"><h3>📚 Wiederholung</h3><p>Wähle ein Thema aus, das du wiederholen möchtest.</p></div>';
+    renderTopics();
+    document.getElementById('topicsSection').style.display = 'block';
+    document.getElementById('exerciseSection').style.display = 'none';
+    document.getElementById('resultsSection').style.display = 'none';
+}
+
+// ==================== EFFECTS ====================
+function createConfetti() {
+    const colors = ['#667eea', '#764ba2', '#FFD700', '#4CAF50', '#f44336', '#FF9800'];
+    for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 4000);
+    }
+}
+
+// Keyboard support
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const checkBtn = document.getElementById('checkBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        if (checkBtn && checkBtn.style.display !== 'none') {
+            checkAnswer();
+        } else if (nextBtn && nextBtn.style.display !== 'none') {
+            nextExercise();
+        }
+    }
+});
+</script>
+</body>
+</html>
+          </body>
+        </html>

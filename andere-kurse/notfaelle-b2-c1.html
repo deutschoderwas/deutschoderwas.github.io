@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+        <html>
+          <head>
+            <title data-id="th-modified">Web Page</title>
+            
+          <meta property="og:title" content="Web Page" data-id="th-modified" ><meta name="description" content="code" data-id="th-modified" ><meta property="og:description" content="code" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="https://notfaelle-b2-c1.tiiny.site/" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="notfaelle-b2-c1.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+          <body>
+            <!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="no-referrer">
+<title>Notfälle – Wie rufe ich an? · deutschoderwas</title>
+<style>
+/* Self-contained fonts: system stack works offline, Google Fonts loads when online */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+:root {
+  --cream:#F7F3EE; --dark:#1A1410; --brown:#5C3D2E;
+  --rust:#C4622D; --rust-lt:#E8896A; --sand:#D9C4A8; --sand-lt:#EEE4D4;
+  --green:#3D6B4F; --green-lt:#D4E8DC; --red:#C0392B; --red-lt:#F5DDD9;
+  --blue:#2D5F8A; --blue-lt:#C5D9F5;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}
+.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.tbtn.start{background:var(--green);color:white;}
+.tbtn.reset{background:#555;color:white;}
+.timer-label{font-size:.7rem;color:#aaa;white-space:nowrap;}
+
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--red);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--red);color:var(--red-lt);}
+.phase-btn.active{background:var(--red);border-color:var(--red);color:white;}
+.phase-time{font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;}
+
+main{max-width:900px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}
+.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;position:relative;overflow:hidden;}
+.card-header::after{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.04);}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.35rem;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--red) 0%,var(--rust) 60%,var(--rust-lt) 100%);}
+.card-body{padding:1.6rem 1.8rem;}
+
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.3rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--red-lt);color:var(--red);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+
+.explain{background:var(--red-lt);border-radius:12px;padding:1.1rem 1.4rem;margin-bottom:1.2rem;border-left:4px solid var(--red);}
+.explain h3{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--red);margin-bottom:.5rem;}
+.explain p{font-size:.9rem;line-height:1.7;}
+.explain strong{color:var(--red);}
+
+/* NOTRUF CARDS */
+.notruf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.8rem;margin-bottom:1.5rem;}
+.notruf-card{background:white;border-radius:14px;overflow:hidden;border:2px solid var(--sand);text-align:center;transition:transform .2s,box-shadow .2s;}
+.notruf-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(192,57,43,.15);}
+.notruf-number{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:900;padding:.8rem .5rem .3rem;line-height:1;}
+.notruf-label{font-size:.75rem;font-weight:700;padding:.4rem .5rem .8rem;line-height:1.4;}
+.notruf-card.polizei{border-color:#2D5F8A;}.notruf-card.polizei .notruf-number{color:#2D5F8A;background:var(--blue-lt);}
+.notruf-card.feuer{border-color:var(--red);}.notruf-card.feuer .notruf-number{color:var(--red);background:var(--red-lt);}
+.notruf-card.arzt{border-color:var(--green);}.notruf-card.arzt .notruf-number{color:var(--green);background:var(--green-lt);}
+.notruf-card.gift{border-color:#8A2D8A;}.notruf-card.gift .notruf-number{color:#8A2D8A;background:#F0D4F0;}
+.notruf-card.eu{border-color:var(--rust);}.notruf-card.eu .notruf-number{color:var(--rust);background:var(--sand-lt);}
+
+.phrase-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:.6rem;border-left:4px solid var(--red);transition:transform .2s;}
+.phrase-card:hover{transform:translateY(-2px);}
+.phrase-de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);font-size:.98rem;}
+.phrase-en{font-size:.78rem;color:#aaa;font-style:italic;margin-top:.2rem;}
+.phrase-use{font-size:.76rem;color:var(--red);margin-top:.3rem;font-weight:700;}
+
+.dialog{background:var(--sand-lt);border-radius:14px;overflow:hidden;margin-bottom:1.2rem;}
+.dialog-hd{background:var(--dark);color:var(--cream);padding:.55rem 1.2rem;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.dialog-body{padding:.9rem 1.2rem;}
+.dl{display:flex;gap:.65rem;margin-bottom:.65rem;align-items:flex-start;}
+.dl-spk{font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:70px;padding-top:.2rem;flex-shrink:0;}
+.dl-spk.a{color:var(--red);}
+.dl-spk.b{color:var(--blue);}
+.dl-txt{font-size:.89rem;line-height:1.55;}
+.dl-txt strong{color:var(--brown);font-family:'Fraunces',serif;}
+
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.7rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.85rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--red);}
+.vok-card:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(192,57,43,.12);}
+.vok-card.flipped{background:var(--red-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.5;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);}
+.vok-card.flipped .vok-back{display:block;}
+.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:.75rem;display:flex;align-items:flex-start;gap:.9rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:900;color:var(--red-lt);flex-shrink:0;line-height:1;}
+.these-text{font-size:.92rem;line-height:1.6;}
+.these-starter{font-size:.76rem;color:#888;margin-top:.3rem;}
+
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--red);}
+.speak-card:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(192,57,43,.12);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.93rem;color:var(--dark);}
+.speak-back{font-size:.82rem;color:var(--dark);line-height:1.5;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}
+.speak-hint{font-size:.68rem;color:#aaa;margin-top:.4rem;}
+
+.gap-row{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.75rem 1.1rem;margin-bottom:.5rem;font-size:.92rem;line-height:1.9;display:flex;flex-wrap:wrap;align-items:center;gap:.3rem;transition:border-color .2s,background .2s;}
+.gap-row.correct{border-color:var(--green);background:var(--green-lt);}
+.gap-row.wrong{border-color:var(--red);background:var(--red-lt);}
+.blank{display:inline-block;min-width:130px;border-bottom:2.5px solid var(--red);font-family:'Fraunces',serif;font-weight:700;color:var(--brown);font-size:.9rem;padding:0 .3rem;cursor:pointer;text-align:center;}
+.blank:empty::before{content:'___';color:#ccc;font-style:italic;font-size:.8rem;}
+.g-icon{font-size:.9rem;opacity:0;transition:opacity .3s;}
+.gap-row.correct .g-icon,.gap-row.wrong .g-icon{opacity:1;}
+.wbank{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem;}
+.chip{background:var(--dark);color:var(--cream);font-family:'Fraunces',serif;font-weight:700;font-size:.78rem;padding:.25rem .8rem;border-radius:20px;cursor:pointer;transition:background .15s,transform .1s;user-select:none;outline:2px solid transparent;}
+.chip:hover{background:var(--red);transform:scale(1.04);}
+.chip.active{background:var(--red);outline:2px solid var(--red-lt);}
+
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}
+.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.91rem;margin-bottom:.55rem;line-height:1.5;}
+.rf-btns{display:flex;gap:.4rem;}
+.rfbtn{padding:.25rem .78rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.77rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--red);color:var(--red);}
+.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}
+.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.79rem;margin-top:.5rem;font-weight:500;display:none;line-height:1.5;}
+.rf-fb.show{display:block;}
+.rf-fb.ok{color:var(--green);}
+.rf-fb.bad{color:var(--red);}
+
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.2rem;margin-bottom:.75rem;}
+.mc-q{font-size:.93rem;font-weight:600;margin-bottom:.7rem;line-height:1.5;}
+.mc-opts{display:flex;flex-direction:column;gap:.35rem;}
+.mc-opt{padding:.45rem .9rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.87rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--red);background:var(--red-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.8rem;margin-top:.55rem;display:none;font-weight:500;line-height:1.5;}
+.mc-fb.show{display:block;}
+.mc-fb.ok{color:var(--green);}
+.mc-fb.nope{color:var(--red);}
+
+.check-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--red);color:white;border:none;border-radius:30px;padding:.52rem 1.3rem;font-family:'Fraunces',serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .15s;margin-top:.8rem;}
+.check-btn:hover{background:var(--brown);transform:scale(1.02);}
+.score{display:inline-block;background:var(--dark);color:var(--cream);font-family:'Fraunces',serif;font-weight:700;font-size:.82rem;padding:.2rem .85rem;border-radius:20px;margin-left:.7rem;opacity:0;transition:opacity .3s;}
+.score.show{opacity:1;}
+.reset-link{font-size:.72rem;color:#bbb;cursor:pointer;text-decoration:underline;margin-left:.7rem;}
+.reset-link:hover{color:var(--red);}
+
+.tipp{background:var(--dark);color:var(--cream);border-radius:14px;padding:1rem 1.3rem;margin-top:1.2rem;display:flex;gap:.8rem;align-items:flex-start;}
+.tipp-icon{font-size:1.2rem;flex-shrink:0;}
+.tipp-text{font-size:.86rem;line-height:1.7;}
+.tipp-text strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.4rem 0;}
+</style>
+</head>
+<body>
+
+<div class="timer-bar">
+  <div class="timer-display" id="timerDisplay">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="timerFill"></div></div>
+  <span class="timer-label">Unterrichtszeit</span>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">▶ Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">↺</button>
+  </div>
+</div>
+
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <button class="phase-btn active" onclick="showPhase('einstieg',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('notruf',this)">② Notrufnummern</button>
+  <button class="phase-btn" onclick="showPhase('vokabeln',this)">③ Vokabeln</button>
+  <button class="phase-btn" onclick="showPhase('redemittel',this)">④ Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('dialoge',this)">⑤ Dialoge</button>
+  <button class="phase-btn" onclick="showPhase('uebung',this)">⑥ Übungen</button>
+  <button class="phase-btn" onclick="showPhase('sprechen',this)">⑦ Sprechen</button>
+  <span class="phase-time">B2/C1 · 60 Min.</span>
+</div>
+
+<main>
+
+<!-- ① EINSTIEG -->
+<div id="phase-einstieg" class="phase active">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">B2/C1 · Einstieg · 8 Min.</div>
+      <div class="card-title">Notfälle – <em>Wie rufe ich an? Was sage ich?</em></div>
+      <div class="card-sub">Unfall, Feuer, medizinischer Notfall – bist du vorbereitet?</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+
+      <div class="slabel">Einstiegsfrage</div>
+      <div class="these" style="cursor:default;">
+        <div class="these-num">?</div>
+        <div class="these-text">
+          Stell dir vor: Du bist auf der Straße und siehst einen Unfall. Was machst du als erstes? Weißt du, welche Nummer du anrufst – und was du sagst?
+          <div class="these-starter">Diskutiert zu zweit – auf Deutsch!</div>
+        </div>
+      </div>
+
+      <div class="slabel">Warum ist das besonders wichtig?</div>
+      <div class="explain">
+        <h3>In einem Notfall zählt jede Sekunde</h3>
+        <p>
+          In einem Notfall ist man gestresst – und auf Deutsch zu sprechen macht es noch schwieriger. <strong>Deshalb üben wir das heute!</strong> Wer die richtigen Wörter kennt und weiß, wie ein Notruf funktioniert, kann im Ernstfall wirklich helfen – oder sich selbst retten.<br><br>
+          Das ist kein typisches Lehrbuch-Thema. Das ist echtes Leben.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② NOTRUFNUMMERN -->
+<div id="phase-notruf" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">B2/C1 · Notrufnummern · 8 Min.</div>
+      <div class="card-title">Die wichtigsten <em>Nummern</em></div>
+      <div class="card-sub">Diese Nummern musst du auswendig kennen!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+
+      <div class="slabel">Notrufnummern in Deutschland</div>
+      <div class="notruf-grid">
+        <div class="notruf-card polizei">
+          <div class="notruf-number">110</div>
+          <div class="notruf-label">🚔 Polizei<br><span style="font-weight:400;font-size:.7rem;">Verbrechen, Einbruch, Gewalt</span></div>
+        </div>
+        <div class="notruf-card feuer">
+          <div class="notruf-number">112</div>
+          <div class="notruf-label">🚒 Feuerwehr &amp; Rettungsdienst<br><span style="font-weight:400;font-size:.7rem;">Feuer, Unfall, medizinischer Notfall</span></div>
+        </div>
+        <div class="notruf-card arzt">
+          <div class="notruf-number">116 117</div>
+          <div class="notruf-label">🏥 Ärztlicher Bereitschaftsdienst<br><span style="font-weight:400;font-size:.7rem;">Nicht lebensbedrohlich, außerhalb der Praxis-Öffnungszeiten</span></div>
+        </div>
+        <div class="notruf-card gift">
+          <div class="notruf-number">0800<br style="font-size:.5rem">192 40</div>
+          <div class="notruf-label">☠️ Giftnotruf<br><span style="font-weight:400;font-size:.7rem;">Vergiftung, gefährliche Substanzen</span></div>
+        </div>
+        <div class="notruf-card eu">
+          <div class="notruf-number">112</div>
+          <div class="notruf-label">🇪🇺 Europaweiter Notruf<br><span style="font-weight:400;font-size:.7rem;">Gilt in allen EU-Ländern</span></div>
+        </div>
+      </div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🎯</div>
+        <div class="tipp-text"><strong>Merktrick:</strong> Im Zweifel immer <strong>112</strong> – das ist die universelle Notrufnummer in ganz Europa. Die Leitstelle leitet dich dann weiter!</div>
+      </div>
+
+      <div class="slabel">Die 5 W-Fragen des Notrufs</div>
+      <div class="explain">
+        <h3>Was fragt die Leitstelle? – Was musst du sagen?</h3>
+        <p>
+          <strong>1. Wo?</strong> – Genauer Ort des Notfalls (Straße, Hausnummer, Orientierungspunkte)<br>
+          <strong>2. Was?</strong> – Was ist passiert? (Unfall, Feuer, Person bewusstlos…)<br>
+          <strong>3. Wie viele?</strong> – Wie viele Verletzte / Betroffene?<br>
+          <strong>4. Welche Art?</strong> – Welche Verletzungen / Symptome?<br>
+          <strong>5. Warten!</strong> – Nicht auflegen – auf Rückfragen warten!
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ VOKABELN -->
+<div id="phase-vokabeln" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">B2/C1 · Vokabeln · 8 Min.</div>
+      <div class="card-title">Das wichtigste <em>Vokabular</em></div>
+      <div class="card-sub">Klick auf die Karten!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+      <div class="slabel">Klick zum Aufdecken</div>
+      <div class="vok-grid" id="vokGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ REDEMITTEL -->
+<div id="phase-redemittel" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">B2/C1 · Redemittel · 8 Min.</div>
+      <div class="card-title">Was sagst du <em>beim Notruf?</em></div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+
+      <div class="slabel">📍 Ort beschreiben</div>
+      <div class="phrase-card"><div class="phrase-de">„Ich befinde mich in / auf der [Straße], Hausnummer [X]."</div><div class="phrase-en">I am at [street], house number [X].</div><div class="phrase-use">Immer zuerst den Ort nennen!</div></div>
+      <div class="phrase-card"><div class="phrase-de">„In der Nähe von [Orientierungspunkt] – z.B. neben dem Supermarkt."</div><div class="phrase-en">Near [landmark] – e.g. next to the supermarket.</div><div class="phrase-use">Wenn man die Adresse nicht kennt</div></div>
+
+      <div class="slabel">🚨 Den Notfall beschreiben</div>
+      <div class="phrase-card"><div class="phrase-de">„Es hat einen Unfall gegeben. Eine / Mehrere Personen sind verletzt."</div><div class="phrase-en">There has been an accident. One / Several people are injured.</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Eine Person ist bewusstlos / atmet nicht."</div><div class="phrase-en">A person is unconscious / not breathing.</div><div class="phrase-use">⚠️ Sofortige Hilfe nötig</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Es brennt in / an [Ort]. Das Feuer breitet sich aus."</div><div class="phrase-en">There is a fire at [location]. The fire is spreading.</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Jemand hat starke Brustschmerzen / kann nicht mehr sprechen."</div><div class="phrase-en">Someone has severe chest pain / can no longer speak.</div><div class="phrase-use">Herzinfarkt-Symptome</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Die Person hat sich stark verletzt – es blutet stark."</div><div class="phrase-en">The person is seriously injured – there is heavy bleeding.</div></div>
+
+      <div class="slabel">👤 Eigene Identität angeben</div>
+      <div class="phrase-card"><div class="phrase-de">„Mein Name ist [Name]. Ich bin Zeuge des Unfalls / Ich bin der / die Verletzte."</div><div class="phrase-en">My name is [Name]. I am a witness to the accident / I am the injured person.</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Ich bin Ersthelferin / Ersthelfer – ich habe die Person bereits in die stabile Seitenlage gebracht."</div><div class="phrase-en">I am a first aider – I have already put the person in the recovery position.</div></div>
+
+      <div class="slabel">❓ Rückfragen der Leitstelle beantworten</div>
+      <div class="phrase-card"><div class="phrase-de">„Sie atmet noch, aber sehr flach."</div><div class="phrase-en">She / He is still breathing, but very shallowly.</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Es sind etwa [X] Personen betroffen."</div><div class="phrase-en">There are approximately [X] people affected.</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Ich warte auf Ihre Anweisungen – ich lege nicht auf."</div><div class="phrase-en">I am waiting for your instructions – I won't hang up.</div><div class="phrase-use">Sehr wichtig!</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ DIALOGE -->
+<div id="phase-dialoge" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">B2/C1 · Musterdialoge · 10 Min.</div>
+      <div class="card-title">So klingt es <em>in der Praxis</em></div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">Dialog 1 – Unfall auf der Straße</div>
+      <div class="dialog">
+        <div class="dialog-hd">🚗 Verkehrsunfall – Notruf 112</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Notruf 112, was ist passiert?</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt"><strong>Hier hat es einen schweren Verkehrsunfall gegeben.</strong> Ich befinde mich auf der Hauptstraße, Ecke Bahnhofstraße in München.</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Wie viele Personen sind verletzt?</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt"><strong>Mindestens zwei Personen.</strong> Eine Person ist bewusstlos, die andere hat starke Schmerzen am Bein.</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Atmet die bewusstlose Person?</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt"><strong>Ja, sie atmet noch – aber sehr flach.</strong> Ich habe sie in die stabile Seitenlage gebracht.</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Gut gemacht. Rettungswagen und Polizei sind bereits unterwegs. Bitte bleiben Sie bei der Person und legen Sie nicht auf.</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt">Verstanden – <strong>ich warte auf Ihre Anweisungen und lege nicht auf.</strong></span></div>
+        </div>
+      </div>
+
+      <div class="slabel">Dialog 2 – Brand im Haus</div>
+      <div class="dialog">
+        <div class="dialog-hd">🔥 Brand – Notruf 112</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Feuerwehr Notruf, was brennt?</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt"><strong>Es brennt in meinem Wohnhaus!</strong> Ich bin in der Gartenstraße 45 in Berlin. Das Feuer ist im dritten Obergeschoss.</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Sind noch Personen im Gebäude?</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt">Ich weiß es nicht sicher. <strong>Ich habe das Gebäude bereits verlassen</strong> und stehe auf der Straße.</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Gut. Gehen Sie auf keinen Fall zurück ins Gebäude. Die Feuerwehr ist in ca. 4 Minuten bei Ihnen. Breitet sich das Feuer aus?</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt"><strong>Ja, ich sehe Rauch, der aus dem Fenster im vierten Stock kommt</strong> – es scheint sich auszubreiten.</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Informationen erhalten. Bitte warten Sie auf der Straße und winken Sie der Feuerwehr.</span></div>
+        </div>
+      </div>
+
+      <div class="slabel">Dialog 3 – Medizinischer Notfall</div>
+      <div class="dialog">
+        <div class="dialog-hd">🏥 Herzinfarkt-Verdacht – Notruf 112</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Notruf 112, was ist passiert?</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt"><strong>Mein Mann hat plötzlich starke Brustschmerzen und kann kaum noch sprechen.</strong> Ich glaube, es könnte ein Herzinfarkt sein.</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Wie alt ist Ihr Mann und ist er noch bei Bewusstsein?</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt">Er ist 58 Jahre alt. <strong>Er ist noch bei Bewusstsein, aber sehr blass und schwitzt stark.</strong></span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Wo befinden Sie sich genau?</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt">Wir sind zu Hause – Friedrichstraße 12, zweiter Stock, in Hamburg.</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Der Rettungswagen ist bereits alarmiert. Legen Sie Ihren Mann flach hin, lockern Sie seine Kleidung und öffnen Sie die Wohnungstür. Legen Sie bitte nicht auf.</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt">Ich mache das sofort. <strong>Ich warte auf weitere Anweisungen.</strong></span></div>
+        </div>
+      </div>
+
+      <div class="slabel">Dialog 4 – Kind verschluckt etwas / Vergiftung</div>
+      <div class="dialog">
+        <div class="dialog-hd">☠️ Vergiftung – Giftnotruf 0800 192 40</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk b">Giftnotruf</span><span class="dl-txt">Giftinformationszentrum, guten Tag!</span></div>
+          <div class="dl"><span class="dl-spk a">Mutter</span><span class="dl-txt"><strong>Mein Kind hat gerade Putzmittel getrunken – ich weiß nicht wie viel.</strong> Es ist 3 Jahre alt. Was soll ich tun?</span></div>
+          <div class="dl"><span class="dl-spk b">Giftnotruf</span><span class="dl-txt">Bitte bleiben Sie ruhig. Was für ein Putzmittel war es? Haben Sie die Flasche noch?</span></div>
+          <div class="dl"><span class="dl-spk a">Mutter</span><span class="dl-txt">Ja, ich habe sie – es ist ein Allzweckreiniger. <strong>Das Kind hustet und weint, aber es ist bei Bewusstsein.</strong></span></div>
+          <div class="dl"><span class="dl-spk b">Giftnotruf</span><span class="dl-txt">Geben Sie dem Kind bitte nichts zu trinken und lassen Sie es nicht erbrechen. Fahren Sie sofort in die Notaufnahme und nehmen Sie die Flasche mit. Rufen Sie vorher 112 an.</span></div>
+          <div class="dl"><span class="dl-spk a">Mutter</span><span class="dl-txt">Verstanden – <strong>ich rufe sofort 112 an und fahre in die Notaufnahme.</strong> Danke!</span></div>
+        </div>
+      </div>
+
+      <div class="slabel">Dialog 5 – Einbruch / Bedrohung</div>
+      <div class="dialog">
+        <div class="dialog-hd">🚔 Einbruch – Polizei 110</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk b">Polizei</span><span class="dl-txt">Polizeinotruf 110, was ist passiert?</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt"><strong>Ich glaube, jemand bricht gerade in meine Wohnung ein.</strong> Ich höre Geräusche an der Tür – jemand versucht das Schloss aufzubrechen.</span></div>
+          <div class="dl"><span class="dl-spk b">Polizei</span><span class="dl-txt">Wo befinden Sie sich gerade?</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt">Ich bin in meinem Schlafzimmer. <strong>Ich habe mich eingeschlossen.</strong> Die Adresse ist Rosenstraße 8, vierter Stock, in Frankfurt.</span></div>
+          <div class="dl"><span class="dl-spk b">Polizei</span><span class="dl-txt">Gut. Bleiben Sie ruhig und öffnen Sie auf keinen Fall die Tür. Eine Streife ist in ca. 3 Minuten bei Ihnen. Legen Sie bitte nicht auf.</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt">Okay, ich bleibe ruhig. <strong>Bitte beeilt euch – die Geräusche werden lauter.</strong></span></div>
+          <div class="dl"><span class="dl-spk b">Polizei</span><span class="dl-txt">Hilfe ist unterwegs. Sprechen Sie weiter mit mir – ich leite Sie durch.</span></div>
+        </div>
+      </div>
+
+      <div class="slabel">Dialog 6 – Schlaganfall (Stroke)</div>
+      <div class="dialog">
+        <div class="dialog-hd">🧠 Schlaganfall-Verdacht – Notruf 112</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Notruf 112!</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt"><strong>Meine Mutter kann plötzlich nicht mehr sprechen und ihr Mund hängt schief.</strong> Ich glaube, das ist ein Schlaganfall!</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Seit wann hat sie diese Symptome?</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt"><strong>Seit etwa 10 Minuten.</strong> Sie kann auch den rechten Arm nicht mehr heben – er hängt einfach runter.</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Ist sie bei Bewusstsein? Atmet sie?</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt">Ja, sie ist wach, aber sie versteht mich kaum. <strong>Sie schaut mich an, aber reagiert nicht richtig.</strong></span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Das klingt nach einem Schlaganfall – das ist ein Notfall. Lassen Sie sie sitzen, legen Sie sie nicht hin. Der Rettungswagen ist unterwegs. Öffnen Sie die Haustür.</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt">Ich mache das – <strong>wir sind in der Lindenallee 3 in Köln.</strong> Bitte schnell!</span></div>
+        </div>
+      </div>
+
+      <div class="slabel">Dialog 7 – Person im Wasser / Ertrinkungsgefahr</div>
+      <div class="dialog">
+        <div class="dialog-hd">🌊 Ertrinkungsgefahr – Notruf 112</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Notruf 112, was ist passiert?</span></div>
+          <div class="dl"><span class="dl-spk a">Zeuge</span><span class="dl-txt"><strong>Eine Person ist in den Fluss gefallen – am Rheinufer in Düsseldorf, Nähe Alte Brücke!</strong> Sie kann nicht schwimmen!</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Ist die Person noch über Wasser?</span></div>
+          <div class="dl"><span class="dl-spk a">Zeuge</span><span class="dl-txt"><strong>Ja, sie kämpft noch – aber sie geht immer wieder unter!</strong> Zwei Männer versuchen zu helfen aber kommen nicht heran.</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Bitte nicht selbst ins Wasser springen! Schauen Sie, ob es in der Nähe einen Rettungsring gibt – oft an roten Kästen am Ufer. Rettungskräfte und DLRG sind alarmiert.</span></div>
+          <div class="dl"><span class="dl-spk a">Zeuge</span><span class="dl-txt">Ich sehe einen Rettungsring – <strong>ich werfe ihn jetzt!</strong> Bitte beeilt euch!</span></div>
+        </div>
+      </div>
+
+      <div class="slabel">Dialog 8 – Gasgeruch in der Wohnung</div>
+      <div class="dialog">
+        <div class="dialog-hd">💨 Gasgeruch – Notruf 112</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Feuerwehr Notruf!
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt"><strong>Es riecht stark nach Gas in meiner Wohnung – ich bin schon schwindelig.</strong> Ich weiß nicht, woher es kommt!</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Verlassen Sie sofort die Wohnung! Machen Sie kein Licht an, keine Klingel, kein Feuerzeug. Wo befinden Sie sich?</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt"><strong>Ich gehe gerade raus –</strong> Kastanienweg 17 in Stuttgart. Soll ich den Haupthahn zudrehen?</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Nur wenn er direkt an der Tür ist – ansonsten sofort raus. Warnen Sie Ihre Nachbarn auf dem Weg raus, klopfen Sie kurz an Türen. Warten Sie draußen auf uns.</span></div>
+          <div class="dl"><span class="dl-spk a">Anrufer</span><span class="dl-txt">Ich bin draußen. <strong>Ich warne die Nachbarn – bitte kommt schnell!</strong></span></div>
+        
+      
+
+      <div class="slabel">Dialog 9 – Allergischer Schock</div>
+      <div class="dialog">
+        <div class="dialog-hd">🐝 Allergischer Schock – Notruf 112</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Notruf 112!</span></div>
+          <div class="dl"><span class="dl-spk a">Freund</span><span class="dl-txt"><strong>Mein Freund wurde von einer Wespe gestochen und hat jetzt einen allergischen Schock!</strong> Er bekommt kaum noch Luft und sein Gesicht schwillt an!</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Hat er einen Notfall-Pen – einen Adrenalin-Autoinjektor – dabei?</span></div>
+          <div class="dl"><span class="dl-spk a">Freund</span><span class="dl-txt"><strong>Ja! Er hat einen EpiPen!</strong> Soll ich ihn benutzen?</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Ja, sofort! In den Oberschenkel – auch durch die Kleidung ist das möglich. Halten Sie ihn 10 Sekunden gedrückt. Ich begleite Sie. Wo sind Sie?</span></div>
+          <div class="dl"><span class="dl-spk a">Freund</span><span class="dl-txt">Ich habe es gemacht – <strong>Stadtpark in Hannover, Nähe Eingang Ost.</strong> Er atmet noch, aber schwach.</span></div>
+          <div class="dl"><span class="dl-spk b">Leitstelle</span><span class="dl-txt">Gut gemacht. Rettungswagen ist unterwegs. Legen Sie ihn hin und heben Sie die Beine hoch – außer er hat Atemnot, dann halbsitzend. Bleiben Sie dran.</span></div>
+        </div>
+      </div>
+
+    
+  
+
+
+<!-- ⑥ ÜBUNGEN -->
+<div id="phase-uebung" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">B2/C1 · Übungen · 8 Min.</div>
+      <div class="card-title">Jetzt üben wir!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+
+      <div class="slabel">Übung 1 – Lückentext</div>
+      <p style="font-size:.82rem;color:#777;margin-bottom:.8rem;">Klick auf ein Wort, dann auf die Lücke.</p>
+      <div class="wbank" id="wb1"></div>
+      <div id="gaps1"></div>
+      <button class="check-btn" onclick="checkGaps()">✓ Prüfen <span id="sc1" class="score"></span></button>
+      <span class="reset-link" onclick="resetGaps()">zurücksetzen</span>
+
+      <hr class="div">
+
+      <div class="slabel">Übung 2 – Welche Nummer rufst du an?</div>
+      <div id="mc1"></div>
+
+      <hr class="div">
+
+      <div class="slabel">Übung 3 – Richtig oder Falsch?</div>
+      <div id="rf1"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑦ SPRECHEN -->
+<div id="phase-sprechen" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">B2/C1 · Rollenspiele · 10 Min.</div>
+      <div class="card-title">Jetzt seid <em>ihr dran!</em></div>
+      <div class="card-sub">Person A = Anrufer · Person B = Leitstelle</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">Rollenspiel-Karten – wählt eine Notfallsituation!</div>
+      <div class="speak-grid" id="speakCards"></div>
+
+      <hr class="div">
+
+      <div class="slabel">Debatte – Was denkt ihr?</div>
+      <div class="these">
+        <div class="these-num">1</div>
+        <div class="these-text">
+          Sollte Erste Hilfe / Notruf auf Deutsch ein Pflichtfach in Sprachkursen sein?
+          <div class="these-starter">„Ich würde sagen, dass…" / „Das halte ich für unbedingt notwendig, weil…" / „Andererseits…"</div>
+        </div>
+      </div>
+      <div class="these">
+        <div class="these-num">2</div>
+        <div class="these-text">
+          Wärst du in der Lage, in einem echten Notfall auf Deutsch zu telefonieren? Was würde dir schwerfallen?
+          <div class="these-starter">Ehrliche Antwort! „Ich glaube, das Schwierigste wäre…" / „Ich würde wahrscheinlich…"</div>
+        </div>
+      </div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🏠</div>
+        <div class="tipp-text"><strong>Hausaufgabe:</strong> Speicher die Nummer 112 in deinem Handy – falls noch nicht geschehen! Und übe laut, wie du deinen genauen Wohnort auf Deutsch beschreibst. Das kann Leben retten.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+const TOTAL=3600;let remaining=TOTAL,interval=null,running=false;
+function updateTimerDisplay(){
+  const m=Math.floor(remaining/60),s=remaining%60;
+  const d=document.getElementById('timerDisplay');
+  d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  document.getElementById('timerFill').style.width=(remaining/TOTAL*100)+'%';
+  d.className='timer-display';
+  if(remaining<=600)d.classList.add('warn');
+  if(remaining<=120)d.classList.add('urgent');
+}
+function toggleTimer(){
+  if(running){clearInterval(interval);running=false;document.querySelector('.tbtn.start').textContent='▶ Start';}
+  else{running=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';interval=setInterval(()=>{if(remaining>0){remaining--;updateTimerDisplay();}else{clearInterval(interval);running=false;}},1000);}
+}
+function resetTimer(){clearInterval(interval);running=false;remaining=TOTAL;updateTimerDisplay();document.querySelector('.tbtn.start').textContent='▶ Start';}
+
+function showPhase(id,btn){
+  document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('phase-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+const vokData=[
+  {front:'der Notruf',back:'= emergency call\n„Ich muss einen Notruf absetzen!"',hint:'Pl: Notruf-e'},
+  {front:'die Leitstelle',back:'= emergency control centre\n„Die Leitstelle nimmt den Anruf entgegen."',hint:'= Rettungsleitstelle'},
+  {front:'der Rettungswagen (RTW)',back:'= ambulance\n„Der Rettungswagen ist in 5 Minuten da."',hint:'umgangssprachlich: Krankenwagen'},
+  {front:'bewusstlos',back:'= unconscious\n„Die Person ist bewusstlos – reagiert nicht."',hint:'Gegenteil: bei Bewusstsein'},
+  {front:'die stabile Seitenlage',back:'= recovery position\n„Ich habe die Person in die stabile Seitenlage gebracht."',hint:'Erste-Hilfe-Grundkurs!'},
+  {front:'der Ersthelfer / die Ersthelferin',back:'= first aider\n„Ist jemand Ersthelfer hier?"',hint:'wichtig bei Unfällen'},
+  {front:'bluten',back:'= to bleed\n„Die Wunde blutet stark."',hint:'das Blut · die Blutung'},
+  {front:'der Herzinfarkt',back:'= heart attack\n„Ich vermute einen Herzinfarkt."',hint:'Symptome: Brustschmerzen, Schweißausbruch'},
+  {front:'sich ausbreiten',back:'= to spread\n„Das Feuer breitet sich aus."',hint:'trennbar: breitet … aus'},
+  {front:'die Anweisung',back:'= instruction\n„Ich warte auf Ihre Anweisungen."',hint:'Pl: Anweisungen'},
+];
+
+function buildVok(){
+  const grid=document.getElementById('vokGrid');
+  vokData.forEach(v=>{
+    const div=document.createElement('div');div.className='vok-card';
+    div.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${v.back.replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint} · klicken!</div>`;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+const gapData=[
+  {pre:'Es hat einen Unfall gegeben – ich muss einen ',blank:'Notruf',post:' absetzen.'},
+  {pre:'Ich befinde mich auf der Hauptstraße, ',blank:'Ecke',post:' Bahnhofstraße.'},
+  {pre:'Die Person ist ',blank:'bewusstlos',post:' – sie reagiert nicht mehr.'},
+  {pre:'Ich habe sie in die stabile ',blank:'Seitenlage',post:' gebracht.'},
+  {pre:'Das Feuer ',blank:'breitet sich aus',post:' – bitte kommen Sie schnell!'},
+  {pre:'Ich warte auf Ihre ',blank:'Anweisungen',post:' und lege nicht auf.'},
+];
+const bankWords=['Notruf','Ecke','bewusstlos','Seitenlage','breitet sich aus','Anweisungen'];
+let selChip=null;const fills={};
+
+function buildGaps(){
+  const wb=document.getElementById('wb1');wb.innerHTML='';
+  bankWords.forEach(w=>{
+    const c=document.createElement('span');c.className='chip';c.textContent=w;c.dataset.word=w;
+    c.addEventListener('click',()=>{document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));selChip=selChip===w?null:w;if(selChip)c.classList.add('active');});
+    wb.appendChild(c);
+  });
+  const gc=document.getElementById('gaps1');gc.innerHTML='';
+  gapData.forEach((s,i)=>{
+    const row=document.createElement('div');row.className='gap-row';row.id='gr'+i;
+    row.innerHTML=`<span>${s.pre}</span><span class="blank" id="gb${i}" onclick="fillBlank(${i})">${fills[i]||''}</span><span>${s.post}</span><span class="g-icon" id="gi${i}"></span>`;
+    gc.appendChild(row);
+  });
+}
+function fillBlank(i){if(!selChip)return;fills[i]=selChip;document.getElementById('gb'+i).textContent=selChip;document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));selChip=null;}
+function checkGaps(){
+  let ok=0;
+  gapData.forEach((s,i)=>{
+    const row=document.getElementById('gr'+i),icon=document.getElementById('gi'+i);
+    const correct=fills[i]&&fills[i].toLowerCase()===s.blank.toLowerCase();
+    row.classList.toggle('correct',correct);row.classList.toggle('wrong',!correct);
+    icon.textContent=correct?'✅':'❌';if(correct)ok++;
+  });
+  const sc=document.getElementById('sc1');sc.textContent=`${ok}/${gapData.length}`;sc.classList.add('show');
+}
+function resetGaps(){
+  gapData.forEach((s,i)=>{delete fills[i];document.getElementById('gr'+i).classList.remove('correct','wrong');document.getElementById('gi'+i).textContent='';document.getElementById('gb'+i).textContent='';});
+  selChip=null;document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));
+  document.getElementById('sc1').classList.remove('show');
+}
+
+const mcData=[
+  {q:'Du siehst einen schweren Autounfall mit Verletzten. Welche Nummer rufst du an?',opts:['110 – Polizei','112 – Feuerwehr & Rettungsdienst','116 117 – Ärztlicher Bereitschaftsdienst'],correct:1,fb:'✓ Richtig! 112 ist die Nummer für alle lebensbedrohlichen Notfälle – Unfall, Feuer, medizinisch.'},
+  {q:'Du hörst Einbrecher in deiner Wohnung. Welche Nummer rufst du an?',opts:['112','110 – Polizei','116 117'],correct:1,fb:'✓ Richtig! Bei Verbrechen, Einbruch oder Bedrohung → 110 Polizei.'},
+  {q:'Dein Kind hat etwas Giftiges gegessen. Welche Nummer rufst du an?',opts:['112','110','0800 192 40 – Giftnotruf'],correct:2,fb:'✓ Richtig! Der Giftnotruf ist spezialisiert auf Vergiftungen und gibt sofortige Anweisungen. Bei Bewusstlosigkeit zusätzlich 112!'},
+  {q:'Es ist Samstagabend und du hast starke Ohrenschmerzen – kein Notfall. Welche Nummer?',opts:['112','110','116 117 – Ärztlicher Bereitschaftsdienst'],correct:2,fb:'✓ Richtig! 116 117 ist für nicht lebensbedrohliche Beschwerden außerhalb der Praxiszeiten.'},
+];
+function buildMC(){
+  const c=document.getElementById('mc1');
+  mcData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='mc';
+    const optsHtml=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${i}')">${o}</button>`).join('');
+    div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${optsHtml}</div><div class="mc-fb" id="mcfb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerMC(btn,j,correct,fbId){
+  btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>{b.disabled=true;});
+  btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');
+  if(j!==correct)btn.classList.add('nope');
+  const fb=document.getElementById(fbId);fb.classList.add('show');
+  fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);
+}
+
+const rfData=[
+  {s:'Man sollte den Notruf sofort auflegen, wenn man alle Informationen gegeben hat.',ok:false,fb:'✗ Falsch! Niemals sofort auflegen! Die Leitstelle hat möglicherweise weitere Fragen und gibt wichtige Anweisungen. „Ich warte auf Ihre Anweisungen" – und dann warten!'},
+  {s:'Die 5 W-Fragen beim Notruf sind: Wo, Was, Wie viele, Welche Art, Warten.',ok:true,fb:'✓ Richtig! Die 5 W-Fragen sind das Grundgerüst jedes Notrufs – immer in dieser Reihenfolge denken!'},
+  {s:'112 gilt nur in Deutschland, nicht im Ausland.',ok:false,fb:'✗ Falsch! 112 ist die europaweite Notrufnummer – sie funktioniert in allen EU-Ländern und in vielen weiteren Ländern weltweit!'},
+  {s:'„Die Person ist bewusstlos" bedeutet: Die Person schläft tief.',ok:false,fb:'✗ Falsch! Bewusstlos = unconscious – die Person reagiert nicht auf Ansprechen oder Berühren. Das ist ein medizinischer Notfall, kein normaler Schlaf!'},
+  {s:'Die stabile Seitenlage verhindert, dass eine bewusstlose Person an Erbrochenem erstickt.',ok:true,fb:'✓ Richtig! Die stabile Seitenlage ist eine lebensrettende Maßnahme bei bewusstlosen Personen, die noch atmen.'},
+];
+function buildRF(){
+  const c=document.getElementById('rf1');
+  rfData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='rf';div.id='rfc'+i;
+    div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF(${i},true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF(${i},false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerRF(i,answer,btn){
+  const card=document.getElementById('rfc'+i);
+  card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));
+  btn.classList.add(answer?'sel-r':'sel-f');
+  const correct=answer===rfData[i].ok;
+  card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);
+  const fb=document.getElementById('rffb'+i);fb.classList.add('show');
+  fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);
+}
+
+const speakData=[
+  {front:'🚗 Verkehrsunfall\nAuf der Straße – 2 Verletzte, 1 bewusstlos',back:'Person A: Anrufer · Person B: Leitstelle (112)\nFragen: Wo? Was? Wie viele? Atmet die Person?\nBenutze: „bewusstlos", „stabile Seitenlage", „Anweisungen"'},
+  {front:'🔥 Wohnungsbrand\nRauch im Treppenhaus – Bewohner flüchten',back:'Person A: Anrufer (steht auf der Straße) · Person B: Leitstelle Feuerwehr (112)\nFragen: Wo genau? Noch Personen drin?\nBenutze: „breitet sich aus", „bereits verlassen", „Rauch"'},
+  {front:'🏥 Herzinfarkt-Verdacht\nDein Nachbar, 65 Jahre, Brustschmerzen',back:'Person A: Anrufer · Person B: Leitstelle (112)\nFragen: Wie alt? Bei Bewusstsein? Adresse?\nBenutze: „Brustschmerzen", „blass", „schwitzt", „Wohnungstür öffnen"'},
+  {front:'🏃 Sturz auf der Straße\nEine ältere Person ist gestürzt, kann nicht aufstehen',back:'Person A: Anrufer (Zeuge) · Person B: Leitstelle (112)\nFragen: Wo? Wie alt? Bewusst? Blutet?\nBenutze: „gestürzt", „Schmerzen", „Zeuge", „reagiert"'},
+  {front:'☠️ Kind hat Putzmittel getrunken\nKind, 3 Jahre, beim Spielen – du bist die Mutter',back:'Person A: Mutter · Person B: Giftnotruf (0800 192 40)\nFragen: Was genau? Wie viel? Zustand des Kindes?\nBenutze: „hustet", „bei Bewusstsein", „Flasche", „Notaufnahme"'},
+  {front:'🚔 Einbruch – du hörst jemanden an deiner Tür\nDu bist allein, hast dich eingeschlossen',back:'Person A: Anrufer · Person B: Polizei (110)\nFragen: Adresse? Wo bist du? Hörst du noch Geräusche?\nBenutze: „eingeschlossen", „Geräusche", „ruhig bleiben"'},
+  {front:'🧠 Schlaganfall-Verdacht\nDeine Mutter kann nicht mehr sprechen, Mund hängt schief',back:'Person A: Anrufer · Person B: Leitstelle (112)\nFragen: Seit wann? Bei Bewusstsein? Adresse?\nBenutze: „Schlaganfall", „nicht sprechen", „Arm hängt runter", „10 Minuten"'},
+  {front:'💨 Gasgeruch in der Wohnung\nDu riechst Gas – du bist schwindelig',back:'Person A: Anrufer (bereits auf dem Weg raus) · Person B: Feuerwehr (112)\nFragen: Adresse? Allein? Haupthahn?\nBenutze: „riecht nach Gas", „schwindelig", „verlasse die Wohnung", „Nachbarn warnen"'},
+  {front:'🌊 Person im See / Fluss\nEin Kind ist beim Spielen ins Wasser gefallen',back:'Person A: Zeuge · Person B: Leitstelle (112)\nFragen: Wo genau? Noch zu sehen? Rettungsring?\nBenutze: „gefallen", „kämpft", „Rettungsring", „Ufer"'},
+  {front:'🐝 Allergischer Schock nach Bienenstich\nDein Freund schwillt an und bekommt kaum Luft',back:'Person A: Anrufer · Person B: Leitstelle (112)\nFragen: Wann? EpiPen dabei? Bewusst? Wo?\nBenutze: „gestochen", „Schock", „EpiPen", „Gesicht schwillt an", „schwache Atmung"'},
+  {front:'🦴 Sportunfall – Arm gebrochen?\nDein Freund ist beim Fußball gestürzt, Arm schwillt stark an',back:'Person A: Anrufer · Person B: 116 117 (ärztlicher Bereitschaftsdienst) oder 112\nFragen: Bewusstlos? Schwere Verletzung? Blutet?\nBenutze: „gestürzt", „schwillt an", „kann nicht bewegen", „starke Schmerzen"'},
+  {front:'🚶 Vermisste Person\nDeine 80-jährige Oma ist seit 3 Stunden nicht zuhause, Demenz',back:'Person A: Anrufer · Person B: Polizei (110)\nFragen: Beschreibung? Wann zuletzt gesehen? Wohin könnte sie gehen?\nBenutze: „vermisst", „Demenz", „zuletzt gesehen", „Beschreibung", „Kleidung"'},
+];
+function buildSpeakCards(){
+  const grid=document.getElementById('speakCards');
+  speakData.forEach(item=>{
+    const div=document.createElement('div');div.className='speak-card';
+    div.innerHTML=`<div class="speak-front">${item.front.replace(/\n/g,'<br>')}</div><div class="speak-back">${item.back.replace(/\n/g,'<br>')}</div><div class="speak-hint">👆 klicken für Hilfe</div>`;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+buildVok();buildGaps();buildMC();buildRF();buildSpeakCards();updateTimerDisplay();
+</script>
+
+
+          
+        </span></div></div></div></div></div></div></main></body></html></body></html>

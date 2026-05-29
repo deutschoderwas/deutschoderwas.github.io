@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+        <html>
+          <head>
+            <title data-id="th-modified">Web Page</title>
+            
+          <meta property="og:title" content="Web Page" data-id="th-modified" ><meta name="description" content="code" data-id="th-modified" ><meta property="og:description" content="code" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="https://smalltalk-uebungen.tiiny.site/" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="smalltalk-uebungen.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+          <body>
+            <!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smalltalk App – deutschoderwas</title>
+<style>
+/* ── RESET & BASE ── */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#2ABFBF;--teal-d:#1a9a9a;--teal-l:#d8f5f5;
+  --black:#111;--red:#CC0000;--gold:#FFCC00;--gold-l:#fff9e0;
+  --white:#fff;--bg:#f0f4f4;--text:#1a1a1a;--muted:#777;
+  --ok:#2e7d32;--ok-bg:#e8f5e9;--err:#c62828;--err-bg:#ffebee;
+  --card:#ffffff;--border:#e0e0e0;
+  --shadow:0 2px 12px rgba(0,0,0,.08);
+}
+html{scroll-behavior:smooth}
+body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:80px}
+
+/* ── HEADER ── */
+.app-header{background:var(--black);color:var(--white);padding:14px 20px 10px;text-align:center;position:sticky;top:0;z-index:200}
+.app-header .brand{font-family:'Courier New',monospace;font-size:11px;letter-spacing:3px;color:var(--teal);text-transform:uppercase;margin-bottom:4px}
+.app-header h1{font-size:18px;font-weight:bold}
+.app-header .subtitle{font-size:12px;color:#aaa;font-style:italic;margin-top:2px}
+.flag-strip{height:4px;background:linear-gradient(90deg,var(--black) 33%,var(--red) 33% 66%,var(--gold) 66%)}
+
+/* ── PROGRESS BAR ── */
+.progress-bar-wrap{background:var(--black);padding:8px 20px 10px}
+.xp-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.xp-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:1px;color:var(--teal)}
+.xp-val{font-family:'Courier New',monospace;font-size:11px;color:var(--gold);font-weight:bold}
+.xp-track{height:8px;background:#333;border-radius:10px;overflow:hidden}
+.xp-fill{height:8px;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:10px;transition:width .5s ease;width:0%}
+.stats-row{display:flex;gap:16px;justify-content:center;padding:6px 0 0}
+.stat-chip{background:#1e1e1e;border:1px solid #333;border-radius:20px;padding:3px 10px;font-family:'Courier New',monospace;font-size:10px;color:#ccc}
+.stat-chip span{color:var(--gold);font-weight:bold}
+
+/* ── NAV TABS ── */
+.nav-tabs{display:flex;background:var(--white);border-bottom:3px solid var(--teal);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.nav-tab{flex-shrink:0;padding:10px 14px;border:none;background:none;font-family:'Courier New',monospace;font-size:11px;color:var(--muted);cursor:pointer;letter-spacing:.5px;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .2s}
+.nav-tab.active,.nav-tab:hover{color:var(--teal-d);border-bottom-color:var(--teal);background:var(--teal-l)}
+.nav-tab .tab-icon{display:block;font-size:16px;margin-bottom:2px}
+
+/* ── CONTAINER ── */
+.container{max-width:780px;margin:0 auto;padding:20px 14px}
+
+/* ── SCREENS ── */
+.screen{display:none}.screen.active{display:block}
+
+/* ── SECTION HEADERS ── */
+.sec-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sec-num{width:28px;height:28px;background:var(--teal);color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:12px;font-weight:bold;flex-shrink:0}
+.sec-title{font-size:16px;font-weight:bold;color:var(--black)}
+
+/* ── CARDS ── */
+.card{background:var(--card);border-radius:12px;border:1px solid var(--border);box-shadow:var(--shadow);padding:20px;margin-bottom:20px}
+
+/* ── SITUATION PILLS ── */
+.sit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:16px}
+.sit-pill{border:2px solid var(--teal);border-radius:10px;overflow:hidden;cursor:default}
+.sit-pill .sp-icon{background:var(--teal);text-align:center;padding:10px;font-size:24px}
+.sit-pill .sp-text{padding:8px 10px;font-size:12px;font-weight:bold;color:var(--black)}
+
+/* ── CHAT BUBBLES ── */
+.chat-wrap{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.brow{display:flex;align-items:flex-end;gap:8px}
+.brow.right{flex-direction:row-reverse}
+.av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:11px;font-weight:bold;flex-shrink:0}
+.av.a{background:var(--teal);color:var(--white)}
+.av.b{background:var(--black);color:var(--white)}
+.bub{max-width:75%;padding:9px 13px;border-radius:16px;font-size:13px;line-height:1.5}
+.bub.a{background:var(--teal-l);border:1.5px solid var(--teal);border-bottom-left-radius:4px}
+.bub.b{background:#f0f0f0;border:1.5px solid #ddd;border-bottom-right-radius:4px}
+.bub .spk{font-size:9px;font-family:'Courier New',monospace;letter-spacing:1px;color:var(--muted);margin-bottom:3px}
+.bub mark{background:rgba(255,204,0,.4);border-radius:3px;padding:0 2px;font-weight:bold;color:inherit}
+.dialog-tip{background:var(--gold-l);border-left:4px solid var(--gold);padding:9px 12px;border-radius:0 6px 6px 0;font-size:12px;color:#5a4000;margin-top:8px}
+
+/* ── PHRASE ROWS ── */
+.phrase-cat{margin-bottom:18px}
+.phrase-cat-title{font-family:'Courier New',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--white);background:var(--teal-d);display:inline-block;padding:3px 10px;border-radius:4px;margin-bottom:8px}
+.phrase-item{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:5px}
+.ph-de{background:var(--teal-l);border-left:3px solid var(--teal);padding:7px 10px;border-radius:0 5px 5px 0;font-size:13px;font-weight:bold;color:var(--black)}
+.ph-note{background:#f5f5f5;border-left:3px solid #ccc;padding:7px 10px;border-radius:0 5px 5px 0;font-size:12px;color:var(--muted);font-style:italic}
+
+/* ── KULTUR CARDS ── */
+.kultur-card{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.kultur-card .kh{background:var(--red);color:var(--white);padding:8px 14px;font-family:'Courier New',monospace;font-size:11px;letter-spacing:1px}
+.kultur-card .kb{padding:12px 14px;font-size:13px;line-height:1.65}
+.kultur-card .kb strong{color:var(--teal-d)}
+
+/* ── EXERCISE ENGINE ── */
+.ex-block{margin-bottom:28px}
+.ex-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.ex-badge{background:var(--black);color:var(--white);font-family:'Courier New',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 8px;border-radius:4px}
+.ex-badge.quiz{background:var(--teal)}
+.ex-badge.gap{background:var(--teal-d)}
+.ex-badge.order{background:#7a5900}
+.ex-badge.match{background:var(--red)}
+.ex-badge.write{background:#333}
+.ex-badge.flash{background:var(--teal-d)}
+.ex-title{font-size:14px;font-weight:bold;color:var(--black)}
+.ex-instructions{font-size:12px;color:var(--muted);font-style:italic;margin-bottom:12px;border-left:3px solid var(--gold);padding-left:10px}
+
+/* MC buttons */
+.mc-grid{display:flex;flex-direction:column;gap:7px;margin-top:8px}
+.mc-q{font-size:14px;font-weight:bold;margin-bottom:8px;line-height:1.5}
+.mc-btn{width:100%;text-align:left;padding:10px 14px;border:2px solid var(--border);border-radius:9px;background:var(--white);font-size:13px;cursor:pointer;font-family:Georgia,serif;transition:all .15s;line-height:1.4}
+.mc-btn:hover:not(:disabled){border-color:var(--teal);background:var(--teal-l)}
+.mc-btn.correct{border-color:var(--ok);background:var(--ok-bg);color:var(--ok)}
+.mc-btn.wrong{border-color:var(--err);background:var(--err-bg);color:var(--err)}
+.mc-btn:disabled{cursor:default}
+.mc-item{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.mc-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+
+/* Gap fill */
+.gap-sentence{font-size:14px;line-height:2.2;margin-bottom:8px}
+.gap-select{border:2px solid var(--teal);border-radius:6px;padding:3px 6px;font-size:13px;font-family:Georgia,serif;background:var(--white);color:var(--text);cursor:pointer;-webkit-appearance:none;appearance:none;padding-right:20px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%232ABFBF'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 6px center}
+.gap-select.ok{border-color:var(--ok);background-color:var(--ok-bg)}
+.gap-select.err{border-color:var(--err);background-color:var(--err-bg)}
+
+/* Word order */
+.word-bank{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;min-height:36px;background:#f5f5f5;border:2px dashed #ccc;border-radius:8px;padding:8px}
+.word-tile{background:var(--white);border:2px solid var(--teal);border-radius:6px;padding:5px 10px;font-size:13px;cursor:pointer;font-family:Georgia,serif;user-select:none;transition:all .15s}
+.word-tile:hover{background:var(--teal-l);transform:translateY(-1px)}
+.word-tile.placed{background:var(--teal-l);border-color:var(--teal-d)}
+.answer-area{display:flex;flex-wrap:wrap;gap:6px;min-height:40px;background:var(--teal-l);border:2px solid var(--teal);border-radius:8px;padding:8px;margin-bottom:10px}
+.answer-area .word-tile{border-color:var(--teal-d);background:var(--white)}
+
+/* Matching */
+.match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.match-col{display:flex;flex-direction:column;gap:6px}
+.match-item{padding:9px 12px;border-radius:8px;font-size:13px;cursor:pointer;border:2px solid var(--border);background:var(--white);transition:all .15s;text-align:center}
+.match-item:hover{border-color:var(--teal);background:var(--teal-l)}
+.match-item.selected{border-color:var(--teal);background:var(--teal-l);transform:scale(1.02)}
+.match-item.matched{border-color:var(--ok);background:var(--ok-bg);cursor:default}
+.match-item.wrong-match{border-color:var(--err);background:var(--err-bg)}
+
+/* Flashcards */
+.flashcard-wrap{perspective:1000px;margin-bottom:16px}
+.flashcard{width:100%;min-height:160px;position:relative;transform-style:preserve-3d;transition:transform .5s ease;cursor:pointer;border-radius:14px}
+.flashcard.flipped{transform:rotateY(180deg)}
+.fc-front,.fc-back{position:absolute;width:100%;min-height:160px;backface-visibility:hidden;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+.fc-front{background:linear-gradient(135deg,var(--teal),var(--teal-d));color:var(--white);border:3px solid var(--teal-d)}
+.fc-back{background:linear-gradient(135deg,var(--black),#333);color:var(--white);transform:rotateY(180deg);border:3px solid #555}
+.fc-label{font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;opacity:.7;margin-bottom:8px;text-transform:uppercase}
+.fc-phrase{font-size:17px;font-weight:bold;line-height:1.4}
+.fc-note{font-size:12px;opacity:.8;margin-top:8px;font-style:italic}
+.fc-tap{font-size:10px;opacity:.5;margin-top:12px;font-family:'Courier New',monospace}
+.fc-controls{display:flex;gap:10px;justify-content:center;margin-top:10px}
+.fc-btn{padding:9px 20px;border:none;border-radius:8px;font-size:13px;cursor:pointer;font-family:'Courier New',monospace;font-weight:bold;letter-spacing:.5px;transition:all .15s}
+.fc-btn.know{background:var(--ok);color:var(--white)}
+.fc-btn.know:hover{background:#1b5e20}
+.fc-btn.skip{background:#888;color:var(--white)}
+.fc-btn.skip:hover{background:#555}
+.fc-progress{font-family:'Courier New',monospace;font-size:11px;color:var(--muted);text-align:center;margin-bottom:8px}
+
+/* Situation chooser */
+.sit-chooser{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.sit-btn{padding:8px 14px;border:2px solid var(--teal);border-radius:20px;background:var(--white);font-size:12px;cursor:pointer;font-family:'Courier New',monospace;letter-spacing:.5px;transition:all .15s}
+.sit-btn:hover,.sit-btn.active{background:var(--teal);color:var(--white)}
+
+/* Check button */
+.check-btn{background:var(--teal);color:var(--white);border:none;padding:10px 24px;border-radius:8px;font-size:13px;font-family:'Courier New',monospace;letter-spacing:1px;cursor:pointer;margin-top:10px;transition:background .2s}
+.check-btn:hover{background:var(--teal-d)}
+.reset-btn{background:transparent;color:var(--muted);border:1px solid #ccc;padding:8px 16px;border-radius:8px;font-size:12px;font-family:'Courier New',monospace;cursor:pointer;margin-top:8px;margin-left:8px}
+
+/* Feedback box */
+.feedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;display:none}
+.feedback.show{display:block}
+.feedback.ok-fb{background:var(--ok-bg);color:var(--ok);border-left:4px solid var(--ok)}
+.feedback.err-fb{background:var(--err-bg);color:var(--err);border-left:4px solid var(--err)}
+
+/* Write textarea */
+textarea.write-input{width:100%;border:2px solid var(--border);border-radius:8px;padding:10px 12px;font-size:13px;font-family:Georgia,serif;resize:vertical;min-height:70px;color:var(--text);transition:border-color .2s}
+textarea.write-input:focus{border-color:var(--teal);outline:none}
+
+/* Details */
+details{margin-top:8px;border:1px solid var(--border);border-radius:6px;overflow:hidden}
+summary{background:#f5f5f5;padding:8px 14px;cursor:pointer;font-size:12px;color:var(--teal-d);font-family:'Courier New',monospace;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▶ ";font-size:10px}
+details[open] summary::before{content:"▼ "}
+details .sol{padding:12px 14px;font-size:13px;background:var(--white)}
+details .sol .si{padding:4px 0;border-bottom:1px solid #f0f0f0;font-size:13px}
+details .sol .si:last-child{border-bottom:none}
+
+/* Score toast */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--black);color:var(--white);padding:12px 20px;border-radius:10px;font-family:'Courier New',monospace;font-size:13px;z-index:999;transform:translateY(80px);opacity:0;transition:all .3s}
+.toast.show{transform:translateY(0);opacity:1}
+.toast .t-xp{color:var(--gold);font-weight:bold}
+
+/* ── HOME SCREEN ── */
+.home-hero{text-align:center;padding:30px 20px 20px}
+.home-hero .hero-emoji{font-size:52px;display:block;margin-bottom:10px}
+.home-hero h2{font-size:22px;margin-bottom:6px}
+.home-hero p{font-size:14px;color:var(--muted);max-width:400px;margin:0 auto 20px}
+.module-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.module-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;text-align:center;transition:all .2s;box-shadow:var(--shadow)}
+.module-card:hover{transform:translateY(-2px);border-color:var(--teal);box-shadow:0 6px 20px rgba(42,191,191,.2)}
+.module-card .mc-icon{font-size:28px;margin-bottom:8px}
+.module-card .mc-name{font-size:13px;font-weight:bold;margin-bottom:4px}
+.module-card .mc-count{font-size:11px;color:var(--muted);font-family:'Courier New',monospace}
+.module-card .mc-bar{height:4px;background:#eee;border-radius:2px;margin-top:8px}
+.module-card .mc-fill{height:4px;background:var(--teal);border-radius:2px;transition:width .5s}
+
+/* Tip box */
+.tip-box{background:var(--gold-l);border:1px solid var(--gold);border-radius:8px;padding:12px 16px;font-size:13px;color:#5a4000;margin-top:12px}
+.tip-box strong{color:#7a5900}
+
+/* Sticker */
+.sticker{display:inline-block;background:var(--teal);color:var(--white);font-size:9px;font-family:'Courier New',monospace;letter-spacing:1px;padding:2px 7px;border-radius:12px;text-transform:uppercase;margin-left:5px;vertical-align:middle}
+
+/* Dialog navigation */
+.dialog-nav{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.dialog-nav-btn{padding:7px 14px;border:2px solid var(--teal);border-radius:6px;background:var(--white);font-size:11px;cursor:pointer;font-family:'Courier New',monospace;transition:all .15s}
+.dialog-nav-btn.active,.dialog-nav-btn:hover{background:var(--teal);color:var(--white)}
+
+@media(max-width:600px){
+  .phrase-item{grid-template-columns:1fr}
+  .match-wrap{grid-template-columns:1fr}
+  .sit-grid{grid-template-columns:repeat(2,1fr)}
+  .module-grid{grid-template-columns:repeat(2,1fr)}
+  .bub{font-size:12px;padding:7px 11px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="app-header">
+  <div class="brand">deutschoderwas · Sprechclub</div>
+  <h1>Smalltalk auf der Straße</h1>
+  <div class="subtitle">Lern-App für zu Hause · B1/B2</div>
+</div>
+<div class="flag-strip"></div>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar-wrap">
+  <div class="xp-row">
+    <span class="xp-label">FORTSCHRITT</span>
+    <span class="xp-val" id="xp-display">0 XP</span>
+  </div>
+  <div class="xp-track"><div class="xp-fill" id="xp-bar"></div></div>
+  <div class="stats-row">
+    <div class="stat-chip">✅ Richtig: <span id="stat-ok">0</span></div>
+    <div class="stat-chip">🎯 Übungen: <span id="stat-done">0</span></div>
+    <div class="stat-chip">🔥 Streak: <span id="stat-streak">0</span></div>
+  </div>
+</div>
+
+<!-- NAV TABS -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showScreen('home')"><span class="tab-icon">🏠</span>START</button>
+  <button class="nav-tab" onclick="showScreen('situationen')"><span class="tab-icon">📍</span>SITUATIONEN</button>
+  <button class="nav-tab" onclick="showScreen('dialoge')"><span class="tab-icon">💬</span>DIALOGE</button>
+  <button class="nav-tab" onclick="showScreen('redemittel')"><span class="tab-icon">🗣️</span>REDEMITTEL</button>
+  <button class="nav-tab" onclick="showScreen('flashcards')"><span class="tab-icon">🃏</span>KARTEN</button>
+  <button class="nav-tab" onclick="showScreen('uebungen')"><span class="tab-icon">🎯</span>ÜBUNGEN</button>
+  <button class="nav-tab" onclick="showScreen('kulturelles')"><span class="tab-icon">🇩🇪</span>KULTUR</button>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SCREEN: HOME -->
+<!-- ══════════════════════════════════════════ -->
+<div class="screen active" id="screen-home">
+<div class="container">
+  <div class="home-hero">
+    <span class="hero-emoji">🇩🇪</span>
+    <h2>Willkommen zur Lern-App!</h2>
+    <p>Hier übst du Smalltalk auf der Straße und mit Nachbarn – so wie Deutsche wirklich sprechen.</p>
+  </div>
+  <div class="module-grid">
+    <div class="module-card" onclick="showScreen('situationen')">
+      <div class="mc-icon">📍</div>
+      <div class="mc-name">Situationen</div>
+      <div class="mc-count">8 Situationen</div>
+      <div class="mc-bar"><div class="mc-fill" style="width:0%" id="prog-sit"></div></div>
+    </div>
+    <div class="module-card" onclick="showScreen('dialoge')">
+      <div class="mc-icon">💬</div>
+      <div class="mc-name">Echte Dialoge</div>
+      <div class="mc-count">5 Dialoge</div>
+      <div class="mc-bar"><div class="mc-fill" style="width:0%" id="prog-dial"></div></div>
+    </div>
+    <div class="module-card" onclick="showScreen('redemittel')">
+      <div class="mc-icon">🗣️</div>
+      <div class="mc-name">Redemittel</div>
+      <div class="mc-count">20+ Ausdrücke</div>
+      <div class="mc-bar"><div class="mc-fill" style="width:0%" id="prog-red"></div></div>
+    </div>
+    <div class="module-card" onclick="showScreen('flashcards')">
+      <div class="mc-icon">🃏</div>
+      <div class="mc-name">Lernkarten</div>
+      <div class="mc-count">20 Karten</div>
+      <div class="mc-bar"><div class="mc-fill" style="width:0%" id="prog-flash"></div></div>
+    </div>
+    <div class="module-card" onclick="showScreen('uebungen')">
+      <div class="mc-icon">🎯</div>
+      <div class="mc-name">Übungen</div>
+      <div class="mc-count">6 Übungstypen</div>
+      <div class="mc-bar"><div class="mc-fill" style="width:0%" id="prog-ueb"></div></div>
+    </div>
+    <div class="module-card" onclick="showScreen('kulturelles')">
+      <div class="mc-icon">🇩🇪</div>
+      <div class="mc-name">Kulturelles</div>
+      <div class="mc-count">5 Tipps</div>
+      <div class="mc-bar"><div class="mc-fill" style="width:0%" id="prog-kult"></div></div>
+    </div>
+  </div>
+  <div class="tip-box" style="margin-top:20px">
+    <strong>💡 Wie benutze ich die App?</strong><br>
+    Starte mit den <strong>Dialogen</strong> um die Sprache zu hören, dann lerne die <strong>Redemittel</strong>, übe mit den <strong>Lernkarten</strong> und mach alle <strong>Übungen</strong>. Jede richtige Antwort bringt dir XP!
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SCREEN: SITUATIONEN -->
+<!-- ══════════════════════════════════════════ -->
+<div class="screen" id="screen-situationen">
+<div class="container">
+  <div class="sec-header"><div class="sec-num">1</div><div class="sec-title">Typische Situationen</div></div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:16px;font-style:italic">In diesen Momenten entsteht Smalltalk – oft unerwartet, immer kurz.</p>
+  <div class="sit-grid">
+    <div class="sit-pill"><div class="sp-icon">🐶</div><div class="sp-text">Mit dem Hund</div></div>
+    <div class="sit-pill"><div class="sp-icon">🌧️</div><div class="sp-text">Das Wetter</div></div>
+    <div class="sit-pill"><div class="sp-icon">🏗️</div><div class="sp-text">Baustelle / Lärm</div></div>
+    <div class="sit-pill"><div class="sp-icon">🚪</div><div class="sp-text">Hausflur / Tür</div></div>
+    <div class="sit-pill"><div class="sp-icon">🚌</div><div class="sp-text">Bushaltestelle</div></div>
+    <div class="sit-pill"><div class="sp-icon">🌳</div><div class="sp-text">Park / Spielplatz</div></div>
+    <div class="sit-pill"><div class="sp-icon">🛒</div><div class="sp-text">Supermarkt</div></div>
+    <div class="sit-pill"><div class="sp-icon">🎉</div><div class="sp-text">Feste / Markt</div></div>
+  </div>
+
+  <div class="card">
+    <div class="sec-header"><div class="sec-num" style="font-size:14px">?</div><div class="sec-title">Übung: Welche Situation ist das?</div></div>
+    <p class="ex-instructions">Lies den Satz und wähle die passende Situation.</p>
+    <div id="sit-quiz"></div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SCREEN: DIALOGE -->
+<!-- ══════════════════════════════════════════ -->
+<div class="screen" id="screen-dialoge">
+<div class="container">
+  <div class="sec-header"><div class="sec-num">2</div><div class="sec-title">Echte Dialoge – Fallbeispiele</div></div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:12px;font-style:italic">Wähle einen Dialog und lies ihn durch. Die markierten Ausdrücke sind besonders wichtig!</p>
+  <div class="dialog-nav" id="dialog-nav"></div>
+  <div class="card" id="dialog-display"></div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SCREEN: REDEMITTEL -->
+<!-- ══════════════════════════════════════════ -->
+<div class="screen" id="screen-redemittel">
+<div class="container">
+  <div class="sec-header"><div class="sec-num">3</div><div class="sec-title">Redemittel – Was Deutsche wirklich sagen</div></div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:16px;font-style:italic">Lerne diese Ausdrücke auswendig – sie machen deinen Smalltalk authentisch!</p>
+
+  <div class="card">
+    <div class="phrase-cat">
+      <div class="phrase-cat-title">💬 Gespräch eröffnen</div>
+      <div class="phrase-item"><div class="ph-de">„Was ein Wetter heute, oder?"</div><div class="ph-note">universeller Einstieg</div></div>
+      <div class="phrase-item"><div class="ph-de">„Oh, der ist ja süß!"</div><div class="ph-note">bei Hunden / Kindern</div></div>
+      <div class="phrase-item"><div class="ph-de">„Schon so früh unterwegs?"</div><div class="ph-note">morgens im Treppenhaus</div></div>
+      <div class="phrase-item"><div class="ph-de">„Der Bus hat schon wieder Verspätung."</div><div class="ph-note">gemeinsames Meckern als Einstieg</div></div>
+      <div class="phrase-item"><div class="ph-de">„Entschuldigung, wissen Sie zufällig, ob …?"</div><div class="ph-note">höfliche Frage an Fremde</div></div>
+    </div>
+    <div class="phrase-cat">
+      <div class="phrase-cat-title">✅ Zustimmung & Reaktion</div>
+      <div class="phrase-item"><div class="ph-de">„Ja, das kenne ich!"</div><div class="ph-note">mir geht's genauso</div></div>
+      <div class="phrase-item"><div class="ph-de">„Unglaublich, oder?"</div><div class="ph-note">Bestätigung suchen</div></div>
+      <div class="phrase-item"><div class="ph-de">„Das nervt total."</div><div class="ph-note">gemeinsames Meckern – sehr echt</div></div>
+      <div class="phrase-item"><div class="ph-de">„Das glaub ich nicht…"</div><div class="ph-note">Überraschung / Skepsis</div></div>
+      <div class="phrase-item"><div class="ph-de">„Ja, genau!" / „Ja, wirklich!"</div><div class="ph-note">kurze natürliche Bestätigung</div></div>
+    </div>
+    <div class="phrase-cat">
+      <div class="phrase-cat-title">😮 Fatalistisch – typisch deutsch!</div>
+      <div class="phrase-item"><div class="ph-de">„Man kann ja nichts machen."</div><div class="ph-note">Es ist wie es ist.</div></div>
+      <div class="phrase-item"><div class="ph-de">„Irgendwann ist's vorbei."</div><div class="ph-note">Trost / Resignation</div></div>
+      <div class="phrase-item"><div class="ph-de">„Na, da bin ich gespannt."</div><div class="ph-note">Skepsis / Ironie möglich</div></div>
+      <div class="phrase-item"><div class="ph-de">„Na also!"</div><div class="ph-note">= endlich! (erleichtert)</div></div>
+    </div>
+    <div class="phrase-cat">
+      <div class="phrase-cat-title">👋 Verabschiedung</div>
+      <div class="phrase-item"><div class="ph-de">„Na dann, machen Sie's gut!"</div><div class="ph-note">herzlich, sehr gebräuchlich</div></div>
+      <div class="phrase-item"><div class="ph-de">„Schönen Tag noch!"</div><div class="ph-note">Standard – immer passend</div></div>
+      <div class="phrase-item"><div class="ph-de">„Na dann bis bald!"</div><div class="ph-note">wenn man sich kennt</div></div>
+      <div class="phrase-item"><div class="ph-de">„Na also! Gute Fahrt!"</div><div class="ph-note">Bus/Bahn-Abschied</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ex-header"><span class="ex-badge quiz">Quiz</span><span class="ex-title">Teste dein Wissen!</span></div>
+    <p class="ex-instructions">Welcher Ausdruck passt zu welcher Bedeutung?</p>
+    <div id="redemittel-quiz"></div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SCREEN: FLASHCARDS -->
+<!-- ══════════════════════════════════════════ -->
+<div class="screen" id="screen-flashcards">
+<div class="container">
+  <div class="sec-header"><div class="sec-num">4</div><div class="sec-title">Lernkarten – Ausdrücke üben</div></div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:12px;font-style:italic">Klicke auf die Karte um die Bedeutung zu sehen. Dann: Kenne ich's oder nicht?</p>
+  <div class="fc-progress" id="fc-progress">Karte 1 von 20</div>
+  <div class="flashcard-wrap"><div class="flashcard" id="flashcard" onclick="flipCard()">
+    <div class="fc-front" id="fc-front">
+      <div class="fc-label">AUSDRUCK</div>
+      <div class="fc-phrase" id="fc-phrase">Lade...</div>
+      <div class="fc-tap">👆 Tippe um die Bedeutung zu sehen</div>
+    </div>
+    <div class="fc-back" id="fc-back">
+      <div class="fc-label">BEDEUTUNG</div>
+      <div class="fc-phrase" id="fc-meaning">–</div>
+      <div class="fc-note" id="fc-example">–</div>
+    </div>
+  </div></div>
+  <div class="fc-controls">
+    <button class="fc-btn skip" onclick="nextCard(false)">⏭ Nochmal</button>
+    <button class="fc-btn know" onclick="nextCard(true)">✓ Kenne ich!</button>
+  </div>
+  <div id="fc-done" style="display:none;text-align:center;padding:20px">
+    <div style="font-size:40px">🎉</div>
+    <div style="font-size:18px;font-weight:bold;margin:8px 0">Alle Karten durch!</div>
+    <div style="font-size:14px;color:var(--muted)" id="fc-score-text"></div>
+    <button class="check-btn" style="margin-top:12px" onclick="restartCards()">Nochmal von vorne</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SCREEN: ÜBUNGEN -->
+<!-- ══════════════════════════════════════════ -->
+<div class="screen" id="screen-uebungen">
+<div class="container">
+  <div class="sec-header"><div class="sec-num">5</div><div class="sec-title">Übungen</div></div>
+
+  <!-- Übung 1: MC Was passt? -->
+  <div class="card">
+    <div class="ex-header"><span class="ex-badge quiz">A</span><span class="ex-title">Was ist die beste Reaktion?</span></div>
+    <p class="ex-instructions">Wähle die natürlichste Antwort für jede Situation.</p>
+    <div id="uebung-A"></div>
+  </div>
+
+  <!-- Übung 2: Gap fill -->
+  <div class="card">
+    <div class="ex-header"><span class="ex-badge gap">B</span><span class="ex-title">Ergänze den Dialog</span></div>
+    <p class="ex-instructions">Wähle das passende Wort aus dem Dropdown für jede Lücke.</p>
+    <div id="uebung-B"></div>
+  </div>
+
+  <!-- Übung 3: Word Order -->
+  <div class="card">
+    <div class="ex-header"><span class="ex-badge order">C</span><span class="ex-title">Bring die Wörter in die richtige Reihenfolge</span></div>
+    <p class="ex-instructions">Klicke auf die Wörter in der richtigen Reihenfolge, um den Satz zu bilden.</p>
+    <div id="uebung-C"></div>
+  </div>
+
+  <!-- Übung 4: Matching -->
+  <div class="card">
+    <div class="ex-header"><span class="ex-badge match">D</span><span class="ex-title">Verbinde Ausdruck und Bedeutung</span></div>
+    <p class="ex-instructions">Klicke zuerst einen Ausdruck an, dann die passende Bedeutung.</p>
+    <div id="uebung-D"></div>
+  </div>
+
+  <!-- Übung 5: Situation Quiz -->
+  <div class="card">
+    <div class="ex-header"><span class="ex-badge quiz">E</span><span class="ex-title">Sie oder du? Wähle die richtige Form.</span></div>
+    <p class="ex-instructions">Entscheide: Wann benutzt man "Sie", wann "du"?</p>
+    <div id="uebung-E"></div>
+  </div>
+
+  <!-- Übung 6: Write -->
+  <div class="card">
+    <div class="ex-header"><span class="ex-badge write">F</span><span class="ex-title">Schreib deinen eigenen Satz</span></div>
+    <p class="ex-instructions">Für jede Situation: Schreib einen passenden Gesprächseinstieg. Dann vergleiche mit den Vorschlägen.</p>
+    <div id="uebung-F"></div>
+  </div>
+
+  <!-- Übung 7: Heikle Situationen -->
+  <div class="card">
+    <div class="ex-header"><span class="ex-badge match">G</span><span class="ex-title">Heikle Situationen – höflich reagieren</span></div>
+    <p class="ex-instructions">Wähle die höflichste Reaktion für jede schwierige Nachbarschaftssituation.</p>
+    <div id="uebung-G"></div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SCREEN: KULTURELLES -->
+<!-- ══════════════════════════════════════════ -->
+<div class="screen" id="screen-kulturelles">
+<div class="container">
+  <div class="sec-header"><div class="sec-num">6</div><div class="sec-title">Kulturelle Hinweise</div></div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:16px;font-style:italic">Was man wissen muss, um Missverständnisse zu vermeiden.</p>
+
+  <div class="kultur-card">
+    <div class="kh">🇩🇪 &nbsp;Sie oder du?</div>
+    <div class="kb">Mit Nachbarn und Fremden sagt man meistens <strong>„Sie"</strong> (formell). Erst wenn jemand sagt <em>„Wir können gerne du sagen"</em> wechselt man zu <strong>„du"</strong>. Diese Einladung kommt vom Älteren oder vom länger Ansässigen. <strong>Wechsle niemals von alleine zu „du"</strong> ohne Einladung!</div>
+  </div>
+  <div class="kultur-card">
+    <div class="kh">🤫 &nbsp;Ruhezeiten – sehr wichtig!</div>
+    <div class="kb"><strong>Mittagsruhe</strong> (ca. 13–15 Uhr) und <strong>Nachtruhe</strong> (ab 22 Uhr). Lärm in diesen Zeiten ist ein häufiger Nachbarschaftskonflikt. Renovierung immer ankündigen: <em>„Ich wollte kurz Bescheid geben – ich renoviere am Samstag. Tut mir leid für den Lärm!"</em></div>
+  </div>
+  <div class="kultur-card">
+    <div class="kh">😶 &nbsp;Warum reden Deutsche nicht mit Fremden?</div>
+    <div class="kb">Deutsche brauchen einen <strong>Anlass</strong>: Wetter, Hund, Verspätung, Baustelle. Ohne Anlass jemanden anzusprechen wirkt seltsam. <strong>Nutze den Anlass</strong> – er ist dein Ticket ins Gespräch! Das ist kulturell, nicht unfreundlich.</div>
+  </div>
+  <div class="kultur-card">
+    <div class="kh">🗑️ &nbsp;Müll & Mülltrennung</div>
+    <div class="kb">Sehr ernst genommen! Richtig fragen: <em>„Darf ich kurz fragen – gehört das in die gelbe Tonne?"</em> Nie anklagen – immer als freundlichen Hinweis formulieren. Gelbe Tonne = Verpackungen · Blaue Tonne = Papier · Grüne/braune Tonne = Bio.</div>
+  </div>
+  <div class="kultur-card">
+    <div class="kh">🎁 &nbsp;Kleine Gesten unter Nachbarn</div>
+    <div class="kb">Paket annehmen, Blumen gießen, auf den Briefkasten achten – typische Gefälligkeiten. Bitte höflich: <em>„Könnte ich Sie um einen Gefallen bitten?"</em> Und bedanken: <em>„Das ist sehr nett von Ihnen!"</em> oder <em>„Ich schulde Ihnen noch etwas!"</em></div>
+  </div>
+
+  <div class="card">
+    <div class="ex-header"><span class="ex-badge quiz">Quiz</span><span class="ex-title">Kulturquiz – Was ist richtig?</span></div>
+    <div id="kultur-quiz"></div>
+  </div>
+</div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════
+let xp = 0, correct = 0, done = 0, streak = 0;
+const MAX_XP = 500;
+
+function addXP(pts, msg='') {
+  xp = Math.min(xp + pts, MAX_XP);
+  correct++;
+  done++;
+  streak++;
+  updateStats();
+  showToast(`+${pts} XP ${msg}`);
+}
+
+function addDone() {
+  done++;
+  streak = 0;
+  updateStats();
+}
+
+function updateStats() {
+  document.getElementById('xp-display').textContent = xp + ' XP';
+  document.getElementById('xp-bar').style.width = (xp / MAX_XP * 100) + '%';
+  document.getElementById('stat-ok').textContent = correct;
+  document.getElementById('stat-done').textContent = done;
+  document.getElementById('stat-streak').textContent = streak;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.innerHTML = `<span class="t-xp">${msg}</span>`;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ══════════════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  const tabs = document.querySelectorAll('.nav-tab');
+  const map = {home:0,situationen:1,dialoge:2,redemittel:3,flashcards:4,uebungen:5,kulturelles:6};
+  if (map[id] !== undefined) tabs[map[id]].classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ══════════════════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════════════════
+const DIALOGE = [
+  {
+    title:'🐶 Mit dem Hund',
+    tip:'Hunde sind der beste Gesprächsöffner in Deutschland! Man spricht zuerst mit dem Hund – das ist völlig normal.',
+    lines:[
+      {sp:'NACHBARIN',text:'Oh, der ist ja <mark>süß</mark>! <mark>Wie alt ist er denn?</mark>',right:false},
+      {sp:'DU',text:'Drei Jahre. <mark>Ein bisschen wild noch</mark>, aber er ist lieb.',right:true},
+      {sp:'NACHBARIN',text:'<mark>Haben Sie ihn aus der Gegend?</mark> Ich sehe euch immer im Park.',right:false},
+      {sp:'DU',text:'Ja, wir wohnen gleich um die Ecke. <mark>Und Sie?</mark>',right:true},
+      {sp:'NACHBARIN',text:'Ich auch! <mark>Wir sind fast Nachbarn dann.</mark> Ich bin die Monika.',right:false},
+      {sp:'DU',text:'Schön, Sie kennenzulernen! Ich bin Sara. <mark>Na dann bis bald!</mark>',right:true},
+    ]
+  },
+  {
+    title:'🌧️ Das Wetter',
+    tip:'Schlüsselwörter: „Was ein Wetter!" · „Na, da bin ich gespannt." · „Machen Sie\'s gut!" – klassischer Smalltalk!',
+    lines:[
+      {sp:'BEKANNTER',text:'<mark>Was ein Wetter heute, oder?</mark> Ich dachte, es soll sonnig werden.',right:false},
+      {sp:'DU',text:'Ja, typisch – <mark>man kann sich auf die Wettervorhersage nicht verlassen!</mark>',right:true},
+      {sp:'BEKANNTER',text:'<mark>Nächste Woche soll es besser werden</mark>, hat meine Frau gesagt.',right:false},
+      {sp:'DU',text:'<mark>Na, da bin ich gespannt.</mark> Ich hoffe, dass der Sommer noch kommt!',right:true},
+      {sp:'BEKANNTER',text:'<mark>Ja, das wär schön.</mark> Na dann, machen Sie\'s gut!',right:false},
+      {sp:'DU',text:'Sie auch! Tschüss!',right:true},
+    ]
+  },
+  {
+    title:'🚪 Im Treppenhaus',
+    tip:'Treppenhaus-Gespräche sind kurz und praktisch. Man klärt kleine Anliegen – Pakete, Lärm, Müll. Immer höflich!',
+    lines:[
+      {sp:'NACHBAR',text:'Guten Morgen! <mark>Schon so früh unterwegs?</mark>',right:false},
+      {sp:'DU',text:'Ja, ich muss früh zur Arbeit. <mark>Und Sie – haben Sie frei heute?</mark>',right:true},
+      {sp:'NACHBAR',text:'Nein, ich fange erst um neun an. <mark>Da hab ich noch Zeit.</mark>',right:false},
+      {sp:'DU',text:'<mark>Ich wollte kurz fragen</mark> – haben Sie zufällig mein Paket gesehen?',right:true},
+      {sp:'NACHBAR',text:'Ja! Das hab ich angenommen. <mark>Klingeln Sie einfach später bei mir.</mark>',right:false},
+      {sp:'DU',text:'<mark>Oh, vielen Dank! Das ist sehr nett von Ihnen.</mark> Bis dann!',right:true},
+    ]
+  },
+  {
+    title:'🏗️ Baustelle – meckern',
+    tip:'Gemeinsam meckern ist in Deutschland ein echter Bonding-Moment! „Nicht mehr auszuhalten" / „Das nervt total" – sehr echt.',
+    lines:[
+      {sp:'NACHBARIN',text:'<mark>Dieser Lärm ist ja nicht mehr auszuhalten!</mark> Schon seit 6 Uhr morgens!',right:false},
+      {sp:'DU',text:'<mark>Ich weiß, das nervt total.</mark> Wissen Sie, wie lange das noch geht?',right:true},
+      {sp:'NACHBARIN',text:'<mark>Keine Ahnung.</mark> Ich habe gehört, noch bis Ende des Monats. <mark>Unglaublich, oder?</mark>',right:false},
+      {sp:'DU',text:'<mark>Das glaub ich nicht…</mark> Naja, <mark>man kann ja nichts machen.</mark>',right:true},
+      {sp:'NACHBARIN',text:'Genau. <mark>Irgendwann ist\'s vorbei.</mark> Na dann, einen schönen Tag!',right:false},
+    ]
+  },
+  {
+    title:'🚌 An der Bushaltestelle',
+    tip:'„Na also!" = endlich! · „Typisch!" = wie immer! · „Da kann man nichts machen." – diese Ausdrücke klingen sehr natürlich.',
+    lines:[
+      {sp:'MITWARTENDE',text:'<mark>Der Bus hat schon wieder Verspätung.</mark> Typisch!',right:false},
+      {sp:'DU',text:'<mark>Ja, das kenne ich.</mark> Wie lange warten Sie schon?',right:true},
+      {sp:'MITWARTENDE',text:'Schon 15 Minuten! Dabei steht da, er kommt alle 10 Minuten.',right:false},
+      {sp:'DU',text:'<mark>Da kann man nichts machen.</mark> Nehmen Sie auch die 42?',right:true},
+      {sp:'MITWARTENDE',text:'Nein, die 7. Ach, endlich! Da kommt er.',right:false},
+      {sp:'DU',text:'<mark>Na also!</mark> Gute Fahrt!',right:true},
+    ]
+  }
+];
+
+// ══════════════════════════════════════════════════════════
+// DIALOGE
+// ══════════════════════════════════════════════════════════
+let curDialog = 0;
+function renderDialogNav() {
+  const nav = document.getElementById('dialog-nav');
+  nav.innerHTML = DIALOGE.map((d,i) => `<button class="dialog-nav-btn${i===0?' active':''}" onclick="showDialog(${i})">${d.title}</button>`).join('');
+}
+function showDialog(idx) {
+  curDialog = idx;
+  document.querySelectorAll('.dialog-nav-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
+  const d = DIALOGE[idx];
+  const html = `
+    <div style="margin-bottom:10px">
+      <strong style="font-size:15px">${d.title}</strong>
+    </div>
+    <div class="chat-wrap">
+      ${d.lines.map(l => `
+        <div class="brow${l.right?' right':''}">
+          <div class="av ${l.right?'b':'a'}">${l.right?'DU':l.sp[0]}</div>
+          <div class="bub ${l.right?'b':'a'}">
+            <div class="spk">${l.sp}</div>
+            ${l.text}
+          </div>
+        </div>`).join('')}
+    </div>
+    <div class="dialog-tip">💡 ${d.tip}</div>
+  `;
+  document.getElementById('dialog-display').innerHTML = html;
+}
+renderDialogNav();
+showDialog(0);
+
+// ══════════════════════════════════════════════════════════
+// FLASHCARDS
+// ══════════════════════════════════════════════════════════
+const CARDS = [
+  {phrase:'Was ein Wetter heute, oder?', meaning:'= Kommentar über schlechtes Wetter – perfekter Gesprächseinstieg!', example:'Benutzen: wenn du jemanden ansprechen willst'},
+  {phrase:'Oh, der ist ja süß!', meaning:'= Reaktion auf einen Hund oder ein Kind', example:'Benutzen: um ein Gespräch mit einem Hundebesitzer zu beginnen'},
+  {phrase:'Schon so früh unterwegs?', meaning:'= Freundliche Frage morgens im Treppenhaus', example:'Benutzen: wenn du dem Nachbar früh morgens begegnest'},
+  {phrase:'Ja, das kenne ich!', meaning:'= Mir geht\'s genauso – ich verstehe dich', example:'Benutzen: als Zustimmung zu einer Beschwerde'},
+  {phrase:'Das nervt total.', meaning:'= Das ist sehr ärgerlich (informell, echt)', example:'Benutzen: beim gemeinsamen Meckern'},
+  {phrase:'Unglaublich, oder?', meaning:'= Reaktion auf etwas Überraschendes – sucht Zustimmung', example:'Benutzen: um den Anderen zur Reaktion einzuladen'},
+  {phrase:'Man kann ja nichts machen.', meaning:'= Es ist wie es ist. Ich akzeptiere es. (Resignation)', example:'Benutzen: wenn man sich über etwas ärgert aber nichts ändern kann'},
+  {phrase:'Irgendwann ist\'s vorbei.', meaning:'= Das geht auch vorbei. Trost und Resignation.', example:'Benutzen: bei Baustellen, schlechtem Wetter, etc.'},
+  {phrase:'Na, da bin ich gespannt.', meaning:'= Mal sehen / ich glaube es kaum (manchmal ironisch)', example:'Benutzen: wenn jemand etwas Optimistisches sagt'},
+  {phrase:'Na also!', meaning:'= Endlich! (erleichtert)', example:'Benutzen: wenn etwas nach langer Wartezeit passiert'},
+  {phrase:'Na dann, machen Sie\'s gut!', meaning:'= Herzliche Verabschiedung – sehr gebräuchlich', example:'Benutzen: am Ende eines kurzen Gesprächs'},
+  {phrase:'Schönen Tag noch!', meaning:'= Standard-Verabschiedung, immer passend', example:'Benutzen: nach jedem kurzen Smalltalk'},
+  {phrase:'Na dann bis bald!', meaning:'= Wenn man sich kennt oder wahrscheinlich wiedersieht', example:'Benutzen: mit Nachbarn oder bekannten Personen'},
+  {phrase:'Das glaub ich nicht…', meaning:'= Überraschung / Skepsis über eine Information', example:'Benutzen: wenn etwas Unglaubliches gesagt wird'},
+  {phrase:'Klingeln Sie einfach bei mir.', meaning:'= Freundliches praktisches Angebot unter Nachbarn', example:'Benutzen: nach einem kleinen Gefallen'},
+  {phrase:'Der Bus hat schon wieder Verspätung.', meaning:'= Klassischer Gesprächseinstieg an Haltestellen', example:'Benutzen: wenn der Bus zu spät kommt'},
+  {phrase:'Da kann man nichts machen.', meaning:'= Es gibt keine Lösung – wir müssen warten', example:'Benutzen: als resignierte Reaktion'},
+  {phrase:'Sind Sie öfter hier?', meaning:'= Freundliche Frage um das Gespräch weiterzuführen', example:'Benutzen: im Park, beim Spazieren'},
+  {phrase:'Das ist sehr nett von Ihnen.', meaning:'= Dankbarkeit für eine Gefälligkeit ausdrücken', example:'Benutzen: wenn jemand etwas Freundliches tut'},
+  {phrase:'Nicht mehr auszuhalten!', meaning:'= Der Lärm / die Situation ist unerträglich (dramatisch)', example:'Benutzen: beim Meckern über Baustellen oder Lärm'},
+];
+
+let cardOrder = [], cardIdx = 0, cardKnown = 0;
+function shuffleCards() {
+  cardOrder = [...Array(CARDS.length).keys()].sort(() => Math.random()-.5);
+  cardIdx = 0; cardKnown = 0;
+}
+function renderCard() {
+  const card = CARDS[cardOrder[cardIdx]];
+  document.getElementById('fc-phrase').textContent = card.phrase;
+  document.getElementById('fc-meaning').textContent = card.meaning;
+  document.getElementById('fc-example').textContent = card.example;
+  document.getElementById('fc-progress').textContent = `Karte ${cardIdx+1} von ${CARDS.length} · Bekannt: ${cardKnown}`;
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+function nextCard(knew) {
+  if (knew) { cardKnown++; addXP(5,'🃏 Karte gelernt!'); }
+  cardIdx++;
+  if (cardIdx >= CARDS.length) {
+    document.getElementById('flashcard-wrap') && (document.querySelector('.flashcard-wrap').style.display='none');
+    document.querySelector('.fc-controls').style.display='none';
+    document.getElementById('fc-done').style.display='block';
+    document.getElementById('fc-score-text').textContent = `Du hast ${cardKnown} von ${CARDS.length} Karten gekannt! 🎉`;
+  } else { renderCard(); }
+}
+function restartCards() {
+  document.querySelector('.flashcard-wrap').style.display='block';
+  document.querySelector('.fc-controls').style.display='flex';
+  document.getElementById('fc-done').style.display='none';
+  shuffleCards(); renderCard();
+}
+shuffleCards(); renderCard();
+
+// ══════════════════════════════════════════════════════════
+// SITUATION QUIZ
+// ══════════════════════════════════════════════════════════
+const SIT_QUIZ = [
+  {q:'„Was ein Wetter heute! Ich dachte, es soll sonnig werden."',correct:'🌧️ Das Wetter',options:['🌧️ Das Wetter','🚌 Bushaltestelle','🐶 Mit dem Hund']},
+  {q:'„Der Bus hat schon wieder Verspätung. Typisch!"',correct:'🚌 Bushaltestelle',options:['🚪 Hausflur','🚌 Bushaltestelle','🏗️ Baustelle']},
+  {q:'„Oh, der ist ja süß! Wie alt ist er denn?"',correct:'🐶 Mit dem Hund',options:['🐶 Mit dem Hund','🌳 Park','🎉 Fest']},
+  {q:'„Dieser Lärm seit 6 Uhr morgens ist nicht mehr auszuhalten!"',correct:'🏗️ Baustelle / Lärm',options:['🏗️ Baustelle / Lärm','🛒 Supermarkt','🚪 Hausflur']},
+  {q:'„Guten Morgen! Schon so früh unterwegs?"',correct:'🚪 Hausflur / Tür',options:['🌳 Park','🚪 Hausflur / Tür','🎉 Fest']},
+];
+
+function renderSitQuiz() {
+  const container = document.getElementById('sit-quiz');
+  container.innerHTML = SIT_QUIZ.map((item, i) => `
+    <div class="mc-item">
+      <div class="mc-q">${i+1}. ${item.q}</div>
+      <div class="mc-grid">
+        ${item.options.map(opt => `<button class="mc-btn" onclick="checkMC(this,'${opt}','${item.correct}','sit-quiz-fb-${i}')">${opt}</button>`).join('')}
+      </div>
+      <div class="feedback" id="sit-quiz-fb-${i}"></div>
+    </div>`).join('');
+}
+renderSitQuiz();
+
+// ══════════════════════════════════════════════════════════
+// REDEMITTEL QUIZ
+// ══════════════════════════════════════════════════════════
+const RED_QUIZ = [
+  {q:'Was bedeutet „Na also!"?',correct:'= Endlich! (erleichtert)',options:['= Das ist interessant','= Endlich! (erleichtert)','= Ich stimme nicht zu']},
+  {q:'Was bedeutet „Man kann ja nichts machen."?',correct:'= Es ist wie es ist (Resignation)',options:['= Ich will nicht helfen','= Es ist wie es ist (Resignation)','= Das ist kein Problem']},
+  {q:'Wie eröffnet man ein Gespräch über das Wetter?',correct:'„Was ein Wetter heute, oder?"',options:['„Ich mag das Wetter nicht."','„Was ein Wetter heute, oder?"','„Das Wetter ist schlecht."']},
+  {q:'Was sagt man am Ende eines kurzen Gesprächs?',correct:'„Na dann, machen Sie\'s gut!"',options:['„Auf Wiedersehen für immer!"','„Na dann, machen Sie\'s gut!"','„Tschüss, ich muss arbeiten."']},
+  {q:'Was bedeutet „Unglaublich, oder?"',correct:'= Reaktion die Zustimmung einlädt',options:['= Ich bin wütend','= Reaktion die Zustimmung einlädt','= Das ist langweilig']},
+];
+
+function renderRedemittelQuiz() {
+  const container = document.getElementById('redemittel-quiz');
+  container.innerHTML = RED_QUIZ.map((item, i) => `
+    <div class="mc-item">
+      <div class="mc-q">${i+1}. ${item.q}</div>
+      <div class="mc-grid">
+        ${item.options.map(opt => `<button class="mc-btn" onclick="checkMC(this,'${opt.replace(/'/g,"\\'")}','${item.correct.replace(/'/g,"\\'")}','red-fb-${i}')">${opt}</button>`).join('')}
+      </div>
+      <div class="feedback" id="red-fb-${i}"></div>
+    </div>`).join('');
+}
+renderRedemittelQuiz();
+
+// ══════════════════════════════════════════════════════════
+// ÜBUNG A – MC Beste Reaktion
+// ══════════════════════════════════════════════════════════
+const UEB_A = [
+  {q:'Der Nachbar sagt: „Diese Baustelle ist nicht mehr auszuhalten!" Du stimmst zu. Was sagst du?',
+   correct:'Ich weiß, das nervt total. Wissen Sie, wie lange das noch geht?',
+   options:['Das interessiert mich nicht.','Ich weiß, das nervt total. Wissen Sie, wie lange das noch geht?','Ich finde die Baustelle gut.']},
+  {q:'Jemand sagt: „Nächste Woche soll es besser werden." Du bist skeptisch. Was sagst du?',
+   correct:'Na, da bin ich gespannt!',
+   options:['Na, da bin ich gespannt!','Ja, super!','Ich glaube das.']},
+  {q:'Du möchtest das Gespräch freundlich beenden. Was sagst du?',
+   correct:'Na dann, machen Sie\'s gut! Schönen Tag noch!',
+   options:['Okay, ich gehe.','Na dann, machen Sie\'s gut! Schönen Tag noch!','Tschüss, ich muss weg.']},
+  {q:'Der Bus kommt endlich nach 20 Minuten. Was sagst du?',
+   correct:'Na also! Gute Fahrt!',
+   options:['Endlich, ich bin froh.','Na also! Gute Fahrt!','Auf Wiedersehen!']},
+  {q:'Du siehst einen Hund und möchtest den Besitzer ansprechen. Was sagst du ZUERST?',
+   correct:'Oh, der ist ja süß!',
+   options:['Guten Tag, mein Name ist...','Oh, der ist ja süß!','Darf ich fragen, wie Ihr Hund heißt?']},
+];
+
+function renderUebungA() {
+  const c = document.getElementById('uebung-A');
+  c.innerHTML = UEB_A.map((item, i) => `
+    <div class="mc-item">
+      <div class="mc-q">${i+1}. ${item.q}</div>
+      <div class="mc-grid">
+        ${item.options.map(opt => `<button class="mc-btn" onclick="checkMC(this,${JSON.stringify(opt)},${JSON.stringify(item.correct)},'ueb-a-fb-${i}')">${opt}</button>`).join('')}
+      </div>
+      <div class="feedback" id="ueb-a-fb-${i}"></div>
+    </div>`).join('');
+}
+renderUebungA();
+
+// ══════════════════════════════════════════════════════════
+// ÜBUNG B – Gap Fill
+// ══════════════════════════════════════════════════════════
+const UEB_B = [
+  {before:'A: „Der Bus hat schon wieder Verspätung!" B: ',blank:'Ja, das kenne ich!',after:' Wie lange warten Sie schon?',options:['Ja, das kenne ich!','Das ist interessant.','Ich weiß es nicht.'],id:'b1'},
+  {before:'A: „Dieser Lärm ist schrecklich." B: ',blank:'Ich weiß, das nervt total.',after:' Wissen Sie, wie lange das noch geht?',options:['Das ist schön.','Ich weiß, das nervt total.','Ja, natürlich.'],id:'b2'},
+  {before:'A: „Endlich! Da kommt er!" B: ',blank:'Na also!',after:' Gute Fahrt!',options:['Hallo!','Danke!','Na also!'],id:'b3'},
+  {before:'A: „Nächste Woche soll es wärmer werden." B: ',blank:'Na, da bin ich gespannt!',after:' Ich hoffe es!',options:['Na, da bin ich gespannt!','Das glaube ich sofort.','Prima!'],id:'b4'},
+  {before:'A: „Ich habe Ihr Paket angenommen." B: ',blank:'Oh, vielen Dank! Das ist sehr nett von Ihnen.',after:'',options:['Oh, vielen Dank! Das ist sehr nett von Ihnen.','Okay.','Warum?'],id:'b5'},
+];
+
+function renderUebungB() {
+  const c = document.getElementById('uebung-B');
+  c.innerHTML = UEB_B.map((item, i) => `
+    <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+      <div class="gap-sentence">
+        ${i+1}. ${item.before}
+        <select class="gap-select" id="gap-${item.id}" onchange="checkGap('gap-${item.id}',${JSON.stringify(item.blank)},'gap-fb-${i}')">
+          <option value="">– wählen –</option>
+          ${item.options.map(o => `<option value="${o}">${o}</option>`).join('')}
+        </select>
+        ${item.after}
+      </div>
+      <div class="feedback" id="gap-fb-${i}"></div>
+    </div>`).join('');
+}
+renderUebungB();
+
+// ══════════════════════════════════════════════════════════
+// ÜBUNG C – Word Order
+// ══════════════════════════════════════════════════════════
+const UEB_C = [
+  {words:['machen','Man','ja','kann','nichts','.'],correct:'Man kann ja nichts machen.',id:'wo1'},
+  {words:['vorbei','Irgendwann','es','ist','!'],correct:"Irgendwann ist es vorbei!",id:'wo2'},
+  {words:['Wetter','Was','heute','ein',',','oder','?'],correct:'Was ein Wetter heute, oder?',id:'wo3'},
+];
+
+let wordOrderState = {};
+function renderUebungC() {
+  const c = document.getElementById('uebung-C');
+  c.innerHTML = UEB_C.map((item, i) => {
+    const shuffled = [...item.words].sort(() => Math.random()-.5);
+    wordOrderState[item.id] = {selected:[],words:shuffled,correct:item.correct};
+    return `
+      <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:bold;margin-bottom:8px">${i+1}. Bilde den Satz:</div>
+        <div class="answer-area" id="ans-${item.id}" onclick="removeWord(event,'${item.id}')"></div>
+        <div class="word-bank" id="bank-${item.id}">
+          ${shuffled.map((w,wi) => `<span class="word-tile" onclick="addWord('${w}','${item.id}',${wi})" id="tile-${item.id}-${wi}">${w}</span>`).join('')}
+        </div>
+        <button class="check-btn" onclick="checkWordOrder('${item.id}','wo-fb-${i}')">Prüfen</button>
+        <button class="reset-btn" onclick="resetWordOrder('${item.id}','${i}')">↺ Reset</button>
+        <div class="feedback" id="wo-fb-${i}"></div>
+      </div>`;
+  }).join('');
+}
+
+function addWord(word, id, wi) {
+  const state = wordOrderState[id];
+  const tile = document.getElementById(`tile-${id}-${wi}`);
+  if (tile.classList.contains('placed')) return;
+  tile.classList.add('placed');
+  state.selected.push({word, wi});
+  const ans = document.getElementById(`ans-${id}`);
+  const span = document.createElement('span');
+  span.className = 'word-tile';
+  span.textContent = word;
+  span.dataset.wi = wi;
+  span.dataset.id = id;
+  ans.appendChild(span);
+}
+
+function removeWord(e, id) {
+  const tile = e.target;
+  if (!tile.classList.contains('word-tile')) return;
+  const wi = tile.dataset.wi;
+  const state = wordOrderState[id];
+  state.selected = state.selected.filter(s => s.wi != wi);
+  document.getElementById(`tile-${id}-${wi}`).classList.remove('placed');
+  tile.remove();
+}
+
+function checkWordOrder(id, fbId) {
+  const state = wordOrderState[id];
+  const attempt = state.selected.map(s => s.word).join(' ');
+  const fb = document.getElementById(fbId);
+  if (attempt === state.correct) {
+    fb.className = 'feedback ok-fb show';
+    fb.textContent = '✅ Richtig! ' + attempt;
+    addXP(15,'✍️ Satz gebildet!');
+  } else {
+    fb.className = 'feedback err-fb show';
+    fb.innerHTML = `❌ Noch nicht ganz. Lösung: <strong>${state.correct}</strong>`;
+    addDone();
+  }
+}
+
+function resetWordOrder(id, i) {
+  const state = wordOrderState[id];
+  state.selected = [];
+  document.getElementById(`ans-${id}`).innerHTML = '';
+  state.words.forEach((_,wi) => {
+    const t = document.getElementById(`tile-${id}-${wi}`);
+    if(t) t.classList.remove('placed');
+  });
+  const fb = document.getElementById(`wo-fb-${i}`);
+  fb.className = 'feedback';
+  fb.textContent = '';
+}
+renderUebungC();
+
+// ══════════════════════════════════════════════════════════
+// ÜBUNG D – Matching
+// ══════════════════════════════════════════════════════════
+const MATCH_PAIRS = [
+  {left:'„Na also!"', right:'= endlich!'},
+  {left:'„Man kann nichts machen."', right:'= Resignation'},
+  {left:'„Das nervt total."', right:'= Das ist sehr ärgerlich'},
+  {left:'„Na dann bis bald!"', right:'= Verabschiedung unter Bekannten'},
+  {left:'„Unglaublich, oder?"', right:'= Zustimmung suchen'},
+  {left:'„Schon so früh unterwegs?"', right:'= Morgens im Treppenhaus'},
+];
+
+let matchState = {selectedLeft:null, selectedRight:null, matched:[]};
+function renderUebungD() {
+  const c = document.getElementById('uebung-D');
+  const shuffledRight = [...MATCH_PAIRS].sort(() => Math.random()-.5);
+  matchState = {selectedLeft:null, selectedRight:null, matched:[], pairs:MATCH_PAIRS, rightOrder:shuffledRight};
+  c.innerHTML = `<div class="match-wrap">
+    <div class="match-col" id="match-left">
+      ${MATCH_PAIRS.map((p,i) => `<div class="match-item" data-idx="${i}" data-side="left" onclick="selectMatch(this)">${p.left}</div>`).join('')}
+    </div>
+    <div class="match-col" id="match-right">
+      ${shuffledRight.map((p,i) => `<div class="match-item" data-right="${p.right}" data-side="right" onclick="selectMatch(this)">${p.right}</div>`).join('')}
+    </div>
+  </div>
+  <div style="margin-top:12px;font-family:'Courier New',monospace;font-size:12px;color:var(--muted)" id="match-status">Verbunden: 0 / ${MATCH_PAIRS.length}</div>`;
+}
+
+function selectMatch(el) {
+  if (el.classList.contains('matched')) return;
+  const side = el.dataset.side;
+  if (side === 'left') {
+    document.querySelectorAll('.match-item[data-side=left]').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+    matchState.selectedLeft = el;
+  } else {
+    document.querySelectorAll('.match-item[data-side=right]').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+    matchState.selectedRight = el;
+  }
+  if (matchState.selectedLeft && matchState.selectedRight) {
+    const leftIdx = matchState.selectedLeft.dataset.idx;
+    const expectedRight = matchState.pairs[leftIdx].right;
+    const gotRight = matchState.selectedRight.dataset.right;
+    if (expectedRight === gotRight) {
+      matchState.selectedLeft.classList.remove('selected');
+      matchState.selectedLeft.classList.add('matched');
+      matchState.selectedRight.classList.remove('selected');
+      matchState.selectedRight.classList.add('matched');
+      matchState.matched.push(leftIdx);
+      addXP(10,'🔗 Match!');
+      document.getElementById('match-status').textContent = `Verbunden: ${matchState.matched.length} / ${matchState.pairs.length}`;
+    } else {
+      matchState.selectedLeft.classList.add('wrong-match');
+      matchState.selectedRight.classList.add('wrong-match');
+      setTimeout(() => {
+        matchState.selectedLeft.classList.remove('wrong-match','selected');
+        matchState.selectedRight.classList.remove('wrong-match','selected');
+      }, 700);
+      addDone();
+    }
+    matchState.selectedLeft = null;
+    matchState.selectedRight = null;
+  }
+}
+renderUebungD();
+
+// ══════════════════════════════════════════════════════════
+// ÜBUNG E – Sie oder du
+// ══════════════════════════════════════════════════════════
+const UEB_E = [
+  {q:'Du sprichst zum ersten Mal mit deinem neuen Nachbarn im Treppenhaus.',correct:'Sie',options:['Sie','du'],explain:'Neue Bekanntschaften → immer "Sie" zuerst!'},
+  {q:'Dein Nachbar hat dir vor einem Jahr gesagt: „Sag einfach du zu mir!"',correct:'du',options:['Sie','du'],explain:'Nach einer expliziten Einladung → "du" ist richtig.'},
+  {q:'Du sprichst mit einer fremden Person an der Bushaltestelle.',correct:'Sie',options:['Sie','du'],explain:'Fremde Erwachsene → immer "Sie".'},
+  {q:'Du schreibst eine WhatsApp an deinen Freund aus dem Deutschkurs.',correct:'du',options:['Sie','du'],explain:'Freunde → "du"'},
+  {q:'Du sprichst mit dem Briefträger.',correct:'Sie',options:['Sie','du'],explain:'Dienstleister / unbekannte Erwachsene → "Sie"'},
+];
+
+function renderUebungE() {
+  const c = document.getElementById('uebung-E');
+  c.innerHTML = UEB_E.map((item, i) => `
+    <div class="mc-item">
+      <div class="mc-q">${i+1}. ${item.q}</div>
+      <div class="mc-grid" style="flex-direction:row">
+        ${item.options.map(opt => `<button class="mc-btn" style="flex:1" onclick="checkMCWithExplain(this,'${opt}','${item.correct}','ueb-e-fb-${i}',${JSON.stringify(item.explain)})">${opt}</button>`).join('')}
+      </div>
+      <div class="feedback" id="ueb-e-fb-${i}"></div>
+    </div>`).join('');
+}
+renderUebungE();
+
+// ══════════════════════════════════════════════════════════
+// ÜBUNG F – Write
+// ══════════════════════════════════════════════════════════
+const UEB_F = [
+  {sit:'Du siehst einen Hund auf der Straße. Du möchtest den Besitzer ansprechen.',solutions:['Oh, der ist ja süß! Wie alt ist er denn?','Was für ein schöner Hund! Wie heißt er?']},
+  {sit:'Es regnet stark. Du stehst neben einem Fremden an der Bushaltestelle.',solutions:['Was ein Wetter heute, oder?','Typisch! Ich dachte, es soll sonnig werden.']},
+  {sit:'Du begegnest dem Nachbarn um 7 Uhr morgens im Treppenhaus.',solutions:['Guten Morgen! Schon so früh unterwegs?','Morgen! Früher Vogel heute, oder?']},
+  {sit:'Die Baustelle macht seit Wochen Lärm. Du triffst die Nachbarin.',solutions:['Dieser Lärm ist ja nicht mehr auszuhalten! Wissen Sie, wie lange das noch geht?','Das nervt total, oder? Ich kann nachts nicht schlafen.']},
+];
+
+function renderUebungF() {
+  const c = document.getElementById('uebung-F');
+  c.innerHTML = UEB_F.map((item, i) => `
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)">
+      <div style="background:var(--teal-l);border-left:3px solid var(--teal);padding:8px 12px;border-radius:0 6px 6px 0;font-size:13px;margin-bottom:8px"><strong>${i+1}.</strong> ${item.sit}</div>
+      <textarea class="write-input" placeholder="Dein Satz..."></textarea>
+      <details style="margin-top:8px">
+        <summary>Mögliche Antworten anzeigen</summary>
+        <div class="sol">
+          ${item.solutions.map(s => `<div class="si">✅ „${s}"</div>`).join('')}
+        </div>
+      </details>
+    </div>`).join('');
+}
+renderUebungF();
+
+// ══════════════════════════════════════════════════════════
+// ÜBUNG G – Heikle Situationen
+// ══════════════════════════════════════════════════════════
+const UEB_G = [
+  {q:'Dein Nachbar macht um 23 Uhr laute Musik. Du klingelst. Was sagst du?',
+   correct:'Guten Abend, entschuldigen Sie die Störung. Die Musik ist leider sehr laut – könnten Sie sie etwas leiser stellen?',
+   options:['Guten Abend, entschuldigen Sie die Störung. Die Musik ist leider sehr laut – könnten Sie sie etwas leiser stellen?','Machen Sie sofort die Musik aus!','Das ist illegal – ich rufe die Polizei.']},
+  {q:'Jemand wirft Papier in die gelbe Tonne (falsch). Was sagst du?',
+   correct:'Darf ich kurz fragen – Papier kommt eigentlich in die blaue Tonne. Ist manchmal verwirrend!',
+   options:['Das ist falsch! Lernen Sie die Regeln!','Darf ich kurz fragen – Papier kommt eigentlich in die blaue Tonne. Ist manchmal verwirrend!','Das geht mich nichts an.']},
+  {q:'Du willst am Samstag renovieren. Was sagst du vorher zu den Nachbarn?',
+   correct:'Ich wollte kurz Bescheid geben – ich renoviere am Samstag. Tut mir leid für den Lärm!',
+   options:['Nichts – das ist meine Wohnung.','Ich wollte kurz Bescheid geben – ich renoviere am Samstag. Tut mir leid für den Lärm!','Ich renoviere wann ich will.']},
+];
+
+function renderUebungG() {
+  const c = document.getElementById('uebung-G');
+  c.innerHTML = UEB_G.map((item, i) => `
+    <div class="mc-item">
+      <div class="mc-q">${i+1}. ${item.q}</div>
+      <div class="mc-grid">
+        ${item.options.map(opt => `<button class="mc-btn" onclick="checkMC(this,${JSON.stringify(opt)},${JSON.stringify(item.correct)},'ueb-g-fb-${i}')">${opt}</button>`).join('')}
+      </div>
+      <div class="feedback" id="ueb-g-fb-${i}"></div>
+    </div>`).join('');
+}
+renderUebungG();
+
+// ══════════════════════════════════════════════════════════
+// KULTUR QUIZ
+// ══════════════════════════════════════════════════════════
+const KULT_QUIZ = [
+  {q:'Bis wann gilt in Deutschland die Nachtruhe?',correct:'Ab 22 Uhr',options:['Ab 20 Uhr','Ab 22 Uhr','Ab Mitternacht']},
+  {q:'Wer darf das "Du" anbieten?',correct:'Der Ältere oder länger Ansässige',options:['Der Jüngere','Der Ältere oder länger Ansässige','Jeder kann jederzeit du sagen']},
+  {q:'Was gehört in die blaue Tonne?',correct:'Papier',options:['Plastikverpackungen','Papier','Bioabfall']},
+  {q:'Wie beginnt man ein Gespräch mit einem Fremden in Deutschland am natürlichsten?',correct:'Mit einem konkreten Anlass (Wetter, Hund, Verspätung)',options:['Man stellt sich direkt vor','Mit einem konkreten Anlass (Wetter, Hund, Verspätung)','Man spricht über Politik']},
+  {q:'Was bedeutet es, wenn ein Deutscher sagt „Man kann ja nichts machen"?',correct:'Resignation – er akzeptiert die Situation',options:['Er will nicht helfen','Resignation – er akzeptiert die Situation','Er ist aggressiv']},
+];
+
+function renderKulturQuiz() {
+  const c = document.getElementById('kultur-quiz');
+  c.innerHTML = KULT_QUIZ.map((item, i) => `
+    <div class="mc-item">
+      <div class="mc-q">${i+1}. ${item.q}</div>
+      <div class="mc-grid">
+        ${item.options.map(opt => `<button class="mc-btn" onclick="checkMC(this,${JSON.stringify(opt)},${JSON.stringify(item.correct)},'kult-fb-${i}')">${opt}</button>`).join('')}
+      </div>
+      <div class="feedback" id="kult-fb-${i}"></div>
+    </div>`).join('');
+}
+renderKulturQuiz();
+
+// ══════════════════════════════════════════════════════════
+// GENERIC CHECK FUNCTIONS
+// ══════════════════════════════════════════════════════════
+function checkMC(btn, answer, correct, fbId) {
+  const group = btn.parentElement;
+  group.querySelectorAll('.mc-btn').forEach(b => { b.disabled = true; b.classList.remove('correct','wrong'); });
+  const isCorrect = answer === correct;
+  btn.classList.add(isCorrect ? 'correct' : 'wrong');
+  // also highlight correct answer if wrong
+  if (!isCorrect) {
+    group.querySelectorAll('.mc-btn').forEach(b => {
+      if (b.textContent.trim() === correct) b.classList.add('correct');
+    });
+  }
+  const fb = document.getElementById(fbId);
+  if (fb) {
+    fb.className = `feedback ${isCorrect?'ok-fb':'err-fb'} show`;
+    fb.textContent = isCorrect ? '✅ Richtig!' : `❌ Leider falsch. Richtig: ${correct}`;
+  }
+  if (isCorrect) addXP(10,'✅ Richtig!');
+  else addDone();
+}
+
+function checkMCWithExplain(btn, answer, correct, fbId, explain) {
+  const group = btn.parentElement;
+  group.querySelectorAll('.mc-btn').forEach(b => { b.disabled = true; });
+  const isCorrect = answer === correct;
+  btn.classList.add(isCorrect ? 'correct' : 'wrong');
+  if (!isCorrect) {
+    group.querySelectorAll('.mc-btn').forEach(b => {
+      if (b.textContent.trim() === correct) b.classList.add('correct');
+    });
+  }
+  const fb = document.getElementById(fbId);
+  fb.className = `feedback ${isCorrect?'ok-fb':'err-fb'} show`;
+  fb.textContent = (isCorrect ? '✅ Richtig! ' : `❌ Nicht ganz. `) + explain;
+  if (isCorrect) addXP(10,'✅ Richtig!');
+  else addDone();
+}
+
+function checkGap(selectId, correct, fbId) {
+  const el = document.getElementById(selectId);
+  const val = el.value;
+  if (!val) return;
+  const isCorrect = val === correct;
+  el.classList.remove('ok','err');
+  el.classList.add(isCorrect ? 'ok' : 'err');
+  el.disabled = true;
+  const fb = document.getElementById(fbId);
+  fb.className = `feedback ${isCorrect?'ok-fb':'err-fb'} show`;
+  fb.textContent = isCorrect ? '✅ Richtig!' : `❌ Richtig wäre: "${correct}"`;
+  if (isCorrect) addXP(10,'✅ Richtig!');
+  else addDone();
+}
+</script>
+</body>
+</html>
+          </body>
+        </html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html><html lang="de"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title data-id="th-modified">B1/B2: Freies Sprechen – Thesen mit Pro & Contra · deutschoderwas</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#2D8A7A;--acc-lt:#B8DDD4;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}.tbtn.reset{background:#555;color:white;}
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;scrollbar-width:none;}
+.phase-nav::-webkit-scrollbar{display:none;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;}.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.4rem;line-height:1.5;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.4rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--acc-lt);color:var(--acc);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.vok-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.vok-card.flipped{background:var(--acc-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);white-space:pre-line;}
+.vok-card.flipped .vok-back{display:block;}.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+.dialog{background:var(--sand-lt);border-radius:16px;overflow:hidden;margin-bottom:1.1rem;border:1.5px solid var(--sand);}
+.dialog-hd{background:var(--dark);color:white;padding:.6rem 1.3rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
+.dialog-body{padding:1rem 1.3rem;}
+.dl{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start;}.dl:last-child{margin-bottom:0;}
+.dl-spk{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:60px;padding-top:.25rem;flex-shrink:0;color:var(--acc);line-height:1.3;}
+.dl-spk.b{color:var(--rust);}.dl-spk.c{color:#6B3D8A;}
+.dl-txt{font-size:.9rem;line-height:1.65;}.dl-txt strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list{list-style:none;margin-bottom:1.1rem;}
+.phrase-list li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .9rem;border-radius:10px;margin-bottom:.4rem;background:white;border:1.5px solid var(--sand);font-size:.89rem;line-height:1.6;}
+.phrase-list li::before{content:'→';color:var(--acc);font-weight:700;flex-shrink:0;margin-top:.1rem;}
+.phrase-list li strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list li em{color:#888;font-size:.8rem;}
+.rsp-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;margin-bottom:.9rem;}
+.rsp-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.1);}.rsp-card.open .rsp-back{display:block;}.rsp-card.open .rsp-hint{display:none;}
+.rsp-top{background:var(--dark);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.75rem;}
+.rsp-emoji{font-size:1.4rem;flex-shrink:0;}.rsp-title{font-family:'Fraunces',serif;font-weight:700;color:white;font-size:1rem;}
+.rsp-body{padding:1rem 1.2rem;}.rsp-situation{font-size:.89rem;color:var(--dark);line-height:1.6;margin-bottom:.6rem;}
+.rsp-back{display:none;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--sand);}
+.rsp-rolle{font-size:.83rem;line-height:1.7;color:var(--dark);margin-bottom:.45rem;padding:.4rem .8rem;border-radius:8px;background:var(--cream);}
+.rsp-rolle strong{color:var(--acc);}.rsp-hint{font-size:.7rem;color:#bbb;}
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:13px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.speak-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.09);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);line-height:1.4;}
+.speak-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}.speak-hint{font-size:.68rem;color:#bbb;margin-top:.45rem;}
+.tipp{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-top:1.3rem;display:flex;gap:.9rem;align-items:flex-start;}
+.tipp-icon{font-size:1.3rem;flex-shrink:0;}.tipp-body{font-size:.87rem;line-height:1.75;}.tipp-body strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+.kultur{background:linear-gradient(135deg,var(--acc-lt),rgba(255,255,255,.5));border:1.5px solid var(--acc);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.kultur-title{font-family:'Fraunces',serif;font-weight:700;color:var(--acc);font-size:.9rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;}
+.kultur-body{font-size:.86rem;line-height:1.75;color:var(--dark);}
+.debatte{background:white;border-radius:16px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.3rem;box-shadow:0 4px 12px rgba(0,0,0,.04);}
+.debatte-these{background:var(--dark);color:white;padding:1rem 1.4rem;display:flex;align-items:flex-start;gap:.9rem;}
+.debatte-num{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;color:var(--acc-lt);line-height:.9;flex-shrink:0;}
+.debatte-text{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:700;line-height:1.3;}
+.debatte-emoji{font-size:1.4rem;flex-shrink:0;}
+.debatte-cols{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--sand);}
+.debatte-col{padding:1rem 1.2rem;}
+.debatte-col.pro{background:linear-gradient(180deg,var(--green-lt),rgba(212,232,220,.3));border-right:1px solid var(--sand);}
+.debatte-col.con{background:linear-gradient(180deg,var(--red-lt),rgba(245,221,217,.3));}
+.debatte-col-hd{font-family:'Fraunces',serif;font-size:.75rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem;}
+.debatte-col.pro .debatte-col-hd{color:var(--green);}
+.debatte-col.con .debatte-col-hd{color:var(--red);}
+.debatte-arg{font-size:.83rem;line-height:1.55;color:var(--dark);padding:.4rem 0;border-bottom:1px dashed rgba(0,0,0,.08);}
+.debatte-arg:last-child{border-bottom:none;}
+.debatte-arg::before{content:'•';margin-right:.4rem;font-weight:700;}
+.debatte-col.pro .debatte-arg::before{color:var(--green);}
+.debatte-col.con .debatte-arg::before{color:var(--red);}
+@media(max-width:600px){.debatte-cols{grid-template-columns:1fr;}.debatte-col.pro{border-right:none;border-bottom:1px solid var(--sand);}}
+</style><meta property="og:title" content="B1/B2: Freies Sprechen – Thesen mit Pro & Contra · deutschoderwas" data-id="th-modified"><meta name="description" content="freies_sprechen_b1b2" data-id="th-modified"><meta property="og:description" content="freies_sprechen_b1b2" data-id="th-modified"><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified"><meta property="og:image:width" content="1501" data-id="th-modified"><meta property="og:image:height" content="1501" data-id="th-modified"><meta property="og:image:type" content="image/png" data-id="th-modified"><meta property="og:url" content="https://freies-sprechen-neu.deutschoderwas-lernen.de/" data-id="th-modified"><meta property="og:type" content="website" data-id="th-modified"><script defer data-domain="freies-sprechen-neu.deutschoderwas-lernen.de" src="https://analytics.tiiny.site/js/plausible.js"></script></head><body>
+<div class="timer-bar">
+  <div class="timer-display" id="td">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="tf"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;flex-shrink:0;">Unterrichtszeit</span>
+  <div class="timer-btns"><button class="tbtn start" onclick="toggleTimer()">▶ Start</button><button class="tbtn reset" onclick="resetTimer()">↺</button></div>
+</div>
+<div class="phase-nav"><span class="brand-tag">deutsch<span>oder</span>was</span><button class="phase-btn active" onclick="showPhase('p1',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('p2',this)">② Wortschatz</button>
+  <button class="phase-btn" onclick="showPhase('p3',this)">③ Dialog-Beispiele</button>
+  <button class="phase-btn" onclick="showPhase('p4',this)">④ Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('p5',this)">⑤ Rollenspiele</button>
+  <button class="phase-btn" onclick="showPhase('p6',this)">⑥ Debatten-Thesen</button>
+  <button class="phase-btn" onclick="showPhase('p7',this)">⑦ Freie Fragen</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;flex-shrink:0;">B1/B2 · 60 Min.</span>
+</div>
+<main>
+<div id="phase-p1" class="phase active"><div class="card">
+<div class="card-header"><div class="eyebrow">B1/B2 · Einstieg · 6 Min.</div>
+<div class="card-title">Freies Sprechen – <em>aber mit Argumenten!</em></div><div class="card-sub">Heute diskutieren wir über echte Alltagsthemen. Du brauchst nicht zu improvisieren – jede These hat schon Pro- und Contra-Argumente.</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 6 Minuten</div>
+<div class="kultur"><div class="kultur-title">💡 So funktioniert die Stunde</div><div class="kultur-body">Phase 6 hat <strong>12 Thesen</strong> aus dem Alltag. Zu jeder gibt es <strong>4 Pro- und 4 Contra-Argumente</strong>. So läuft eine gute Debatte ab: Einer wählt PRO, einer CONTRA – auch wenn du persönlich anders denkst! Das ist das beste Training für freies Sprechen.<br><br><strong>Regel:</strong> Mindestens ein Argument selbst formulieren – nicht nur ablesen. Die Argumente sind Inspiration, nicht Skript.</div></div>
+<div class="slabel">Warming-up – sprecht zuerst!</div>
+<div class="speak-grid" id="warmup"></div>
+<div class="tipp"><div class="tipp-icon">🎯</div><div class="tipp-body"><strong>Heute lernen wir:</strong> Wortschatz fürs Argumentieren · Redemittel zum Zustimmen/Widersprechen · 12 Thesen aus dem Alltag durchdiskutieren · Eigene Meinung mit Begründung formulieren</div></div>
+</div></div></div>
+
+<div id="phase-p2" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1/B2 · Wortschatz · 8 Min.</div>
+<div class="card-title">Worte fürs Diskutieren</div>
+<div class="card-sub">Klickt auf die Karten – die wichtigsten Begriffe für Debatten!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div>
+<div class="slabel">📚 Wortschatz: Meinung &amp; Argumentation</div>
+<div class="vok-grid" id="v1"></div>
+</div></div></div>
+
+<div id="phase-p3" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1/B2 · Dialog-Beispiele · 8 Min.</div>
+<div class="card-title">So klingt eine gute Diskussion</div>
+<div class="card-sub">Lest laut, wechselt die Rollen – achtet auf die Redemittel!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">💬</span> Eine sachliche Diskussion (Homeoffice)</div><div class="dialog-body">
+<div class="dl"><span class="dl-spk">Eva</span><div><div class="dl-txt">Ich finde, Homeoffice ist die Zukunft. Man spart Zeit und kann konzentrierter arbeiten.</div></div></div>
+<div class="dl"><span class="dl-spk b">Tom</span><div><div class="dl-txt"><strong>Da bin ich anderer Meinung.</strong> Im Büro lernt man Kollegen besser kennen, und es gibt eine klare Trennung von Arbeit und Privatleben.</div></div></div>
+<div class="dl"><span class="dl-spk">Eva</span><div><div class="dl-txt"><strong>Das stimmt schon, aber</strong> wer Kinder hat, ist froh, wenn er den Arbeitsweg spart.</div></div></div>
+<div class="dl"><span class="dl-spk b">Tom</span><div><div class="dl-txt"><strong>Da hast du recht.</strong> Vielleicht ist eine Mischung das Beste – zwei Tage Büro, drei Tage zu Hause.</div></div></div>
+<div class="dl"><span class="dl-spk">Eva</span><div><div class="dl-txt">Ja, <strong>einerseits</strong> hat man so soziale Kontakte, <strong>andererseits</strong> Flexibilität.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">🔥</span> Wenn man unterschiedlicher Meinung ist (Smartphones in der Schule)</div><div class="dialog-body">
+<div class="dl"><span class="dl-spk">Mia</span><div><div class="dl-txt">Smartphones gehören im Unterricht verboten. Punkt.</div></div></div>
+<div class="dl"><span class="dl-spk b">Leo</span><div><div class="dl-txt"><strong>Das sehe ich anders.</strong> Smartphones sind doch tolle Lernwerkzeuge – Wörterbuch, Übersetzer, Lern-Apps.</div></div></div>
+<div class="dl"><span class="dl-spk">Mia</span><div><div class="dl-txt"><strong>Klar, aber</strong> die meisten Schüler chatten oder spielen, statt zu lernen. Das lenkt enorm ab.</div></div></div>
+<div class="dl"><span class="dl-spk b">Leo</span><div><div class="dl-txt">Dann ist das doch eher ein Problem der Lehrer und der Regeln, oder?</div></div></div>
+<div class="dl"><span class="dl-spk">Mia</span><div><div class="dl-txt"><strong>Das mag stimmen, aber</strong> in der Realität funktionieren diese Regeln einfach nicht. Schau dir die Studien an.</div></div></div>
+<div class="dl"><span class="dl-spk b">Leo</span><div><div class="dl-txt"><strong>Ich verstehe deinen Punkt.</strong> Trotzdem würde ich Smartphones nicht komplett verbieten – sondern gezielt einsetzen.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">🤝</span> Eine Diskussion beenden &amp; Kompromiss finden</div><div class="dialog-body">
+<div class="dl"><span class="dl-spk">Anna</span><div><div class="dl-txt"><strong>Ich glaube, wir kommen hier auf keinen gemeinsamen Nenner.</strong></div></div></div>
+<div class="dl"><span class="dl-spk b">Ben</span><div><div class="dl-txt">Das müssen wir auch nicht. Wir sind uns ja zumindest darin einig, dass es kompliziert ist.</div></div></div>
+<div class="dl"><span class="dl-spk">Anna</span><div><div class="dl-txt">Genau. <strong>Lass uns das so stehen lassen.</strong> Es gibt eben gute Argumente auf beiden Seiten.</div></div></div>
+<div class="dl"><span class="dl-spk b">Ben</span><div><div class="dl-txt">Und das ist eigentlich das Wichtigste an einer Diskussion: dass man die andere Seite versteht – auch wenn man nicht zustimmt.</div></div></div>
+</div></div>
+</div></div></div>
+
+<div id="phase-p4" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1/B2 · Redemittel · 8 Min.</div>
+<div class="card-title">So <em>argumentiert</em> man auf Deutsch</div>
+<div class="card-sub">Diese Wendungen brauchst du in Phase 5 (Rollenspiele) und Phase 6 (Debatten-Thesen)!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div>
+<div class="slabel">🗣 Eigene Meinung äußern</div>
+<ul class="phrase-list">
+<li><strong>Meiner Meinung nach …</strong> <em>– klassisch &amp; sicher</em></li>
+<li><strong>Ich bin der Meinung, dass …</strong> <em>– etwas formeller</em></li>
+<li><strong>Ich finde / Ich glaube / Ich denke, dass …</strong> <em>– alltagstauglich</em></li>
+<li><strong>Aus meiner Sicht …</strong> <em>– elegant</em></li>
+<li><strong>Ich bin der festen Überzeugung, dass …</strong> <em>– sehr stark</em></li>
+</ul>
+<div class="slabel">✅ Zustimmen</div>
+<ul class="phrase-list">
+<li><strong>Da hast du absolut recht.</strong></li>
+<li><strong>Das sehe ich genauso.</strong></li>
+<li><strong>Genau! / Stimmt! / Eben!</strong></li>
+<li><strong>Da bin ich ganz deiner Meinung.</strong></li>
+<li><strong>Das kann ich nur unterstützen.</strong></li>
+</ul>
+<div class="slabel">❌ Widersprechen (höflich, aber klar!)</div>
+<ul class="phrase-list">
+<li><strong>Da bin ich anderer Meinung.</strong></li>
+<li><strong>Das sehe ich anders.</strong></li>
+<li><strong>Da muss ich dir widersprechen.</strong></li>
+<li><strong>Das stimmt zwar, aber …</strong> <em>(zugeben + widersprechen)</em></li>
+<li><strong>Das kann ich so nicht stehen lassen.</strong> <em>(stärker)</em></li>
+</ul>
+<div class="slabel">⚖️ Abwägen &amp; Differenzieren</div>
+<ul class="phrase-list">
+<li><strong>Einerseits …, andererseits …</strong></li>
+<li><strong>Auf der einen Seite …, auf der anderen Seite …</strong></li>
+<li><strong>Das kommt darauf an, …</strong></li>
+<li><strong>Es gibt sowohl Vor- als auch Nachteile.</strong></li>
+<li><strong>Man muss zwischen X und Y unterscheiden.</strong></li>
+</ul>
+<div class="slabel">📌 Beispiele &amp; Begründungen</div>
+<ul class="phrase-list">
+<li><strong>Zum Beispiel … / Beispielsweise …</strong></li>
+<li><strong>Das sieht man besonders gut, wenn …</strong></li>
+<li><strong>Ein gutes Beispiel dafür ist …</strong></li>
+<li><strong>Aus folgendem Grund: …</strong></li>
+<li><strong>Das liegt daran, dass …</strong></li>
+</ul>
+<div class="tipp"><div class="tipp-icon">💡</div><div class="tipp-body"><strong>Tipp für die Debatte:</strong> Antworte nie nur mit „ja/nein" oder „stimmt/stimmt nicht". Sag IMMER WARUM – auch wenn es nur ein halber Satz ist: <em>„Ja, weil …"</em> oder <em>„Nein, das funktioniert in der Praxis nicht, weil …"</em></div></div>
+</div></div></div>
+
+<div id="phase-p5" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1/B2 · Rollenspiele · 8 Min.</div>
+<div class="card-title">Diskutieren in <em>klaren Rollen</em></div>
+<div class="card-sub">Eine:r übernimmt Rolle A, eine:r Rolle B. 4 Minuten pro Szene!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div><div id="rsp1"></div>
+</div></div></div>
+
+<div id="phase-p6" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1/B2 · Debatten-Thesen · 25 Min. (Herzstück!)</div>
+<div class="card-title">12 Thesen aus dem Alltag – <em>jetzt diskutieren!</em></div>
+<div class="card-sub">Wählt eine These. Eine:r ist PRO, eine:r CONTRA – auch wenn ihr persönlich anders denkt!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 25 Minuten · ca. 2 Min pro These</div>
+<div id="debatten"></div>
+</div></div></div>
+
+<div id="phase-p7" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1/B2 · Freie Fragen · 5 Min.</div>
+<div class="card-title">Zum Schluss: <em>persönliche Fragen</em></div>
+<div class="card-sub">Jetzt ohne Pro/Contra – einfach erzählen, was du denkst.</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 5 Minuten</div>
+<div class="slabel">Zieht eine Karte!</div>
+<div class="speak-grid" id="speakCards"></div>
+</div></div></div>
+</main>
+<script>
+const TOTAL=3600;let rem=TOTAL,intv=null,run=false;
+function upd(){const m=Math.floor(rem/60),s=rem%60;const d=document.getElementById('td');d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('tf').style.width=(rem/TOTAL*100)+'%';d.className='timer-display';if(rem<=600)d.classList.add('warn');if(rem<=120)d.classList.add('urgent');}
+function toggleTimer(){if(run){clearInterval(intv);run=false;document.querySelector('.tbtn.start').textContent='▶ Start';}else{run=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';intv=setInterval(()=>{if(rem>0){rem--;upd();}else{clearInterval(intv);run=false;}},1000);}}
+function resetTimer(){clearInterval(intv);run=false;rem=TOTAL;upd();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));document.getElementById('phase-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function buildVokCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(v=>{const d=document.createElement('div');d.className='vok-card';d.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${(v.back||'').replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint||'👆 klicken!'}</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildSpeakCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(i=>{const d=document.createElement('div');d.className='speak-card';d.innerHTML=`<div class="speak-front">${i.front}</div><div class="speak-back">${i.back}</div><div class="speak-hint">👆 Tipp & Formulierungshilfe</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildRSP(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(item=>{const d=document.createElement('div');d.className='rsp-card';d.innerHTML=`<div class="rsp-top"><span class="rsp-emoji">${item.emoji}</span><span class="rsp-title">${item.title}</span></div><div class="rsp-body"><div class="rsp-situation">${item.situation}</div><div class="rsp-back"><div class="rsp-rolle"><strong>🔴 Person A:</strong> ${item.a}</div><div class="rsp-rolle"><strong>🔵 Person B:</strong> ${item.b}</div>${item.tipps?`<div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">💡 Tipps:</strong> ${item.tipps}</div>`:''}</div><div class="rsp-hint">👆 klicken für Rollen & Tipps</div></div>`;d.addEventListener('click',()=>d.classList.toggle('open'));g.appendChild(d);});}
+function buildDebatten(data,id){const g=document.getElementById(id);if(!g)return;data.forEach((item,i)=>{const d=document.createElement('div');d.className='debatte';const proArgs=item.pro.map(a=>`<div class="debatte-arg">${a}</div>`).join('');const conArgs=item.con.map(a=>`<div class="debatte-arg">${a}</div>`).join('');d.innerHTML=`<div class="debatte-these"><div class="debatte-num">${String(i+1).padStart(2,'0')}</div><div class="debatte-emoji">${item.emoji}</div><div class="debatte-text">${item.these}</div></div><div class="debatte-cols"><div class="debatte-col pro"><div class="debatte-col-hd">✓ Dafür (Pro)</div>${proArgs}</div><div class="debatte-col con"><div class="debatte-col-hd">✗ Dagegen (Contra)</div>${conArgs}</div></div>`;g.appendChild(d);});}
+
+buildVokCards([
+{"front":"die These","back":"= eine Behauptung, die man begründen muss.\n\nBeispiel: „Meine These ist: Autos haben in der Innenstadt nichts zu suchen.“","hint":"Behauptung mit Begründung"},
+{"front":"das Argument","back":"= ein Grund, der eine Meinung stützt.\n\n„Ein starkes Argument dafür ist …“\n„Das wichtigste Argument dagegen ist …“","hint":"Grund für die Meinung"},
+{"front":"die Begründung","back":"= die Erklärung WARUM man etwas denkt.\n\n„Was ist deine Begründung dafür?“\nVerb: etwas begründen","hint":"das WARUM"},
+{"front":"das Vorurteil","back":"= eine Meinung OHNE Begründung, oft negativ.\n\n„Das ist doch nur ein Vorurteil!“\n„Wir müssen Vorurteile abbauen.“","hint":"Meinung ohne Wissen"},
+{"front":"das Klischee","back":"= ein abgenutztes, oft falsches Bild.\n\n„Das Klischee, dass Deutsche immer pünktlich sind, stimmt nur teilweise.“","hint":"abgenutztes Bild"},
+{"front":"jemandem (Dat) zustimmen","back":"= sagen, dass man derselben Meinung ist.\n\n„Da stimme ich DIR zu.“\nSubstantiv: die Zustimmung","hint":"einig sein"},
+{"front":"jemandem (Dat) widersprechen","back":"= eine andere Meinung haben &amp; das sagen.\n\n„Da muss ich DIR widersprechen.“\nSubstantiv: der Widerspruch","hint":"anders sehen"},
+{"front":"ein Kompromiss","back":"= eine Einigung, bei der beide nachgeben.\n\n„Wir haben einen Kompromiss gefunden.“\nVerb: Kompromisse eingehen / schließen","hint":"goldene Mitte"},
+{"front":"das Pro &amp; das Contra","back":"= das Dafür und das Dagegen.\n\n„Wir haben das Pro und Contra abgewogen.“\nAuch: die Vor- und Nachteile","hint":"dafür &amp; dagegen"},
+{"front":"abwägen","back":"= verschiedene Argumente vergleichen, bevor man entscheidet.\n\n„Man muss die Argumente sorgfältig abwägen.“\nSubstantiv: das Abwägen","hint":"vergleichen vor Entscheidung"},
+{"front":"überzeugen","back":"= jemanden mit Argumenten dazu bringen, etwas zu glauben.\n\n„Du hast mich überzeugt!“\nAdjektiv: überzeugend","hint":"mit Argumenten gewinnen"},
+{"front":"hinterfragen","back":"= eine Sache kritisch prüfen, nicht einfach glauben.\n\n„Wir sollten alles, was wir lesen, hinterfragen.“\nAuch: kritisch betrachten","hint":"kritisch prüfen"},
+{"front":"die Mehrheit / die Minderheit","back":"= mehr als die Hälfte / weniger als die Hälfte.\n\n„Die Mehrheit der Deutschen ist dafür.“\n„Eine Minderheit lehnt das ab.“","hint":"&gt;50% / &lt;50%"},
+{"front":"sinnvoll / sinnlos","back":"= mit Sinn / ohne Sinn.\n\n„Ein Verbot wäre sinnvoll, weil …“\n„Es ist sinnlos, weil …“","hint":"hat es Sinn?"},
+{"front":"die Folge / die Konsequenz","back":"= was passiert AUFGRUND einer Sache.\n\n„Die Folge davon ist, dass …“\n„Welche Konsequenzen hätte das?“","hint":"was kommt danach?"}
+],'v1');
+
+buildSpeakCards([
+{"front":"Worüber diskutierst du in deinem Alltag am häufigsten? Mit wem?","back":"„Mit meinem Mann / meiner Mutter / Kollegen … / Wir streiten oft über …"},
+{"front":"Diskutierst du gern – oder versuchst du, Konflikte zu vermeiden?","back":"„Ich liebe es zu diskutieren, weil … / Ich vermeide Konflikte, denn …"}
+],'warmup');
+
+buildRSP([
+{"emoji":"☕","title":"Im Café: Vegetarismus","situation":"Ihr trefft euch zum Mittagessen. Person A isst seit Kurzem vegetarisch und erklärt warum. Person B ist „Fleisch-Liebhaber:in“ und stellt kritische Fragen.","a":"VEGETARIER:IN: Erkläre deine Gründe (Tiere, Umwelt, Gesundheit). Sei nicht missionarisch. Lass die andere Seite reden.","b":"FLEISCH-LIEBHABER:IN: Stelle ehrliche Fragen („Aber Eiweiß? Geschmack? Tradition?“). Versuche nicht zu provozieren – versuche zu verstehen.","tipps":"Redemittel: „Aus meiner Sicht …“, „Das stimmt zwar, aber …“, „Hast du daran gedacht, dass …"},
+{"emoji":"🏢","title":"Im Büro: Homeoffice oder Präsenz?","situation":"Eure Firma diskutiert eine neue Regelung: 100% Büro oder 100% Homeoffice oder Mischung. Person A ist Chef:in (pro Büro), Person B ist Mitarbeiter:in (pro Homeoffice). Findet einen Kompromiss!","a":"CHEF:IN: Du willst Team-Geist, schnelle Absprachen, Kontrolle. Argumentiere mit Effizienz und Zusammenhalt – aber höre auch zu.","b":"MITARBEITER:IN: Du willst Flexibilität, weniger Pendeln, Konzentration zu Hause. Bring konkrete Beispiele aus deinem Alltag.","tipps":"Versucht NICHT zu gewinnen – versucht, einen Kompromiss zu finden! Stichworte: hybrid, Vertrauen, Ergebnisorientierung"},
+{"emoji":"👨‍👩‍👧","title":"Zu Hause: Smartphone für das 10-jährige Kind","situation":"Eltern-Diskussion: Soll euer Kind (10 Jahre) jetzt schon ein Smartphone bekommen? Ihre Freunde haben alle schon eins.","a":"ELTERN-TEIL 1 (PRO Smartphone): Argumente: Sicherheit (man ist erreichbar), Anschluss zu Freunden, lernen mit der Technik umzugehen, Notfälle.","b":"ELTERN-TEIL 2 (CONTRA Smartphone): Argumente: zu jung für soziale Medien, Sucht, Mobbing, kein Schutz vor schlechten Inhalten, weniger draußen spielen.","tipps":"Achtet auf höflichen Ton – ihr seid Partner, kein Gericht. Endet mit einem konkreten Vorschlag: Was tut ihr nun?"}
+],'rsp1');
+
+buildDebatten([
+{"emoji":"📱","these":"Smartphones gehören in der Schule komplett verboten.","pro":["Schüler werden ständig abgelenkt – sie chatten und spielen statt zu lernen.","Studien zeigen: Ohne Handy im Klassenzimmer steigt die Konzentration deutlich.","Mobbing in sozialen Medien passiert oft während der Schulzeit – ein Verbot schützt.","Schüler lernen wieder, miteinander zu reden statt nur zu tippen."],"con":["Smartphones sind Lernwerkzeuge: Wörterbücher, Übersetzer, Lern-Apps – kostenlos.","In Notfällen müssen Kinder ihre Eltern erreichen können.","Schüler müssen den Umgang mit Technik lernen – nicht vermeiden.","Ein Verbot löst das Problem nicht – Schüler brauchen Medienkompetenz, nicht Verbote."]},
+{"emoji":"🏢","these":"Homeoffice ist besser als Büro-Arbeit.","pro":["Man spart Zeit und Geld für den Arbeitsweg – oft 1–2 Stunden pro Tag.","Zu Hause kann man konzentrierter arbeiten, ohne Lärm und Unterbrechungen.","Bessere Vereinbarkeit von Beruf und Familie – besonders mit Kindern.","Man hat mehr Freiheit, seinen Tag selbst zu gestalten."],"con":["Im Büro lernt man Kollegen besser kennen – soziale Kontakte sind wichtig.","Es fehlt die klare Trennung zwischen Arbeit und Privatleben – man arbeitet nie wirklich frei.","Spontane Gespräche und kreative Ideen entstehen leichter persönlich.","Zu Hause kann man einsam werden – besonders, wenn man allein lebt."]},
+{"emoji":"🚗","these":"Autos sollten in der Innenstadt komplett verboten werden.","pro":["Weniger Lärm und sauberere Luft – die Lebensqualität steigt enorm.","Mehr Platz für Fußgänger, Radfahrer, Cafés und Spielplätze.","Öffentlicher Nahverkehr und Fahrrad sind in der Stadt oft schneller.","Das Klima profitiert – Städte sind verantwortlich für viel CO₂."],"con":["Ältere und kranke Menschen sind auf das Auto angewiesen – ein Verbot trifft sie hart.","Handwerker, Lieferdienste, Krankenwagen brauchen die Straßen.","Wer auf dem Land wohnt, muss mit dem Auto in die Stadt – das geht nicht anders.","Die Wirtschaft leidet – Geschäfte ohne Kundschaft schließen."]},
+{"emoji":"🥩","these":"Fleisch essen sollte deutlich teurer werden – durch eine Sondersteuer.","pro":["Fleischproduktion belastet das Klima stark – höhere Preise = weniger Konsum.","Tiere werden in der Massentierhaltung oft schlecht behandelt – das muss aufhören.","Wenn Fleisch teurer wird, essen wir bewusster und gesünder.","Das Geld könnte in nachhaltige Landwirtschaft fließen."],"con":["Eine Fleischsteuer trifft vor allem ärmere Familien – das ist sozial ungerecht.","Fleisch gehört zur Esskultur vieler Länder – das darf der Staat nicht regulieren.","Der Staat soll nicht über unsere Teller bestimmen – das ist Bevormundung.","Bio-Fleisch ist schon jetzt teurer – wer will, kann sich schon entscheiden."]},
+{"emoji":"📺","these":"Streaming-Dienste machen das Kino überflüssig.","pro":["Zu Hause ist man bequem, ohne Eintritt, ohne lautes Popcorn-Knabbern.","Man kann pausieren, zurückspulen, wann man will schauen.","Streaming ist günstiger – ein Abo kostet weniger als zwei Kinotickets.","Die Auswahl ist riesig – Filme, Serien, Dokus aus aller Welt."],"con":["Das Kino-Erlebnis – große Leinwand, Sound, Atmosphäre – kann Streaming nie ersetzen.","Im Kino erlebt man Filme gemeinsam mit Fremden – das ist ein soziales Event.","Zu Hause wird man ständig gestört – Handy, Telefon, Familie.","Kinos zu verlieren bedeutet, einen kulturellen Ort zu verlieren – nicht nur eine Unterhaltungsform."]},
+{"emoji":"💶","these":"Mehr Freizeit ist wichtiger als mehr Geld.","pro":["Zeit kann man nicht zurückkaufen – Geld schon irgendwie verdienen.","Mit Freizeit kann man Familie, Hobbys und Gesundheit pflegen.","Glücksforschung zeigt: Ab einem bestimmten Einkommen macht mehr Geld nicht glücklicher.","Die wertvollsten Erinnerungen entstehen in der Freizeit, nicht bei der Arbeit."],"con":["Ohne Geld kann man auch Freizeit nicht genießen – Reisen, Hobbys kosten.","Wer wenig verdient, hat Sorgen, die mehr Freizeit nicht löst.","Geld bedeutet Sicherheit – für sich, die Familie, das Alter.","Arbeit gibt vielen Menschen Sinn und Struktur – nicht nur Geld."]},
+{"emoji":"🛒","these":"Online-Shopping ruiniert die kleinen Geschäfte – wir sollten lokal kaufen.","pro":["Wenn alle online bestellen, schließen die Geschäfte in unserer Stadt – sie wird leerer.","Im Laden hat man echte Beratung von Menschen, die das Produkt kennen.","Lokal kaufen schützt Arbeitsplätze in unserer Nachbarschaft.","Die Umwelt leidet unter ständigen Lieferungen und Verpackungsmüll."],"con":["Online ist es billiger, schneller, größere Auswahl – das kann man nicht ignorieren.","Wer Kinder hat oder weit weg vom Laden wohnt, ist auf Online angewiesen.","Viele kleine Geschäfte verkaufen ja selbst online – das ist die Zukunft.","Es ist nicht meine Aufgabe, die Innenstadt zu retten – das ist Aufgabe der Politik."]},
+{"emoji":"💍","these":"Heiraten ist heute völlig überflüssig.","pro":["Eine Beziehung lebt von Vertrauen, nicht von einem Stück Papier.","Hochzeiten kosten viele tausend Euro – sinnvoller in Wohnung oder Reise investieren.","Wer sich nicht traut, geht – auch ohne Trauschein. Eine Ehe ändert nichts.","Steuervorteile gibt es heute auch für unverheiratete Paare in vielen Bereichen."],"con":["Heiraten ist ein bewusstes Versprechen – das hat eine andere Qualität.","Rechtlich macht die Ehe vieles einfacher: Erbe, Krankenhaus, Kinder.","Eine Hochzeit ist ein schönes Fest mit Familie und Freunden – das gehört zum Leben.","Tradition gibt Halt – nicht alles Alte ist schlecht."]},
+{"emoji":"📵","these":"Eltern sollten in die WhatsApp-Chats ihrer Kinder schauen dürfen.","pro":["Kinder brauchen Schutz vor Mobbing, Sucht, gefährlichen Kontakten.","Eltern sind verantwortlich – sie müssen wissen, was passiert.","Wer nichts zu verbergen hat, hat auch nichts zu befürchten.","Online-Gefahren sind real – ein Blick rein kann Schlimmes verhindern."],"con":["Kinder brauchen Privatsphäre – das ist ein Grundrecht, auch in der Familie.","Heimliches Mitlesen zerstört Vertrauen – wenn das Kind es merkt, ist alles kaputt.","Besser: offen reden, Regeln gemeinsam aufstellen, Vertrauen aufbauen.","Wer kontrolliert wird, lernt nicht selbstständig Entscheidungen zu treffen."]},
+{"emoji":"✈️","these":"Wegen des Klimas sollten wir auf Flugreisen verzichten.","pro":["Fliegen ist die klimaschädlichste Art zu reisen – ein Flug = monatelang Auto fahren.","Es gibt schöne Reiseziele im eigenen Land oder per Zug erreichbar.","Wenn alle so weitermachen, ist das Klima nicht zu retten – jeder muss mitmachen.","Langsamer reisen heißt, mehr vom Weg zu sehen – nicht nur vom Ziel."],"con":["Fliegen verbindet Familien, die in verschiedenen Ländern leben – das ist menschlich wichtig.","Der Tourismus ist für viele arme Länder die Haupteinnahmequelle.","Solange Industrie und Politik nichts ändern, bringt mein Verzicht wenig.","Reisen erweitert den Horizont – das macht uns offener und toleranter."]},
+{"emoji":"⏰","these":"Die 4-Tage-Woche sollte überall eingeführt werden.","pro":["Studien zeigen: Bei kürzerer Woche steigt oft die Produktivität, nicht sinkt sie.","Mehr Zeit für Familie, Sport, Hobbys – Menschen werden gesünder und glücklicher.","Weniger Pendelfahrten = weniger Stau, weniger CO₂.","Weniger Burnout, weniger Krankheitstage – das spart Unternehmen Geld."],"con":["In manchen Berufen geht das einfach nicht – Krankenhaus, Pflege, Service.","Wer weniger arbeitet, verdient oft auch weniger – das können sich nicht alle leisten.","Kunden erwarten oft 5-Tage-Service – das funktioniert sonst nicht.","Die deutsche Wirtschaft braucht mehr Arbeit, nicht weniger – Fachkräftemangel!"]},
+{"emoji":"🐾","these":"In der Stadt sollte man keine Hunde halten dürfen.","pro":["Hunde brauchen Platz und Natur – eine Wohnung ist kein artgerechter Ort.","Hundekot auf Gehwegen und Spielplätzen ist ein echtes Problem.","Viele Hunde bellen den ganzen Tag – das nervt die Nachbarn extrem.","Manche Rassen sind in der Enge der Stadt einfach gefährlich."],"con":["Hunde sind für viele Menschen wichtige Begleiter – besonders für Einsame und Ältere.","Auch in der Stadt gibt es Parks und Grünflächen – man kann artgerecht halten.","Das Problem sind nicht Hunde, sondern verantwortungslose Halter.","Ein Verbot wäre ein extremer Eingriff in die persönliche Freiheit."]}
+],'debatten');
+
+buildSpeakCards([
+{"front":"Welche These aus der Debatte hat dich am meisten überrascht – und warum?","back":"„Was mich überrascht hat, war … weil ich vorher nicht gedacht habe, dass …“"},
+{"front":"Gibt es ein Thema, bei dem du deine Meinung in den letzten Jahren komplett geändert hast?","back":"„Früher dachte ich … aber heute … Das hat damit zu tun, dass …“"},
+{"front":"Was machst du, wenn du in einer Diskussion merkst: du hast eigentlich keine guten Argumente mehr?","back":"„Ich versuche zuzuhören … / Ich gebe es zu, wenn … / Ich frage nach …“"},
+{"front":"Wie diskutiert man in deinem Heimatland? Anders als in Deutschland?","back":"„Bei uns ist es üblich, dass … / In Deutschland fällt mir auf, dass …“"},
+{"front":"Welche These möchtest du heute mit nach Hause nehmen und mit jemandem weiter diskutieren?","back":"„Ich finde die Frage zu … besonders spannend, weil …“"},
+{"front":"Was ist wichtiger in einer Diskussion: recht zu haben oder die andere Seite zu verstehen?","back":"„Für mich ist … wichtiger, denn …“"}
+],'speakCards');
+
+upd();
+</script></body></html>

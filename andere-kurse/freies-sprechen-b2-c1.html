@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+        <html>
+          <head>
+            <title data-id="th-modified">Web Page</title>
+            
+          <meta property="og:title" content="Web Page" data-id="th-modified" ><meta name="description" content="code" data-id="th-modified" ><meta property="og:description" content="code" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="https://freies-sprechen-b2-c1.tiiny.site/" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="freies-sprechen-b2-c1.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+          <body>
+            <!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="no-referrer">
+<title>Freies Sprechen B2/C1 · deutschoderwas</title>
+<style>
+/* Self-contained fonts: system stack works offline, Google Fonts loads when online */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--blue:#2D5F8A;--blue-lt:#C5D9F5;--pro:#3D6B4F;--contra:#C0392B;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}
+.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}
+.tbtn.reset{background:#555;color:white;}
+.topic-timer{background:rgba(255,255,255,.1);border-radius:8px;padding:.2rem .8rem;font-size:.75rem;color:#ccc;display:flex;align-items:center;gap:.4rem;cursor:pointer;transition:background .2s;}
+.topic-timer:hover{background:rgba(255,255,255,.2);}
+.topic-timer.running{color:#FFCE00;}
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--blue);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--blue);color:var(--blue-lt);}
+.phase-btn.active{background:var(--blue);border-color:var(--blue);color:white;}
+.level-badge{background:var(--blue);color:white;font-size:.65rem;font-weight:700;padding:.15rem .6rem;border-radius:20px;letter-spacing:.08em;text-transform:uppercase;margin-left:.5rem;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}
+.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.1rem 1.6rem;}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.8rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.82rem;color:#aaa;margin-top:.3rem;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--blue),var(--rust));}
+.card-body{padding:1.5rem 1.7rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.2rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--blue-lt);color:var(--blue);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+.sk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.sk-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.2rem;cursor:pointer;transition:all .2s;border-left:4px solid var(--blue);}
+.sk-card:hover{transform:translateY(-2px);}
+.sk-card.flipped{background:var(--blue-lt);}
+.sk-front{font-family:'Fraunces',serif;font-weight:700;font-size:.93rem;color:var(--dark);}
+.sk-back{font-size:.82rem;color:var(--dark);line-height:1.5;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);}
+.sk-card.flipped .sk-back{display:block;}
+.sk-hint{font-size:.68rem;color:#aaa;margin-top:.3rem;}
+.debatte-card{background:white;border:1.5px solid var(--sand);border-radius:16px;overflow:hidden;margin-bottom:1.5rem;}
+.debatte-header{background:var(--dark);padding:1rem 1.4rem;}
+.debatte-thema{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:700;color:white;line-height:1.3;}
+.debatte-niveau{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .7rem;border-radius:20px;background:var(--blue);color:white;display:inline-block;margin-top:.4rem;}
+.pro-contra{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+@media(max-width:560px){.pro-contra{grid-template-columns:1fr;}}
+.pro-col,.contra-col{padding:1rem 1.3rem;}
+.pro-col{border-right:1px solid var(--sand);}
+.col-header{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.7rem;display:flex;align-items:center;gap:.4rem;}
+.col-header.pro{color:var(--pro);}
+.col-header.contra{color:var(--contra);}
+.punkt{display:flex;align-items:flex-start;gap:.6rem;font-size:.86rem;line-height:1.55;margin-bottom:.55rem;}
+.punkt-dot{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0;margin-top:.1rem;}
+.punkt-dot.pro{background:var(--green-lt);color:var(--pro);}
+.punkt-dot.contra{background:var(--red-lt);color:var(--contra);}
+.debatte-starter{background:var(--sand-lt);padding:.8rem 1.3rem;border-top:1px solid var(--sand);font-size:.82rem;color:var(--brown);line-height:1.6;}
+.debatte-starter strong{color:var(--blue);}
+.rsp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-bottom:1.2rem;}
+.rsp-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;}
+.rsp-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.1);}
+.rsp-card.open .rsp-back{display:block;}
+.rsp-card.open .rsp-hint{display:none;}
+.rsp-top{background:var(--dark);padding:.75rem 1.1rem;display:flex;align-items:center;gap:.7rem;}
+.rsp-emoji{font-size:1.3rem;}
+.rsp-title{font-family:'Fraunces',serif;font-weight:700;color:white;font-size:.95rem;}
+.rsp-body{padding:.9rem 1.1rem;}
+.rsp-situation{font-size:.88rem;color:var(--dark);line-height:1.5;margin-bottom:.5rem;}
+.rsp-back{display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--sand);}
+.rsp-rolle{font-size:.8rem;line-height:1.6;color:var(--dark);}
+.rsp-rolle strong{color:var(--blue);}
+.rsp-hint{font-size:.68rem;color:#aaa;}
+.rdm-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem;}
+@media(max-width:560px){.rdm-grid{grid-template-columns:1fr;}}
+.rdm-item{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.7rem 1rem;font-size:.86rem;line-height:1.5;}
+.rdm-item strong{color:var(--blue);font-family:'Fraunces',serif;display:block;font-size:.78rem;margin-bottom:.2rem;text-transform:uppercase;letter-spacing:.05em;}
+.random-card{background:var(--dark);color:white;border-radius:16px;padding:2rem 1.5rem;text-align:center;cursor:pointer;transition:transform .2s;margin-bottom:1rem;}
+.random-card:hover{transform:scale(1.01);}
+.random-q{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;line-height:1.4;}
+.tipp{background:var(--dark);color:var(--cream);border-radius:14px;padding:1rem 1.3rem;margin-top:1.2rem;display:flex;gap:.8rem;align-items:flex-start;}
+.tipp-icon{font-size:1.2rem;flex-shrink:0;}
+.tipp-text{font-size:.86rem;line-height:1.7;}
+.tipp-text strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+</style>
+</head>
+<body>
+<div class="timer-bar">
+  <div class="timer-display" id="timerDisplay">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="timerFill"></div></div>
+  <div class="topic-timer" id="topicTimer" onclick="toggleTopicTimer()">⏱ Thema: <span id="topicDisplay">5:00</span></div>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">▶ Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">↺</button>
+  </div>
+</div>
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <span class="level-badge">B2/C1</span>
+  <button class="phase-btn active" onclick="showPhase('warm',this)">① Warming-up</button>
+  <button class="phase-btn" onclick="showPhase('redemittel',this)">② Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('debatten',this)">③ Debatten</button>
+  <button class="phase-btn" onclick="showPhase('rollenspiele',this)">④ Rollenspiele</button>
+  <button class="phase-btn" onclick="showPhase('spontan',this)">⑤ Spontan!</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;">B2/C1 · 60 Min.</span>
+</div>
+<main>
+
+<!-- ① WARMING-UP -->
+<div id="phase-warm" class="phase active">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Freies Sprechen · B2/C1 · Warming-up · 8 Min.</div>
+      <div class="card-title">Freies Sprechen &amp; <em>Freie Dialoge</em></div>
+      <div class="card-sub">B2/C1 – gesellschaftliche Themen, differenzierte Meinungen, komplexe Gespräche</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+      <div class="slabel">Warming-up – anspruchsvolle Einstiegsfragen!</div>
+      <div class="sk-grid" id="warmupGrid"></div>
+      <div class="tipp">
+        <div class="tipp-icon">🎯</div>
+        <div class="tipp-text"><strong>B2/C1 Ziel:</strong> Differenziert argumentieren, Gegenargumente einbeziehen, Nuancen verwenden. Antworten müssen nicht perfekt sein – aber präzise und strukturiert!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② REDEMITTEL -->
+<div id="phase-redemittel" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Freies Sprechen · B2/C1 · Redemittel · 7 Min.</div>
+      <div class="card-title">Nuanciert argumentieren auf <em>B2/C1</em></div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 7 Minuten</div>
+      <div class="slabel">Differenziert Meinung äußern</div>
+      <div class="rdm-grid">
+        <div class="rdm-item"><strong>stark</strong>„Ich bin fest davon überzeugt, dass…"</div>
+        <div class="rdm-item"><strong>differenziert</strong>„Das ist eine vielschichtige Frage. Einerseits… andererseits…"</div>
+        <div class="rdm-item"><strong>relativierend</strong>„Das stimmt nur bedingt, weil…"</div>
+        <div class="rdm-item"><strong>kritisch</strong>„Ich halte das für eine zu pauschale Aussage, denn…"</div>
+      </div>
+      <div class="slabel">Einräumen & Gegenargument</div>
+      <div class="rdm-grid">
+        <div class="rdm-item"><strong>einräumen</strong>„Es stimmt zwar, dass… aber dennoch…"</div>
+        <div class="rdm-item"><strong>Kontrast</strong>„Wenngleich… muss man berücksichtigen, dass…"</div>
+        <div class="rdm-item"><strong>Gegenfrage</strong>„Aber stellt sich nicht die Frage, ob…?"</div>
+        <div class="rdm-item"><strong>Relativierung</strong>„Das mag in manchen Fällen stimmen, jedoch…"</div>
+      </div>
+      <div class="slabel">Strukturieren & Abschließen</div>
+      <div class="rdm-grid">
+        <div class="rdm-item"><strong>Erstens</strong>„Zum einen… zum anderen… darüber hinaus…"</div>
+        <div class="rdm-item"><strong>Schluss</strong>„Zusammenfassend lässt sich sagen, dass…"</div>
+        <div class="rdm-item"><strong>Komplex</strong>„Das Problem ist vielschichtig. Im Kern geht es darum, dass…"</div>
+        <div class="rdm-item"><strong>Offen lassen</strong>„Das lässt sich pauschal nicht beantworten, weil…"</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ DEBATTEN -->
+<div id="phase-debatten" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Freies Sprechen · B2/C1 · Debatten · 20 Min.</div>
+      <div class="card-title">Gesellschaftliche Themen – <em>Pro & Contra</em></div>
+      <div class="card-sub">Anspruchsvolle Debatten auf C1-Niveau · ⏱ Themen-Timer nutzen</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 20 Minuten</div>
+      <div id="debattenContainer"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ ROLLENSPIELE -->
+<div id="phase-rollenspiele" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Freies Sprechen · B2/C1 · Rollenspiele · 17 Min.</div>
+      <div class="card-title">Komplexe Situationen – <em>Ihr seid dran!</em></div>
+      <div class="card-sub">Anspruchsvolle Kontexte · Klick für Rollenbeschreibung</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 17 Minuten</div>
+      <div class="rsp-grid" id="rollenspielGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ SPONTAN -->
+<div id="phase-spontan" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Freies Sprechen · B2/C1 · Spontan · 8 Min.</div>
+      <div class="card-title">Anspruchsvolle Fragen – <em>ohne Vorbereitung!</em></div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+      <div class="slabel">Zufallsfrage – klick!</div>
+      <div class="random-card" id="randomCard" onclick="nextRandom()">
+        <div style="font-size:.7rem;color:#aaa;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.7rem;">Klick für eine Frage!</div>
+        <div class="random-q" id="randomQ">🎲 Klick mich!</div>
+        <div style="font-size:.72rem;color:#888;margin-top:.8rem;">nochmal klicken = nächste Frage</div>
+      </div>
+      <div class="tipp">
+        <div class="tipp-icon">🏠</div>
+        <div class="tipp-text"><strong>Hausaufgabe:</strong> Lies einen Kommentar oder Leitartikel auf Deutsch (FAZ, Spiegel, Zeit). Fasse ihn zusammen und erkläre: Stimmst du zu oder nicht – und warum?</div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+<script>
+const TOTAL=3600;let remaining=TOTAL,interval=null,running=false;
+function updateTimerDisplay(){const m=Math.floor(remaining/60),s=remaining%60;const d=document.getElementById('timerDisplay');d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('timerFill').style.width=(remaining/TOTAL*100)+'%';d.className='timer-display';if(remaining<=600)d.classList.add('warn');if(remaining<=120)d.classList.add('urgent');}
+function toggleTimer(){if(running){clearInterval(interval);running=false;document.querySelector('.tbtn.start').textContent='▶ Start';}else{running=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';interval=setInterval(()=>{if(remaining>0){remaining--;updateTimerDisplay();}else{clearInterval(interval);running=false;}},1000);}}
+function resetTimer(){clearInterval(interval);running=false;remaining=TOTAL;updateTimerDisplay();document.querySelector('.tbtn.start').textContent='▶ Start';}
+let topicR=300,topicI=null,topicRun=false;
+function toggleTopicTimer(){const el=document.getElementById('topicTimer');if(topicRun){clearInterval(topicI);topicRun=false;el.classList.remove('running');}else{topicRun=true;el.classList.add('running');topicI=setInterval(()=>{if(topicR>0){topicR--;const m=Math.floor(topicR/60),s=topicR%60;document.getElementById('topicDisplay').textContent=`${m}:${String(s).padStart(2,'0')}`;}else{clearInterval(topicI);topicRun=false;el.classList.remove('running');topicR=300;document.getElementById('topicDisplay').textContent='5:00';alert('⏰ Zeit! Nächstes Thema!');}},1000);}}
+function showPhase(id,btn){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));document.getElementById('phase-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+
+const warmupData=[
+  {front:'Was bedeutet Freiheit für dich – und wo siehst du sie in Deutschland eingeschränkt?',back:'„Freiheit bedeutet für mich…" / „Interessanterweise erlebe ich hier…"'},
+  {front:'Inwiefern prägt die Kultur, in der man aufgewachsen ist, die eigene Persönlichkeit?',back:'„Ich glaube, dass Kultur… beeinflusst, weil…" / „Man kann das am Beispiel von… zeigen."'},
+  {front:'Was hält dich davon ab, immer das Richtige zu tun – und was motiviert dich?',back:'„Was mich oft hindert, ist…" / „Ich werde motiviert durch…"'},
+  {front:'Wenn du die Welt in 30 Jahren beschreiben müsstest – wie würde sie aussehen?',back:'Konjunktiv 2: „Ich gehe davon aus, dass… / Es ist zu befürchten, dass…"'},
+  {front:'Was ist der Unterschied zwischen Information und Meinung – und woran erkennst du ihn?',back:'„Eine Information ist…, während eine Meinung…" / „Ich erkenne das daran, dass…"'},
+  {front:'Ist Glück etwas, das man verdient – oder hat man es einfach?',back:'„Das ist eine philosophische Frage. Ich neige zur Auffassung, dass…"'},
+];
+
+const debatten=[
+  {thema:'Künstliche Intelligenz wird innerhalb von 20 Jahren mehr Jobs vernichten als schaffen.',niveau:'B2/C1',
+   pro:['Automatisierung ersetzt Routinetätigkeiten in Industrie, Buchhaltung, Logistik massiv','KI-Tools wie Sprachmodelle verdrängen bereits Übersetzer, Texter, Support-Mitarbeiter','Historische Analogien zeigen: Technologischer Wandel schafft kurzfristig Verlierer','Ohne massive Umschulung werden Millionen Geringqualifizierter zurückgelassen'],
+   contra:['Jede technologische Revolution schuf mehr Jobs als sie vernichtete – auch die Industrialisierung','KI schafft neue Berufe: Prompt-Engineering, KI-Ethik, Datenanalyse','Menschen wollen menschliche Interaktion – Pflege, Therapie, Bildung sind kaum automatisierbar','Produktivitätssteigerung durch KI kann Wohlstand und damit Nachfrage erhöhen'],
+   starter:'„Was mich besonders überzeugt: …" / „Ich würde dem widersprechen, weil historisch gesehen…" / „Das Problem an diesem Argument ist…"'},
+  {thema:'Deutschland sollte eine gesetzliche Impfpflicht für alle Kinder einführen.',niveau:'B2/C1',
+   pro:['Herdenimmunität schützt Menschen, die nicht geimpft werden können','Masernausbrüche zeigen: Freiwilligkeit reicht nicht aus','Kinderrechte schließen das Recht auf Schutz vor vermeidbaren Krankheiten ein','Andere EU-Länder (Italien, Frankreich) haben es erfolgreich eingeführt'],
+   contra:['Körperliche Selbstbestimmung ist ein Grundrecht – staatliche Zwangsmaßnahmen sind problematisch','Impfskepsis wird durch Zwang verstärkt, nicht überwunden – Aufklärung ist wirkungsvoller','Der Staat sollte überzeugen, nicht erzwingen – Vertrauen in Institutionen ist wichtiger','Unterschiedliche Risikoprofile der Impfstoffe erfordern individuelle Entscheidungen'],
+   starter:'„Das berührt einen grundlegenden Konflikt zwischen… und…" / „Ich sehe das differenzierter: …" / „Wenngleich ich verstehe, dass… halte ich es dennoch für falsch, weil…"'},
+  {thema:'Das Internet hat die politische Debatte verschlechtert, nicht verbessert.',niveau:'B2/C1',
+   pro:['Echokammern und Filterblasen verstärken Radikalisierung und politische Polarisierung','Desinformation verbreitet sich auf Social Media exponentiell schneller als Fakten','Komplexe Themen werden auf Tweet-Länge reduziert – Nuancen gehen verloren','Algorithmen belohnen Empörung, nicht sachliche Diskussion'],
+   contra:['Das Internet demokratisiert den Zugang zu Information und politischer Teilhabe','Marginalisierte Gruppen haben erstmals eine öffentliche Stimme – #MeToo, BLM','Fact-Checking und investigativer Journalismus profitieren von digitaler Vernetzung','Die Alternative – kontrollierte Medien – ist historisch weitaus gefährlicher'],
+   starter:'„Das ist eine Frage, die ich für zentral halte, weil…" / „Man muss zwischen… und… unterscheiden." / „Ich würde sagen, das Problem liegt weniger bei… als bei…"'},
+  {thema:'Reiche Menschen sollten eine Vermögenssteuer zahlen, die arme Menschen direkt entlastet.',niveau:'B2/C1',
+   pro:['Wachsende Ungleichheit destabilisiert demokratische Gesellschaften langfristig','Superreiche profitieren überproportional von öffentlicher Infrastruktur','Wealth Tax existiert erfolgreich in Norwegen und der Schweiz','Thomas Piketty zeigt: Ohne Umverteilung wächst Ungleichheit systemisch'],
+   contra:['Hohe Steuern führen zur Kapitalflucht – gut situierte Bürger verlassen das Land','Doppelbesteuerung: Vermögen wurde oft bereits aus versteuertem Einkommen angespart','Bürokratischer Aufwand der Vermögensbewertung übersteigt häufig die Einnahmen','Innovatoren und Unternehmer werden entmutigt – negative Anreizwirkung'],
+   starter:'„Diese Debatte hat eine ausgeprägte ideologische Dimension…" / „Was mich überzeugt, ist das empirische Argument…" / „Ich halte die Prämisse für fragwürdig, weil…"'},
+];
+
+const rollenspiele=[
+  {emoji:'🏛️',title:'Behörde – Aufenthaltstitel',situation:'Du brauchst dringend deinen Aufenthaltstitel verlängert – aber die Sachbearbeiterin sagt, ein Dokument fehlt, obwohl du sicher bist, alles eingereicht zu haben.',rolleA:'Du: Bleib ruhig, erkläre sachlich, fordere eine schriftliche Bestätigung, frage nach Vorgesetzten.',rolleB:'Sachbearbeiterin: Bleib bei deiner Position, erkläre Bürokratie, biete Alternativtermin an, sei aber korrekt.'},
+  {emoji:'💼',title:'Gehaltsverhandlung',situation:'Du arbeitest seit 2 Jahren in der Firma. Deine Leistungen sind ausgezeichnet. Du bittest um 15% mehr Gehalt. Dein Chef hat nur 5% im Budget.',rolleA:'Mitarbeiter: Präsentiere Argumente (Leistung, Markt, Inflation), sei verhandlungsbereit, aber bestimmt.',rolleB:'Chef: Erkläre Budget, schlage Alternativen vor (Bonus, Homeoffice, Weiterbildung), zeige Wertschätzung.'},
+  {emoji:'📰',title:'Interview mit Politiker/in',situation:'Du bist Journalist/in. Du interviewst eine/n Politiker/in über die steigende Wohnungsnot in deutschen Städten.',rolleA:'Journalist: Stelle kritische, präzise Fragen. Hake nach wenn Antworten ausweichen.',rolleB:'Politiker/in: Verteidige die Regierungspolitik, räume Probleme ein, mache Vorschläge – aber bleib politisch vorsichtig.'},
+  {emoji:'🎓',title:'Studentenberatung',situation:'Du studierst und überlegst, ob du dein Studium nach dem 4. Semester abbrichst, um ein Startup zu gründen. Dein Berater ist skeptisch.',rolleA:'Student: Erkläre deine Gründe und Pläne, zeige Reife, frage nach konkreter Unterstützung.',rolleB:'Berater: Hinterfrage kritisch, zeige Risiken auf, mache Alternativvorschläge (Beurlaubung, duales Studium).'},
+  {emoji:'🌍',title:'Diskussion über Integration',situation:'Zwei Nachbarn – einer ist seit 10 Jahren in Deutschland, eine ist neu. Sie diskutieren über Integration, Erwartungen und Erfahrungen.',rolleA:'Erfahrener Migrant: Erzähle von deiner Erfahrung – was war schwer, was hat geholfen, was erwartest du von Neuankömmlingen?',rolleB:'Neu Angekommen: Erzähle von deinen ersten Eindrücken, Schwierigkeiten, Erwartungen und Hoffnungen.'},
+];
+
+function buildDebatten(){
+  const c=document.getElementById('debattenContainer');
+  debatten.forEach((d,i)=>{
+    const div=document.createElement('div');div.className='debatte-card';
+    const pro=d.pro.map(p=>`<div class="punkt"><div class="punkt-dot pro">✓</div><span>${p}</span></div>`).join('');
+    const contra=d.contra.map(p=>`<div class="punkt"><div class="punkt-dot contra">✗</div><span>${p}</span></div>`).join('');
+    div.innerHTML=`<div class="debatte-header"><div class="debatte-thema">💬 ${d.thema}</div><div class="debatte-niveau">${d.niveau}</div></div><div class="pro-contra"><div class="pro-col"><div class="col-header pro">✓ Pro</div>${pro}</div><div class="contra-col"><div class="col-header contra">✗ Contra</div>${contra}</div></div><div class="debatte-starter">🗣️ <strong>Einstieg:</strong> ${d.starter}</div>`;
+    c.appendChild(div);
+    if(i<debatten.length-1){const hr=document.createElement('hr');hr.className='div';c.appendChild(hr);}
+  });
+}
+
+function buildRollenspiele(){
+  const g=document.getElementById('rollenspielGrid');
+  rollenspiele.forEach(item=>{
+    const div=document.createElement('div');div.className='rsp-card';
+    div.innerHTML=`<div class="rsp-top"><span class="rsp-emoji">${item.emoji}</span><span class="rsp-title">${item.title}</span></div><div class="rsp-body"><div class="rsp-situation">${item.situation}</div><div class="rsp-back"><div class="rsp-rolle"><strong>🔴 Person A:</strong> ${item.rolleA}</div><div class="rsp-rolle" style="margin-top:.5rem;"><strong>🔵 Person B:</strong> ${item.rolleB}</div></div><div class="rsp-hint">👆 klicken für Rollen</div></div>`;
+    div.addEventListener('click',()=>div.classList.toggle('open'));
+    g.appendChild(div);
+  });
+}
+
+function buildWarmup(){const g=document.getElementById('warmupGrid');warmupData.forEach(i=>{const d=document.createElement('div');d.className='sk-card';d.innerHTML=`<div class="sk-front">${i.front}</div><div class="sk-back">${i.back}</div><div class="sk-hint">👆 Tipp</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+
+const zufallsC1=[
+  'Welche gesellschaftliche Entwicklung macht dir am meisten Sorgen – und warum?',
+  'Inwiefern ist Demokratie die beste Staatsform, die wir haben – oder nur die am wenigsten schlechte?',
+  'Wie verändert Künstliche Intelligenz deinen Beruf – oder den, den du dir vorstellst?',
+  'Was bedeutet kulturelle Identität – und kann man mehrere Identitäten gleichzeitig haben?',
+  'Ist wirtschaftliches Wachstum und Klimaschutz gleichzeitig möglich?',
+  'Was unterscheidet eine gute Entscheidung von einer schlechten – rückblickend?',
+  'Welchen Einfluss hat Sprache auf das Denken? Verändert das Deutsche deinen Blick auf die Welt?',
+  'Wann ist Ungehorsam eine moralische Pflicht?',
+  'Ist es gerecht, dass Kinder in das Vermögen, die Armut und die Nationalität ihrer Eltern hineingeboren werden?',
+  'Was würdest du einem 20-jährigen aus deiner Heimat über Deutschland erzählen?',
+  'Welche Werte sind universell – und welche sind kulturell?',
+  'Wie verändert sich Freundschaft mit dem Alter?',
+  'Was ist der Unterschied zwischen Toleranz und Gleichgültigkeit?',
+];
+let usedQ=[];
+function nextRandom(){
+  if(usedQ.length===zufallsC1.length)usedQ=[];
+  let idx;
+  do{idx=Math.floor(Math.random()*zufallsC1.length);}while(usedQ.includes(idx));
+  usedQ.push(idx);
+  document.getElementById('randomQ').textContent=zufallsC1[idx];
+}
+
+buildWarmup();buildDebatten();buildRollenspiele();nextRandom();updateTimerDisplay();
+</script>
+</body>
+</html>
+          </body>
+        </html>

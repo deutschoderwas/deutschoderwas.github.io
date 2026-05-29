@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+        <html>
+          <head>
+            <title data-id="th-modified">Web Page</title>
+            
+          <meta property="og:title" content="Web Page" data-id="th-modified"><meta name="description" content="code" data-id="th-modified"><meta property="og:description" content="code" data-id="th-modified"><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified"><meta property="og:url" content="https://deutschoderwas-lernen.tiiny.site/" data-id="th-modified"><meta property="og:type" content="website" data-id="th-modified"><script defer data-domain="deutschoderwas-lernen.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+          <body>
+            <!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Passiv Trainer – deutschoderwas</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ─────────────────────────────────────────── */
+:root {
+  --teal:        #2ab4a0;
+  --teal-d:      #1e8a7a;
+  --teal-light:  #e4f7f5;
+  --dark:        #141f1e;
+  --dark2:       #1e2e2c;
+  --gold:        #f0c040;
+  --gold-d:      #c99b10;
+  --gold-light:  #fdf7e0;
+  --red:         #e05555;
+  --green:       #2ab47a;
+  --bg:          #f0f5f4;
+  --card:        #ffffff;
+  --text:        #1a2e2c;
+  --muted:       #6b8e89;
+  --radius:      16px;
+  --shadow:      0 3px 20px rgba(20,31,30,.09);
+}
+
+/* ── RESET ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── HEADER ─────────────────────────────────────────── */
+header {
+  background: var(--dark);
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 2px 16px rgba(0,0,0,.35);
+}
+.header-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 58px;
+  gap: 12px;
+}
+.brand {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: .9rem;
+  color: var(--teal);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.brand em { color: var(--gold); font-style: normal; }
+.header-badge {
+  background: var(--teal);
+  color: var(--dark);
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* ── NAV TABS ───────────────────────────────────────── */
+nav {
+  background: var(--dark2);
+  position: sticky;
+  top: 58px;
+  z-index: 199;
+  overflow-x: auto;
+  display: flex;
+  border-bottom: 2px solid #2a3f3d;
+}
+nav::-webkit-scrollbar { display: none; }
+nav a {
+  text-decoration: none;
+  color: #7aaaa5;
+  font-weight: 800;
+  font-size: .76rem;
+  padding: 12px 18px;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  letter-spacing: .04em;
+  transition: color .2s, border-color .2s;
+}
+nav a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* ── HERO ───────────────────────────────────────────── */
+.hero {
+  background: linear-gradient(135deg, var(--dark) 0%, var(--dark2) 60%, #0f3330 100%);
+  padding: 48px 20px 52px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 50% 120%, rgba(42,180,160,.18) 0%, transparent 70%);
+}
+.hero-eyebrow {
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 10px;
+  position: relative;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  color: #fff;
+  line-height: 1.1;
+  position: relative;
+  margin-bottom: 12px;
+}
+.hero h1 span { color: var(--gold); }
+.hero-sub {
+  color: #8ab8b4;
+  font-size: .92rem;
+  font-weight: 600;
+  position: relative;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ── MAIN ───────────────────────────────────────────── */
+main { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
+
+/* ── SECTION HEADERS ────────────────────────────────── */
+.sec-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.sec-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.sec-icon.teal { background: var(--teal-light); }
+.sec-icon.gold  { background: var(--gold-light); }
+.sec-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--dark);
+}
+.sec-title small {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--muted);
+  margin-top: 1px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+section { margin-bottom: 52px; }
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, var(--teal), transparent);
+  margin: 44px 0;
+  opacity: .4;
+}
+
+/* ── ZEITEN TABLE ───────────────────────────────────── */
+.zeiten-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.zeit-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.zeit-label {
+  background: var(--dark);
+  color: var(--teal);
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+}
+.zeit-body { padding: 12px 14px; }
+.zeit-formula {
+  font-size: .88rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.zeit-formula .v { color: var(--teal); }
+.zeit-example {
+  font-size: .82rem;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.5;
+}
+.zeit-example strong { color: var(--text); font-style: normal; }
+
+/* ── ZUSTAND BOX ────────────────────────────────────── */
+.zustand-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+@media (max-width: 520px) { .zustand-compare { grid-template-columns: 1fr; } }
+.compare-card {
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+.compare-card.vorgang { background: var(--teal-light); border-left: 5px solid var(--teal); }
+.compare-card.zustand { background: var(--gold-light); border-left: 5px solid var(--gold); }
+.compare-label {
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.compare-card.vorgang .compare-label { color: var(--teal-d); }
+.compare-card.zustand .compare-label { color: var(--gold-d); }
+.compare-satz {
+  font-size: .9rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.compare-note {
+  font-size: .78rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* ── EXERCISE CARDS ─────────────────────────────────── */
+.exercise {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  margin-bottom: 14px;
+}
+.ex-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.ex-num {
+  background: var(--teal);
+  color: var(--dark);
+  font-weight: 900;
+  font-size: .72rem;
+  width: 26px; height: 26px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.ex-type {
+  font-size: .7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+}
+.ex-instr {
+  font-size: .93rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+.ex-instr em { color: var(--teal); font-style: normal; }
+
+/* blanks */
+.blank {
+  display: inline-block;
+  border-bottom: 2.5px solid var(--teal);
+  min-width: 90px;
+  color: transparent;
+  user-select: none;
+}
+
+/* sentence list */
+.satz-list { list-style: none; counter-reset: satz; }
+.satz-list li {
+  counter-increment: satz;
+  padding: 9px 0 9px 28px;
+  font-size: .9rem;
+  line-height: 1.6;
+  border-bottom: 1px solid var(--teal-light);
+  position: relative;
+}
+.satz-list li:last-child { border-bottom: none; }
+.satz-list li::before {
+  content: counter(satz) ".";
+  position: absolute;
+  left: 0;
+  color: var(--teal);
+  font-weight: 900;
+  font-size: .85rem;
+}
+
+/* word bank */
+.wortbank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+.wort {
+  background: var(--teal-light);
+  border: 2px solid var(--teal);
+  border-radius: 20px;
+  padding: 5px 13px;
+  font-size: .83rem;
+  font-weight: 800;
+  color: var(--dark);
+}
+
+/* solution */
+details { margin-top: 12px; }
+details summary {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gold);
+  color: var(--dark);
+  font-weight: 900;
+  font-size: .8rem;
+  padding: 7px 16px;
+  border-radius: 20px;
+  list-style: none;
+  user-select: none;
+  transition: background .2s;
+}
+details summary::-webkit-details-marker { display: none; }
+details[open] summary { background: var(--teal); color: #fff; }
+.solution {
+  background: var(--teal-light);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-top: 10px;
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.8;
+}
+.ok { color: var(--teal); }
+.err { color: var(--red); text-decoration: line-through; margin-right: 4px; }
+.note { color: var(--muted); font-weight: 600; font-size: .8rem; }
+
+/* MC options */
+.mc-options {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 8px;
+}
+.mc-opt {
+  background: var(--bg);
+  border: 2px solid #dde8e6;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* match table */
+.match-table { width: 100%; border-collapse: collapse; }
+.match-table td {
+  padding: 8px 12px;
+  font-size: .88rem;
+  font-weight: 700;
+  border-bottom: 1px solid var(--teal-light);
+  vertical-align: middle;
+}
+.match-table td:first-child { color: #9c27b0; width: 52%; }
+.match-table td:last-child { color: var(--teal); }
+.match-table tr:last-child td { border-bottom: none; }
+
+/* error card */
+.fehler-card {
+  background: var(--card);
+  border-left: 4px solid var(--red);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px 18px;
+  margin-bottom: 12px;
+}
+.f-wrong { color: var(--red); font-weight: 700; font-size: .9rem; margin-bottom: 6px; }
+.f-wrong::before { content: "✗ "; }
+
+/* schreiben */
+.schreiben-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 20px;
+  margin-bottom: 12px;
+}
+.schreiben-card .prompt { font-weight: 900; font-size: .95rem; color: var(--dark); margin-bottom: 8px; }
+.schreiben-card p { font-size: .9rem; line-height: 1.65; color: var(--text); }
+.schreiben-card .tip { font-size: .8rem; color: var(--muted); margin-top: 8px; font-style: italic; }
+.schreiben-card .starters {
+  display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px;
+}
+.starter {
+  background: var(--gold-light);
+  border: 2px solid var(--gold);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: .8rem;
+  font-weight: 800;
+  color: var(--dark);
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="brand">deutschoderwas <em>·</em> Sprechclub</div>
+    <div class="header-badge">Passiv Trainer</div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <a href="#zeiten">⏱ Zeiten</a>
+  <a href="#zustand">🔒 Zustandspassiv</a>
+  <a href="#ub-prasens">Präsens</a>
+  <a href="#ub-prateritum">Präteritum</a>
+  <a href="#ub-perfekt">Perfekt</a>
+  <a href="#ub-futur">Futur</a>
+  <a href="#ub-modal">Modalverben</a>
+  <a href="#ub-zustand">Zustand Üben</a>
+  <a href="#ub-mix">Mix</a>
+  <a href="#schreiben">📝 Schreiben</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Grammatik · B1–B2</div>
+  <h1>Das <span>Passiv</span><br>meistern</h1>
+  <p class="hero-sub">Vorgangspassiv in allen Zeiten · Zustandspassiv · Gemischte Übungen</p>
+</div>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════
+     ABSCHNITT 1: ALLE ZEITEN
+═══════════════════════════════════════════════════ -->
+<section id="zeiten">
+  <div class="sec-header">
+    <div class="sec-icon teal">⏱</div>
+    <div class="sec-title">
+      Vorgangspassiv – alle Zeiten
+      <small>werden + Partizip II · der Vorgang steht im Mittelpunkt</small>
+    </div>
+  </div>
+
+  <div class="zeiten-grid">
+
+    <div class="zeit-card">
+      <div class="zeit-label">Präsens</div>
+      <div class="zeit-body">
+        <div class="zeit-formula"><span class="v">wird / werden</span> + Partizip II</div>
+        <div class="zeit-example">Das Brot <strong>wird gebacken</strong>.<br>Die Fenster <strong>werden geputzt</strong>.</div>
+      </div>
+    </div>
+
+    <div class="zeit-card">
+      <div class="zeit-label">Präteritum</div>
+      <div class="zeit-body">
+        <div class="zeit-formula"><span class="v">wurde / wurden</span> + Partizip II</div>
+        <div class="zeit-example">Das Brot <strong>wurde gebacken</strong>.<br>Die Fenster <strong>wurden geputzt</strong>.</div>
+      </div>
+    </div>
+
+    <div class="zeit-card">
+      <div class="zeit-label">Perfekt</div>
+      <div class="zeit-body">
+        <div class="zeit-formula"><span class="v">ist/sind worden</span> + Partizip II</div>
+        <div class="zeit-example">Das Brot <strong>ist gebacken worden</strong>.<br>Die Fenster <strong>sind geputzt worden</strong>.</div>
+      </div>
+    </div>
+
+    <div class="zeit-card">
+      <div class="zeit-label">Plusquamperfekt</div>
+      <div class="zeit-body">
+        <div class="zeit-formula"><span class="v">war/waren worden</span> + Partizip II</div>
+        <div class="zeit-example">Das Brot <strong>war gebacken worden</strong>.<br>Die Fenster <strong>waren geputzt worden</strong>.</div>
+      </div>
+    </div>
+
+    <div class="zeit-card">
+      <div class="zeit-label">Futur I</div>
+      <div class="zeit-body">
+        <div class="zeit-formula"><span class="v">wird / werden</span> + Partizip II + <span class="v">werden</span></div>
+        <div class="zeit-example">Das Brot <strong>wird gebacken werden</strong>.<br>Die Fenster <strong>werden geputzt werden</strong>.</div>
+      </div>
+    </div>
+
+    <div class="zeit-card">
+      <div class="zeit-label">Passiv + Modalverb</div>
+      <div class="zeit-body">
+        <div class="zeit-formula"><span class="v">Modalverb</span> + Partizip II + <span class="v">werden</span></div>
+        <div class="zeit-example">Das Brot <strong>muss gebacken werden</strong>.<br>Die Fenster <strong>können geputzt werden</strong>.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Werden-Konjugation Reminder -->
+  <div class="exercise" style="background:var(--dark); color:#fff;">
+    <div class="ex-meta">
+      <div class="ex-num" style="background:var(--gold); color:var(--dark);">i</div>
+      <div class="ex-type" style="color:#7aaaa5;">Merkhilfe: werden – alle Formen</div>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap:8px; font-size:.87rem; font-weight:700;">
+      <div>ich <span style="color:var(--teal)">werde</span></div>
+      <div>du <span style="color:var(--teal)">wirst</span></div>
+      <div>er/sie/es <span style="color:var(--teal)">wird</span></div>
+      <div>wir <span style="color:var(--teal)">werden</span></div>
+      <div>ihr <span style="color:var(--teal)">werdet</span></div>
+      <div>sie/Sie <span style="color:var(--teal)">werden</span></div>
+    </div>
+    <div style="margin-top:12px; font-size:.8rem; color:#7aaaa5;">
+      ⚠️ Im Perfekt-Passiv heißt es <span style="color:var(--gold)">worden</span> (nicht: geworden)!<br>
+      Das Auto ist repariert <span style="color:var(--gold)">worden</span>. ✓ &nbsp;|&nbsp; <span style="color:var(--red); text-decoration:line-through">geworden</span> ✗
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     ABSCHNITT 2: ZUSTANDSPASSIV
+═══════════════════════════════════════════════════ -->
+<section id="zustand">
+  <div class="sec-header">
+    <div class="sec-icon gold">🔒</div>
+    <div class="sec-title">
+      Zustandspassiv
+      <small>sein + Partizip II · das Ergebnis steht im Mittelpunkt</small>
+    </div>
+  </div>
+
+  <div class="zustand-compare">
+    <div class="compare-card vorgang">
+      <div class="compare-label">🔄 Vorgangspassiv</div>
+      <div class="compare-satz">Das Fenster <strong>wird geöffnet</strong>.</div>
+      <div class="compare-satz">Das Fenster <strong>wurde geöffnet</strong>.</div>
+      <div class="compare-note">→ Jemand öffnet es gerade / hat es geöffnet.<br>Der <em>Vorgang</em> / die Handlung.</div>
+    </div>
+    <div class="compare-card zustand">
+      <div class="compare-label">🔒 Zustandspassiv</div>
+      <div class="compare-satz">Das Fenster <strong>ist geöffnet</strong>.</div>
+      <div class="compare-satz">Das Fenster <strong>war geöffnet</strong>.</div>
+      <div class="compare-note">→ Das Fenster steht offen (Ergebnis).<br>Der <em>Zustand</em> danach.</div>
+    </div>
+  </div>
+
+  <!-- Weitere Beispiele -->
+  <div class="exercise">
+    <div class="ex-meta">
+      <div class="ex-num">→</div>
+      <div class="ex-type">Mehr Beispiele – Zustandspassiv</div>
+    </div>
+    <ul class="satz-list">
+      <li>Die Tür <strong style="color:var(--teal)">ist geschlossen</strong>. (= Sie steht zu)</li>
+      <li>Das Geschäft <strong style="color:var(--teal)">ist geöffnet</strong>. (= Es hat auf)</li>
+      <li>Die Aufgaben <strong style="color:var(--teal)">sind erledigt</strong>. (= Alles fertig)</li>
+      <li>Der Brief <strong style="color:var(--teal)">war unterschrieben</strong>. (= Er hatte eine Unterschrift)</li>
+      <li>Das Auto <strong style="color:var(--teal)">ist repariert</strong>. (= Es funktioniert wieder)</li>
+      <li>Die Suppe <strong style="color:var(--teal)">ist gesalzen</strong>. (= Salz ist drin)</li>
+    </ul>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     ÜBUNGEN: PRÄSENS
+═══════════════════════════════════════════════════ -->
+<section id="ub-prasens">
+  <div class="sec-header">
+    <div class="sec-icon teal">1️⃣</div>
+    <div class="sec-title">Übungen: Passiv Präsens<small>wird / werden + Partizip II</small></div>
+  </div>
+
+  <!-- Ü1 Lückentext -->
+  <div class="exercise">
+    <div class="ex-meta"><div class="ex-num">1</div><div class="ex-type">Lückentext</div></div>
+    <div class="ex-instr">Ergänze mit der richtigen Form von <em>werden</em> + Partizip II:</div>
+    <ul class="satz-list">
+      <li>Das Abendessen <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (kochen)</li>
+      <li>Die Kinder <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (abholen)</li>
+      <li>Das Paket <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (liefern)</li>
+      <li>Die Prüfungen <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (korrigieren)</li>
+      <li>Ein neues Krankenhaus <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (bauen)</li>
+      <li>Die Rechnung <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (bezahlen)</li>
+    </ul>
+    <details>
+      <summary>✔ Lösung anzeigen</summary>
+      <div class="solution">
+        1. <span class="ok">wird gekocht</span><br>
+        2. <span class="ok">werden abgeholt</span><br>
+        3. <span class="ok">wird geliefert</span><br>
+        4. <span class="ok">werden korrigiert</span><br>
+        5. <span class="ok">wird gebaut</span><br>
+        6. <span class="ok">wird bezahlt</span>
+      </div>
+    </details>
+  </div>
+
+  <!-- Ü2 Aktiv → Passiv -->
+  <div class="exercise">
+    <div class="ex-meta"><div class="ex-num">2</div><div class="ex-type">Aktiv → Passiv umformulieren</div></div>
+    <div class="ex-instr">Schreibe den Satz im Passiv Präsens. Achte auf Singular / Plural!</div>
+    <ul class="satz-list">
+      <li>Man öffnet das Museum um 9 Uhr.<br>→ <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+      <li>Die Lehrerin erklärt die Grammatik.<br>→ <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+      <li>Der Arzt behandelt die Patienten.<br>→ <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+    </ul>
+    <details>
+      <summary>✔ Lösung anzeigen</summary>
+      <div class="solution">
+        1. <span class="ok">Das Museum wird um 9 Uhr geöffnet.</span><br>
+        2. <span class="ok">Die Grammatik wird von der Lehrerin erklärt.</span><br>
+        3. <span class="ok">Die Patienten werden vom Arzt behandelt.</span>
+      </div>
+    </details>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     ÜBUNGEN: PRÄTERITUM
+═══════════════════════════════════════════════════ -->
+<section id="ub-prateritum">
+  <div class="sec-header">
+    <div class="sec-icon teal">2️⃣</div>
+    <div class="sec-title">Übungen: Passiv Präteritum<small>wurde / wurden + Partizip II</small></div>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-meta"><div class="ex-num">3</div><div class="ex-type">Lückentext</div></div>
+    <div class="ex-instr">Ergänze mit <em>wurde</em> oder <em>wurden</em> + Partizip II:</div>
+    <ul class="satz-list">
+      <li>Die Stadt <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (gründen)</li>
+      <li>Die Briefe <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (schreiben)</li>
+      <li>Das Fenster <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (einschlagen)</li>
+      <li>Viele Fehler <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (machen)</li>
+      <li>Der Vertrag <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (unterschreiben)</li>
+      <li>Die Häuser <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (renovieren)</li>
+    </ul>
+    <details>
+      <summary>✔ Lösung anzeigen</summary>
+      <div class="solution">
+        1. <span class="ok">wurde gegründet</span><br>
+        2. <span class="ok">wurden geschrieben</span><br>
+        3. <span class="ok">wurde eingeschlagen</span><br>
+        4. <span class="ok">wurden gemacht</span><br>
+        5. <span class="ok">wurde unterschrieben</span><br>
+        6. <span class="ok">wurden renoviert</span>
+      </div>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-meta"><div class="ex-num">4</div><div class="ex-type">Multiple Choice</div></div>
+    <div class="ex-instr">Welche Antwort ist grammatisch richtig?</div>
+
+    <p style="font-size:.9rem; font-weight:700; margin-bottom:6px;">1. Das Buch _____ von Goethe geschrieben.</p>
+    <div class="mc-options">
+      <div class="mc-opt">a) ist … worden</div>
+      <div class="mc-opt">b) wurde … geschrieben ✓</div>
+      <div class="mc-opt">c) wird … geschrieben</div>
+    </div>
+
+    <p style="font-size:.9rem; font-weight:700; margin: 14px 0 6px;">2. Die Schüler _____ vom Lehrer gelobt.</p>
+    <div class="mc-options">
+      <div class="mc-opt">a) wurde … gelobt</div>
+      <div class="mc-opt">b) wurden … gelobt ✓</div>
+      <div class="mc-opt">c) worden … gelobt</div>
+    </div>
+
+    <p style="font-size:.9rem; font-weight:700; margin: 14px 0 6px;">3. Gestern _____ die Party organisiert.</p>
+    <div class="mc-options">
+      <div class="mc-opt">a) wurde ✓</div>
+      <div class="mc-opt">b) wird</div>
+      <div class="mc-opt">c) ist</div>
+    </div>
+
+    <details>
+      <summary>✔ Lösung anzeigen</summary>
+      <div class="solution">
+        1. <span class="ok">b) wurde geschrieben</span> – Präteritum, Singular<br>
+        2. <span class="ok">b) wurden gelobt</span> – Präteritum, Plural<br>
+        3. <span class="ok">a) wurde</span> – „gestern" → Vergangenheit, Singular
+      </div>
+    </details>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     ÜBUNGEN: PERFEKT
+═══════════════════════════════════════════════════ -->
+<section id="ub-perfekt">
+  <div class="sec-header">
+    <div class="sec-icon teal">3️⃣</div>
+    <div class="sec-title">Übungen: Passiv Perfekt<small>ist / sind + Partizip II + worden</small></div>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-meta"><div class="ex-num">5</div><div class="ex-type">Lückentext</div></div>
+    <div class="ex-instr">Bilde das Passiv Perfekt. Achtung: <em>worden</em>, nicht <em>geworden</em>!</div>
+    <ul class="satz-list">
+      <li>Das Auto <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (reparieren)</li>
+      <li>Die E-Mails <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (löschen)</li>
+      <li>Der Täter <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (verhaften)</li>
+      <li>Die Wörter <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (vergessen)</li>
+      <li>Das Formular <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (ausfüllen)</li>
+    </ul>
+    <details>
+      <summary>✔ Lösung anzeigen</summary>
+      <div class="solution">
+        1. <span class="ok">ist repariert worden</span><br>
+        2. <span class="ok">sind gelöscht worden</span><br>
+        3. <span class="ok">ist verhaftet worden</span><br>
+        4. <span class="ok">sind vergessen worden</span><br>
+        5. <span class="ok">ist ausgefüllt worden</span>
+      </div>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-meta"><div class="ex-num">6</div><div class="ex-type">Fehler finden</div></div>
+    <div class="ex-instr">In jedem Satz steckt ein Fehler. Finde und korrigiere ihn:</div>
+
+    <div class="fehler-card">
+      <div class="f-wrong">Das Haus ist renoviert geworden.</div>
+      <details>
+        <summary>✔ Korrektur anzeigen</summary>
+        <div class="solution">
+          <span class="ok">Das Haus ist renoviert worden.</span><br>
+          <span class="note">→ Im Passiv Perfekt immer <strong>worden</strong> (ohne ge-)!</span>
+        </div>
+      </details>
+    </div>
+
+    <div class="fehler-card">
+      <div class="f-wrong">Die Briefe sind geschickt werden.</div>
+      <details>
+        <summary>✔ Korrektur anzeigen</summary>
+        <div class="solution">
+          <span class="ok">Die Briefe sind geschickt worden.</span><br>
+          <span class="note">→ <strong>worden</strong>, nicht <em>werden</em>.</span>
+        </div>
+      </details>
+    </div>
+
+    <div class="fehler-card">
+      <div class="f-wrong">Der Film ist geguckt worden von viele Menschen.</div>
+      <details>
+        <summary>✔ Korrektur anzeigen</summary>
+        <div class="solution">
+          <span class="ok">Der Film ist von vielen Menschen geguckt worden.</span><br>
+          <span class="note">→ <strong>von vielen</strong> (Dativ-Plural: kein „e" am Ende des Adjektivs fehlt hier).</span>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     ÜBUNGEN: FUTUR I
+═══════════════════════════════════════════════════ -->
+<section id="ub-futur">
+  <div class="sec-header">
+    <div class="sec-icon teal">4️⃣</div>
+    <div class="sec-title">Übungen: Passiv Futur I<small>wird / werden + Partizip II + werden</small></div>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-meta"><div class="ex-num">7</div><div class="ex-type">Lückentext</div></div>
+    <div class="ex-instr">Bilde das Futur I Passiv:</div>
+    <ul class="satz-list">
+      <li>Die Schule <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (schließen)</li>
+      <li>Neue Straßen <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (bauen)</li>
+      <li>Die Daten <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (speichern)</li>
+      <li>Das Problem <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (lösen)</li>
+    </ul>
+    <details>
+      <summary>✔ Lösung anzeigen</summary>
+      <div class="solution">
+        1. <span class="ok">wird geschlossen werden</span><br>
+        2. <span class="ok">werden gebaut werden</span><br>
+        3. <span class="ok">werden gespeichert werden</span><br>
+        4. <span class="ok">wird gelöst werden</span>
+      </div>
+    </details>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     ÜBUNGEN: MODALVERBEN
+═══════════════════════════════════════════════════ -->
+<section id="ub-modal">
+  <div class="sec-header">
+    <div class="sec-icon teal">5️⃣</div>
+    <div class="sec-title">Übungen: Passiv + Modalverben<small>müssen / können / dürfen … + Partizip II + werden</small></div>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-meta"><div class="ex-num">8</div><div class="ex-type">Lückentext mit Modalverb</div></div>
+    <div class="wortbank">
+      <span class="wort">muss … werden</span>
+      <span class="wort">kann … werden</span>
+      <span class="wort">darf … werden</span>
+      <span class="wort">soll … werden</span>
+      <span class="wort">muss … werden</span>
+    </div>
+    <ul class="satz-list">
+      <li>Das Formular <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (ausfüllen – Pflicht)</li>
+      <li>Hier <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> nicht. (rauchen – verboten)</li>
+      <li>Das Paket <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (abholen – Möglichkeit)</li>
+      <li>Die Rechnung <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (bezahlen – Pflicht)</li>
+      <li>Das Zimmer <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (reservieren – Plan/Auftrag)</li>
+    </ul>
+    <details>
+      <summary>✔ Lösung anzeigen</summary>
+      <div class="solution">
+        1. <span class="ok">muss ausgefüllt werden</span><br>
+        2. <span class="ok">darf nicht geraucht werden</span><br>
+        3. <span class="ok">kann abgeholt werden</span><br>
+        4. <span class="ok">muss bezahlt werden</span><br>
+        5. <span class="ok">soll reserviert werden</span>
+      </div>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-meta"><div class="ex-num">9</div><div class="ex-type">Aktiv → Passiv + Modalverb</div></div>
+    <div class="ex-instr">Forme um. Das Modalverb bleibt erhalten:</div>
+    <ul class="satz-list">
+      <li>Man muss die Wohnung putzen.<br>→ <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+      <li>Man kann das Problem lösen.<br>→ <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+      <li>Man darf hier keine Fotos machen.<br>→ <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+    </ul>
+    <details>
+      <summary>✔ Lösung anzeigen</summary>
+      <div class="solution">
+        1. <span class="ok">Die Wohnung muss geputzt werden.</span><br>
+        2. <span class="ok">Das Problem kann gelöst werden.</span><br>
+        3. <span class="ok">Hier dürfen keine Fotos gemacht werden.</span>
+      </div>
+    </details>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     ÜBUNGEN: ZUSTANDSPASSIV
+═══════════════════════════════════════════════════ -->
+<section id="ub-zustand">
+  <div class="sec-header">
+    <div class="sec-icon gold">🔒</div>
+    <div class="sec-title">Übungen: Zustandspassiv<small>sein + Partizip II</small></div>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-meta"><div class="ex-num">10</div><div class="ex-type">Lückentext</div></div>
+    <div class="ex-instr">Ergänze mit der richtigen Form von <em>sein</em> + Partizip II:</div>
+    <ul class="satz-list">
+      <li>Die Tür <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (schließen)</li>
+      <li>Das Bett <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (machen)</li>
+      <li>Die Aufgaben <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (korrigieren)</li>
+      <li>Der Laden <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (öffnen)</li>
+      <li>Das Formular <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (ausfüllen)</li>
+    </ul>
+    <details>
+      <summary>✔ Lösung anzeigen</summary>
+      <div class="solution">
+        1. <span class="ok">ist geschlossen</span><br>
+        2. <span class="ok">ist gemacht</span><br>
+        3. <span class="ok">sind korrigiert</span><br>
+        4. <span class="ok">ist geöffnet</span><br>
+        5. <span class="ok">ist ausgefüllt</span>
+      </div>
+    </details>
+  </div>
+
+  <!-- Vorgang vs. Zustand -->
+  <div class="exercise">
+    <div class="ex-meta"><div class="ex-num">11</div><div class="ex-type">Vorgangs- oder Zustandspassiv?</div></div>
+    <div class="ex-instr">Entscheide: Handlung (→ <em>Vorgangspassiv</em>) oder Ergebnis/Zustand (→ <em>Zustandspassiv</em>)?</div>
+    <ul class="satz-list">
+      <li>Um 8 Uhr wurde das Museum geöffnet. <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+      <li>Jetzt ist das Museum geöffnet. <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+      <li>Das Fenster ist gebrochen. <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+      <li>Gestern wurde das Fenster eingeschlagen. <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+      <li>Die E-Mail ist bereits geschickt. <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+      <li>Die E-Mail wird gleich geschickt. <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+    </ul>
+    <details>
+      <summary>✔ Lösung anzeigen</summary>
+      <div class="solution">
+        1. <span class="ok">Vorgangspassiv</span> – die Handlung (Öffnen) passiert um 8 Uhr<br>
+        2. <span class="ok">Zustandspassiv</span> – das Museum steht offen (Ergebnis)<br>
+        3. <span class="ok">Zustandspassiv</span> – Zustand: das Fenster ist kaputt<br>
+        4. <span class="ok">Vorgangspassiv</span> – die Handlung (Einschlagen) ist gestern passiert<br>
+        5. <span class="ok">Zustandspassiv</span> – die E-Mail ist fertig / abgeschickt<br>
+        6. <span class="ok">Vorgangspassiv</span> – die Handlung (Schicken) passiert gleich
+      </div>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-meta"><div class="ex-num">12</div><div class="ex-type">Zuordnen</div></div>
+    <div class="ex-instr">Ordne zu: Welcher Satz beschreibt einen <strong>Vorgang</strong>, welcher einen <strong>Zustand</strong>?</div>
+    <table class="match-table">
+      <tr><td>A. Die Vase ist zerbrochen.</td><td>___</td></tr>
+      <tr><td>B. Die Vase wurde zerbrochen.</td><td>___</td></tr>
+      <tr><td>C. Das Licht ist eingeschaltet.</td><td>___</td></tr>
+      <tr><td>D. Das Licht wird eingeschaltet.</td><td>___</td></tr>
+      <tr><td>E. Die Pizza ist bestellt.</td><td>___</td></tr>
+      <tr><td>F. Die Pizza wird bestellt.</td><td>___</td></tr>
+    </table>
+    <details>
+      <summary>✔ Lösung anzeigen</summary>
+      <div class="solution">
+        A. <span class="ok">Zustand</span> – sie ist kaputt<br>
+        B. <span class="ok">Vorgang</span> – jemand hat sie kaputt gemacht<br>
+        C. <span class="ok">Zustand</span> – das Licht brennt<br>
+        D. <span class="ok">Vorgang</span> – jemand schaltet es an<br>
+        E. <span class="ok">Zustand</span> – die Bestellung ist raus<br>
+        F. <span class="ok">Vorgang</span> – jemand bestellt sie gerade
+      </div>
+    </details>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     GEMISCHTE ÜBUNGEN
+═══════════════════════════════════════════════════ -->
+<section id="ub-mix">
+  <div class="sec-header">
+    <div class="sec-icon teal">🎯</div>
+    <div class="sec-title">Gemischte Übungen<small>alle Zeiten · Vorgang & Zustand</small></div>
+  </div>
+
+  <!-- Ü13: Zeitform bestimmen -->
+  <div class="exercise">
+    <div class="ex-meta"><div class="ex-num">13</div><div class="ex-type">Zeitform bestimmen</div></div>
+    <div class="ex-instr">Welche Zeitform steht hier? Schreibe die Zeitform auf die Linie:</div>
+    <ul class="satz-list">
+      <li>Das Buch wird übersetzt. <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+      <li>Der Brief wurde geschrieben. <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+      <li>Das Auto ist repariert worden. <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+      <li>Das Essen muss bezahlt werden. <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+      <li>Die Stadt wird renoviert werden. <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+      <li>Der Vertrag war unterschrieben worden. <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+    </ul>
+    <details>
+      <summary>✔ Lösung anzeigen</summary>
+      <div class="solution">
+        1. <span class="ok">Passiv Präsens</span><br>
+        2. <span class="ok">Passiv Präteritum</span><br>
+        3. <span class="ok">Passiv Perfekt</span><br>
+        4. <span class="ok">Passiv + Modalverb (Präsens)</span><br>
+        5. <span class="ok">Passiv Futur I</span><br>
+        6. <span class="ok">Passiv Plusquamperfekt</span>
+      </div>
+    </details>
+  </div>
+
+  <!-- Ü14: Richtige Zeit wählen -->
+  <div class="exercise">
+    <div class="ex-meta"><div class="ex-num">14</div><div class="ex-type">Richtige Zeit – Kontext lesen</div></div>
+    <div class="ex-instr">Lies den Kontext und bilde das Passiv in der passenden Zeit:</div>
+    <ul class="satz-list">
+      <li><em>(Jetzt, gerade):</em> Das Abendessen <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (kochen)</li>
+      <li><em>(Gestern):</em> Die Wohnung <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (putzen)</li>
+      <li><em>(Bisher, Ergebnis):</em> Alle Aufgaben <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (erledigen – Perfekt)</li>
+      <li><em>(Morgen):</em> Das neue Gebäude <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (eröffnen – Futur I)</li>
+      <li><em>(Pflicht):</em> Das Formular <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (unterschreiben – müssen)</li>
+      <li><em>(Zustand jetzt):</em> Das Geschäft <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. (schließen – Zustandspassiv)</li>
+    </ul>
+    <details>
+      <summary>✔ Lösung anzeigen</summary>
+      <div class="solution">
+        1. <span class="ok">wird gekocht</span> (Präsens)<br>
+        2. <span class="ok">wurde geputzt</span> (Präteritum)<br>
+        3. <span class="ok">sind erledigt worden</span> (Perfekt)<br>
+        4. <span class="ok">wird eröffnet werden</span> (Futur I)<br>
+        5. <span class="ok">muss unterschrieben werden</span> (Modalverb)<br>
+        6. <span class="ok">ist geschlossen</span> (Zustandspassiv)
+      </div>
+    </details>
+  </div>
+
+  <!-- Ü15: Mini-Text -->
+  <div class="exercise">
+    <div class="ex-meta"><div class="ex-num">15</div><div class="ex-type">Mini-Text – alle Zeiten</div></div>
+    <div class="ex-instr">Ergänze den Text mit der richtigen Passivform. Achte auf den Kontext!</div>
+    <p style="font-size:.9rem; line-height:2.0; margin-top:8px;">
+      Das alte Stadttheater <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> (renovieren – Präteritum). Viele Fenster <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> (ersetzen – Perfekt) und neue Sitze <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> (einbauen – Perfekt). Jetzt <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> das Theater (öffnen – Zustandspassiv). Ab nächste Woche <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> täglich Aufführungen (zeigen – Futur I) und Tickets <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> (online kaufen – können/Präsens).
+    </p>
+    <details>
+      <summary>✔ Lösung anzeigen</summary>
+      <div class="solution">
+        <span class="ok">wurde renoviert</span> · <span class="ok">sind ersetzt worden</span> · <span class="ok">sind eingebaut worden</span> · <span class="ok">ist geöffnet</span> · <span class="ok">werden gezeigt werden</span> · <span class="ok">können online gekauft werden</span>
+      </div>
+    </details>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     SCHREIBEN
+═══════════════════════════════════════════════════ -->
+<section id="schreiben">
+  <div class="sec-header">
+    <div class="sec-icon gold">📝</div>
+    <div class="sec-title">Schreiben<small>Passiv kreativ anwenden</small></div>
+  </div>
+
+  <div class="schreiben-card">
+    <div class="prompt">Aufgabe 1: Dein Alltag im Passiv</div>
+    <p>Beschreibe deinen gestrigen Tag – aber im Passiv! Benutze mindestens <strong>5 verschiedene Verben</strong> in verschiedenen Zeiten.</p>
+    <div class="starters">
+      <span class="starter">Zuerst wurde …</span>
+      <span class="starter">Dann ist … worden</span>
+      <span class="starter">Zum Schluss war …</span>
+    </div>
+    <p class="tip">💡 Tipp: Denk an Aktivitäten wie: aufräumen, kochen, kaufen, schicken, abholen, bezahlen …</p>
+  </div>
+
+  <div class="schreiben-card">
+    <div class="prompt">Aufgabe 2: Ein Tatortbericht 🔍</div>
+    <p>Schreibe einen kurzen Polizeibericht (6–8 Sätze) über ein erfundenes Verbrechen. Nutze hauptsächlich das <strong>Passiv Präteritum</strong>.</p>
+    <div class="starters">
+      <span class="starter">Es wurde … gefunden</span>
+      <span class="starter">Das Opfer wurde …</span>
+      <span class="starter">Der Täter wurde verhaftet</span>
+    </div>
+    <p class="tip">💡 Tipp: Was wurde gestohlen? Wo wurde es gefunden? Wann wurde die Polizei gerufen?</p>
+  </div>
+
+  <div class="schreiben-card">
+    <div class="prompt">Aufgabe 3: Vorgang vs. Zustand beschreiben</div>
+    <p>Beschreibe <strong>5 Dinge</strong> in deiner Wohnung oder Schule – erst was gemacht wurde (Vorgang), dann wie es jetzt aussieht (Zustand).</p>
+    <div class="starters">
+      <span class="starter">Das Fenster wurde geöffnet. → Das Fenster ist geöffnet.</span>
+    </div>
+    <p class="tip">💡 Denk an: Tisch, Tafel, Tür, Lampe, Computer, Kühlschrank …</p>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
+          </body>
+        </html>

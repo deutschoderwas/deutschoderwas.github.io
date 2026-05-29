@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+<meta charset="UTF-8"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title data-id="th-modified">Jobsuche & Bewerbung · deutschoderwas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#2D8A7A;--acc-lt:#B8DDD4;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}.tbtn.reset{background:#555;color:white;}
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;scrollbar-width:none;}
+.phase-nav::-webkit-scrollbar{display:none;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}
+.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.4rem;line-height:1.5;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.4rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--acc-lt);color:var(--acc);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+/* VOCAB */
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.vok-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.vok-card.flipped{background:var(--acc-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);white-space:pre-line;}
+.vok-card.flipped .vok-back{display:block;}
+.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+/* EXAMPLES */
+.ex{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.85rem 1.2rem;margin-bottom:.55rem;border-left:4px solid var(--acc);font-size:.93rem;line-height:1.7;}
+.ex .de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);margin-bottom:.2rem;}
+.ex .en{font-size:.79rem;color:#888;font-style:italic;}
+.ex .note{font-size:.78rem;color:var(--acc);margin-top:.2rem;font-weight:600;}
+.ex strong{color:var(--acc);}
+/* DIALOGS */
+.dialog{background:var(--sand-lt);border-radius:16px;overflow:hidden;margin-bottom:1.1rem;border:1.5px solid var(--sand);}
+.dialog-hd{background:var(--dark);color:white;padding:.6rem 1.3rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
+.dialog-hd-icon{font-size:1rem;}
+.dialog-body{padding:1rem 1.3rem;}
+.dl{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start;}
+.dl:last-child{margin-bottom:0;}
+.dl-spk{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:60px;padding-top:.25rem;flex-shrink:0;color:var(--acc);line-height:1.3;}
+.dl-spk.b{color:var(--rust);}
+.dl-spk.c{color:#6B3D8A;}
+.dl-txt{font-size:.9rem;line-height:1.65;}
+.dl-txt strong{font-family:'Fraunces',serif;color:var(--brown);}
+.dl-note{font-size:.75rem;color:#888;font-style:italic;}
+/* ANNOTATIONS on dialog */
+.dl-ann{background:rgba(0,0,0,.04);border-left:3px solid var(--acc);font-size:.75rem;color:#555;padding:.3rem .7rem;margin-top:.2rem;border-radius:0 6px 6px 0;line-height:1.5;}
+/* HIGHLIGHT BOX */
+.hbox{border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.hbox.blue{background:var(--acc-lt);border:1.5px solid var(--acc);}
+.hbox.dark{background:var(--dark);color:white;}
+.hbox.warn{background:#FFF8E0;border:1.5px solid #C8A870;}
+.hbox-title{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;margin-bottom:.5rem;}
+.hbox.dark .hbox-title{color:var(--acc-lt);}
+.hbox.blue .hbox-title{color:var(--acc);}
+.hbox.warn .hbox-title{color:#5C3D2E;}
+.hbox-body{font-size:.87rem;line-height:1.8;}
+.hbox.dark .hbox-body{color:#ddd;}
+/* PHRASE LIST */
+.phrase-list{list-style:none;margin-bottom:1.1rem;}
+.phrase-list li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .9rem;border-radius:10px;margin-bottom:.4rem;background:white;border:1.5px solid var(--sand);font-size:.89rem;line-height:1.6;}
+.phrase-list li::before{content:'→';color:var(--acc);font-weight:700;flex-shrink:0;margin-top:.1rem;}
+.phrase-list li strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list li em{color:#888;font-size:.8rem;}
+/* QUIZ */
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.3rem;margin-bottom:.8rem;}
+.mc-q{font-size:.94rem;font-weight:600;margin-bottom:.75rem;line-height:1.55;}
+.mc-opts{display:flex;flex-direction:column;gap:.38rem;}
+.mc-opt{padding:.48rem 1rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.88rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--acc);background:var(--acc-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.81rem;margin-top:.6rem;display:none;font-weight:500;line-height:1.55;padding:.4rem .7rem;border-radius:8px;}
+.mc-fb.show{display:block;}
+.mc-fb.ok{color:var(--green);background:var(--green-lt);}.mc-fb.nope{color:var(--red);background:var(--red-lt);}
+/* RF */
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.95rem 1.3rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}
+.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.92rem;margin-bottom:.6rem;line-height:1.55;}
+.rf-btns{display:flex;gap:.45rem;}
+.rfbtn{padding:.28rem .85rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--acc);color:var(--acc);}
+.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}
+.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.8rem;margin-top:.55rem;font-weight:500;display:none;line-height:1.55;padding:.35rem .6rem;border-radius:6px;}
+.rf-fb.show{display:block;}
+.rf-fb.ok{color:var(--green);background:var(--green-lt);}.rf-fb.bad{color:var(--red);background:var(--red-lt);}
+/* SPEAK CARDS */
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:13px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.speak-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.09);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);line-height:1.4;}
+.speak-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}
+.speak-hint{font-size:.68rem;color:#bbb;margin-top:.45rem;}
+/* RSP */
+.rsp-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;margin-bottom:.9rem;}
+.rsp-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.1);}
+.rsp-card.open .rsp-back{display:block;}
+.rsp-card.open .rsp-hint{display:none;}
+.rsp-top{background:var(--dark);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.75rem;}
+.rsp-emoji{font-size:1.4rem;flex-shrink:0;}
+.rsp-title{font-family:'Fraunces',serif;font-weight:700;color:white;font-size:1rem;}
+.rsp-body{padding:1rem 1.2rem;}
+.rsp-situation{font-size:.89rem;color:var(--dark);line-height:1.6;margin-bottom:.6rem;}
+.rsp-back{display:none;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--sand);}
+.rsp-rolle{font-size:.83rem;line-height:1.7;color:var(--dark);margin-bottom:.45rem;padding:.4rem .8rem;border-radius:8px;background:var(--cream);}
+.rsp-rolle strong{color:var(--acc);}
+.rsp-hint{font-size:.7rem;color:#bbb;}
+/* THESEN */
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:.8rem;display:flex;align-items:flex-start;gap:1rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--acc-lt);flex-shrink:0;line-height:1;margin-top:.1rem;}
+.these-text{font-size:.93rem;line-height:1.65;}
+.these-starter{font-size:.77rem;color:#888;margin-top:.35rem;}
+/* TIPP */
+.tipp{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-top:1.3rem;display:flex;gap:.9rem;align-items:flex-start;}
+.tipp-icon{font-size:1.3rem;flex-shrink:0;}
+.tipp-body{font-size:.87rem;line-height:1.75;}
+.tipp-body strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+/* CULTURAL NOTE */
+.kultur{background:linear-gradient(135deg,var(--acc-lt),rgba(255,255,255,.5));border:1.5px solid var(--acc);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.kultur-title{font-family:'Fraunces',serif;font-weight:700;color:var(--acc);font-size:.9rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;}
+.kultur-body{font-size:.86rem;line-height:1.75;color:var(--dark);}
+</style><meta property="og:title" content="Jobsuche & Bewerbung · deutschoderwas" data-id="th-modified" ><meta name="description" content="jobsuche_bewerbung_b1b2" data-id="th-modified" ><meta property="og:description" content="jobsuche_bewerbung_b1b2" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="https://jobsuche.deutschoderwas-lernen.de/" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="jobsuche.deutschoderwas-lernen.de" src="https://analytics.tiiny.site/js/plausible.js"></script></head><body>
+<div class="timer-bar">
+  <div class="timer-display" id="td">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="tf"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;flex-shrink:0;">Unterrichtszeit</span>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">&#9654; Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">&#8635;</button>
+  </div>
+</div>
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <button class="phase-btn active" onclick="showPhase('p1',this)">&#9312; Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('p2',this)">&#9313; Wortschatz</button>
+  <button class="phase-btn" onclick="showPhase('p3',this)">&#9314; Dialoge</button>
+  <button class="phase-btn" onclick="showPhase('p4',this)">&#9315; Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('p5',this)">&#9316; Rollenspiele</button>
+  <button class="phase-btn" onclick="showPhase('p6',this)">&#9317; &#220;bungen</button>
+  <button class="phase-btn" onclick="showPhase('p7',this)">&#9318; Sprechen</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;flex-shrink:0;">Alltag B1/B2 &middot; 60 Min.</span>
+</div>
+<main>
+<div id="phase-p1" class="phase active"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Einstieg &middot; 8 Min.</div>
+<div class="card-title">Jobsuche &amp; Bewerbung</div>
+<div class="card-sub">Lebenslauf, Anschreiben, Vorstellungsgespräch &ndash; so läuft Jobsuche in Deutschland</div></div><div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="kultur"><div class="kultur-title">&#127987; Kulturnotiz</div><div class="kultur-body">In Deutschland ist das <strong>Anschreiben</strong> immer noch Pflicht bei Bewerbungen – auch wenn viele Firmen es hassen. Und: Das <strong>Foto im Lebenslauf</strong> ist in Deutschland üblich (nicht diskriminierend gemeint), aber mittlerweile nicht mehr überall Pflicht.</div></div>
+
+<div class="slabel">Warming-up &ndash; Sprecht zuerst!</div>
+<div class="speak-grid" id="warmup"></div>
+<div class="tipp"><div class="tipp-icon">&#127919;</div><div class="tipp-body"><strong>Heute lernen wir:</strong> Lebenslauf, Anschreiben, Gehaltsverhandlung &ndash; der komplette Weg zum deutschen Job!</div></div>
+</div></div></div>
+
+<div id="phase-p2" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Wortschatz &middot; 12 Min.</div>
+<div class="card-title">Wichtige W&#246;rter &amp; <em>Ausdr&#252;cke</em></div>
+<div class="card-sub">Klickt auf die Karten &ndash; Deutsch vorne, Erkl&#228;rung hinten!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div class="slabel">&#128188; Bewerbung</div><div class="vok-grid" id="vok1"></div>
+<div class="slabel">&#128100; Beim Gespr&#228;ch</div><div class="vok-grid" id="vok2"></div>
+
+</div></div></div>
+
+<div id="phase-p3" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Dialoge &middot; 12 Min.</div>
+<div class="card-title">Echte Gespr&#228;che &ndash; <em>so klingt das!</em></div>
+<div class="card-sub">Lest die Dialoge laut &ndash; wechselt die Rollen!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#128188;</span> Vorstellungsgespräch &ndash; klassische Fragen</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">HR</span><div><div class="dl-txt">Guten Tag Frau Yildiz! Sch&#246;n, dass Sie den Weg zu uns gefunden haben. Erz&#228;hlen Sie uns doch kurz etwas &#252;ber sich!</div></div></div>
+<div class="dl"><span class="dl-spk b">Kandidatin</span><div><div class="dl-txt">Sehr gerne! Ich bin seit 5 Jahren im <strong>Marketing tätig</strong>, habe meinen Bachelor in Kommunikationswissenschaft gemacht und spezialisiere mich auf <strong>digitale Kampagnen und Social Media</strong>.</div><div class="dl-ann">Jetzt → früher → Ziel</div></div></div>
+<div class="dl"><span class="dl-spk ">HR</span><div><div class="dl-txt">Was sind Ihre gr&#246;&#223;ten <strong>St&#228;rken</strong>?</div></div></div>
+<div class="dl"><span class="dl-spk b">Kandidatin</span><div><div class="dl-txt">Ich bin sehr <strong>analytisch</strong> und arbeite präzise. Und ich lerne sehr schnell &ndash; neue Tools oder Prozesse habe ich immer rasch verinnerlicht.</div></div></div>
+<div class="dl"><span class="dl-spk ">HR</span><div><div class="dl-txt">Und Ihre gr&#246;&#223;te <strong>Schw&#228;che</strong>?</div><div class="dl-ann">klassische Fangfrage!</div></div></div>
+<div class="dl"><span class="dl-spk b">Kandidatin</span><div><div class="dl-txt">Ich neige manchmal zum <strong>Perfektionismus</strong>. Ich habe aber gelernt, Prioritäten zu setzen und zwischen 'gut genug' und 'perfekt' zu unterscheiden.</div><div class="dl-ann">echte Schwäche + Lösungsweg!</div></div></div>
+<div class="dl"><span class="dl-spk ">HR</span><div><div class="dl-txt">Sehr sch&#246;n. Und was sind Ihre <strong>Gehaltsvorstellungen</strong>?</div></div></div>
+<div class="dl"><span class="dl-spk b">Kandidatin</span><div><div class="dl-txt">Ich stelle mir ein <strong>Jahresbrutto von 55.000 bis 58.000 Euro</strong> vor, basierend auf meiner Erfahrung und dem Marktvergleich.</div><div class="dl-ann">konkrete Zahl!</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#128232;</span> Bewerbungsanschreiben &ndash; Aufbau</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Anschreiben</span><div><div class="dl-txt"><strong>Betreff: Bewerbung als Marketing Manager (Ref. 2025-042)</strong></div></div></div>
+<div class="dl"><span class="dl-spk b">Bewerber</span><div><div class="dl-txt">Sehr geehrte Frau Bachmann,<br>mit großem Interesse habe ich Ihre Stellenanzeige auf StepStone gelesen. Die Stelle als <strong>Marketing Manager</strong> entspricht genau meinen beruflichen Zielen.</div></div></div>
+<div class="dl"><span class="dl-spk b">Bewerber</span><div><div class="dl-txt">In meiner aktuellen Position bei der Agentur XYZ verantworte ich <strong>Social-Media-Kampagnen für 15 Kunden</strong>. Ich konnte dabei den Umsatz durch digitale Werbung um durchschnittlich 23% steigern.</div><div class="dl-ann">konkrete Zahlen!</div></div></div>
+<div class="dl"><span class="dl-spk b">Bewerber</span><div><div class="dl-txt">Ich &#252;berzeuge durch meine <strong>analytische Arbeitsweise</strong>, mein Gespür für Trends und meine Erfahrung mit Google Ads, Meta und LinkedIn.</div></div></div>
+<div class="dl"><span class="dl-spk b">Bewerber</span><div><div class="dl-txt">&#220;ber eine pers&#246;nliche Vorstellung freue ich mich sehr.<br>Mit freundlichen Gr&#252;&#223;en,<br>Dilnoza Yusupova</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#128237;</span> Absage mit Würde &ndash; und was danach</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Firma</span><div><div class="dl-txt">Sehr geehrte Frau Sato,<br>vielen Dank f&#252;r Ihr Interesse an unserem Unternehmen. Leider m&#252;ssen wir Ihnen mitteilen, dass wir uns f&#252;r einen anderen Kandidaten entschieden haben.</div></div></div>
+<div class="dl"><span class="dl-spk b">Kandidatin</span><div><div class="dl-txt">Sehr geehrte Damen und Herren,<br>danke f&#252;r die r&#252;ckmeldung. Es tut mir leid zu h&#246;ren, dass es nicht geklappt hat.</div></div></div>
+<div class="dl"><span class="dl-spk b">Kandidatin</span><div><div class="dl-txt">D&#252;rfte ich um ein kurzes <strong>Feedback</strong> bitten? Ich m&#246;chte meine Bewerbungen verbessern und w&#228;re Ihnen sehr dankbar f&#252;r einen Hinweis.</div><div class="dl-ann">mutig nachfragen!</div></div></div>
+<div class="dl"><span class="dl-spk c">Firma</span><div><div class="dl-txt">Gerne! Ihre Unterlagen waren sehr gut. Es war am Ende eine sehr knappe Entscheidung &ndash; der andere Kandidat hatte mehr Erfahrung im B2B-Bereich.</div></div></div>
+<div class="dl"><span class="dl-spk b">Kandidatin</span><div><div class="dl-txt">Das ist ein hilfreiches Feedback! Ich werde gezielt B2B-Erfahrungen sammeln. Darf ich mich bei einer künftigen Ausschreibung erneut bewerben?</div></div></div>
+<div class="dl"><span class="dl-spk c">Firma</span><div><div class="dl-txt">Sehr gerne! Wir behalten Ihre Bewerbung in unserer Datei.</div></div></div>
+</div></div>
+
+</div></div></div>
+
+<div id="phase-p4" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Redemittel &middot; 8 Min.</div>
+<div class="card-title">So sagt man das <em>wirklich!</em></div>
+<div class="card-sub">Echte S&#228;tze &ndash; kein Lehrbuchangeldeutsch!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="slabel">&#128203; Bewerbungssprache</div>
+<ul class="phrase-list">
+<li><strong>Hiermit bewerbe ich mich <strong>auf die Stelle als ___</strong>.</strong> <span style="color:#888;font-size:.82rem;">= I hereby apply for the position of ___.</span></li>
+<li><strong>Meine <strong>Stärken</strong> liegen in... / Ich zeichne mich durch... aus.</strong> <span style="color:#888;font-size:.82rem;">= My strengths are... / I am distinguished by...</span></li>
+<li><strong>Ich stelle mir ein <strong>Jahresbrutto</strong> von ca. ___ vor.</strong> <span style="color:#888;font-size:.82rem;">= I'm looking for an annual gross salary of approx. ___.</span> <em>– Jahresbrutto!</em></li>
+<li><strong>Über eine pers&#246;nliche <strong>Vorstellung</strong> würde ich mich freuen.</strong> <span style="color:#888;font-size:.82rem;">= I would be pleased to have a personal interview.</span> <em>– Abschlussformel</em></li>
+</ul>
+<div class="slabel">&#128100; Im Gespr&#228;ch</div>
+<ul class="phrase-list">
+<li><strong>Ich bin seit ___ Jahren in der Branche <strong>tätig</strong>.</strong> <span style="color:#888;font-size:.82rem;">= I have been working in the industry for ___ years.</span></li>
+<li><strong>Was mich besonders <strong>reizt</strong> an dieser Stelle ist...</strong> <span style="color:#888;font-size:.82rem;">= What particularly appeals to me about this position is...</span></li>
+<li><strong>Haben Sie noch <strong>Fragen</strong> an mich?</strong> <span style="color:#888;font-size:.82rem;">= Do you have any questions for me?</span> <em>– immer vorbereiten!</em></li>
+</ul>
+
+</div></div></div>
+
+<div id="phase-p5" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Rollenspiele &middot; 12 Min.</div>
+<div class="card-title">Euer Auftritt &ndash; <em>los geht&apos;s!</em></div>
+<div class="card-sub">Klickt auf die Karte f&#252;r Rollen &amp; Tipps</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div id="rsp1"></div>
+</div></div></div>
+
+<div id="phase-p6" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; &#220;bungen &middot; 8 Min.</div>
+<div class="card-title">Jetzt testen wir!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="slabel">Multiple Choice</div><div id="mc1"></div>
+<hr class="div">
+<div class="slabel">Richtig oder Falsch?</div><div id="rf1"></div>
+</div></div></div>
+
+<div id="phase-p7" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Freies Sprechen &middot; 10 Min.</div>
+<div class="card-title">Eure Meinung &ndash; <em>jetzt seid ihr dran!</em></div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 10 Minuten</div>
+<div class="these"><div class="these-num">1</div><div class="these-text">Ist das deutsche Bewerbungssystem zu formell und veraltet?<div class="these-starter">&#8222;Ich finde das Anschreiben...&#8220; / &#8222;Im Vergleich zu anderen Ländern...&#8220;</div></div></div>
+<div class="these"><div class="these-num">2</div><div class="these-text">Sollte man das Gehalt offen kommunizieren &ndash; oder ist das tabu?<div class="these-starter">&#8222;In den USA ist es üblich...&#8220; / &#8222;In Deutschland gilt...&#8220;</div></div></div>
+
+<div class="slabel">Sprechkarten</div>
+<div class="speak-grid" id="speakCards"></div>
+</div></div></div>
+</main>
+<script>
+const TOTAL=3600;let rem=TOTAL,intv=null,run=false;
+function upd(){const m=Math.floor(rem/60),s=rem%60;const d=document.getElementById('td');d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('tf').style.width=(rem/TOTAL*100)+'%';d.className='timer-display';if(rem<=600)d.classList.add('warn');if(rem<=120)d.classList.add('urgent');}
+function toggleTimer(){if(run){clearInterval(intv);run=false;document.querySelector('.tbtn.start').textContent='▶ Start';}else{run=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';intv=setInterval(()=>{if(rem>0){rem--;upd();}else{clearInterval(intv);run=false;}},1000);}}
+function resetTimer(){clearInterval(intv);run=false;rem=TOTAL;upd();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));document.getElementById('phase-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function buildVokCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(v=>{const d=document.createElement('div');d.className='vok-card';d.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${(v.back||'').replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint||'&#128070; klicken!'}</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildSpeakCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(i=>{const d=document.createElement('div');d.className='speak-card';d.innerHTML=`<div class="speak-front">${i.front}</div><div class="speak-back">${i.back}</div><div class="speak-hint">&#128070; Tipp &amp; Formulierungshilfe</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildRSP(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(item=>{const d=document.createElement('div');d.className='rsp-card';d.innerHTML=`<div class="rsp-top"><span class="rsp-emoji">${item.emoji}</span><span class="rsp-title">${item.title}</span></div><div class="rsp-body"><div class="rsp-situation">${item.situation}</div><div class="rsp-back"><div class="rsp-rolle"><strong>&#128308; Person A:</strong> ${item.a}</div><div class="rsp-rolle"><strong>&#128309; Person B:</strong> ${item.b}</div>${item.tipps?`<div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">&#128161; Tipps:</strong> ${item.tipps}</div>`:''}</div><div class="rsp-hint">&#128070; klicken f&#252;r Rollen &amp; Tipps</div></div>`;d.addEventListener('click',()=>d.classList.toggle('open'));g.appendChild(d);});}
+function buildMC(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='mc';const opts=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${id}${i}')">${o}</button>`).join('');div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${opts}</div><div class="mc-fb" id="mcfb${id}${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerMC(btn,j,correct,fbId){btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');if(j!==correct)btn.classList.add('nope');const fb=document.getElementById(fbId);if(fb){fb.classList.add('show');fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);}}
+function buildRF(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='rf';div.id=`rf_${id}_${i}`;div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('${id}',${i},true,this)">&#10003; Richtig</button><button class="rfbtn" onclick="answerRF('${id}',${i},false,this)">&#10007; Falsch</button></div><div class="rf-fb" id="rffb_${id}_${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerRF(id,i,answer,btn){const rfData=window['rfData_'+id];const card=document.getElementById(`rf_${id}_${i}`);card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));btn.classList.add(answer?'sel-r':'sel-f');const correct=rfData&&answer===rfData[i].ok;card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);const fb=document.getElementById(`rffb_${id}_${i}`);if(fb){fb.classList.add('show');fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);}}
+buildVokCards([{"front": "der Lebenslauf", "back": "= CV / r\u00e9sum\u00e9\n'Ich schicke meinen tabellarischen Lebenslauf.'\nFormat: Tabelle, Zeitraum | Firma | Position\nMaximal 2 Seiten!", "hint": "tabellarisch!"}, {"front": "das Anschreiben", "back": "= cover letter\n'Das Anschreiben sollte max. 1 Seite sein.'\nWeshalb bewerbe ich mich?\nWas bringe ich mit?", "hint": "max. 1 Seite!"}, {"front": "das Vorstellungsgespr\u00e4ch", "back": "= job interview\n'Ich habe morgen ein Vorstellungsgespr\u00e4ch.'\nauch: das Bewerbungsgespr\u00e4ch", "hint": "vorbereiten!"}, {"front": "die Gehaltsvorstellung", "back": "= salary expectation\n'Was sind Ihre Gehaltsvorstellungen?'\nImmer als Jahresbrutto nennen!\nMarkt\u00fcblich recherchieren", "hint": "Jahresbrutto!"}, {"front": "die Probezeit", "back": "= probationary period\n'Ich bin noch in der Probezeit.'\nMeist 3-6 Monate\nK\u00fcndigungsfrist: nur 2 Wochen!", "hint": "2 Wochen K\u00fcndigung!"}, {"front": "die Stellenanzeige", "back": "= job listing / ad\n'Ich habe eine interessante Stelle gefunden.'\nPortale: Indeed, StepStone, LinkedIn, Xing", "hint": "Indeed, StepStone"}, {"front": "das Zeugnis", "back": "= reference / certificate\n'Haben Sie Zeugnisse?'\nAbschlusszeugnis, Arbeitszeugnis\nNoten 1-6 (1 = sehr gut)", "hint": "Note 1 = sehr gut"}, {"front": "die Absage", "back": "= rejection\n'Ich habe eine Absage erhalten.'\n\u2260 die Zusage (= acceptance)\nKeine Begr\u00fcndung Pflicht!", "hint": "\u2260 Zusage"}],'vok1');
+buildVokCards([{"front": "die St\u00e4rken/Schw\u00e4chen", "back": "= strengths/weaknesses\n'Was sind Ihre St\u00e4rken?'\nKlassische Fragen!\nSchw\u00e4che = echte nennen + L\u00f6sungsweg", "hint": "immer gefragt!"}, {"front": "sich pr\u00e4sentieren", "back": "= to present yourself\n'Erz\u00e4hlen Sie von sich!'\nStruktur: jetzt \u2192 fr\u00fcher \u2192 Ziel", "hint": "2 Min. Pitch!"}, {"front": "die Unternehmenskultur", "back": "= company culture\n'Wie ist die Unternehmenskultur?'\nFragen zeigen Interesse!", "hint": "nachfragen!"}, {"front": "das Gehalt verhandeln", "back": "= to negotiate salary\n'\u00dcber das Gehalt w\u00fcrde ich gerne sprechen.'\nErste Zahl nennen = Anker setzen", "hint": "konkrete Zahl!"}],'vok2');
+buildMC([{"q": "Was nennt man beim deutschen Vorstellungsgespr\u00e4ch statt 'annual salary'?", "opts": ["Jahreseinkommen", "Jahresbrutto", "Monatslohn"], "correct": 1, "fb": "&#10003; Richtig! Gehaltsvorstellung = annual gross salary (Jahresbrutto). Immer brutto angeben \u2013 das Netto h\u00e4ngt von Steuerklasse ab!"}, {"q": "Wie lang sollte ein Anschreiben auf Deutsch sein?", "opts": ["3 Seiten", "Maximal 1 Seite", "Mindestens 2 Seiten"], "correct": 1, "fb": "&#10003; Richtig! Anschreiben = max. 1 Seite! Klar, konkret, \u00fcberzeugend. Kein Roman."}, {"q": "Was ist eine 'Absage'?", "opts": ["Eine Bewerbung", "Eine Ablehnung / Rejection", "Eine Jobzusage"], "correct": 1, "fb": "&#10003; Richtig! Absage = rejection. Zusage = job offer / acceptance."}],'mc1');
+window.rfData_rf1=[{"s": "Das Foto im deutschen Lebenslauf ist heutzutage Pflicht.", "ok": false, "fb": "&#10007; Nicht mehr! Das Bewerbungsfoto ist \u00fcblich aber nicht mehr Pflicht. Immer mehr Firmen verzichten darauf gegen Diskriminierung."}, {"s": "Beim Einstellungsgespr\u00e4ch muss man nach Familienplanung keine Auskunft geben.", "ok": true, "fb": "&#10003; Richtig! Fragen zu Familienplanung, Religion, Nationalit\u00e4t, Behinderung sind unzul\u00e4ssig und m\u00fcssen nicht beantwortet werden!"}, {"s": "In der Probezeit ist die K\u00fcndigungsfrist beidseitig 2 Wochen.", "ok": true, "fb": "&#10003; Richtig! Probezeit = kurze K\u00fcndigungsfrist f\u00fcr Arbeitgeber UND Arbeitnehmer (2 Wochen). Danach: gesetzliche Fristen."}];
+buildRF(window.rfData_rf1,'rf1');
+buildRSP([{"emoji": "&#128188;", "title": "Schwierige Interviewfragen", "situation": "Das Vorstellungsgespr\u00e4ch l\u00e4uft gut \u2013 dann kommen die harten Fragen: Warum wollen Sie weg? Haben Sie Kinder? Was verdienen Sie aktuell?", "a": "Kandidat: Antworte souver\u00e4n und strategisch. Manche Fragen muss man nicht beantworten (Kinder, Religion).", "b": "HR: Stelle die Fragen, reagiere auf Antworten.", "tipps": "Tipp: Nach Familienplanung, Religion, Nationalit\u00e4t MUSS man nicht antworten! Elegant: 'Das ber\u00fchrt meinen Privatbereich \u2013 aber zur Stelle: ...'"}, {"emoji": "&#128237;", "title": "Gehaltsverhandlung", "situation": "Du hast das Angebot bekommen: 48.000\u20ac Jahresbrutto. Du hattest 55.000\u20ac erwartet.", "a": "Du: Danke f\u00fcr das Angebot, erkl\u00e4re deinen Wunsch, argumentiere mit Marktvergleich und Kompetenzen.", "b": "HR: Zeige Spielraum (oder nicht), schlage Kompromisse vor (Variable, Mehr-Urlaub).", "tipps": "Immer verhandeln! Wer nicht fragt, bekommt nicht. Nie das erste Angebot sofort annehmen."}],'rsp1');
+buildSpeakCards([{"front": "Erz\u00e4hl von einer Bewerbungserfahrung \u2013 positiv oder negativ!", "back": "'Ich habe mich einmal bei... beworben / Das Gespr\u00e4ch war... / Was ich gelernt habe...'"}, {"front": "Wie beantwortest du 'Was ist deine gr\u00f6\u00dfte Schw\u00e4che?'", "back": "'Ich neige zu... aber ich arbeite daran durch... / Das gibt mir St\u00e4rke in...'"}, {"front": "Was sind deine St\u00e4rken \u2013 auf Deutsch!", "back": "'Meine St\u00e4rken sind: Teamf\u00e4higkeit / Analytisches Denken / Kreativit\u00e4t / Verl\u00e4sslichkeit...'"}],'speakCards');
+buildSpeakCards([{"front": "Was ist die h\u00e4rteste Interviewfrage die du dir vorstellen kannst?", "back": "'Wo sehen Sie sich in 5 Jahren? / Warum wollen Sie weg? / Was verdienen Sie aktuell?...'"}],'warmup');
+upd();</script></body></html>

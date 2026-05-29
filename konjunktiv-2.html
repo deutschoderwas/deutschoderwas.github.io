@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="de" data-qb-installed="true"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title data-id="th-modified">Grammatik: Konjunktiv II – hätte, wäre, würde · deutschoderwas</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#C8A870;--acc-lt:#EEE4D4;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}.tbtn.reset{background:#555;color:white;}
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;scrollbar-width:none;}
+.phase-nav::-webkit-scrollbar{display:none;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;}.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.4rem;line-height:1.5;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.4rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--acc-lt);color:var(--acc);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.vok-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.vok-card.flipped{background:var(--acc-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);white-space:pre-line;}
+.vok-card.flipped .vok-back{display:block;}.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+.ex{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.85rem 1.2rem;margin-bottom:.55rem;border-left:4px solid var(--acc);font-size:.93rem;line-height:1.7;}
+.ex .de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);margin-bottom:.2rem;}
+.ex .en{font-size:.79rem;color:#888;font-style:italic;}.ex strong{color:var(--acc);}
+.dialog{background:var(--sand-lt);border-radius:16px;overflow:hidden;margin-bottom:1.1rem;border:1.5px solid var(--sand);}
+.dialog-hd{background:var(--dark);color:white;padding:.6rem 1.3rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
+.dialog-body{padding:1rem 1.3rem;}
+.dl{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start;}.dl:last-child{margin-bottom:0;}
+.dl-spk{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:60px;padding-top:.25rem;flex-shrink:0;color:var(--acc);line-height:1.3;}
+.dl-spk.b{color:var(--rust);}.dl-spk.c{color:#6B3D8A;}
+.dl-txt{font-size:.9rem;line-height:1.65;}.dl-txt strong{font-family:'Fraunces',serif;color:var(--brown);}
+.dl-ann{background:rgba(0,0,0,.04);border-left:3px solid var(--acc);font-size:.75rem;color:#555;padding:.3rem .7rem;margin-top:.2rem;border-radius:0 6px 6px 0;line-height:1.5;}
+.phrase-list{list-style:none;margin-bottom:1.1rem;}
+.phrase-list li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .9rem;border-radius:10px;margin-bottom:.4rem;background:white;border:1.5px solid var(--sand);font-size:.89rem;line-height:1.6;}
+.phrase-list li::before{content:'→';color:var(--acc);font-weight:700;flex-shrink:0;margin-top:.1rem;}
+.phrase-list li strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list li em{color:#888;font-size:.8rem;}
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.3rem;margin-bottom:.8rem;}
+.mc-q{font-size:.94rem;font-weight:600;margin-bottom:.75rem;line-height:1.55;}
+.mc-opts{display:flex;flex-direction:column;gap:.38rem;}
+.mc-opt{padding:.48rem 1rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.88rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--acc);background:var(--acc-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.81rem;margin-top:.6rem;display:none;font-weight:500;line-height:1.55;padding:.4rem .7rem;border-radius:8px;}
+.mc-fb.show{display:block;}.mc-fb.ok{color:var(--green);background:var(--green-lt);}.mc-fb.nope{color:var(--red);background:var(--red-lt);}
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.95rem 1.3rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.92rem;margin-bottom:.6rem;line-height:1.55;}
+.rf-btns{display:flex;gap:.45rem;}
+.rfbtn{padding:.28rem .85rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--acc);color:var(--acc);}.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.8rem;margin-top:.55rem;font-weight:500;display:none;line-height:1.55;padding:.35rem .6rem;border-radius:6px;}
+.rf-fb.show{display:block;}.rf-fb.ok{color:var(--green);background:var(--green-lt);}.rf-fb.bad{color:var(--red);background:var(--red-lt);}
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:13px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.speak-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.09);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);line-height:1.4;}
+.speak-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}.speak-hint{font-size:.68rem;color:#bbb;margin-top:.45rem;}
+.rsp-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;margin-bottom:.9rem;}
+.rsp-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.1);}.rsp-card.open .rsp-back{display:block;}.rsp-card.open .rsp-hint{display:none;}
+.rsp-top{background:var(--dark);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.75rem;}
+.rsp-emoji{font-size:1.4rem;flex-shrink:0;}.rsp-title{font-family:'Fraunces',serif;font-weight:700;color:white;font-size:1rem;}
+.rsp-body{padding:1rem 1.2rem;}.rsp-situation{font-size:.89rem;color:var(--dark);line-height:1.6;margin-bottom:.6rem;}
+.rsp-back{display:none;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--sand);}
+.rsp-rolle{font-size:.83rem;line-height:1.7;color:var(--dark);margin-bottom:.45rem;padding:.4rem .8rem;border-radius:8px;background:var(--cream);}
+.rsp-rolle strong{color:var(--acc);}.rsp-hint{font-size:.7rem;color:#bbb;}
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:.8rem;display:flex;align-items:flex-start;gap:1rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--acc-lt);flex-shrink:0;line-height:1;margin-top:.1rem;}
+.these-text{font-size:.93rem;line-height:1.65;}.these-starter{font-size:.77rem;color:#888;margin-top:.35rem;}
+.tipp{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-top:1.3rem;display:flex;gap:.9rem;align-items:flex-start;}
+.tipp-icon{font-size:1.3rem;flex-shrink:0;}.tipp-body{font-size:.87rem;line-height:1.75;}.tipp-body strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+.kultur{background:linear-gradient(135deg,var(--acc-lt),rgba(255,255,255,.5));border:1.5px solid var(--acc);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.kultur-title{font-family:'Fraunces',serif;font-weight:700;color:var(--acc);font-size:.9rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;}
+.kultur-body{font-size:.86rem;line-height:1.75;color:var(--dark);}
+</style><meta property="og:title" content="Grammatik: Konjunktiv II – hätte, wäre, würde · deutschoderwas" data-id="th-modified"><meta name="description" content="konjunktiv2_neu" data-id="th-modified"><meta property="og:description" content="konjunktiv2_neu" data-id="th-modified"><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified"><meta property="og:image:width" content="1501" data-id="th-modified"><meta property="og:image:height" content="1501" data-id="th-modified"><meta property="og:image:type" content="image/png" data-id="th-modified"><meta property="og:url" content="https://konjunktiv-2.deutschoderwas-lernen.de/" data-id="th-modified"><meta property="og:type" content="website" data-id="th-modified"><script defer="" data-domain="konjunktiv-2.deutschoderwas-lernen.de" src="https://analytics.tiiny.site/js/plausible.js"></script><script src="chrome-extension://liecbddmkiiihnedobmlmillhodjkdmb/js/recordConsoleEvents.js"></script></head><body>
+<div class="timer-bar">
+  <div class="timer-display" id="td">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="tf" style="width: 100%;"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;flex-shrink:0;">Unterrichtszeit</span>
+  <div class="timer-btns"><button class="tbtn start" onclick="toggleTimer()">▶ Start</button><button class="tbtn reset" onclick="resetTimer()">↺</button></div>
+</div>
+<div class="phase-nav"><span class="brand-tag">deutsch<span>oder</span>was</span><button class="phase-btn active" onclick="showPhase('p1',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('p2',this)">② Wortschatz</button>
+  <button class="phase-btn" onclick="showPhase('p3',this)">③ Dialoge</button>
+  <button class="phase-btn" onclick="showPhase('p4',this)">④ Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('p5',this)">⑤ Rollenspiele</button>
+  <button class="phase-btn" onclick="showPhase('p6',this)">⑥ Übungen</button>
+  <button class="phase-btn" onclick="showPhase('p7',this)">⑦ Sprechen</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;flex-shrink:0;">Grammatik B1–C1 · 60 Min.</span>
+</div>
+<main>
+<div id="phase-p1" class="phase active"><div class="card">
+<div class="card-header"><div class="eyebrow">Grammatik B1–C1 · Einstieg · 8 Min.</div>
+<div class="card-title">Grammatik: Konjunktiv II – hätte, wäre, würde</div><div class="card-sub">Träume, Höflichkeit, irreale Bedingungen – der Konjunktiv II im Einsatz</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div>
+<div class="kultur"><div class="kultur-title">🌍 Kulturnotiz</div><div class="kultur-body">Der Konjunktiv II hat drei Hauptfunktionen: <strong>Höfliche Bitten</strong> ('Könnten Sie...'), <strong>irreale Bedingungen</strong> ('Wenn ich reich wäre...') und <strong>Ratschläge</strong> ('Du solltest...'). Im Restaurant und auf dem Amt ist KII Pflicht – ohne KII klingt man schroff!</div></div>
+<div class="slabel">Warming-up – Sprecht zuerst!</div>
+<div class="speak-grid" id="warmup"><div class="speak-card"><div class="speak-front">Wenn du einen Monat Urlaub hättest – was würdest du tun?</div><div class="speak-back">'Ich würde... / Ich wäre gerne in... / Ich hätte Zeit für...'</div><div class="speak-hint">👆 Tipp &amp; Formulierungshilfe</div></div></div>
+<div class="tipp"><div class="tipp-icon">🎯</div><div class="tipp-body"><strong>Heute lernen wir:</strong> Konjunktiv II – hätte, wäre, würde für Höflichkeit, Träume und Ratschläge!</div></div>
+</div></div></div>
+
+<div id="phase-p2" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Grammatik B1–C1 · Wortschatz · 12 Min.</div>
+<div class="card-title">Wichtige Wörter &amp; <em>Ausdrücke</em></div>
+<div class="card-sub">Klickt auf die Karten – Deutsch vorne, Erklärung hinten!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div><div class="slabel">📚 KII Formen</div><div class="vok-grid" id="v1"><div class="vok-card"><div class="vok-front">hätte</div><div class="vok-back">= would have / had (KII)<br>'Ich hätte gerne einen Kaffee.'<br>'Wenn ich Zeit hätte...'<br>Konjunktiv II von haben</div><div class="vok-hint">hätten = sehr höflich!</div></div><div class="vok-card"><div class="vok-front">wäre</div><div class="vok-back">= would be (KII)<br>'Das wäre schön!'<br>'Wenn ich reich wäre...'<br>Konjunktiv II von sein</div><div class="vok-hint">wäre = sehr häufig!</div></div><div class="vok-card"><div class="vok-front">würde + Infinitiv</div><div class="vok-back">= would do (Ersatzform)<br>'Ich würde gerne kommen.'<br>'Was würdest du tun?'<br>Ersatzform für viele KII</div><div class="vok-hint">Ersatzform!</div></div><div class="vok-card"><div class="vok-front">könnte</div><div class="vok-back">= could (KII von können)<br>'Könnten Sie mir helfen?'<br>Sehr höfliche Bitte<br>stärker als 'können'</div><div class="vok-hint">höflichste Form!</div></div><div class="vok-card"><div class="vok-front">sollte</div><div class="vok-back">= should (KII von sollen)<br>'Du solltest mehr schlafen.'<br>Ratschlag<br>Solltest = milder als musst</div><div class="vok-hint">Ratschlag!</div></div><div class="vok-card"><div class="vok-front">dürfte</div><div class="vok-back">= should / ought to (KII von dürfen)<br>'Das dürfte nicht lange dauern.'<br>Vermutung: dürfte = probably<br>Hauptbedeutung hier</div><div class="vok-hint">Vermutung!</div></div></div>
+<div class="slabel">📝 KII in Aktion</div><div class="vok-grid" id="v2"><div class="vok-card"><div class="vok-front">Wenn ich könnte, ...</div><div class="vok-back">= If I could, ...<br>'Wenn ich könnte, würde ich mehr reisen.'<br>irreale Bedingung<br>konjunktiv II in beiden Teilen</div><div class="vok-hint">beide Teile KII!</div></div><div class="vok-card"><div class="vok-front">An deiner Stelle würde ich...</div><div class="vok-back">= If I were you, I would...<br>'An deiner Stelle würde ich kündigen.'<br>Ratschlag (aber vorsichtig!)<br>Sehrhäufig im Alltag</div><div class="vok-hint">Ratschlag!</div></div><div class="vok-card"><div class="vok-front">Das wäre eigentlich möglich.</div><div class="vok-back">= That would actually be possible.<br>'Eigentlich' + KII = höfliche Zurückhaltung</div><div class="vok-hint">eigentlich + KII</div></div><div class="vok-card"><div class="vok-front">Hättest du Zeit?</div><div class="vok-back">= Would you have time? (KII Frage)<br>'Hättest du kurz Zeit?'<br>Höflichere Alternative zu: 'Hast du Zeit?'</div><div class="vok-hint">höflicher als Indikativ</div></div></div>
+
+</div></div></div>
+
+<div id="phase-p3" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Grammatik B1–C1 · Dialoge · 12 Min.</div>
+<div class="card-title">Echte Gespräche – <em>so klingt das!</em></div>
+<div class="card-sub">Lest die Dialoge laut – wechselt die Rollen!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div><div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">📝</span> Höfliche Bitten – Restaurant und Amt</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Kellner</span><div><div class="dl-txt">Was darf es sein?</div></div></div>
+<div class="dl"><span class="dl-spk b">Gast</span><div><div class="dl-txt">Ich <strong>hätte gerne</strong> das Tagesgericht und einen Mineralwasser bitte.</div><div class="dl-ann">hätte gerne = KII = sehr höflich</div></div></div>
+<div class="dl"><span class="dl-spk ">Kellner</span><div><div class="dl-txt">Gerne. Könnten Sie kurz warten? Wir sind etwas beschäftigt.</div><div class="dl-ann">Könnten = KII von können</div></div></div>
+<div class="dl"><span class="dl-spk b">Gast</span><div><div class="dl-txt">Natürlich. Ach, noch eine Frage: <strong>Wäre</strong> es möglich, das ohne Zwiebeln zu bekommen?</div><div class="dl-ann">wäre möglich = KII},</div></div></div>
+<div class="dl"><span class="dl-spk ">Kellner</span><div><div class="dl-txt">Das <strong>dürfte</strong> kein Problem sein.</div><div class="dl-ann">dürfte = KII = probably no problem</div></div></div>
+<div class="dl"><span class="dl-spk b">Gast</span><div><div class="dl-txt">Wunderbar, danke schön.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">🌟</span> Traumleben – irreale Bedingungen</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Mia</span><div><div class="dl-txt">Wenn ich <strong>unendlich Geld hätte</strong>, würde ich als erstes ein Jahr reisen.</div></div></div>
+<div class="dl"><span class="dl-spk b">Tom</span><div><div class="dl-txt">Wirklich? Ich <strong>würde</strong> erst mal eine eigene Stiftung gründen.</div></div></div>
+<div class="dl"><span class="dl-spk ">Mia</span><div><div class="dl-txt">Das ist schön. Wo <strong>wärst</strong> du am liebsten?</div></div></div>
+<div class="dl"><span class="dl-spk b">Tom</span><div><div class="dl-txt">Ich <strong>wäre</strong> gerne für ein Jahr in Japan.</div></div></div>
+<div class="dl"><span class="dl-spk ">Mia</span><div><div class="dl-txt">Und wenn du nur einen Wunsch hättest?</div></div></div>
+<div class="dl"><span class="dl-spk b">Tom</span><div><div class="dl-txt">Dann <strong>würde</strong> ich meiner Mutter ein Haus kaufen.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">👤</span> Ratschlag geben – Karriere</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Kollegin</span><div><div class="dl-txt">Ich bin unglücklich in meinem Job. Was soll ich tun?</div></div></div>
+<div class="dl"><span class="dl-spk b">Mentor</span><div><div class="dl-txt"><strong>An deiner Stelle würde ich</strong> erst mal eine klare Liste machen: Was läuft gut? Was nicht?</div></div></div>
+<div class="dl"><span class="dl-spk ">Kollegin</span><div><div class="dl-txt">Das macht Sinn. Und dann?</div></div></div>
+<div class="dl"><span class="dl-spk b">Mentor</span><div><div class="dl-txt">Du <strong>solltest</strong> mit deinem Chef reden – vielleicht gibt es andere Möglichkeiten im Unternehmen.</div></div></div>
+<div class="dl"><span class="dl-spk ">Kollegin</span><div><div class="dl-txt">Und wenn das nicht hilft?</div></div></div>
+<div class="dl"><span class="dl-spk b">Mentor</span><div><div class="dl-txt">Dann <strong>wäre</strong> ein Bewerbungscoaching sinnvoll. Du <strong>müsstest</strong> nicht sofort kündigen.</div></div></div>
+</div></div>
+
+</div></div></div>
+
+<div id="phase-p4" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Grammatik B1–C1 · Redemittel · 8 Min.</div>
+<div class="card-title">So sagt man das <em>wirklich!</em></div>
+<div class="card-sub">Echte Sätze – kein Lehrbuchangeldeutsch!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div><div class="slabel">📝 Höfliche Bitten</div>
+<ul class="phrase-list">
+<li><strong>Ich <strong>hätte gerne</strong> einen Kaffee.</strong> <span style="color:#888;font-size:.82rem;">= I would like a coffee (please).</span> <em>– höflichste Form!</em></li>
+<li><strong><strong>Könnten Sie</strong> mir helfen?</strong> <span style="color:#888;font-size:.82rem;">= Could you help me?</span> <em>– sehr höflich</em></li>
+<li><strong><strong>Wäre es möglich</strong>, das zu verschieben?</strong> <span style="color:#888;font-size:.82rem;">= Would it be possible to postpone that?</span> <em>– </em></li>
+<li><strong>Das <strong>dürfte</strong> kein Problem sein.</strong> <span style="color:#888;font-size:.82rem;">= That probably won't be a problem.</span> <em>– dürfte = probably</em></li>
+</ul>
+<div class="slabel">🌟 Irreale Bedingungen</div>
+<ul class="phrase-list">
+<li><strong>Wenn ich Zeit <strong>hätte</strong>, <strong>würde</strong> ich mehr lesen.</strong> <span style="color:#888;font-size:.82rem;">= If I had time, I would read more.</span> <em>– beide KII!</em></li>
+<li><strong>Wenn ich du <strong>wäre</strong>, <strong>würde</strong> ich das nicht tun.</strong> <span style="color:#888;font-size:.82rem;">= If I were you, I wouldn't do that.</span> <em>– </em></li>
+<li><strong><strong>An deiner Stelle</strong> würde ich...</strong> <span style="color:#888;font-size:.82rem;">= If I were you, I would...</span> <em>– Ratschlag</em></li>
+</ul>
+
+</div></div></div>
+
+<div id="phase-p5" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Grammatik B1–C1 · Rollenspiele · 12 Min.</div>
+<div class="card-title">Euer Auftritt – <em>los geht's!</em></div>
+<div class="card-sub">Klickt auf die Karte für Rollen &amp; Tipps</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div><div id="rsp1"><div class="rsp-card"><div class="rsp-top"><span class="rsp-emoji">🌟</span><span class="rsp-title">Traumleben ohne Grenzen</span></div><div class="rsp-body"><div class="rsp-situation">Wenn ihr unbegrenzt Geld hättet – was würdet ihr tun?</div><div class="rsp-back"><div class="rsp-rolle"><strong>🔴 Person A:</strong> Erzählt euer Traumleben mit KII: hätte, wäre, würde.</div><div class="rsp-rolle"><strong>🔵 Person B:</strong> Stellt Fragen: 'Wo wärst du? Was würdest du nicht tun?'</div><div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">💡 Tipps:</strong> Kein Indikativ erlaubt in diesem Rollenspiel! Alles KII.</div></div><div class="rsp-hint">👆 klicken für Rollen &amp; Tipps</div></div></div><div class="rsp-card"><div class="rsp-top"><span class="rsp-emoji">👤</span><span class="rsp-title">Höflichkeitstraining</span></div><div class="rsp-body"><div class="rsp-situation">Formuliert alltägliche Bitten so höflich wie möglich.</div><div class="rsp-back"><div class="rsp-rolle"><strong>🔴 Person A:</strong> 'Könnten Sie bitte...?' / 'Wäre es möglich...?' / 'Ich hätte gerne...'</div><div class="rsp-rolle"><strong>🔵 Person B:</strong> Antwortet – positiv oder (höflich) negativ.</div><div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">💡 Tipps:</strong> Test: 'Ich will...' vs. 'Ich möchte...' vs. 'Ich hätte gerne...' – klingt am höflichsten?</div></div><div class="rsp-hint">👆 klicken für Rollen &amp; Tipps</div></div></div></div>
+</div></div></div>
+
+<div id="phase-p6" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Grammatik B1–C1 · Übungen · 8 Min.</div>
+<div class="card-title">Jetzt testen wir!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div>
+<div class="slabel">Multiple Choice</div><div id="mc1"><div class="mc"><div class="mc-q">Welcher Satz ist am höflichsten?</div><div class="mc-opts"><button class="mc-opt" onclick="answerMC(this,0,2,'mcfbmc10')">Ich will einen Kaffee.</button><button class="mc-opt" onclick="answerMC(this,1,2,'mcfbmc10')">Ich möchte einen Kaffee.</button><button class="mc-opt" onclick="answerMC(this,2,2,'mcfbmc10')">Ich hätte gerne einen Kaffee.</button></div><div class="mc-fb" id="mcfbmc10">✓ Hätte gerne = KII = am höflichsten! Im Restaurant immer 'ich hätte gerne' oder 'ich möchte' – nie 'ich will'!</div></div><div class="mc"><div class="mc-q">Was ist korrekt als irreale Bedingung?</div><div class="mc-opts"><button class="mc-opt" onclick="answerMC(this,0,1,'mcfbmc11')">Wenn ich Zeit habe, mache ich Sport.</button><button class="mc-opt" onclick="answerMC(this,1,1,'mcfbmc11')">Wenn ich Zeit hätte, würde ich Sport machen.</button><button class="mc-opt" onclick="answerMC(this,2,1,'mcfbmc11')">Wenn ich Zeit haben würde, mache ich Sport.</button></div><div class="mc-fb" id="mcfbmc11">✓ Irreale Bedingung: 'wenn + KII, würde + Infinitiv.' Oder: hätte/wäre in beiden Teilen.</div></div><div class="mc"><div class="mc-q">Was bedeutet 'das dürfte stimmen'?</div><div class="mc-opts"><button class="mc-opt" onclick="answerMC(this,0,1,'mcfbmc12')">Das ist sicher falsch</button><button class="mc-opt" onclick="answerMC(this,1,1,'mcfbmc12')">Das stimmt wahrscheinlich</button><button class="mc-opt" onclick="answerMC(this,2,1,'mcfbmc12')">Das muss stimmen</button></div><div class="mc-fb" id="mcfbmc12">✓ Dürfte (KII von dürfen) als Vermutung = probably. 'Das dürfte stimmen' = that's probably correct.</div></div></div>
+<hr class="div"><div class="slabel">Richtig oder Falsch?</div><div id="rf1"><div class="rf" id="rf_rf1_0"><div class="rf-s">'Würde' kann immer statt Konjunktiv II verwendet werden.</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('rf1',0,true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF('rf1',0,false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb_rf1_0">✗ Nicht bei hätte/wäre! 'Wenn ich würde reicher sein' = FALSCH. Richtig: 'Wenn ich reicher WÄRE'.</div></div><div class="rf" id="rf_rf1_1"><div class="rf-s">Im Restaurant klingt 'ich will' höflich auf Deutsch.</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('rf1',1,true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF('rf1',1,false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb_rf1_1">✗ Falsch! 'Ich will' klingt direkt bis grob. Im Restaurant: 'ich hätte gerne' oder 'ich möchte'. KII macht den Unterschied!</div></div><div class="rf" id="rf_rf1_2"><div class="rf-s">'An deiner Stelle würde ich...' ist ein Weg Ratschläge zu geben.</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('rf1',2,true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF('rf1',2,false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb_rf1_2">✓ Richtig! 'An deiner Stelle würde ich...' = If I were you, I would... Sehr häufige Ratsformel auf Deutsch.</div></div></div>
+</div></div></div>
+
+<div id="phase-p7" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Grammatik B1–C1 · Freies Sprechen · 10 Min.</div>
+<div class="card-title">Eure Meinung – <em>jetzt seid ihr dran!</em></div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 10 Minuten</div><div class="these"><div class="these-num">1</div><div class="these-text">Ohne Konjunktiv II klingt Deutsch unfreundlich – stimmt das?<div class="these-starter">'Im Restaurant ohne KII... / Auf dem Amt... / Ich habe erlebt...'</div></div></div>
+<div class="these"><div class="these-num">2</div><div class="these-text">Welche KII-Form findest du am schwersten?<div class="these-starter">'Ich vergesse immer... / Was mir hilft ist... / Ich übe mit...'</div></div></div>
+
+<div class="slabel">Sprechkarten</div><div class="speak-grid" id="speakCards"><div class="speak-card"><div class="speak-front">Wenn du eine Superkraft hättest – welche wäre das?</div><div class="speak-back">'Wenn ich eine Superkraft hätte, würde ich... / wäre ich... / könnte ich...'</div><div class="speak-hint">👆 Tipp &amp; Formulierungshilfe</div></div><div class="speak-card"><div class="speak-front">Was würdest du anders machen wenn du nochmal 18 wärst?</div><div class="speak-back">'Wenn ich nochmal 18 wäre, würde ich... / hätte ich... / wäre ich nicht...'</div><div class="speak-hint">👆 Tipp &amp; Formulierungshilfe</div></div><div class="speak-card"><div class="speak-front">Formuliere eine höfliche Bitte an deinen Chef / Lehrer!</div><div class="speak-back">'Könnten Sie bitte...? / Wäre es möglich...? / Ich hätte eine Frage...'</div><div class="speak-hint">👆 Tipp &amp; Formulierungshilfe</div></div></div>
+</div></div></div>
+</main>
+<script>
+const TOTAL=3600;let rem=TOTAL,intv=null,run=false;
+function upd(){const m=Math.floor(rem/60),s=rem%60;const d=document.getElementById('td');d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('tf').style.width=(rem/TOTAL*100)+'%';d.className='timer-display';if(rem<=600)d.classList.add('warn');if(rem<=120)d.classList.add('urgent');}
+function toggleTimer(){if(run){clearInterval(intv);run=false;document.querySelector('.tbtn.start').textContent='▶ Start';}else{run=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';intv=setInterval(()=>{if(rem>0){rem--;upd();}else{clearInterval(intv);run=false;}},1000);}}
+function resetTimer(){clearInterval(intv);run=false;rem=TOTAL;upd();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));document.getElementById('phase-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function buildVokCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(v=>{const d=document.createElement('div');d.className='vok-card';d.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${(v.back||'').replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint||'👆 klicken!'}</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildSpeakCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(i=>{const d=document.createElement('div');d.className='speak-card';d.innerHTML=`<div class="speak-front">${i.front}</div><div class="speak-back">${i.back}</div><div class="speak-hint">👆 Tipp & Formulierungshilfe</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildRSP(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(item=>{const d=document.createElement('div');d.className='rsp-card';d.innerHTML=`<div class="rsp-top"><span class="rsp-emoji">${item.emoji}</span><span class="rsp-title">${item.title}</span></div><div class="rsp-body"><div class="rsp-situation">${item.situation}</div><div class="rsp-back"><div class="rsp-rolle"><strong>🔴 Person A:</strong> ${item.a}</div><div class="rsp-rolle"><strong>🔵 Person B:</strong> ${item.b}</div>${item.tipps?`<div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">💡 Tipps:</strong> ${item.tipps}</div>`:''}</div><div class="rsp-hint">👆 klicken für Rollen & Tipps</div></div>`;d.addEventListener('click',()=>d.classList.toggle('open'));g.appendChild(d);});}
+function buildMC(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='mc';const opts=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${id}${i}')">${o}</button>`).join('');div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${opts}</div><div class="mc-fb" id="mcfb${id}${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerMC(btn,j,correct,fbId){btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');if(j!==correct)btn.classList.add('nope');const fb=document.getElementById(fbId);if(fb){fb.classList.add('show');fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);}}
+function buildRF(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='rf';div.id=`rf_${id}_${i}`;div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('${id}',${i},true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF('${id}',${i},false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb_${id}_${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerRF(id,i,answer,btn){const rfData=window['rfData_'+id];const card=document.getElementById(`rf_${id}_${i}`);card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));btn.classList.add(answer?'sel-r':'sel-f');const correct=rfData&&answer===rfData[i].ok;card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);const fb=document.getElementById(`rffb_${id}_${i}`);if(fb){fb.classList.add('show');fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);}}
+buildVokCards([{"front": "h&#228;tte", "back": "= would have / had (KII)\n'Ich h&#228;tte gerne einen Kaffee.'\n'Wenn ich Zeit h&#228;tte...'\nKonjunktiv II von haben", "hint": "h&#228;tten = sehr h&#246;flich!"}, {"front": "w&#228;re", "back": "= would be (KII)\n'Das w&#228;re sch&#246;n!'\n'Wenn ich reich w&#228;re...'\nKonjunktiv II von sein", "hint": "w&#228;re = sehr h&#228;ufig!"}, {"front": "w&#252;rde + Infinitiv", "back": "= would do (Ersatzform)\n'Ich w&#252;rde gerne kommen.'\n'Was w&#252;rdest du tun?'\nErsatzform f&#252;r viele KII", "hint": "Ersatzform!"}, {"front": "k&#246;nnte", "back": "= could (KII von k&#246;nnen)\n'K&#246;nnten Sie mir helfen?'\nSehr h&#246;fliche Bitte\nst&#228;rker als 'k&#246;nnen'", "hint": "h&#246;flichste Form!"}, {"front": "sollte", "back": "= should (KII von sollen)\n'Du solltest mehr schlafen.'\nRatschlag\nSolltest = milder als musst", "hint": "Ratschlag!"}, {"front": "d&#252;rfte", "back": "= should / ought to (KII von d&#252;rfen)\n'Das d&#252;rfte nicht lange dauern.'\nVermutung: d&#252;rfte = probably\nHauptbedeutung hier", "hint": "Vermutung!"}],'v1');
+buildVokCards([{"front": "Wenn ich k&#246;nnte, ...", "back": "= If I could, ...\n'Wenn ich k&#246;nnte, w&#252;rde ich mehr reisen.'\nirreale Bedingung\nkonjunktiv II in beiden Teilen", "hint": "beide Teile KII!"}, {"front": "An deiner Stelle w&#252;rde ich...", "back": "= If I were you, I would...\n'An deiner Stelle w&#252;rde ich k&#252;ndigen.'\nRatschlag (aber vorsichtig!)\nSehrh&#228;ufig im Alltag", "hint": "Ratschlag!"}, {"front": "Das w&#228;re eigentlich m&#246;glich.", "back": "= That would actually be possible.\n'Eigentlich' + KII = h&#246;fliche Zur&#252;ckhaltung", "hint": "eigentlich + KII"}, {"front": "H&#228;ttest du Zeit?", "back": "= Would you have time? (KII Frage)\n'H&#228;ttest du kurz Zeit?'\nH&#246;flichere Alternative zu: 'Hast du Zeit?'", "hint": "h&#246;flicher als Indikativ"}],'v2');
+buildMC([{"q": "Welcher Satz ist am h&#246;flichsten?", "opts": ["Ich will einen Kaffee.", "Ich m&#246;chte einen Kaffee.", "Ich h&#228;tte gerne einen Kaffee."], "correct": 2, "fb": "&#10003; H&#228;tte gerne = KII = am h&#246;flichsten! Im Restaurant immer 'ich h&#228;tte gerne' oder 'ich m&#246;chte' &ndash; nie 'ich will'!"}, {"q": "Was ist korrekt als irreale Bedingung?", "opts": ["Wenn ich Zeit habe, mache ich Sport.", "Wenn ich Zeit h&#228;tte, w&#252;rde ich Sport machen.", "Wenn ich Zeit haben w&#252;rde, mache ich Sport."], "correct": 1, "fb": "&#10003; Irreale Bedingung: 'wenn + KII, w&#252;rde + Infinitiv.' Oder: h&#228;tte/w&#228;re in beiden Teilen."}, {"q": "Was bedeutet 'das d&#252;rfte stimmen'?", "opts": ["Das ist sicher falsch", "Das stimmt wahrscheinlich", "Das muss stimmen"], "correct": 1, "fb": "&#10003; D&#252;rfte (KII von d&#252;rfen) als Vermutung = probably. 'Das d&#252;rfte stimmen' = that's probably correct."}],'mc1');
+window.rfData_rf1=[{"s": "'W&#252;rde' kann immer statt Konjunktiv II verwendet werden.", "ok": false, "fb": "&#10007; Nicht bei h&#228;tte/w&#228;re! 'Wenn ich w&#252;rde reicher sein' = FALSCH. Richtig: 'Wenn ich reicher W&#196;RE'."}, {"s": "Im Restaurant klingt 'ich will' h&#246;flich auf Deutsch.", "ok": false, "fb": "&#10007; Falsch! 'Ich will' klingt direkt bis grob. Im Restaurant: 'ich h&#228;tte gerne' oder 'ich m&#246;chte'. KII macht den Unterschied!"}, {"s": "'An deiner Stelle w&#252;rde ich...' ist ein Weg Ratschl&#228;ge zu geben.", "ok": true, "fb": "&#10003; Richtig! 'An deiner Stelle w&#252;rde ich...' = If I were you, I would... Sehr h&#228;ufige Ratsformel auf Deutsch."}];buildRF(window.rfData_rf1,'rf1');
+buildRSP([{"emoji": "&#127775;", "title": "Traumleben ohne Grenzen", "situation": "Wenn ihr unbegrenzt Geld h&#228;ttet &ndash; was w&#252;rdet ihr tun?", "a": "Erz&#228;hlt euer Traumleben mit KII: h&#228;tte, w&#228;re, w&#252;rde.", "b": "Stellt Fragen: 'Wo w&#228;rst du? Was w&#252;rdest du nicht tun?'", "tipps": "Kein Indikativ erlaubt in diesem Rollenspiel! Alles KII."}, {"emoji": "&#128100;", "title": "H&#246;flichkeitstraining", "situation": "Formuliert allt\u00e4gliche Bitten so h&#246;flich wie m&#246;glich.", "a": "'K&#246;nnten Sie bitte...?' / 'W&#228;re es m&#246;glich...?' / 'Ich h&#228;tte gerne...'", "b": "Antwortet &ndash; positiv oder (h&#246;flich) negativ.", "tipps": "Test: 'Ich will...' vs. 'Ich m&#246;chte...' vs. 'Ich h&#228;tte gerne...' &ndash; klingt am h&#246;flichsten?"}],'rsp1');
+buildSpeakCards([{"front": "Wenn du eine Superkraft h&#228;ttest &ndash; welche w&#228;re das?", "back": "'Wenn ich eine Superkraft h&#228;tte, w&#252;rde ich... / w&#228;re ich... / k&#246;nnte ich...'"}, {"front": "Was w&#252;rdest du anders machen wenn du nochmal 18 w&#228;rst?", "back": "'Wenn ich nochmal 18 w&#228;re, w&#252;rde ich... / h&#228;tte ich... / w&#228;re ich nicht...'"}, {"front": "Formuliere eine h&#246;fliche Bitte an deinen Chef / Lehrer!", "back": "'K&#246;nnten Sie bitte...? / W&#228;re es m&#246;glich...? / Ich h&#228;tte eine Frage...'"}],'speakCards');
+buildSpeakCards([{"front": "Wenn du einen Monat Urlaub h&#228;ttest &ndash; was w&#252;rdest du tun?", "back": "'Ich w&#252;rde... / Ich w&#228;re gerne in... / Ich h&#228;tte Zeit f&#252;r...'"}],'warmup');
+upd();</script></body></html>

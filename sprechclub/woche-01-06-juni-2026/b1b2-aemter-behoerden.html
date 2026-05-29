@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+<meta charset="UTF-8"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title data-id="th-modified">Auf Ämtern & Behörden · deutschoderwas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#2D8A7A;--acc-lt:#B8DDD4;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}.tbtn.reset{background:#555;color:white;}
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;scrollbar-width:none;}
+.phase-nav::-webkit-scrollbar{display:none;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}
+.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.4rem;line-height:1.5;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.4rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--acc-lt);color:var(--acc);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+/* VOCAB */
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.vok-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.vok-card.flipped{background:var(--acc-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);white-space:pre-line;}
+.vok-card.flipped .vok-back{display:block;}
+.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+/* EXAMPLES */
+.ex{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.85rem 1.2rem;margin-bottom:.55rem;border-left:4px solid var(--acc);font-size:.93rem;line-height:1.7;}
+.ex .de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);margin-bottom:.2rem;}
+.ex .en{font-size:.79rem;color:#888;font-style:italic;}
+.ex .note{font-size:.78rem;color:var(--acc);margin-top:.2rem;font-weight:600;}
+.ex strong{color:var(--acc);}
+/* DIALOGS */
+.dialog{background:var(--sand-lt);border-radius:16px;overflow:hidden;margin-bottom:1.1rem;border:1.5px solid var(--sand);}
+.dialog-hd{background:var(--dark);color:white;padding:.6rem 1.3rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
+.dialog-hd-icon{font-size:1rem;}
+.dialog-body{padding:1rem 1.3rem;}
+.dl{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start;}
+.dl:last-child{margin-bottom:0;}
+.dl-spk{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:60px;padding-top:.25rem;flex-shrink:0;color:var(--acc);line-height:1.3;}
+.dl-spk.b{color:var(--rust);}
+.dl-spk.c{color:#6B3D8A;}
+.dl-txt{font-size:.9rem;line-height:1.65;}
+.dl-txt strong{font-family:'Fraunces',serif;color:var(--brown);}
+.dl-note{font-size:.75rem;color:#888;font-style:italic;}
+/* ANNOTATIONS on dialog */
+.dl-ann{background:rgba(0,0,0,.04);border-left:3px solid var(--acc);font-size:.75rem;color:#555;padding:.3rem .7rem;margin-top:.2rem;border-radius:0 6px 6px 0;line-height:1.5;}
+/* HIGHLIGHT BOX */
+.hbox{border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.hbox.blue{background:var(--acc-lt);border:1.5px solid var(--acc);}
+.hbox.dark{background:var(--dark);color:white;}
+.hbox.warn{background:#FFF8E0;border:1.5px solid #C8A870;}
+.hbox-title{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;margin-bottom:.5rem;}
+.hbox.dark .hbox-title{color:var(--acc-lt);}
+.hbox.blue .hbox-title{color:var(--acc);}
+.hbox.warn .hbox-title{color:#5C3D2E;}
+.hbox-body{font-size:.87rem;line-height:1.8;}
+.hbox.dark .hbox-body{color:#ddd;}
+/* PHRASE LIST */
+.phrase-list{list-style:none;margin-bottom:1.1rem;}
+.phrase-list li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .9rem;border-radius:10px;margin-bottom:.4rem;background:white;border:1.5px solid var(--sand);font-size:.89rem;line-height:1.6;}
+.phrase-list li::before{content:'→';color:var(--acc);font-weight:700;flex-shrink:0;margin-top:.1rem;}
+.phrase-list li strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list li em{color:#888;font-size:.8rem;}
+/* QUIZ */
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.3rem;margin-bottom:.8rem;}
+.mc-q{font-size:.94rem;font-weight:600;margin-bottom:.75rem;line-height:1.55;}
+.mc-opts{display:flex;flex-direction:column;gap:.38rem;}
+.mc-opt{padding:.48rem 1rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.88rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--acc);background:var(--acc-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.81rem;margin-top:.6rem;display:none;font-weight:500;line-height:1.55;padding:.4rem .7rem;border-radius:8px;}
+.mc-fb.show{display:block;}
+.mc-fb.ok{color:var(--green);background:var(--green-lt);}.mc-fb.nope{color:var(--red);background:var(--red-lt);}
+/* RF */
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.95rem 1.3rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}
+.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.92rem;margin-bottom:.6rem;line-height:1.55;}
+.rf-btns{display:flex;gap:.45rem;}
+.rfbtn{padding:.28rem .85rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--acc);color:var(--acc);}
+.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}
+.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.8rem;margin-top:.55rem;font-weight:500;display:none;line-height:1.55;padding:.35rem .6rem;border-radius:6px;}
+.rf-fb.show{display:block;}
+.rf-fb.ok{color:var(--green);background:var(--green-lt);}.rf-fb.bad{color:var(--red);background:var(--red-lt);}
+/* SPEAK CARDS */
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:13px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.speak-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.09);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);line-height:1.4;}
+.speak-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}
+.speak-hint{font-size:.68rem;color:#bbb;margin-top:.45rem;}
+/* RSP */
+.rsp-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;margin-bottom:.9rem;}
+.rsp-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.1);}
+.rsp-card.open .rsp-back{display:block;}
+.rsp-card.open .rsp-hint{display:none;}
+.rsp-top{background:var(--dark);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.75rem;}
+.rsp-emoji{font-size:1.4rem;flex-shrink:0;}
+.rsp-title{font-family:'Fraunces',serif;font-weight:700;color:white;font-size:1rem;}
+.rsp-body{padding:1rem 1.2rem;}
+.rsp-situation{font-size:.89rem;color:var(--dark);line-height:1.6;margin-bottom:.6rem;}
+.rsp-back{display:none;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--sand);}
+.rsp-rolle{font-size:.83rem;line-height:1.7;color:var(--dark);margin-bottom:.45rem;padding:.4rem .8rem;border-radius:8px;background:var(--cream);}
+.rsp-rolle strong{color:var(--acc);}
+.rsp-hint{font-size:.7rem;color:#bbb;}
+/* THESEN */
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:.8rem;display:flex;align-items:flex-start;gap:1rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--acc-lt);flex-shrink:0;line-height:1;margin-top:.1rem;}
+.these-text{font-size:.93rem;line-height:1.65;}
+.these-starter{font-size:.77rem;color:#888;margin-top:.35rem;}
+/* TIPP */
+.tipp{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-top:1.3rem;display:flex;gap:.9rem;align-items:flex-start;}
+.tipp-icon{font-size:1.3rem;flex-shrink:0;}
+.tipp-body{font-size:.87rem;line-height:1.75;}
+.tipp-body strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+/* CULTURAL NOTE */
+.kultur{background:linear-gradient(135deg,var(--acc-lt),rgba(255,255,255,.5));border:1.5px solid var(--acc);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.kultur-title{font-family:'Fraunces',serif;font-weight:700;color:var(--acc);font-size:.9rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;}
+.kultur-body{font-size:.86rem;line-height:1.75;color:var(--dark);}
+</style><meta property="og:title" content="Auf Ämtern & Behörden · deutschoderwas" data-id="th-modified" ><meta name="description" content="aemter_behoerden_b1b2" data-id="th-modified" ><meta property="og:description" content="aemter_behoerden_b1b2" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="https://b1b2-aemter-behoerden.deutschoderwas-lernen.de/" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="b1b2-aemter-behoerden.deutschoderwas-lernen.de" src="https://analytics.tiiny.site/js/plausible.js"></script></head><body>
+<div class="timer-bar">
+  <div class="timer-display" id="td">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="tf"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;flex-shrink:0;">Unterrichtszeit</span>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">&#9654; Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">&#8635;</button>
+  </div>
+</div>
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <button class="phase-btn active" onclick="showPhase('p1',this)">&#9312; Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('p2',this)">&#9313; Wortschatz</button>
+  <button class="phase-btn" onclick="showPhase('p3',this)">&#9314; Dialoge</button>
+  <button class="phase-btn" onclick="showPhase('p4',this)">&#9315; Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('p5',this)">&#9316; Rollenspiele</button>
+  <button class="phase-btn" onclick="showPhase('p6',this)">&#9317; &#220;bungen</button>
+  <button class="phase-btn" onclick="showPhase('p7',this)">&#9318; Sprechen</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;flex-shrink:0;">Alltag B1/B2 &middot; 60 Min.</span>
+</div>
+<main>
+<div id="phase-p1" class="phase active"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Einstieg &middot; 8 Min.</div>
+<div class="card-title">Auf &#196;mtern &amp; Beh&#246;rden</div>
+<div class="card-sub">Formulare, Sachbearbeiter, Antr&#228;ge &ndash; der Alltag auf Papier</div></div><div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="kultur"><div class="kultur-title">&#127987; Kulturnotiz</div><div class="kultur-body">In Deutschland gibt es <strong>&#252;ber 1.600 verschiedene Beh&#246;rden</strong>. Das Einwohnermeldeamt, die Ausländerbehörde, das Jobcenter – fast jede Lebenssituation hat ihr eigenes Amt. Wichtig: immer <strong>vorher anrufen</strong> was man mitbringen muss!</div></div>
+
+<div class="slabel">Warming-up &ndash; Sprecht zuerst!</div>
+<div class="speak-grid" id="warmup"></div>
+<div class="tipp"><div class="tipp-icon">&#127919;</div><div class="tipp-body"><strong>Heute lernen wir:</strong> Wie man auf deutschen Ämtern zurechtkommt: die wichtigsten Formulare, Fachbegriffe und Redemittel f&#252;r echte Amtssituationen!</div></div>
+</div></div></div>
+
+<div id="phase-p2" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Wortschatz &middot; 12 Min.</div>
+<div class="card-title">Wichtige W&#246;rter &amp; <em>Ausdr&#252;cke</em></div>
+<div class="card-sub">Klickt auf die Karten &ndash; Deutsch vorne, Erkl&#228;rung hinten!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div class="slabel">&#127963; Wichtige Begriffe</div><div class="vok-grid" id="vok1"></div>
+<div class="slabel">&#127963; Wichtige &#196;mter</div><div class="vok-grid" id="vok2"></div>
+
+</div></div></div>
+
+<div id="phase-p3" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Dialoge &middot; 12 Min.</div>
+<div class="card-title">Echte Gespr&#228;che &ndash; <em>so klingt das!</em></div>
+<div class="card-sub">Lest die Dialoge laut &ndash; wechselt die Rollen!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#127963;</span> Am Einwohnermeldeamt &ndash; Ummeldung</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Schalter</span><div><div class="dl-txt">Guten Tag, was kann ich f&#252;r Sie tun?</div></div></div>
+<div class="dl"><span class="dl-spk b">Kunde</span><div><div class="dl-txt">Guten Tag, ich m&#246;chte mich <strong>ummelden</strong>. Ich bin vor zwei Wochen umgezogen.</div></div></div>
+<div class="dl"><span class="dl-spk ">Schalter</span><div><div class="dl-txt">Haben Sie Ihren <strong>Personalausweis</strong> und die <strong>Wohnungsgeberbestätigung</strong> dabei?</div><div class="dl-ann">Wohnungsgeberbestätigung = Formular vom Vermieter unterschrieben</div></div></div>
+<div class="dl"><span class="dl-spk b">Kunde</span><div><div class="dl-txt">Den Ausweis habe ich – aber die Wohnungsgeberbestätigung kannte ich nicht. Was ist das genau?</div></div></div>
+<div class="dl"><span class="dl-spk ">Schalter</span><div><div class="dl-txt">Das ist ein Formular das Ihr Vermieter unterschreiben muss. <strong>Können Sie das nachreichen</strong>?</div><div class="dl-ann">nachreichen = nachträglich bringen</div></div></div>
+<div class="dl"><span class="dl-spk b">Kunde</span><div><div class="dl-txt">Ja, kein Problem. <strong>Wie lange habe ich daf&#252;r Zeit</strong>? Und gibt es eine Frist?</div></div></div>
+<div class="dl"><span class="dl-spk ">Schalter</span><div><div class="dl-txt">Sie sollten das innerhalb von <strong>zwei Wochen</strong> einreichen. Ich schreibe Ihnen die Adresse auf.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#128222;</span> Ausländerbehörde &ndash; Termin vereinbaren</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">B&#252;ro</span><div><div class="dl-txt">Ausländerbehörde Berlin, guten Tag!</div></div></div>
+<div class="dl"><span class="dl-spk b">Anrufer</span><div><div class="dl-txt">Guten Tag, mein Name ist Dilnoza Yusupova. Ich brauche einen <strong>neuen Aufenthaltstitel</strong>. Mein aktueller läuft in drei Monaten ab.</div></div></div>
+<div class="dl"><span class="dl-spk ">B&#252;ro</span><div><div class="dl-txt">Haben Sie bereits ein Konto im <strong>Online-Terminportal</strong>?</div><div class="dl-ann">In vielen Städten nur noch online buchbar!</div></div></div>
+<div class="dl"><span class="dl-spk b">Anrufer</span><div><div class="dl-txt">Nein, noch nicht. Wie funktioniert das? Ich finde die Website etwas unübersichtlich.</div></div></div>
+<div class="dl"><span class="dl-spk ">B&#252;ro</span><div><div class="dl-txt">Gehen Sie auf berlin.de/auslaender und wählen Sie <strong>&#8222;Verlängerung Aufenthaltstitel&#8220;</strong>. Termine sind gerade ca. 6 Wochen im Voraus buchbar.</div></div></div>
+<div class="dl"><span class="dl-spk b">Anrufer</span><div><div class="dl-txt">Verstanden. Welche <strong>Unterlagen</strong> muss ich mitbringen?</div></div></div>
+<div class="dl"><span class="dl-spk ">B&#252;ro</span><div><div class="dl-txt">Pass, aktuelles Foto, Meldebescheinigung, Arbeitsvertrag und Gehaltsnachweis. Die genaue Liste finden Sie auf unserer Website.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#128232;</span> Brief vom Finanzamt &ndash; was tun?</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Lea</span><div><div class="dl-txt">Ich habe einen Brief vom <strong>Finanzamt</strong> bekommen – ich verstehe gar nichts davon!</div></div></div>
+<div class="dl"><span class="dl-spk b">Mark</span><div><div class="dl-txt">Zeig mal. &#8222;Einkommensteuerbescheid&#8220; – das ist dein <strong>Steuerbescheid</strong>. Hat das Finanzamt dir Geld zur&#252;ck?</div><div class="dl-ann">Bescheid = official decision/notice</div></div></div>
+<div class="dl"><span class="dl-spk ">Lea</span><div><div class="dl-txt">Da steht <strong>320 Euro Erstattung</strong>. Ist das gut?</div><div class="dl-ann">Erstattung = refund</div></div></div>
+<div class="dl"><span class="dl-spk b">Mark</span><div><div class="dl-txt">Sehr gut! Das bedeutet, du hast zu viel <strong>Steuer</strong> bezahlt und bekommst das zurück.</div></div></div>
+<div class="dl"><span class="dl-spk ">Lea</span><div><div class="dl-txt">Und wenn der Bescheid <strong>falsch</strong> ist – kann ich widersprechen?</div></div></div>
+<div class="dl"><span class="dl-spk b">Mark</span><div><div class="dl-txt">Ja! Du hast einen Monat Zeit, um <strong>Einspruch</strong> einzulegen. Aber lies erst genau nach.</div><div class="dl-ann">Einspruch einlegen = to appeal</div></div></div>
+</div></div>
+
+</div></div></div>
+
+<div id="phase-p4" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Redemittel &middot; 8 Min.</div>
+<div class="card-title">So sagt man das <em>wirklich!</em></div>
+<div class="card-sub">Echte S&#228;tze &ndash; kein Lehrbuchangeldeutsch!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="slabel">&#128073; Termin vereinbaren</div>
+<ul class="phrase-list">
+<li><strong>Ich w&#252;rde gerne <strong>einen Termin vereinbaren</strong>.</strong> <span style="color:#888;font-size:.82rem;">= I would like to make an appointment.</span></li>
+<li><strong>Wann h&#228;tten Sie einen <strong>freien Termin</strong>?</strong> <span style="color:#888;font-size:.82rem;">= When would you have a free appointment?</span></li>
+<li><strong>Ist ein Termin am <strong>Vormittag</strong> m&#246;glich?</strong> <span style="color:#888;font-size:.82rem;">= Is a morning appointment possible?</span></li>
+</ul>
+<div class="slabel">&#128196; Unterlagen & Fragen</div>
+<ul class="phrase-list">
+<li><strong>Welche <strong>Unterlagen</strong> brauche ich daf&#252;r?</strong> <span style="color:#888;font-size:.82rem;">= What documents do I need for this?</span> <em>– immer fragen!</em></li>
+<li><strong>Ich habe leider die <strong>___</strong> vergessen – kann ich das nachreichen?</strong> <span style="color:#888;font-size:.82rem;">= I forgot the ___ – can I submit it later?</span></li>
+<li><strong>K&#246;nnten Sie das bitte <strong>erkl&#228;ren / wiederholen</strong>?</strong> <span style="color:#888;font-size:.82rem;">= Could you please explain / repeat that?</span> <em>– H&#246;flichkeit!</em></li>
+<li><strong>In welcher <strong>Abteilung</strong> ist das zust&#228;ndig?</strong> <span style="color:#888;font-size:.82rem;">= Which department is responsible for this?</span></li>
+</ul>
+<div class="slabel">&#9888; Wenn etwas nicht stimmt</div>
+<ul class="phrase-list">
+<li><strong>Ich glaube, hier liegt ein <strong>Fehler</strong> vor.</strong> <span style="color:#888;font-size:.82rem;">= I believe there is a mistake here.</span> <em>– ruhig bleiben!</em></li>
+<li><strong>K&#246;nnte ich bitte mit <strong>jemandem anderen</strong> sprechen?</strong> <span style="color:#888;font-size:.82rem;">= Could I please speak with someone else?</span> <em>– letzte Option</em></li>
+<li><strong>Ich m&#246;chte <strong>Einspruch einlegen</strong>.</strong> <span style="color:#888;font-size:.82rem;">= I would like to file an objection.</span> <em>– schriftlich + Frist!</em></li>
+</ul>
+
+</div></div></div>
+
+<div id="phase-p5" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Rollenspiele &middot; 12 Min.</div>
+<div class="card-title">Euer Auftritt &ndash; <em>los geht&apos;s!</em></div>
+<div class="card-sub">Klickt auf die Karte f&#252;r Rollen &amp; Tipps</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div id="rsp1"></div>
+</div></div></div>
+
+<div id="phase-p6" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; &#220;bungen &middot; 8 Min.</div>
+<div class="card-title">Jetzt testen wir!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="slabel">Multiple Choice</div><div id="mc1"></div>
+<hr class="div">
+<div class="slabel">Richtig oder Falsch?</div><div id="rf1"></div>
+</div></div></div>
+
+<div id="phase-p7" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Freies Sprechen &middot; 10 Min.</div>
+<div class="card-title">Eure Meinung &ndash; <em>jetzt seid ihr dran!</em></div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 10 Minuten</div>
+<div class="these"><div class="these-num">1</div><div class="these-text">Deutsche B&#252;rokratie ist unnötig kompliziert &ndash; oder notwendig?<div class="these-starter">&#8222;Im Vergleich zu meinem Heimatland...&#8220; / &#8222;Das Problem ist, dass...&#8220; / &#8222;Ich verstehe den Sinn von...&#8220;</div></div></div>
+<div class="these"><div class="these-num">2</div><div class="these-text">Sollten alle Behördengänge komplett digital möglich sein?<div class="these-starter">&#8222;Das wäre praktisch weil...&#8220; / &#8222;Aber die Datensicherheit...&#8220; / &#8222;Ältere Menschen könnten...&#8220;</div></div></div>
+
+<div class="slabel">Sprechkarten</div>
+<div class="speak-grid" id="speakCards"></div>
+</div></div></div>
+</main>
+<script>
+const TOTAL=3600;let rem=TOTAL,intv=null,run=false;
+function upd(){const m=Math.floor(rem/60),s=rem%60;const d=document.getElementById('td');d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('tf').style.width=(rem/TOTAL*100)+'%';d.className='timer-display';if(rem<=600)d.classList.add('warn');if(rem<=120)d.classList.add('urgent');}
+function toggleTimer(){if(run){clearInterval(intv);run=false;document.querySelector('.tbtn.start').textContent='▶ Start';}else{run=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';intv=setInterval(()=>{if(rem>0){rem--;upd();}else{clearInterval(intv);run=false;}},1000);}}
+function resetTimer(){clearInterval(intv);run=false;rem=TOTAL;upd();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));document.getElementById('phase-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function buildVokCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(v=>{const d=document.createElement('div');d.className='vok-card';d.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${(v.back||'').replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint||'&#128070; klicken!'}</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildSpeakCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(i=>{const d=document.createElement('div');d.className='speak-card';d.innerHTML=`<div class="speak-front">${i.front}</div><div class="speak-back">${i.back}</div><div class="speak-hint">&#128070; Tipp &amp; Formulierungshilfe</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildRSP(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(item=>{const d=document.createElement('div');d.className='rsp-card';d.innerHTML=`<div class="rsp-top"><span class="rsp-emoji">${item.emoji}</span><span class="rsp-title">${item.title}</span></div><div class="rsp-body"><div class="rsp-situation">${item.situation}</div><div class="rsp-back"><div class="rsp-rolle"><strong>&#128308; Person A:</strong> ${item.a}</div><div class="rsp-rolle"><strong>&#128309; Person B:</strong> ${item.b}</div>${item.tipps?`<div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">&#128161; Tipps:</strong> ${item.tipps}</div>`:''}</div><div class="rsp-hint">&#128070; klicken f&#252;r Rollen &amp; Tipps</div></div>`;d.addEventListener('click',()=>d.classList.toggle('open'));g.appendChild(d);});}
+function buildMC(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='mc';const opts=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${id}${i}')">${o}</button>`).join('');div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${opts}</div><div class="mc-fb" id="mcfb${id}${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerMC(btn,j,correct,fbId){btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');if(j!==correct)btn.classList.add('nope');const fb=document.getElementById(fbId);if(fb){fb.classList.add('show');fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);}}
+function buildRF(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='rf';div.id=`rf_${id}_${i}`;div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('${id}',${i},true,this)">&#10003; Richtig</button><button class="rfbtn" onclick="answerRF('${id}',${i},false,this)">&#10007; Falsch</button></div><div class="rf-fb" id="rffb_${id}_${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerRF(id,i,answer,btn){const rfData=window['rfData_'+id];const card=document.getElementById(`rf_${id}_${i}`);card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));btn.classList.add(answer?'sel-r':'sel-f');const correct=rfData&&answer===rfData[i].ok;card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);const fb=document.getElementById(`rffb_${id}_${i}`);if(fb){fb.classList.add('show');fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);}}
+buildVokCards([{"front": "die Anmeldung", "back": "= registration (Wohnsitz)\nBeim Einwohnermeldeamt anmelden.\n'Ich muss mich anmelden \u2013 ich bin neu hier.'", "hint": "Pflicht innerhalb 14 Tage!"}, {"front": "die Ummeldung", "back": "= re-registration (Adresswechsel)\n'Ich bin umgezogen \u2013 ich muss mich ummelden.'\n\u2192 beim Einwohnermeldeamt", "hint": "bei jedem Umzug!"}, {"front": "der Antrag", "back": "= application / official request\n'Ich stelle einen Antrag auf Kindergeld.'\nbeantragen = to apply for sth.", "hint": "einen Antrag stellen"}, {"front": "die Unterlagen", "back": "= documents (always plural!)\n'Welche Unterlagen brauche ich?'\n= Personalausweis, Bescheinigungen, Fotos...", "hint": "immer alles mitnehmen!"}, {"front": "der Sachbearbeiter", "back": "= case worker / clerk\n'K\u00f6nnen Sie mich mit dem Sachbearbeiter verbinden?'\nfeminin: die Sachbearbeiterin", "hint": "am Schalter"}, {"front": "die Wohnungsgeberbest\u00e4tigung", "back": "= landlord confirmation form\n'Mein Vermieter muss das unterschreiben.'\nOhne das: keine Ummeldung!", "hint": "vom Vermieter!"}, {"front": "die Bescheinigung", "back": "= certificate / confirmation\n'Ich brauche eine Meldebescheinigung.'\n= offizielles Dokument", "hint": "oft kostenpflichtig"}, {"front": "zust\u00e4ndig sein", "back": "= to be responsible\n'Wer ist zust\u00e4ndig f\u00fcr meine Anfrage?'\n'Das ist nicht unsere Zust\u00e4ndigkeit.'", "hint": "die Zust\u00e4ndigkeit"}],'vok1');
+buildVokCards([{"front": "Einwohnermeldeamt", "back": "= residents' registration office\nAnmeldung, Ummeldung, Abmeldung\n\u2192 oft jetzt: B\u00fcrgerb\u00fcro", "hint": "&#128205; wichtigstes Amt!"}, {"front": "Ausl\u00e4nderbeh\u00f6rde", "back": "= immigration office\nAufenthaltstitel, Visum, Niederlassungserlaubnis\n\u2192 Wartezeiten oft sehr lang!", "hint": "online Termin n\u00f6tig!"}, {"front": "Jobcenter / Agentur", "back": "= job centre\nArbeitslosengeld, Vermittlung, Beratung\nJobcenter = ALG II / Agentur = ALG I", "hint": "unterschiedliche Stellen!"}, {"front": "Finanzamt", "back": "= tax office\nSteuernummer, Steuererkl\u00e4rung\n'Ich mache meine Steuererkl\u00e4rung.'", "hint": "oft Geld zur\u00fcck!"}],'vok2');
+buildMC([{"q": "Du bist umgezogen. Wohin gehst du?", "opts": ["Ausl\u00e4nderbeh\u00f6rde", "Einwohnermeldeamt / B\u00fcrgerb\u00fcro", "Jobcenter"], "correct": 1, "fb": "&#10003; Richtig! Ummeldung = Einwohnermeldeamt oder B\u00fcrgerb\u00fcro. Pflicht innerhalb von 14 Tagen nach dem Umzug!"}, {"q": "Was ist eine 'Wohnungsgeberbest\u00e4tigung'?", "opts": ["Ein Mietvertrag", "Ein Formular das der Vermieter unterschreibt damit du dich anmelden kannst", "Ein Personalausweis"], "correct": 1, "fb": "&#10003; Richtig! Pflichtformular seit 2015. Der Vermieter muss es ausstellen \u2013 das ist gesetzlich vorgeschrieben!"}, {"q": "Was bedeutet 'zust\u00e4ndig'?", "opts": ["Besch\u00e4ftigt", "F\u00fcr etwas verantwortlich / zugewiesen", "Abwesend"], "correct": 1, "fb": "&#10003; Richtig! Zust\u00e4ndig = responsible/in charge. 'Welche Stelle ist f\u00fcr meinen Fall zust\u00e4ndig?'"}],'mc1');
+window.rfData_rf1=[{"s": "'Ummelden' und 'Anmelden' bedeuten dasselbe.", "ok": false, "fb": "&#10007; Falsch! Anmelden = erstmalige Registrierung. Ummelden = neue Adresse eintragen nach Umzug. Zwei verschiedene Vorg\u00e4nge!"}, {"s": "Auf deutschen \u00c4mtern kann man oft ohne Termin erscheinen.", "ok": false, "fb": "&#10007; Immer weniger! Viele \u00c4mter \u2013 besonders die Ausl\u00e4nderbeh\u00f6rde \u2013 arbeiten nur noch mit Termin. Vorher online pr\u00fcfen!"}, {"s": "F\u00fcr den Steuerbescheid hat man einen Monat Zeit um Einspruch einzulegen.", "ok": true, "fb": "&#10003; Richtig! Einspruchsfrist = 1 Monat ab Zustellung. Danach wird der Bescheid bestandskr\u00e4ftig."}];
+buildRF(window.rfData_rf1,'rf1');
+buildRSP([{"emoji": "&#127963;", "title": "Ummeldung ohne Wohnungsgeberbest\u00e4tigung", "situation": "Du bist umgezogen aber dein Vermieter antwortet nicht auf E-Mails. Du brauchst die Wohnungsgeberbest\u00e4tigung, hast sie aber nicht.", "a": "B\u00fcrger: Erkl\u00e4re die Situation, frage nach Alternativen und Fristen.", "b": "Sachbearbeiter: Erkl\u00e4re rechtliche Lage, biete pragmatische L\u00f6sung an.", "tipps": "Tipp: Vermieter hat eine gesetzliche Pflicht zur Ausstellung! Das kann man erw\u00e4hnen."}, {"emoji": "&#128222;", "title": "Auf dem Amt &ndash; Sprache ist Barriere", "situation": "Du bist beim Jobcenter. Der Sachbearbeiter spricht sehr schnell und benutzt viele Fachbegriffe die du nicht verstehst.", "a": "Besucher: Unterbrich h\u00f6flich, bitte um Erkl\u00e4rung, frage nach schriftlicher Zusammenfassung.", "b": "Sachbearbeiter: Erkl\u00e4re geduldig, sprich langsamer, biete Dolmetscher an.", "tipps": "'K\u00f6nnten Sie das bitte langsamer sprechen?' ist vollkommen akzeptabel!"}],'rsp1');
+buildSpeakCards([{"front": "Was war dein schwierigster Beh\u00f6rdengang in Deutschland?", "back": "'Ich war beim/auf dem... / Das Schwierigste war... / Was ich gelernt habe: immer vorher...'"}, {"front": "Welche Unterlagen tr\u00e4gst du immer bei dir?", "back": "'Ich habe immer... dabei / Was man in Deutschland immer braucht ist... / Einmal hat mir gefehlt...'"}, {"front": "Wie unterscheidet sich die B\u00fcrokratie in Deutschland von deiner Heimat?", "back": "'In meiner Heimat ist es... / Was mich \u00fcberrascht hat: ... / Hier braucht man immer..."}],'speakCards');
+buildSpeakCards([{"front": "Was war dein erster Eindruck von deutschen \u00c4mtern?", "back": "'Am Anfang war ich... / Ich fand es... / Was ich nicht erwartet hatte: ...'"}],'warmup');
+upd();</script></body></html>

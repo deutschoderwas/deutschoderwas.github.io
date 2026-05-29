@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+        <html>
+          <head>
+            <title data-id="th-modified">Web Page</title>
+            
+          <meta property="og:title" content="Web Page" data-id="th-modified"><meta name="description" content="code" data-id="th-modified"><meta property="og:description" content="code" data-id="th-modified"><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified"><meta property="og:url" content="https://deutschoderwas-sprachspiele.tiiny.site/" data-id="th-modified"><meta property="og:type" content="website" data-id="th-modified"><script defer data-domain="deutschoderwas-sprachspiele.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+          <body>
+            <!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indirekte Rede & Geschichten – deutschoderwas · Sprechclub</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #2ab4a0;
+    --teal-light: #e8f8f6;
+    --dark: #1e2a2a;
+    --gold: #f0c040;
+    --gold-light: #fdf7e0;
+    --bg: #f4f7f7;
+    --white: #ffffff;
+    --text: #263238;
+    --text-light: #607d8b;
+    --radius: 14px;
+    --shadow: 0 2px 16px rgba(42,180,160,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--dark);
+    padding: 18px 20px 14px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  }
+  .brand { color: var(--teal); font-size: 1.05rem; font-weight: 900; letter-spacing: 0.04em; text-transform: uppercase; }
+  .brand span { color: var(--gold); }
+  .lesson-title { color: var(--white); font-size: 0.85rem; font-weight: 600; margin-top: 3px; opacity: 0.8; }
+
+  nav {
+    background: var(--white);
+    display: flex;
+    overflow-x: auto;
+    border-bottom: 2px solid var(--teal-light);
+    position: sticky;
+    top: 68px;
+    z-index: 99;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 11px 16px;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  nav a:hover { color: var(--teal); border-bottom-color: var(--teal); }
+
+  main { max-width: 720px; margin: 0 auto; padding: 24px 16px 60px; }
+  section { margin-bottom: 36px; }
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--dark);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h2 .emoji { font-size: 1.3rem; }
+
+  .grammar-box {
+    background: var(--teal-light);
+    border-left: 5px solid var(--teal);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin-bottom: 16px;
+  }
+  .grammar-box h3 {
+    color: var(--teal);
+    font-size: 0.9rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+  .formula {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.93rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+  .formula .var { color: var(--teal); }
+  .formula .note { color: var(--text-light); font-weight: 400; font-size: 0.84rem; }
+
+  /* STORY CARDS */
+  .story-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .story-header {
+    background: var(--dark);
+    color: var(--white);
+    padding: 12px 18px;
+    font-size: 1rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .story-body { padding: 14px 18px; }
+  .story-body p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .story-body p:last-child { margin-bottom: 0; }
+
+  /* Highlighted indirect speech inside story */
+  .ir { color: var(--teal); font-weight: 700; }
+  .dir { color: #9c27b0; font-weight: 700; }
+
+  /* VOCAB / REFLEXIVE */
+  .vocab-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 13px 16px;
+    margin-bottom: 10px;
+  }
+  .vocab-verb {
+    background: var(--teal);
+    color: var(--white);
+    font-weight: 800;
+    font-size: 0.85rem;
+    border-radius: 8px;
+    padding: 5px 12px;
+    white-space: nowrap;
+    min-width: 160px;
+    text-align: center;
+  }
+  .vocab-def { font-size: 0.88rem; line-height: 1.5; color: var(--text); }
+  .vocab-ex { font-size: 0.83rem; color: var(--text-light); font-style: italic; margin-top: 3px; }
+
+  /* EXERCISE */
+  .exercise {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+  .ex-label {
+    font-size: 0.72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .ex-q {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .ex-blank {
+    display: inline-block;
+    border-bottom: 2px solid var(--teal);
+    min-width: 70px;
+    color: var(--teal);
+    font-weight: 800;
+  }
+  .speech-bubble {
+    background: var(--gold-light);
+    border-left: 4px solid var(--gold);
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-size: 0.9rem;
+    font-style: italic;
+    margin: 8px 0;
+    color: var(--dark);
+    font-weight: 600;
+  }
+
+  details { margin-top: 10px; }
+  details summary {
+    cursor: pointer;
+    display: inline-block;
+    background: var(--gold);
+    color: var(--dark);
+    font-weight: 800;
+    font-size: 0.82rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+    list-style: none;
+    user-select: none;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details[open] summary { background: var(--teal); color: var(--white); }
+  .solution {
+    background: var(--teal-light);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.7;
+  }
+  .solution .correct { color: var(--teal); }
+
+  .fehler-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-left: 4px solid #e57373;
+  }
+  .fehler-satz { font-size: 0.92rem; color: #c62828; font-weight: 700; margin-bottom: 8px; }
+  .fehler-satz::before { content: "✗ "; }
+  .richtig-satz { font-size: 0.92rem; color: var(--teal); font-weight: 700; }
+  .richtig-satz::before { content: "✓ "; }
+
+  .schreiben-box {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 18px;
+    margin-bottom: 12px;
+  }
+  .schreiben-box .prompt { font-weight: 800; color: var(--dark); margin-bottom: 8px; font-size: 0.95rem; }
+  .schreiben-box p { font-size: 0.92rem; line-height: 1.6; color: var(--text); }
+  .schreiben-box .hint { font-size: 0.82rem; color: var(--text-light); margin-top: 8px; }
+
+  .word-bank { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+  .word-chip {
+    background: var(--teal-light);
+    border: 1.5px solid var(--teal);
+    border-radius: 20px;
+    padding: 5px 13px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--dark);
+  }
+
+  .section-divider {
+    height: 2px;
+    background: linear-gradient(to right, var(--teal), transparent);
+    margin: 30px 0;
+    border-radius: 2px;
+  }
+
+  .legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .dot-teal { background: var(--teal); }
+  .dot-purple { background: #9c27b0; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">deutschoderwas <span>·</span> Sprechclub</div>
+  <div class="lesson-title">Indirekte Rede & Reflexive Verben · 15. April 2026 · 17:00 Uhr</div>
+</header>
+
+<nav>
+  <a href="javascript:void(0)" onclick="document.getElementById('zusammenfassung').scrollIntoView({behavior:'smooth'})">📋 Zusammenfassung</a>
+  <a href="javascript:void(0)" onclick="document.getElementById('geschichten').scrollIntoView({behavior:'smooth'})">📖 Geschichten</a>
+  <a href="javascript:void(0)" onclick="document.getElementById('vokabeln').scrollIntoView({behavior:'smooth'})">💬 Vokabeln</a>
+  <a href="javascript:void(0)" onclick="document.getElementById('uebungen').scrollIntoView({behavior:'smooth'})">✏️ Übungen</a>
+  <a href="javascript:void(0)" onclick="document.getElementById('fehler').scrollIntoView({behavior:'smooth'})">🔍 Fehlerkorrektur</a>
+  <a href="javascript:void(0)" onclick="document.getElementById('schreiben').scrollIntoView({behavior:'smooth'})">📝 Schreiben</a>
+</nav>
+
+<main>
+
+  <!-- ZUSAMMENFASSUNG -->
+  <section id="zusammenfassung">
+    <h2><span class="emoji">📋</span> Zusammenfassung: Indirekte Rede</h2>
+
+    <div class="grammar-box">
+      <h3>🔧 Was ist indirekte Rede?</h3>
+      <p style="font-size:0.92rem; line-height:1.6; margin-bottom:10px;">
+        Man berichtet, was jemand gesagt hat – nicht mit seinen genauen Worten, sondern mit einem <strong>dass-Satz</strong> oder einer Frage.
+      </p>
+      <div class="formula">
+        <span class="note">Direkte Rede:</span> Er sagte: <span class="dir">„Ich brauche dich nur für eine Stunde."</span><br>
+        <span class="note">Indirekte Rede:</span> Er sagte, <span class="var">dass er mich nur für eine Stunde bräuchte.</span>
+      </div>
+    </div>
+
+    <div class="grammar-box">
+      <h3>📌 Einleiteverben aus dem Unterricht</h3>
+      <div class="word-bank">
+        <span class="word-chip">sagen, dass …</span>
+        <span class="word-chip">fragen, ob …</span>
+        <span class="word-chip">fragen, wo/was/wer …</span>
+        <span class="word-chip">antworten, dass …</span>
+        <span class="word-chip">denken, dass …</span>
+      </div>
+    </div>
+
+    <div class="grammar-box">
+      <h3>⚙️ Struktur: dass-Satz</h3>
+      <div class="formula">
+        <span class="note">Hauptsatz</span> + <span class="var">dass</span> + Subjekt + … + <span class="var">Verb am Ende</span><br><br>
+        Er sagte, <span class="var">dass</span> er mich nur für eine Stunde <span class="var">bräuchte</span>.<br>
+        Nikolaj antwortete, <span class="var">dass</span> sich das Futter im Tiefkühlschrank <span class="var">befindet</span>.
+      </div>
+    </div>
+
+    <div class="grammar-box">
+      <h3>❓ Indirekte Fragen</h3>
+      <div class="formula">
+        <span class="note">mit ob (Ja/Nein-Fragen):</span><br>
+        Er fragte, <span class="var">ob</span> ich heute länger arbeiten <span class="var">kann</span>.<br><br>
+        <span class="note">mit Fragewort (W-Fragen):</span><br>
+        Sie fragte, <span class="var">wo</span> sich das Futter <span class="var">befindet</span>.<br>
+        Ich fragte, <span class="var">wer</span> das geschrieben <span class="var">hatte</span>.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- GESCHICHTEN -->
+  <section id="geschichten">
+    <h2><span class="emoji">📖</span> Geschichten aus dem Unterricht</h2>
+
+    <div class="legend">
+      <div class="legend-item"><span class="dot dot-teal"></span> Indirekte Rede</div>
+      <div class="legend-item"><span class="dot dot-purple"></span> Direkte Rede</div>
+    </div>
+
+    <!-- Geschichte 1 -->
+    <div class="story-card">
+      <div class="story-header">💼 Der Chef und die Kündigung</div>
+      <div class="story-body">
+        <p>Es war ein ganz normaler Morgen, als plötzlich mein Chef gekommen ist und fragte, <span class="ir">ob ich heute eine Stunde länger arbeiten kann.</span></p>
+        <p>Ich war überrascht, weil ich meinen Tag nicht so geplant hatte. Daraufhin habe ich meinem Chef gesagt, <span class="ir">dass ich heute nach der Arbeit einen Termin habe.</span></p>
+        <p>Dann hat mein Chef gesagt, <span class="ir">dass er mich nur für eine Stunde bräuchte.</span></p>
+        <p>Ich sagte ihm, <span class="ir">dass mein Termin in 40 Minuten anfängt.</span></p>
+        <p>Daraufhin hat mein Chef gesagt, <span class="ir">dass ich heute keine Überstunde machen muss, weil er mich kündigen wird.</span></p>
+        <p>Danach sagte ich, <span class="ir">dass es eine gute Idee ist, weil ich selbst kündigen wollte.</span> Ich habe sehr lange darüber nachgedacht.</p>
+      </div>
+    </div>
+
+    <!-- Geschichte 2 -->
+    <div class="story-card">
+      <div class="story-header">🐊 Der Alligator in der Badewanne</div>
+      <div class="story-body">
+        <p>Maria öffnete die Tür und sah etwas Unglaubliches in ihrem Badezimmer – in der Badewanne schwamm ein Alligator. Ihr Sohn Nikolaj hatte ihn ohne Erlaubnis gekauft.</p>
+        <p>Maria rief schnell ihren Sohn an und fragte, <span class="ir">wo sich das Futter für den Alligator befindet.</span></p>
+        <p>Nikolaj antwortete, <span class="ir">dass sich das Futter im Tiefkühlschrank befindet.</span></p>
+        <p>Maria dachte, <span class="ir">dass das Futter sehr lange auftauen muss.</span> Nikolaj antwortete, <span class="ir">das sei kein Problem, da der Alligator dasselbe essen kann wie wir – z.B. Rindfleisch.</span></p>
+        <p>Maria fragte, <span class="ir">was sie essen sollen, wenn der Alligator das ganze Rindfleisch aufessen wird.</span></p>
+        <p>Nikolaj sagte, <span class="ir">das sei kein Problem, weil Maria eh weniger essen sollte.</span> Maria hat angefangen zu schimpfen und fragte, <span class="ir">ob man jetzt an ihr sparen würde.</span></p>
+        <p>Nikolaj sagte, <span class="ir">dass sie ihr Auto verkaufen könnte, um das Futter zu kaufen.</span></p>
+      </div>
+    </div>
+
+    <!-- Geschichte 3 -->
+    <div class="story-card">
+      <div class="story-header">🚂 Der Brief im Kühlschrank</div>
+      <div class="story-body">
+        <p>Der Zug hatte 3 Stunden Verspätung. Niemand wusste, warum der Zug eine solche Verspätung hatte. Die Leute haben angefangen, sich aufzuregen. Sie sind zur Abfahrtstafel gegangen, um sich über die Abfahrtszeit zu informieren.</p>
+        <p>Eine Frau sagte, <span class="ir">dass auf dieser Strecke viele Eichhörnchen rumspringen würden.</span></p>
+        <p>Im Kühlschrank war plötzlich ein Brief, er lautete: <span class="dir">„Hilf mir."</span></p>
+        <p>Ich dachte, <span class="ir">wer das geschrieben haben könnte und wer das dahin gelegt hatte.</span></p>
+        <p>Die Polizistin hat mich gefragt, <span class="ir">mit wem ich zusammenlebe.</span> Ich antwortete, <span class="ir">dass ich nur mit meinem Mann wohne.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- VOKABELN -->
+  <section id="vokabeln">
+    <h2><span class="emoji">💬</span> Vokabeln & Ausdrücke</h2>
+
+    <div class="vocab-row">
+      <div class="vocab-verb">sich etwas ausdenken</div>
+      <div>
+        <div class="vocab-def">sich etwas erfinden / kreativ eine Geschichte oder Idee entwickeln</div>
+        <div class="vocab-ex">Sie hat sich das ausgedacht. / Sie denkt sich etwas aus.</div>
+      </div>
+    </div>
+
+    <div class="vocab-row">
+      <div class="vocab-verb">sich aufregen</div>
+      <div>
+        <div class="vocab-def">emotional wütend sein und schimpfen</div>
+        <div class="vocab-ex">Warum regst du dich auf? / Reg dich nicht auf!</div>
+      </div>
+    </div>
+
+    <div class="vocab-row">
+      <div class="vocab-verb">sich abregen</div>
+      <div>
+        <div class="vocab-def">sich beruhigen, ruhiger werden</div>
+        <div class="vocab-ex">Reg dich ab! / Sie hat sich abgeregt.</div>
+      </div>
+    </div>
+
+    <div class="vocab-row">
+      <div class="vocab-verb">sich informieren (über + Akk.)</div>
+      <div>
+        <div class="vocab-def">Informationen suchen / etwas herausfinden</div>
+        <div class="vocab-ex">Sie sind zur Abfahrtstafel gegangen, um sich zu informieren.</div>
+      </div>
+    </div>
+
+    <div class="vocab-row">
+      <div class="vocab-verb">verbotenerweise / ohne Erlaubnis</div>
+      <div>
+        <div class="vocab-def">etwas tun, obwohl es nicht erlaubt ist</div>
+        <div class="vocab-ex">Nikolaj hat verbotenerweise den Alligator gekauft.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ÜBUNGEN -->
+  <section id="uebungen">
+    <h2><span class="emoji">✏️</span> Übungen</h2>
+
+    <!-- Übung 1: Direkt → Indirekt -->
+    <div class="exercise">
+      <div class="ex-label">Übung 1 · Direkte → Indirekte Rede</div>
+      <div class="ex-q">Formuliere die direkte Rede als indirekte Rede um:</div>
+
+      <p style="font-size:0.9rem; font-weight:700; margin: 10px 0 4px;">1.</p>
+      <div class="speech-bubble">„Ich brauche dich nur für eine Stunde."</div>
+      <p style="font-size:0.9rem; margin-bottom:4px;">Er sagte, <span class="ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+      <details>
+        <summary>✔ Lösung anzeigen</summary>
+        <div class="solution"><span class="correct">Er sagte, dass er mich nur für eine Stunde bräuchte / braucht.</span></div>
+      </details>
+
+      <p style="font-size:0.9rem; font-weight:700; margin: 16px 0 4px;">2.</p>
+      <div class="speech-bubble">„Das Futter befindet sich im Tiefkühlschrank."</div>
+      <p style="font-size:0.9rem; margin-bottom:4px;">Nikolaj antwortete, <span class="ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+      <details>
+        <summary>✔ Lösung anzeigen</summary>
+        <div class="solution"><span class="correct">Nikolaj antwortete, dass sich das Futter im Tiefkühlschrank befindet.</span></div>
+      </details>
+
+      <p style="font-size:0.9rem; font-weight:700; margin: 16px 0 4px;">3.</p>
+      <div class="speech-bubble">„Kannst du heute eine Stunde länger arbeiten?"</div>
+      <p style="font-size:0.9rem; margin-bottom:4px;">Er fragte, <span class="ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+      <details>
+        <summary>✔ Lösung anzeigen</summary>
+        <div class="solution"><span class="correct">Er fragte, ob ich heute eine Stunde länger arbeiten kann / könnte.</span></div>
+      </details>
+
+      <p style="font-size:0.9rem; font-weight:700; margin: 16px 0 4px;">4.</p>
+      <div class="speech-bubble">„Wo befindet sich das Futter?"</div>
+      <p style="font-size:0.9rem; margin-bottom:4px;">Maria fragte, <span class="ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+      <details>
+        <summary>✔ Lösung anzeigen</summary>
+        <div class="solution"><span class="correct">Maria fragte, wo sich das Futter befindet.</span></div>
+      </details>
+    </div>
+
+    <!-- Übung 2: ob oder dass oder Fragewort -->
+    <div class="exercise">
+      <div class="ex-label">Übung 2 · ob · dass · Fragewort?</div>
+      <div class="ex-q">Ergänze: <em>dass</em>, <em>ob</em>, <em>wo</em>, <em>was</em> oder <em>wer</em>:</div>
+
+      <p style="font-size:0.9rem; line-height: 2.0; margin-top:8px;">
+        1. Er fragte, <span class="ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> ich heute länger arbeiten kann.<br>
+        2. Ich sagte, <span class="ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> mein Termin in 40 Minuten anfängt.<br>
+        3. Ich dachte, <span class="ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> das geschrieben haben könnte.<br>
+        4. Maria fragte, <span class="ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> sie essen sollen, wenn der Alligator alles aufisst.<br>
+        5. Die Polizistin fragte, <span class="ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> ich zusammenlebe.
+      </p>
+      <details>
+        <summary>✔ Lösung anzeigen</summary>
+        <div class="solution">
+          1. <span class="correct">ob</span> (Ja/Nein-Frage)<br>
+          2. <span class="correct">dass</span> (Aussagesatz)<br>
+          3. <span class="correct">wer</span> (W-Frage nach Person)<br>
+          4. <span class="correct">was</span> (W-Frage nach Sache)<br>
+          5. <span class="correct">mit wem</span> (W-Frage mit Präposition)
+        </div>
+      </details>
+    </div>
+
+    <!-- Übung 3: Reflexive Verben -->
+    <div class="exercise">
+      <div class="ex-label">Übung 3 · Reflexive Verben</div>
+      <div class="ex-q">Ergänze das reflexive Verb in der richtigen Form:</div>
+
+      <div class="word-bank">
+        <span class="word-chip">sich aufregen</span>
+        <span class="word-chip">sich abregen</span>
+        <span class="word-chip">sich informieren</span>
+        <span class="word-chip">sich ausdenken</span>
+      </div>
+
+      <p style="font-size:0.9rem; line-height: 2.0; margin-top:8px;">
+        1. Die Leute haben angefangen, <span class="ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.<br>
+        2. Sie sind zur Tafel gegangen, um <span class="ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.<br>
+        3. Reg <span class="ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>! Du bist so wütend.<br>
+        4. Sie hat diese Geschichte selbst <span class="ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.
+      </p>
+      <details>
+        <summary>✔ Lösung anzeigen</summary>
+        <div class="solution">
+          1. <span class="correct">sich aufzuregen</span><br>
+          2. <span class="correct">sich zu informieren</span><br>
+          3. <span class="correct">dich ab!</span> (sich abregen = sich beruhigen)<br>
+          4. <span class="correct">ausgedacht</span>
+        </div>
+      </details>
+    </div>
+
+    <!-- Übung 4: Geschichte rekonstruieren -->
+    <div class="exercise">
+      <div class="ex-label">Übung 4 · Geschichte rekonstruieren</div>
+      <div class="ex-q">Bringe die Sätze in die richtige Reihenfolge (1–5):</div>
+
+      <p style="font-size:0.9rem; line-height:1.9; margin-top:8px;">
+        __ Nikolaj antwortete, dass sich das Futter im Tiefkühlschrank befindet.<br>
+        __ Maria hat die Tür schnell zugesperrt.<br>
+        __ Maria rief ihren Sohn an und fragte, wo das Futter ist.<br>
+        __ In der Badewanne schwamm ein Alligator.<br>
+        __ Nikolaj hat den Alligator ohne Erlaubnis gekauft.
+      </p>
+      <details>
+        <summary>✔ Lösung anzeigen</summary>
+        <div class="solution">
+          <span class="correct">4</span> – In der Badewanne schwamm ein Alligator.<br>
+          <span class="correct">2</span> – Maria hat die Tür schnell zugesperrt.<br>
+          <span class="correct">5</span> – Nikolaj hat den Alligator ohne Erlaubnis gekauft.<br>
+          <span class="correct">3</span> – Maria rief ihren Sohn an und fragte, wo das Futter ist.<br>
+          <span class="correct">1</span> – Nikolaj antwortete, dass sich das Futter im Tiefkühlschrank befindet.
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- FEHLERKORREKTUR -->
+  <section id="fehler">
+    <h2><span class="emoji">🔍</span> Fehlerkorrektur</h2>
+    <p style="font-size:0.88rem; color:var(--text-light); margin-bottom:14px;">Typische Fehler bei indirekter Rede – was muss korrigiert werden?</p>
+
+    <div class="fehler-card">
+      <div class="fehler-satz">Er fragte, ob ich heute länger arbeite können.</div>
+      <details>
+        <summary>✔ Korrektur anzeigen</summary>
+        <div class="solution">
+          <div class="richtig-satz">Er fragte, ob ich heute länger arbeiten kann.</div>
+          <p style="font-size:0.82rem; margin-top:6px; color:var(--text-light);">→ Infinitiv <strong>arbeiten</strong> (nicht: arbeite) + Modalverb <strong>kann</strong> am Ende des Satzes.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="fehler-card">
+      <div class="fehler-satz">Ich sagte, dass mein Termin in 40 Minuten anfängt nicht.</div>
+      <details>
+        <summary>✔ Korrektur anzeigen</summary>
+        <div class="solution">
+          <div class="richtig-satz">Ich sagte, dass mein Termin in 40 Minuten anfängt.</div>
+          <p style="font-size:0.82rem; margin-top:6px; color:var(--text-light);">→ Negation <strong>nicht</strong> steht nicht nach dem Verb am Satzende – sie steht vor dem negierten Element oder vor dem letzten Verb: „… nicht anfängt."</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="fehler-card">
+      <div class="fehler-satz">Maria fragte, wo befindet sich das Futter.</div>
+      <details>
+        <summary>✔ Korrektur anzeigen</summary>
+        <div class="solution">
+          <div class="richtig-satz">Maria fragte, wo sich das Futter befindet.</div>
+          <p style="font-size:0.82rem; margin-top:6px; color:var(--text-light);">→ In der indirekten Frage steht das Verb <strong>am Ende</strong> – keine Frage-Wortstellung (kein Verb-Zweit).</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="fehler-card">
+      <div class="fehler-satz">Die Polizistin fragte, mit wem ich zusammenleben.</div>
+      <details>
+        <summary>✔ Korrektur anzeigen</summary>
+        <div class="solution">
+          <div class="richtig-satz">Die Polizistin fragte, mit wem ich zusammenlebe.</div>
+          <p style="font-size:0.82rem; margin-top:6px; color:var(--text-light);">→ Verb am Ende: <strong>zusammenlebe</strong> (konjugiert, nicht Infinitiv).</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- SCHREIBEN -->
+  <section id="schreiben">
+    <h2><span class="emoji">📝</span> Schreiben</h2>
+
+    <div class="schreiben-box">
+      <p class="prompt">Aufgabe 1: Erzähle eine kurze Geschichte</p>
+      <p>Schreibe eine kurze Geschichte (6–8 Sätze) wie im Unterricht. Benutze mindestens <strong>3 Sätze mit indirekter Rede</strong> (dass / ob / Fragewort).</p>
+      <p class="hint">💡 Tipp: Denk an einen Dialog – z.B. zwischen zwei Personen, die etwas Überraschendes erleben.</p>
+    </div>
+
+    <div class="schreiben-box">
+      <p class="prompt">Aufgabe 2: Was hat jemand gesagt?</p>
+      <p>Schreibe auf, was eine Person heute gesagt hat – in indirekter Rede. Benutze verschiedene Einleiteverben: <em>sagte, fragte, antwortete, dachte …</em></p>
+      <p class="hint">💡 Beispiel: Meine Freundin sagte, dass sie heute keine Zeit hat. Sie fragte, ob wir uns morgen treffen können.</p>
+    </div>
+
+    <div class="schreiben-box">
+      <p class="prompt">Aufgabe 3: Reflexive Verben in Sätzen</p>
+      <p>Schreibe je einen Satz mit: <strong>sich aufregen · sich abregen · sich informieren · sich etwas ausdenken</strong></p>
+      <p class="hint">💡 Achte auf das Reflexivpronomen: ich rege <em>mich</em> auf · du regst <em>dich</em> auf · er/sie regt <em>sich</em> auf …</p>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>
+          </body>
+        </html>

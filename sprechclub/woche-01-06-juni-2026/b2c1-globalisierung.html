@@ -1,0 +1,231 @@
+<!DOCTYPE html><html lang="de"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title data-id="th-modified">Globalisierung & Heimat · deutschoderwas</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#2D5F8A;--acc-lt:#C5D9F5;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}.tbtn.reset{background:#555;color:white;}
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;scrollbar-width:none;}
+.phase-nav::-webkit-scrollbar{display:none;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;}.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.4rem;line-height:1.5;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.4rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--acc-lt);color:var(--acc);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.vok-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.vok-card.flipped{background:var(--acc-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);white-space:pre-line;}
+.vok-card.flipped .vok-back{display:block;}.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+.ex{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.85rem 1.2rem;margin-bottom:.55rem;border-left:4px solid var(--acc);font-size:.93rem;line-height:1.7;}
+.ex .de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);margin-bottom:.2rem;}
+.ex .en{font-size:.79rem;color:#888;font-style:italic;}.ex strong{color:var(--acc);}
+.dialog{background:var(--sand-lt);border-radius:16px;overflow:hidden;margin-bottom:1.1rem;border:1.5px solid var(--sand);}
+.dialog-hd{background:var(--dark);color:white;padding:.6rem 1.3rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
+.dialog-body{padding:1rem 1.3rem;}
+.dl{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start;}.dl:last-child{margin-bottom:0;}
+.dl-spk{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:60px;padding-top:.25rem;flex-shrink:0;color:var(--acc);line-height:1.3;}
+.dl-spk.b{color:var(--rust);}.dl-spk.c{color:#6B3D8A;}
+.dl-txt{font-size:.9rem;line-height:1.65;}.dl-txt strong{font-family:'Fraunces',serif;color:var(--brown);}
+.dl-ann{background:rgba(0,0,0,.04);border-left:3px solid var(--acc);font-size:.75rem;color:#555;padding:.3rem .7rem;margin-top:.2rem;border-radius:0 6px 6px 0;line-height:1.5;}
+.phrase-list{list-style:none;margin-bottom:1.1rem;}
+.phrase-list li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .9rem;border-radius:10px;margin-bottom:.4rem;background:white;border:1.5px solid var(--sand);font-size:.89rem;line-height:1.6;}
+.phrase-list li::before{content:'→';color:var(--acc);font-weight:700;flex-shrink:0;margin-top:.1rem;}
+.phrase-list li strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list li em{color:#888;font-size:.8rem;}
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.3rem;margin-bottom:.8rem;}
+.mc-q{font-size:.94rem;font-weight:600;margin-bottom:.75rem;line-height:1.55;}
+.mc-opts{display:flex;flex-direction:column;gap:.38rem;}
+.mc-opt{padding:.48rem 1rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.88rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--acc);background:var(--acc-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.81rem;margin-top:.6rem;display:none;font-weight:500;line-height:1.55;padding:.4rem .7rem;border-radius:8px;}
+.mc-fb.show{display:block;}.mc-fb.ok{color:var(--green);background:var(--green-lt);}.mc-fb.nope{color:var(--red);background:var(--red-lt);}
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.95rem 1.3rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.92rem;margin-bottom:.6rem;line-height:1.55;}
+.rf-btns{display:flex;gap:.45rem;}
+.rfbtn{padding:.28rem .85rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--acc);color:var(--acc);}.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.8rem;margin-top:.55rem;font-weight:500;display:none;line-height:1.55;padding:.35rem .6rem;border-radius:6px;}
+.rf-fb.show{display:block;}.rf-fb.ok{color:var(--green);background:var(--green-lt);}.rf-fb.bad{color:var(--red);background:var(--red-lt);}
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:13px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.speak-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.09);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);line-height:1.4;}
+.speak-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}.speak-hint{font-size:.68rem;color:#bbb;margin-top:.45rem;}
+.rsp-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;margin-bottom:.9rem;}
+.rsp-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.1);}.rsp-card.open .rsp-back{display:block;}.rsp-card.open .rsp-hint{display:none;}
+.rsp-top{background:var(--dark);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.75rem;}
+.rsp-emoji{font-size:1.4rem;flex-shrink:0;}.rsp-title{font-family:'Fraunces',serif;font-weight:700;color:white;font-size:1rem;}
+.rsp-body{padding:1rem 1.2rem;}.rsp-situation{font-size:.89rem;color:var(--dark);line-height:1.6;margin-bottom:.6rem;}
+.rsp-back{display:none;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--sand);}
+.rsp-rolle{font-size:.83rem;line-height:1.7;color:var(--dark);margin-bottom:.45rem;padding:.4rem .8rem;border-radius:8px;background:var(--cream);}
+.rsp-rolle strong{color:var(--acc);}.rsp-hint{font-size:.7rem;color:#bbb;}
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:.8rem;display:flex;align-items:flex-start;gap:1rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--acc-lt);flex-shrink:0;line-height:1;margin-top:.1rem;}
+.these-text{font-size:.93rem;line-height:1.65;}.these-starter{font-size:.77rem;color:#888;margin-top:.35rem;}
+.tipp{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-top:1.3rem;display:flex;gap:.9rem;align-items:flex-start;}
+.tipp-icon{font-size:1.3rem;flex-shrink:0;}.tipp-body{font-size:.87rem;line-height:1.75;}.tipp-body strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+.kultur{background:linear-gradient(135deg,var(--acc-lt),rgba(255,255,255,.5));border:1.5px solid var(--acc);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.kultur-title{font-family:'Fraunces',serif;font-weight:700;color:var(--acc);font-size:.9rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;}
+.kultur-body{font-size:.86rem;line-height:1.75;color:var(--dark);}
+</style><meta property="og:title" content="Globalisierung & Heimat · deutschoderwas" data-id="th-modified" ><meta name="description" content="globalisierung_b2c1" data-id="th-modified" ><meta property="og:description" content="globalisierung_b2c1" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="https://b2c1-globalisierung.deutschoderwas-lernen.de/" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="b2c1-globalisierung.deutschoderwas-lernen.de" src="https://analytics.tiiny.site/js/plausible.js"></script></head><body>
+<div class="timer-bar">
+  <div class="timer-display" id="td">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="tf"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;flex-shrink:0;">Unterrichtszeit</span>
+  <div class="timer-btns"><button class="tbtn start" onclick="toggleTimer()">▶ Start</button><button class="tbtn reset" onclick="resetTimer()">↺</button></div>
+</div>
+<div class="phase-nav"><span class="brand-tag">deutsch<span>oder</span>was</span><button class="phase-btn active" onclick="showPhase('p1',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('p2',this)">② Wortschatz</button>
+  <button class="phase-btn" onclick="showPhase('p3',this)">③ Dialoge</button>
+  <button class="phase-btn" onclick="showPhase('p4',this)">④ Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('p5',this)">⑤ Rollenspiele</button>
+  <button class="phase-btn" onclick="showPhase('p6',this)">⑥ Übungen</button>
+  <button class="phase-btn" onclick="showPhase('p7',this)">⑦ Sprechen</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;flex-shrink:0;">B2/C1 · 60 Min.</span>
+</div>
+<main>
+<div id="phase-p1" class="phase active"><div class="card">
+<div class="card-header"><div class="eyebrow">B2/C1 · Einstieg · 8 Min.</div>
+<div class="card-title">Globalisierung &amp; Heimat</div><div class="card-sub">Identit&#228;t, Diaspora, Nationalstolz &ndash; was bedeutet Heimat in einer globalisierten Welt?</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div>
+<div class="kultur"><div class="kultur-title">🌍 Kulturnotiz</div><div class="kultur-body">Globalisierung bedeutet nicht nur Handel &ndash; sie ver&#228;ndert auch Identit&#228;ten. In Deutschland leben Menschen aus &#252;ber <strong>190 verschiedenen Nationen</strong>. Viele entwickeln eine <strong>hybride Identit&#228;t</strong>: sie sind gleichzeitig deutsch und t&#252;rkisch, vietnamesisch, russisch...</div></div>
+<div class="slabel">Warming-up – Sprecht zuerst!</div>
+<div class="speak-grid" id="warmup"></div>
+<div class="tipp"><div class="tipp-icon">🎯</div><div class="tipp-body"><strong>Heute lernen wir:</strong> Globalisierung, hybride Identit&#228;t, Diaspora &ndash; was Heimat bedeutet wenn man zwischen Welten lebt!</div></div>
+</div></div></div>
+
+<div id="phase-p2" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B2/C1 · Wortschatz · 12 Min.</div>
+<div class="card-title">Wichtige Wörter &amp; <em>Ausdrücke</em></div>
+<div class="card-sub">Klickt auf die Karten – Deutsch vorne, Erklärung hinten!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div><div class="slabel">&#127760; Globalisierung</div><div class="vok-grid" id="v1"></div>
+
+</div></div></div>
+
+<div id="phase-p3" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B2/C1 · Dialoge · 12 Min.</div>
+<div class="card-title">Echte Gespräche – <em>so klingt das!</em></div>
+<div class="card-sub">Lest die Dialoge laut – wechselt die Rollen!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div><div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">&#127760;</span> Was ist Heimat?</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Alex</span><div><div class="dl-txt">Ich lebe seit 8 Jahren in Deutschland. Aber wenn man mich fragt: 'Wo bist du zu Hause?' &ndash; ich wei&#223; es nicht mehr.</div></div></div>
+<div class="dl"><span class="dl-spk b">Maria</span><div><div class="dl-txt">Vielleicht hast du einfach <strong>mehrere Heimaten</strong>?</div></div></div>
+<div class="dl"><span class="dl-spk ">Alex</span><div><div class="dl-txt">Das klingt sch&#246;n. Aber manchmal f&#252;hlt man sich <strong>nirgends ganz dazugeh&#246;rig</strong>.</div></div></div>
+<div class="dl"><span class="dl-spk b">Maria</span><div><div class="dl-txt">Ich kenne das. Aber ich habe gelernt: Heimat ist da wo <strong>Menschen sind die dich kennen</strong>.</div></div></div>
+<div class="dl"><span class="dl-spk ">Alex</span><div><div class="dl-txt">Nicht ein Ort?</div></div></div>
+<div class="dl"><span class="dl-spk b">Maria</span><div><div class="dl-txt">Nein &ndash; oder nicht nur. Heimat ist auch ein <strong>Gef&#252;hl</strong>. Das kann man mitnehmen.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">&#127775;</span> Hybride Identit&#228;t</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Jan</span><div><div class="dl-txt">F&#252;r mich bedeutet Integration: die Sprache lernen und am gesellschaftlichen Leben teilnehmen.</div></div></div>
+<div class="dl"><span class="dl-spk b">Ayla</span><div><div class="dl-txt">F&#252;r mich auch. Aber ohne meine <strong>Wurzeln aufzugeben</strong>. Ich bin Deutsch UND T&#252;rkin.</div></div></div>
+<div class="dl"><span class="dl-spk ">Jan</span><div><div class="dl-txt">Das nennt man <strong>hybride Identit&#228;t</strong>. Ist das nicht manchmal ein Widerspruch?</div></div></div>
+<div class="dl"><span class="dl-spk b">Ayla</span><div><div class="dl-txt">Nein &ndash; es ist eine <strong>Bereicherung</strong>. Ich sehe Dinge aus zwei Perspektiven.</div></div></div>
+<div class="dl"><span class="dl-spk ">Jan</span><div><div class="dl-txt">Aber was ist wenn die Kulturen in Konflikt geraten?</div></div></div>
+<div class="dl"><span class="dl-spk b">Ayla</span><div><div class="dl-txt">Dann muss ich abw&#228;gen. Genau wie jeder Mensch abw&#228;gen muss &ndash; nur mit mehr Perspektiven.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">&#127775;</span> Globalisierung &ndash; Segen oder Fluch?</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Moderator</span><div><div class="dl-txt">Macht Globalisierung Kulturen gleich &ndash; oder reicher?</div></div></div>
+<div class="dl"><span class="dl-spk b">Sara</span><div><div class="dl-txt">Reicher! Ich esse Sushi, h&#246;re K-Pop, arbeite mit Kolleginnen aus 15 L&#228;ndern. Das ist <strong>unglaublich bereichernd</strong>.</div></div></div>
+<div class="dl"><span class="dl-spk ">Felix</span><div><div class="dl-txt">Aber McDonalds ist &#252;berall und lokale Restaurants sterben aus. Das ist <strong>kultureller Verlust</strong>.</div></div></div>
+<div class="dl"><span class="dl-spk b">Sara</span><div><div class="dl-txt">Der Verlust ist real. Aber die <strong>Kreuzung</strong> von Kulturen bringt auch Neues hervor.</div></div></div>
+<div class="dl"><span class="dl-spk ">Felix</span><div><div class="dl-txt">Was zum Beispiel?</div></div></div>
+<div class="dl"><span class="dl-spk b">Sara</span><div><div class="dl-txt">Fusion-K&#252;che, globale Musikstile, neue Sprachen... Kreativit&#228;t entsteht an Grenzen.</div></div></div>
+</div></div>
+
+</div></div></div>
+
+<div id="phase-p4" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B2/C1 · Redemittel · 8 Min.</div>
+<div class="card-title">So sagt man das <em>wirklich!</em></div>
+<div class="card-sub">Echte Sätze – kein Lehrbuchangeldeutsch!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div><div class="slabel">&#127760; Globalisierungssprache</div>
+<ul class="phrase-list">
+<li><strong>Ich habe eine <strong>hybride Identit&#228;t</strong> &ndash; ich geh&#246;re zu mehr als einer Kultur.</strong> <span style="color:#888;font-size:.82rem;">= I have a hybrid identity &ndash; I belong to more than one culture.</span> <em>– </em></li>
+<li><strong>Ich habe mich hier <strong>verwurzelt</strong>, aber meine Wurzeln bleiben.</strong> <span style="color:#888;font-size:.82rem;">= I have put down roots here, but my roots remain.</span> <em>– </em></li>
+<li><strong>Heimat ist nicht nur ein Ort &ndash; es ist ein <strong>Gef&#252;hl</strong>.</strong> <span style="color:#888;font-size:.82rem;">= Home is not just a place &ndash; it's a feeling.</span> <em>– </em></li>
+</ul>
+<div class="slabel">&#127775; Diskutieren</div>
+<ul class="phrase-list">
+<li><strong>Globalisierung bringt <strong>Vor- und Nachteile</strong>.</strong> <span style="color:#888;font-size:.82rem;">= Globalization brings advantages and disadvantages.</span> <em>– beide Seiten!</em></li>
+<li><strong>Ich lebe ein <strong>transnationales Leben</strong> &ndash; zwischen zwei Welten.</strong> <span style="color:#888;font-size:.82rem;">= I live a transnational life &ndash; between two worlds.</span> <em>– </em></li>
+<li><strong>In einer <strong>pluralen Gesellschaft</strong> braucht man Offenheit.</strong> <span style="color:#888;font-size:.82rem;">= In a plural society you need openness.</span> <em>– </em></li>
+</ul>
+
+</div></div></div>
+
+<div id="phase-p5" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B2/C1 · Rollenspiele · 12 Min.</div>
+<div class="card-title">Euer Auftritt – <em>los geht's!</em></div>
+<div class="card-sub">Klickt auf die Karte für Rollen &amp; Tipps</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div><div id="rsp1"></div>
+</div></div></div>
+
+<div id="phase-p6" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B2/C1 · Übungen · 8 Min.</div>
+<div class="card-title">Jetzt testen wir!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div>
+<div class="slabel">Multiple Choice</div><div id="mc1"></div>
+<hr class="div"><div class="slabel">Richtig oder Falsch?</div><div id="rf1"></div>
+</div></div></div>
+
+<div id="phase-p7" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B2/C1 · Freies Sprechen · 10 Min.</div>
+<div class="card-title">Eure Meinung – <em>jetzt seid ihr dran!</em></div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 10 Minuten</div><div class="these"><div class="these-num">1</div><div class="these-text">Macht Globalisierung Kulturen gleich?<div class="these-starter">'Ich sehe, dass &#252;berall... / Aber gleichzeitig... / Ein gutes Beispiel ist...'</div></div></div>
+<div class="these"><div class="these-num">2</div><div class="these-text">Was bedeutet Heimat wenn man zwischen zwei Kulturen lebt?<div class="these-starter">'Ich pers&#246;nlich erfahre... / Heimat ist f&#252;r mich kein Ort sondern... / Was mir hilft...'</div></div></div>
+
+<div class="slabel">Sprechkarten</div><div class="speak-grid" id="speakCards"></div>
+</div></div></div>
+</main>
+<script>
+const TOTAL=3600;let rem=TOTAL,intv=null,run=false;
+function upd(){const m=Math.floor(rem/60),s=rem%60;const d=document.getElementById('td');d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('tf').style.width=(rem/TOTAL*100)+'%';d.className='timer-display';if(rem<=600)d.classList.add('warn');if(rem<=120)d.classList.add('urgent');}
+function toggleTimer(){if(run){clearInterval(intv);run=false;document.querySelector('.tbtn.start').textContent='▶ Start';}else{run=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';intv=setInterval(()=>{if(rem>0){rem--;upd();}else{clearInterval(intv);run=false;}},1000);}}
+function resetTimer(){clearInterval(intv);run=false;rem=TOTAL;upd();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));document.getElementById('phase-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function buildVokCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(v=>{const d=document.createElement('div');d.className='vok-card';d.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${(v.back||'').replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint||'👆 klicken!'}</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildSpeakCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(i=>{const d=document.createElement('div');d.className='speak-card';d.innerHTML=`<div class="speak-front">${i.front}</div><div class="speak-back">${i.back}</div><div class="speak-hint">👆 Tipp & Formulierungshilfe</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildRSP(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(item=>{const d=document.createElement('div');d.className='rsp-card';d.innerHTML=`<div class="rsp-top"><span class="rsp-emoji">${item.emoji}</span><span class="rsp-title">${item.title}</span></div><div class="rsp-body"><div class="rsp-situation">${item.situation}</div><div class="rsp-back"><div class="rsp-rolle"><strong>🔴 Person A:</strong> ${item.a}</div><div class="rsp-rolle"><strong>🔵 Person B:</strong> ${item.b}</div>${item.tipps?`<div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">💡 Tipps:</strong> ${item.tipps}</div>`:''}</div><div class="rsp-hint">👆 klicken für Rollen & Tipps</div></div>`;d.addEventListener('click',()=>d.classList.toggle('open'));g.appendChild(d);});}
+function buildMC(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='mc';const opts=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${id}${i}')">${o}</button>`).join('');div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${opts}</div><div class="mc-fb" id="mcfb${id}${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerMC(btn,j,correct,fbId){btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');if(j!==correct)btn.classList.add('nope');const fb=document.getElementById(fbId);if(fb){fb.classList.add('show');fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);}}
+function buildRF(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='rf';div.id=`rf_${id}_${i}`;div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('${id}',${i},true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF('${id}',${i},false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb_${id}_${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerRF(id,i,answer,btn){const rfData=window['rfData_'+id];const card=document.getElementById(`rf_${id}_${i}`);card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));btn.classList.add(answer?'sel-r':'sel-f');const correct=rfData&&answer===rfData[i].ok;card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);const fb=document.getElementById(`rffb_${id}_${i}`);if(fb){fb.classList.add('show');fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);}}
+buildVokCards([{"front": "die Globalisierung", "back": "= globalization\n'Globalisierung verbindet und trennt.'\nWirtschaft, Kultur, Migration, Sprache\nVor- UND Nachteile!", "hint": "komplex!"}, {"front": "die hybride Identit&#228;t", "back": "= hybrid identity\n'Ich habe eine hybride Identit&#228;t.'\nMehrere kulturelle Zugeh&#246;rigkeiten\nNicht Widerspruch &ndash; Bereicherung!", "hint": "Bereicherung!"}, {"front": "die Diaspora", "back": "= diaspora\n'Die t&#252;rkische Diaspora in Deutschland.'\nGemeinschaft au&#223;erhalb der Heimat\nca. 3 Mio. T&#252;rkischst&#228;mmige in DE", "hint": "Gemeinschaft"}, {"front": "sich verwurzeln", "back": "= to put down roots\n'Ich habe mich hier verwurzelt.'\nHeimat werden lassen\ndie Verwurzelung = rootedness", "hint": "Heimat machen"}, {"front": "der Nationalstolz", "back": "= national pride\n'Nationalstolz ist in DE heikel.'\nHistorisch belastet durch NS\nAnders als in anderen L&#228;ndern", "hint": "historisch belastet!"}, {"front": "transnational", "back": "= transnational\n'Ich lebe ein transnationales Leben.'\n&#220;ber Grenzen hinaus\nArbeit, Familie, Kultur in mehreren L&#228;ndern", "hint": "&#252;ber Grenzen"}, {"front": "kulturelle Aneignung", "back": "= cultural appropriation\n'Kulturelle Aneignung ist ein umstrittenes Thema.'\nVs. kultureller Austausch\nGro&#223;e Debatte weltweit", "hint": "umstritten!"}, {"front": "plurale Gesellschaft", "back": "= plural society\n'Deutschland ist eine plurale Gesellschaft.'\nViele Kulturen, Religionen, Lebensstile\n= Vielfalt", "hint": "= Vielfalt"}],'v1');
+buildMC([{"q": "Was ist die 'Diaspora'?", "opts": ["Eine Sprachschule", "Eine Gemeinschaft die au&#223;erhalb ihrer Heimat lebt", "Eine politische Partei"], "correct": 1, "fb": "&#10003; Diaspora = Menschen einer Nation/Gruppe die au&#223;erhalb ihrer Heimat leben. Z.B. t&#252;rkische Diaspora in Deutschland (ca. 3 Mio.)."}, {"q": "Was bedeutet 'sich verwurzeln'?", "opts": ["Einen Baum pflanzen", "Irgendwo Heimat finden und bleiben", "Auf Reisen gehen"], "correct": 1, "fb": "&#10003; Sich verwurzeln = to put down roots. Heimat werden lassen. 'Ich habe mich in Deutschland verwurzelt.'"}, {"q": "Was ist Nationalstolz in Deutschland historisch?", "opts": ["Unkritisch positiv", "Historisch belastet durch NS-Zeit", "Gleichbedeutend mit Patriotismus"], "correct": 1, "fb": "&#10003; Richtig! NS-Geschichte macht Nationalstolz in Deutschland komplex und heikel. Anders als in vielen anderen L&#228;ndern."}],'mc1');
+window.rfData_rf1=[{"s": "'Hybride Identit&#228;t' bedeutet man muss sich f&#252;r eine Kultur entscheiden.", "ok": false, "fb": "&#10007; Falsch! Hybride Identit&#228;t = mehrere Kulturen GLEICHZEITIG. Nicht entweder-oder, sondern sowohl-als-auch. Bereicherung!"}, {"s": "Globalisierung betrifft nur die Wirtschaft.", "ok": false, "fb": "&#10007; Falsch! Globalisierung betrifft Wirtschaft, Kultur, Sprache, Identit&#228;t, Migration, Essen, Musik &ndash; alle Lebensbereiche!"}, {"s": "Deutschland ist eine plurale Gesellschaft mit Menschen aus &#252;ber 190 Nationen.", "ok": true, "fb": "&#10003; Richtig! &#220;ber 190 Nationalit&#228;ten leben in Deutschland. Das macht die Gesellschaft vielf&#228;ltig &ndash; und komplex."}];buildRF(window.rfData_rf1,'rf1');
+buildRSP([{"emoji": "&#127760;", "title": "Was ist Heimat f&#252;r dich?", "situation": "Jeder gibt seine pers&#246;nliche Definition von Heimat &ndash; ihr seid die Experten!", "a": "Erz&#228;hle: Wo ist deine Heimat? Hat sich das durch Deutschland ver&#228;ndert?", "b": "Reagiere, frage nach, teile eigene Erfahrungen.", "tipps": "Keine richtige Antwort! Heimat ist subjektiv."}, {"emoji": "&#127775;", "title": "Globalisierung: Segen oder Fluch?", "situation": "Podiumsdiskussion: Globalisierung hat mehr Vor- oder Nachteile?", "a": "Pro-Seite: Reisefreiheit, Chancen, Kulturaustausch.", "b": "Contra-Seite: Identit&#228;tsverlust, Ungleichheit, lokale Kulturen verschwinden.", "tipps": "Konkrete Beispiele st&#228;rken jedes Argument!"}],'rsp1');
+buildSpeakCards([{"front": "Was ist Heimat f&#252;r dich?", "back": "'Heimat bedeutet mir... / Ich f&#252;hle mich zuhause wenn... / F&#252;r mich ist Heimat kein Ort sondern...'"}, {"front": "Wie hat sich deine Identit&#228;t durch das Leben in Deutschland ver&#228;ndert?", "back": "'Ich war fr&#252;her... / Heute bin ich... / Deutschland hat mich... gemacht'"}, {"front": "Was nimmst du aus beiden Kulturen mit?", "back": "'Aus meiner Heimat nehme ich... / Von Deutschland habe ich... / Das Beste aus beiden Welten...'"}],'speakCards');
+buildSpeakCards([{"front": "Vermisst du deine Heimat?", "back": "'Ich vermisse... / Was ich nicht vermisse... / Was ich mitgenommen habe...'"}],'warmup');
+upd();</script></body></html>

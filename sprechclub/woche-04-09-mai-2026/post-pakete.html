@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+        <html>
+          <head>
+            <title data-id="th-modified">Web Page</title>
+            
+          <meta property="og:title" content="Web Page" data-id="th-modified" ><meta name="description" content="code" data-id="th-modified" ><meta property="og:description" content="code" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="https://post-pakete.tiiny.site/" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="post-pakete.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+          <body>
+            <!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post & Pakete – deutschoderwas · Sprechclub</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--teal:#2ec4b6;--navy:#1a2340;--gold:#f4c542;--bg:#f5f7fa;--white:#fff;--light:#e8f7f6;--radius:12px;--shadow:0 2px 12px rgba(30,40,80,.10)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh}
+  header{background:var(--navy);padding:18px 20px 12px;text-align:center}
+  header .brand{font-size:.78rem;font-weight:700;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
+  header h1{font-size:1.35rem;font-weight:800;color:#fff}
+  header .meta{font-size:.78rem;color:var(--teal);margin-top:3px;font-weight:600}
+  .tabs{display:flex;overflow-x:auto;background:var(--navy);border-bottom:3px solid var(--teal);gap:2px;padding:0 8px}
+  .tab-btn{flex-shrink:0;background:none;border:none;color:#a0b0c8;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;padding:11px 13px 9px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-3px;white-space:nowrap;transition:color .2s,border-color .2s}
+  .tab-btn.active{color:var(--gold);border-bottom:3px solid var(--gold)}
+  .tab-panel{display:none;padding:20px 16px 40px}
+  .tab-panel.active{display:block}
+  .card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 16px;margin-bottom:14px}
+  .card h2{font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:10px;border-left:4px solid var(--teal);padding-left:10px}
+  .card h3{font-size:.88rem;font-weight:700;color:var(--teal);margin:14px 0 8px;text-transform:uppercase;letter-spacing:.05em}
+  p,li{font-size:.9rem;line-height:1.6}
+  ul{padding-left:18px} li{margin-bottom:5px}
+
+  /* SITUATION HEADER */
+  .sit-header{background:var(--navy);border-radius:var(--radius) var(--radius) 0 0;padding:12px 16px;margin-bottom:0}
+  .sit-header .sit-label{font-size:.7rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.1em}
+  .sit-header h3{font-size:1rem;font-weight:800;color:#fff;margin-top:2px}
+  .sit-header p{font-size:.8rem;color:#8ab8b5;margin-top:3px}
+
+  /* REDEMITTEL */
+  .redem-section{background:var(--white);border-radius:0 0 var(--radius) var(--radius);box-shadow:var(--shadow);padding:14px 16px;margin-bottom:18px}
+  .redem-group{margin-bottom:12px}
+  .redem-group-label{font-size:.68rem;font-weight:800;color:#7a8da0;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+  .phrase-row{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:8px;margin-bottom:5px;background:var(--light)}
+  .phrase-row .tag{flex-shrink:0;font-size:.62rem;font-weight:800;padding:3px 7px;border-radius:20px;text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
+  .tag-k{background:#2ec4b620;color:#1a8f88}
+  .tag-m{background:#1a234015;color:#5a6a8a}
+  .phrase-row .texts{flex:1}
+  .phrase-de{font-weight:700;color:var(--navy);font-size:.88rem}
+  .phrase-en{font-size:.76rem;color:#7a8da0;font-weight:600;margin-top:2px}
+  .highlight{background:#fff3c4;border-radius:3px;padding:1px 3px;color:#7a4a00;font-weight:800}
+
+  /* VOCAB */
+  .vocab-item{display:flex;align-items:baseline;justify-content:space-between;padding:9px 12px;border-radius:8px;margin-bottom:7px;background:var(--light);gap:10px}
+  .vocab-de{font-weight:800;color:var(--navy);font-size:.9rem;flex-shrink:0}
+  .vocab-en{color:#5a6a80;font-size:.8rem;text-align:right}
+
+  /* DIALOGE */
+  .dialog-wrap{background:#1a2340;border-radius:var(--radius);overflow:hidden;margin-bottom:18px;box-shadow:var(--shadow)}
+  .dialog-header{padding:12px 16px;border-bottom:1px solid #2a3a5a}
+  .dialog-header .scene-label{font-size:.68rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px}
+  .dialog-header p{font-size:.8rem;color:#8ab8b5}
+  .dialog-body{padding:14px 12px}
+  .bubble{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}
+  .bubble.right{flex-direction:row-reverse}
+  .avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;margin-top:2px}
+  .av-k{background:#2a3a5a}
+  .av-m{background:#1a5a56}
+  .bubble-text{border-radius:10px 10px 10px 2px;padding:9px 13px;max-width:82%}
+  .bubble.right .bubble-text{border-radius:10px 10px 2px 10px}
+  .bk{background:#2a3a5a}
+  .bm{background:#1a4a46}
+  .bubble-text .speaker{font-size:.64rem;font-weight:800;color:var(--gold);margin-bottom:4px;text-transform:uppercase;letter-spacing:.07em}
+  .bubble-text p{font-size:.86rem;color:#fff;line-height:1.55;font-weight:600}
+  .bubble-text .rm{background:#f4c54230;border-radius:3px;padding:1px 4px;color:#f4c542;font-style:normal}
+  .bubble-text .transl{font-size:.74rem;color:#8ab8b5;margin-top:4px;font-style:italic;line-height:1.4}
+  .dialog-note{background:#2a3a5a;border-top:1px solid #3a4a6a;padding:10px 16px;font-size:.78rem;color:#8ab8b5;line-height:1.5}
+  .dialog-note strong{color:var(--gold)}
+
+  /* FLASHCARDS */
+  details.flashcard{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:10px}
+  details.flashcard summary{padding:14px 16px;font-weight:700;font-size:.9rem;color:var(--navy);cursor:pointer;list-style:none;background:var(--light);display:flex;justify-content:space-between;align-items:center}
+  details.flashcard summary::after{content:"▶ Lösung";font-size:.72rem;color:var(--teal);font-weight:700;flex-shrink:0}
+  details.flashcard[open] summary::after{content:"▲ schließen"}
+  .flashcard-answer{padding:14px 16px;font-size:.88rem;color:#2c5f5b;background:#e0f7f5;border-top:2px solid var(--teal);font-weight:600;line-height:1.6}
+
+  /* ÜBUNGEN */
+  .uebung-item{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;margin-bottom:12px}
+  .uebung-item p{font-weight:700;color:var(--navy);margin-bottom:8px;font-size:.9rem}
+  .uebung-item select{width:100%;padding:9px 12px;border:2px solid #c8d8e8;border-radius:8px;font-family:'Nunito',sans-serif;font-size:.88rem;color:var(--navy);background:var(--bg);margin-bottom:8px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%232ec4b6' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+  details.loesung summary{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;color:var(--teal);cursor:pointer;list-style:none;padding:4px 0}
+  details.loesung summary::before{content:"▶";font-size:.65rem}
+  details.loesung[open] summary::before{content:"▼"}
+  .loesung-text{margin-top:6px;padding:8px 12px;background:#e0f7f5;border-radius:8px;font-size:.85rem;color:#2c5f5b;font-weight:600;line-height:1.6}
+
+  /* FEHLER */
+  .fehler-item{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;margin-bottom:12px}
+  .fehler-falsch{background:#fff0f0;border-left:4px solid #e05555;padding:8px 12px;border-radius:6px;font-size:.88rem;color:#8b0000;margin-bottom:8px}
+  .fehler-richtig{background:#e8f9e8;border-left:4px solid #4caf50;padding:8px 12px;border-radius:6px;font-size:.88rem;color:#1b5e20;font-weight:700}
+  .fehler-erkl{background:#f5f7fa;border-radius:6px;padding:8px 12px;font-size:.82rem;color:#4a5a70;margin-top:6px;line-height:1.5}
+  .fehler-label{font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
+  .label-falsch{color:#e05555}.label-richtig{color:#4caf50}
+
+  /* SPRECHEN */
+  .prompt-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:12px;border-left:4px solid var(--gold)}
+  .prompt-card p{font-weight:700;color:var(--navy);font-size:.92rem;margin-bottom:6px}
+  .prompt-card .hint{font-size:.82rem;color:#5a6a80;font-weight:600;line-height:1.5}
+  .prompt-card .rollen{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .rolle{font-size:.75rem;font-weight:700;padding:4px 10px;border-radius:20px}
+  .rolle-k{background:#2ec4b620;color:#1a8f88}
+  .rolle-m{background:#1a234015;color:#4a5a70}
+
+  .tip-box{background:#fff8e1;border-radius:10px;padding:12px 14px;border-left:4px solid var(--gold);margin-bottom:14px;font-size:.86rem;line-height:1.6}
+  .tip-box strong{color:var(--navy)}
+  .legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px;background:var(--white);border-radius:10px;padding:10px 14px;box-shadow:var(--shadow)}
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">deutschoderwas · Sprechclub</div>
+  <h1>📬 Post & Pakete</h1>
+  <div class="meta">Kommunikation, Redemittel & reale Alltagssituationen</div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" onclick="showTab('situationen',this)">📋 Situationen</button>
+  <button class="tab-btn" onclick="showTab('vokabeln',this)">📖 Vokabeln</button>
+  <button class="tab-btn" onclick="showTab('dialoge',this)">💬 Dialoge</button>
+  <button class="tab-btn" onclick="showTab('uebungen',this)">✏️ Übungen</button>
+  <button class="tab-btn" onclick="showTab('fehler',this)">🔍 Fehler</button>
+  <button class="tab-btn" onclick="showTab('sprechen',this)">🎭 Sprechen</button>
+</nav>
+
+<!-- TAB 1: SITUATIONEN -->
+<div class="tab-panel active" id="tab-situationen">
+
+  <div class="legend">
+    <div class="legend-item"><span class="tag tag-k">K</span> Kunde / Kundin</div>
+    <div class="legend-item"><span class="tag tag-m">M</span> Mitarbeiter:in</div>
+    <div class="legend-item"><span style="background:#fff3c4;border-radius:3px;padding:1px 5px;font-size:.78rem;font-weight:800;color:#7a4a00">markiert</span> = wichtige Redemittel</div>
+  </div>
+
+  <!-- SIT 1 -->
+  <div class="sit-header">
+    <div class="sit-label">Situation 1</div>
+    <h3>📦 Paket aufgeben – ins Ausland</h3>
+    <p>Du schickst ein Paket in ein Nicht-EU-Land und weißt nicht, was du alles brauchst.</p>
+  </div>
+  <div class="redem-section">
+    <div class="redem-group">
+      <div class="redem-group-label">Anfrage & Absicht</div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Ich würde gerne dieses Paket <span class="highlight">aufgeben</span> – und zwar nach Marokko.</div><div class="phrase-en">I'd like to send / drop off this parcel – to Morocco.</div></div></div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Ich bin nicht sicher, ob ich dafür eine <span class="highlight">Zollerklärung</span> brauche.</div><div class="phrase-en">I'm not sure whether I need a customs declaration for this.</div></div></div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Was muss ich beim Inhalt <span class="highlight">deklarieren</span>?</div><div class="phrase-en">What do I have to declare regarding the contents?</div></div></div>
+    </div>
+    <div class="redem-group">
+      <div class="redem-group-label">Versandoptionen vergleichen</div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Welche <span class="highlight">Versandoptionen</span> gibt es, und was sind die Unterschiede?</div><div class="phrase-en">What shipping options are there, and what are the differences?</div></div></div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Gibt es eine Möglichkeit, das <span class="highlight">zu verfolgen</span> / nachzuverfolgen?</div><div class="phrase-en">Is there a way to track it?</div></div></div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Was passiert, wenn das Paket <span class="highlight">beim Zoll aufgehalten</span> wird?</div><div class="phrase-en">What happens if the parcel gets held up at customs?</div></div></div>
+      <div class="phrase-row"><span class="tag tag-m">M</span><div class="texts"><div class="phrase-de">Bei Nicht-EU-Ländern ist eine <span class="highlight">CN22-Zollerklärung</span> Pflicht – die fülle ich hier mit Ihnen aus.</div><div class="phrase-en">For non-EU countries a CN22 customs form is mandatory – I'll fill that in with you here.</div></div></div>
+      <div class="phrase-row"><span class="tag tag-m">M</span><div class="texts"><div class="phrase-de">Den Inhalt bitte möglichst genau angeben – das beschleunigt die <span class="highlight">Zollabfertigung</span>.</div><div class="phrase-en">Please describe the contents as precisely as possible – it speeds up customs clearance.</div></div></div>
+    </div>
+  </div>
+
+  <!-- SIT 2 -->
+  <div class="sit-header">
+    <div class="sit-label">Situation 2</div>
+    <h3>🔔 Benachrichtigung – Paket im Namen einer anderen Person abholen</h3>
+    <p>Du willst das Paket deiner Nachbarin / deines Kollegen abholen – ohne Vollmacht.</p>
+  </div>
+  <div class="redem-section">
+    <div class="redem-group">
+      <div class="redem-group-label">Situation erklären</div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Ich habe diese <span class="highlight">Benachrichtigung</span> – das Paket ist aber nicht für mich, sondern für meine Nachbarin.</div><div class="phrase-en">I have this notification slip – but the parcel isn't for me, it's for my neighbour.</div></div></div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Sie ist <span class="highlight">verhindert</span> und hat mich gebeten, es abzuholen.</div><div class="phrase-en">She's unable to come and asked me to pick it up.</div></div></div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Eine schriftliche Vollmacht habe ich leider nicht dabei – gibt es eine andere Möglichkeit?</div><div class="phrase-en">Unfortunately I don't have a written authorisation with me – is there another option?</div></div></div>
+    </div>
+    <div class="redem-group">
+      <div class="redem-group-label">Nachfragen & Optionen</div>
+      <div class="phrase-row"><span class="tag tag-m">M</span><div class="texts"><div class="phrase-de">Ohne <span class="highlight">schriftliche Vollmacht</span> kann ich das Paket leider nicht herausgeben – das ist eine Datenschutzvorschrift.</div><div class="phrase-en">Without a written authorisation I unfortunately can't release the parcel – this is a data protection regulation.</div></div></div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Reicht es, wenn sie mir eine <span class="highlight">Nachricht auf dem Handy</span> schickt – mit Name und Auftrag?</div><div class="phrase-en">Is it enough if she sends me a message on my phone – with her name and authorisation?</div></div></div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Bis wann liegt das Paket hier – damit sie selbst noch <span class="highlight">rechtzeitig</span> kommen kann?</div><div class="phrase-en">Until when is the parcel here – so she can still come herself in time?</div></div></div>
+    </div>
+  </div>
+
+  <!-- SIT 3 -->
+  <div class="sit-header">
+    <div class="sit-label">Situation 3</div>
+    <h3>⚠️ Paket als zugestellt markiert – aber nicht erhalten</h3>
+    <p>Laut Tracking wurde das Paket geliefert, aber du hast es nie bekommen.</p>
+  </div>
+  <div class="redem-section">
+    <div class="redem-group">
+      <div class="redem-group-label">Problem schildern</div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Ich habe ein Problem: Laut <span class="highlight">Sendungsverfolgung</span> wurde das Paket zugestellt, aber ich habe es nie erhalten.</div><div class="phrase-en">I have a problem: according to tracking the parcel was delivered, but I never received it.</div></div></div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Es steht, es wurde an <span class="highlight">den Nachbarn übergeben</span> – aber welchen Nachbarn? Das weiß ich nicht.</div><div class="phrase-en">It says it was handed over to the neighbour – but which neighbour? I don't know.</div></div></div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Ich möchte hiermit offiziell eine <span class="highlight">Nachforschung beantragen</span>.</div><div class="phrase-en">I would hereby like to officially file a search request / trace request.</div></div></div>
+    </div>
+    <div class="redem-group">
+      <div class="redem-group-label">Behördensprache & Reaktion</div>
+      <div class="phrase-row"><span class="tag tag-m">M</span><div class="texts"><div class="phrase-de">Ich schaue mir den <span class="highlight">Zustellnachweis</span> an – da ist manchmal eine Unterschrift oder ein Foto hinterlegt.</div><div class="phrase-en">I'll check the proof of delivery – sometimes there's a signature or a photo on file.</div></div></div>
+      <div class="phrase-row"><span class="tag tag-m">M</span><div class="texts"><div class="phrase-de">Für die Nachforschung brauchen wir Ihren Namen, Ihre Adresse und die <span class="highlight">Sendungsnummer</span>. Sie erhalten innerhalb von 5–10 Werktagen eine Rückmeldung.</div><div class="phrase-en">For the trace request we need your name, address and tracking number. You'll receive feedback within 5–10 working days.</div></div></div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Und falls das Paket tatsächlich <span class="highlight">verloren gegangen</span> ist – was passiert dann?</div><div class="phrase-en">And if the parcel has actually got lost – what happens then?</div></div></div>
+      <div class="phrase-row"><span class="tag tag-m">M</span><div class="texts"><div class="phrase-de">In dem Fall wird eine <span class="highlight">Entschädigung</span> geprüft – abhängig vom deklarierten Warenwert und der Versandart.</div><div class="phrase-en">In that case, compensation will be assessed – depending on the declared value and the shipping method.</div></div></div>
+    </div>
+  </div>
+
+  <!-- SIT 4 -->
+  <div class="sit-header">
+    <div class="sit-label">Situation 4</div>
+    <h3>🔄 Retoure – Rücksendung ohne Rücksendeschein</h3>
+    <p>Du willst etwas zurückschicken, hast aber keinen Rücksendeschein.</p>
+  </div>
+  <div class="redem-section">
+    <div class="redem-group">
+      <div class="redem-group-label">Situation erklären</div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Ich möchte dieses Paket <span class="highlight">zurückschicken</span>, habe aber keinen Rücksendeschein bekommen.</div><div class="phrase-en">I'd like to return this parcel but didn't receive a return label.</div></div></div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Der Händler hat mir gesagt, ich soll den Schein selbst <span class="highlight">über ihr Portal ausdrucken</span> – aber ich habe keinen Drucker.</div><div class="phrase-en">The retailer told me to print the label myself via their portal – but I don't have a printer.</div></div></div>
+      <div class="phrase-row"><span class="tag tag-m">M</span><div class="texts"><div class="phrase-de">Kein Problem – wenn Sie mir den QR-Code auf Ihrem Handy zeigen, kann ich den Schein hier <span class="highlight">ausdrucken</span>.</div><div class="phrase-en">No problem – if you show me the QR code on your phone, I can print the label here.</div></div></div>
+    </div>
+    <div class="redem-group">
+      <div class="redem-group-label">Fristen & Haftung</div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Das Paket muss laut <span class="highlight">Widerrufsrecht</span> innerhalb von 14 Tagen beim Händler sein – ist das noch zu schaffen?</div><div class="phrase-en">According to the right of withdrawal the parcel must reach the retailer within 14 days – is that still possible?</div></div></div>
+      <div class="phrase-row"><span class="tag tag-m">M</span><div class="texts"><div class="phrase-de">Maßgeblich ist das <span class="highlight">Datum der Einlieferung</span>, nicht das der Zustellung – also wenn Sie heute aufgeben, sind Sie auf der sicheren Seite.</div><div class="phrase-en">What counts is the date of posting, not delivery – so if you drop it off today, you're on the safe side.</div></div></div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Kann ich den <span class="highlight">Einlieferungsbeleg</span> als Beweis behalten, falls der Händler bestreitet, dass ich es rechtzeitig geschickt habe?</div><div class="phrase-en">Can I keep the drop-off receipt as proof, in case the retailer disputes that I sent it in time?</div></div></div>
+    </div>
+  </div>
+
+  <!-- SIT 5 -->
+  <div class="sit-header">
+    <div class="sit-label">Situation 5</div>
+    <h3>📬 Nachsendeauftrag & Umzug</h3>
+    <p>Du bist umgezogen und willst sicherstellen, dass Post und Pakete weitergeleitet werden.</p>
+  </div>
+  <div class="redem-section">
+    <div class="redem-group">
+      <div class="redem-group-label">Auftrag erteilen</div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Ich bin kürzlich umgezogen und möchte einen <span class="highlight">Nachsendeauftrag</span> einrichten.</div><div class="phrase-en">I recently moved and would like to set up a mail forwarding order.</div></div></div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Ab welchem Datum und für wie lange gilt das – und was kostet es?</div><div class="phrase-en">From which date and for how long does it apply – and what does it cost?</div></div></div>
+      <div class="phrase-row"><span class="tag tag-m">M</span><div class="texts"><div class="phrase-de">Der Nachsendeauftrag gilt für <span class="highlight">Briefe und Pakete</span> von DHL – andere Zusteller sind leider nicht eingeschlossen.</div><div class="phrase-en">The forwarding order applies to letters and parcels from DHL – unfortunately other carriers are not included.</div></div></div>
+    </div>
+    <div class="redem-group">
+      <div class="redem-group-label">Nachfragen & Einschränkungen</div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Was passiert mit Post, die trotzdem an die alte Adresse geht und <span class="highlight">nicht weitergeleitet</span> wird?</div><div class="phrase-en">What happens to mail that still goes to the old address and isn't forwarded?</div></div></div>
+      <div class="phrase-row"><span class="tag tag-k">K</span><div class="texts"><div class="phrase-de">Kann ich den Auftrag auch <span class="highlight">online verlängern</span> oder muss ich dafür wieder herkommen?</div><div class="phrase-en">Can I extend the order online too, or do I have to come back here for that?</div></div></div>
+      <div class="phrase-row"><span class="tag tag-m">M</span><div class="texts"><div class="phrase-de">Verlängerung und Kündigung sind <span class="highlight">online über Mein DHL</span> möglich – Sie brauchen dann nicht mehr in die Filiale.</div><div class="phrase-en">Extension and cancellation are possible online via Mein DHL – you won't need to come to the branch for that.</div></div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TAB 2: VOKABELN -->
+<div class="tab-panel" id="tab-vokabeln">
+  <div class="card">
+    <h2>Vokabeln – Post & Pakete</h2>
+    <h3>Am Schalter</h3>
+    <div class="vocab-item"><span class="vocab-de">das Einschreiben</span><span class="vocab-en">registered mail (with signature confirmation)</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Expressversand / die Expresslieferung</span><span class="vocab-en">express delivery</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Standardversand</span><span class="vocab-en">standard delivery</span></div>
+    <div class="vocab-item"><span class="vocab-de">das Porto</span><span class="vocab-en">postage (the cost of sending)</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Zollerklärung / das Zollformular</span><span class="vocab-en">customs declaration / customs form</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Zollabfertigung</span><span class="vocab-en">customs clearance</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Warenwert</span><span class="vocab-en">declared value of goods</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Haftung / haften für etw.</span><span class="vocab-en">liability / to be liable for sth.</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Entschädigung</span><span class="vocab-en">compensation / reimbursement</span></div>
+
+    <h3>Sendung & Tracking</h3>
+    <div class="vocab-item"><span class="vocab-de">die Sendungsverfolgung</span><span class="vocab-en">parcel tracking</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Zustellnachweis</span><span class="vocab-en">proof of delivery</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Einlieferungsbeleg</span><span class="vocab-en">proof of posting / drop-off receipt</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Rücksendeschein / das Retourenlabel</span><span class="vocab-en">return label</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Nachforschung beantragen</span><span class="vocab-en">to file a search/trace request</span></div>
+    <div class="vocab-item"><span class="vocab-de">verloren gehen (ist verloren gegangen)</span><span class="vocab-en">to get lost [verb with sein!]</span></div>
+
+    <h3>Rechtliches & Verträge</h3>
+    <div class="vocab-item"><span class="vocab-de">das Widerrufsrecht</span><span class="vocab-en">right of withdrawal (14-day return right)</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Vollmacht</span><span class="vocab-en">written authorisation / power of attorney</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Datenschutz</span><span class="vocab-en">data protection / privacy</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Nachsendeauftrag</span><span class="vocab-en">mail forwarding order (after moving)</span></div>
+    <div class="vocab-item"><span class="vocab-de">maßgeblich sein</span><span class="vocab-en">to be decisive / what counts (formal)</span></div>
+    <div class="vocab-item"><span class="vocab-de">bestreiten (bestritt, bestritten)</span><span class="vocab-en">to dispute / to contest</span></div>
+
+    <h3>Nützliche Verben (trennbar!)</h3>
+    <div class="vocab-item"><span class="vocab-de">aufgeben → gibt auf</span><span class="vocab-en">to drop off / hand in (a parcel)</span></div>
+    <div class="vocab-item"><span class="vocab-de">abholen → holt ab</span><span class="vocab-en">to pick up / collect</span></div>
+    <div class="vocab-item"><span class="vocab-de">zurückschicken → schickt zurück</span><span class="vocab-en">to send back / return</span></div>
+    <div class="vocab-item"><span class="vocab-de">nachverfolgen → verfolgt nach</span><span class="vocab-en">to track</span></div>
+    <div class="vocab-item"><span class="vocab-de">einrichten → richtet ein</span><span class="vocab-en">to set up (e.g. a forwarding order)</span></div>
+    <div class="vocab-item"><span class="vocab-de">herausgeben → gibt heraus</span><span class="vocab-en">to release / hand over (official: parcel)</span></div>
+  </div>
+</div>
+
+<!-- TAB 3: DIALOGE -->
+<div class="tab-panel" id="tab-dialoge">
+
+  <div class="tip-box"><strong>💡 Legende:</strong> <span style="background:#f4c54230;border-radius:3px;padding:1px 5px;color:#7a4a00;font-weight:800;font-size:.85rem">gelb markiert</span> = wichtige Redemittel &amp; Fachvokabular, die du dir merken solltest.</div>
+
+  <!-- Dialog 1 -->
+  <div class="dialog-wrap">
+    <div class="dialog-header">
+      <div class="scene-label">Dialog 1 · Paket ins Nicht-EU-Ausland schicken</div>
+      <p>Kundin möchte ein Paket nach Marokko schicken – zum ersten Mal, keine Ahnung von Zoll.</p>
+    </div>
+    <div class="dialog-body">
+      <div class="bubble">
+        <div class="avatar av-k">👤</div>
+        <div class="bubble-text bk"><div class="speaker">Kundin</div><p>Guten Tag. Ich würde gerne dieses Paket <span class="rm">aufgeben</span> – nach Marokko.</p><div class="transl">Good day. I'd like to drop off this parcel – to Morocco.</div></div>
+      </div>
+      <div class="bubble right">
+        <div class="avatar av-m">🏢</div>
+        <div class="bubble-text bm"><div class="speaker">Mitarbeiterin</div><p>Nach Marokko – das ist außerhalb der EU, da benötigen Sie zwingend eine <span class="rm">Zollerklärung</span>. Was ist im Paket?</p><div class="transl">Morocco is outside the EU, so you'll definitely need a customs declaration. What's in the parcel?</div></div>
+      </div>
+      <div class="bubble">
+        <div class="avatar av-k">👤</div>
+        <div class="bubble-text bk"><div class="speaker">Kundin</div><p>Kleidung und ein Buch – ein Geschenk für meine Schwester. Muss ich das <span class="rm">deklarieren</span>?</p><div class="transl">Clothing and a book – a gift for my sister. Do I have to declare that?</div></div>
+      </div>
+      <div class="bubble right">
+        <div class="avatar av-m">🏢</div>
+        <div class="bubble-text bm"><div class="speaker">Mitarbeiterin</div><p>Ja, bitte den <span class="rm">Warenwert</span> so genau wie möglich angeben. Das beschleunigt die <span class="rm">Zollabfertigung</span> erheblich. Ich fülle das CN22-Formular mit Ihnen aus.</p><div class="transl">Yes, please indicate the value of the goods as precisely as possible. It speeds up customs clearance considerably. I'll fill in the CN22 form together with you.</div></div>
+      </div>
+      <div class="bubble">
+        <div class="avatar av-k">👤</div>
+        <div class="bubble-text bk"><div class="speaker">Kundin</div><p>Und was passiert, wenn das Paket <span class="rm">beim Zoll aufgehalten</span> wird? Muss meine Schwester dann Gebühren zahlen?</p><div class="transl">And what happens if the parcel gets held up at customs? Does my sister then have to pay fees?</div></div>
+      </div>
+      <div class="bubble right">
+        <div class="avatar av-m">🏢</div>
+        <div class="bubble-text bm"><div class="speaker">Mitarbeiterin</div><p>Das liegt am Empfängerland. Bei Geschenken bis 45 Euro sind in Marokko oft keine Gebühren fällig – aber das können wir leider nicht garantieren. Haben Sie noch Fragen zur <span class="rm">Versandoption</span>?</p><div class="transl">That depends on the destination country. For gifts up to €45 no fees are often due in Morocco – but unfortunately we can't guarantee that. Do you have any more questions about the shipping option?</div></div>
+      </div>
+      <div class="bubble">
+        <div class="avatar av-k">👤</div>
+        <div class="bubble-text bk"><div class="speaker">Kundin</div><p>Ja – gibt es eine Möglichkeit, die Sendung <span class="rm">nachzuverfolgen</span>? Und wie lange dauert die Lieferung ungefähr?</p><div class="transl">Yes – is there a way to track the shipment? And how long does delivery take roughly?</div></div>
+      </div>
+      <div class="bubble right">
+        <div class="avatar av-m">🏢</div>
+        <div class="bubble-text bm"><div class="speaker">Mitarbeiterin</div><p>Als <span class="rm">Einschreiben</span> haben Sie Tracking und <span class="rm">Zustellnachweis</span> – das empfehle ich bei Auslandspost. Lieferzeit: 7 bis 14 Werktage, je nach Zollsituation.</p><div class="transl">As registered mail you have tracking and proof of delivery – I recommend that for international post. Delivery time: 7 to 14 working days, depending on the customs situation.</div></div>
+      </div>
+    </div>
+    <div class="dialog-note"><strong>Merke:</strong> aufgeben (Paket) · deklarieren · Warenwert · Zollabfertigung · beim Zoll aufgehalten werden · Einschreiben · Zustellnachweis</div>
+  </div>
+
+  <!-- Dialog 2 -->
+  <div class="dialog-wrap">
+    <div class="dialog-header">
+      <div class="scene-label">Dialog 2 · Paket ist „zugestellt" – aber nie angekommen</div>
+      <p>Kunde behauptet, das Paket nie erhalten zu haben, obwohl es laut System zugestellt wurde.</p>
+    </div>
+    <div class="dialog-body">
+      <div class="bubble">
+        <div class="avatar av-k">👤</div>
+        <div class="bubble-text bk"><div class="speaker">Kunde</div><p>Ich habe ein Problem. Laut <span class="rm">Sendungsverfolgung</span> wurde mein Paket vor drei Tagen zugestellt – aber ich habe absolut nichts bekommen.</p><div class="transl">I have a problem. According to tracking my parcel was delivered three days ago – but I received absolutely nothing.</div></div>
+      </div>
+      <div class="bubble right">
+        <div class="avatar av-m">🏢</div>
+        <div class="bubble-text bm"><div class="speaker">Mitarbeiterin</div><p>Das tut mir leid. Darf ich die <span class="rm">Sendungsnummer</span> sehen? Ich schaue mir den <span class="rm">Zustellnachweis</span> an – dort ist manchmal ein Foto oder eine Unterschrift hinterlegt.</p><div class="transl">I'm sorry about that. May I see the tracking number? I'll check the proof of delivery – sometimes there's a photo or signature on file there.</div></div>
+      </div>
+      <div class="bubble">
+        <div class="avatar av-k">👤</div>
+        <div class="bubble-text bk"><div class="speaker">Kunde</div><p>Im System steht: „<span class="rm">an den Nachbarn übergeben</span>" – aber ich habe alle Nachbarn gefragt, niemand hat etwas.</p><div class="transl">The system says "handed over to the neighbour" – but I've asked all the neighbours, nobody has anything.</div></div>
+      </div>
+      <div class="bubble right">
+        <div class="avatar av-m">🏢</div>
+        <div class="bubble-text bm"><div class="speaker">Mitarbeiterin</div><p>Dann beantragen wir offiziell eine <span class="rm">Nachforschung</span>. Dazu brauche ich Ihren Namen, Ihre Adresse und die Sendungsnummer. Sie bekommen innerhalb von 5–10 Werktagen eine Rückmeldung.</p><div class="transl">In that case we'll officially file a trace request. I'll need your name, address and tracking number for that. You'll receive a reply within 5–10 working days.</div></div>
+      </div>
+      <div class="bubble">
+        <div class="avatar av-k">👤</div>
+        <div class="bubble-text bk"><div class="speaker">Kunde</div><p>Und falls das Paket tatsächlich <span class="rm">verloren gegangen</span> ist – bekomme ich dann eine <span class="rm">Entschädigung</span>?</p><div class="transl">And if the parcel has actually got lost – do I then receive compensation?</div></div>
+      </div>
+      <div class="bubble right">
+        <div class="avatar av-m">🏢</div>
+        <div class="bubble-text bm"><div class="speaker">Mitarbeiterin</div><p>Das wird geprüft. Die <span class="rm">Haftung</span> richtet sich nach dem deklarierten Warenwert und der Versandart. Beim Standardpaket sind bis zu 500 Euro abgedeckt – beim Einschreiben mehr.</p><div class="transl">That will be assessed. Liability is based on the declared value and shipping method. Standard parcels are covered up to €500 – registered mail covers more.</div></div>
+      </div>
+      <div class="bubble">
+        <div class="avatar av-k">👤</div>
+        <div class="bubble-text bk"><div class="speaker">Kunde</div><p>Gut. Und kann ich <span class="rm">in der Zwischenzeit</span> irgendwie den Status verfolgen oder wird mir jemand aktiv Bescheid geben?</p><div class="transl">Good. And can I somehow track the status in the meantime, or will someone actively inform me?</div></div>
+      </div>
+      <div class="bubble right">
+        <div class="avatar av-m">🏢</div>
+        <div class="bubble-text bm"><div class="speaker">Mitarbeiterin</div><p>Sie werden per E-Mail informiert. Falls Sie nach 10 Werktagen noch nichts gehört haben, können Sie sich jederzeit wieder an uns wenden.</p><div class="transl">You'll be informed by email. If you haven't heard anything after 10 working days, you can contact us again at any time.</div></div>
+      </div>
+    </div>
+    <div class="dialog-note"><strong>Merke:</strong> Sendungsverfolgung · Zustellnachweis · an den Nachbarn übergeben · Nachforschung beantragen · verloren gehen · Entschädigung · Haftung</div>
+  </div>
+
+  <!-- Dialog 3 -->
+  <div class="dialog-wrap">
+    <div class="dialog-header">
+      <div class="scene-label">Dialog 3 · Retoure ohne Rücksendeschein + Widerrufsrecht</div>
+      <p>Kundin hat keinen Drucker und muss die Frist einhalten.</p>
+    </div>
+    <div class="dialog-body">
+      <div class="bubble">
+        <div class="avatar av-k">👤</div>
+        <div class="bubble-text bk"><div class="speaker">Kundin</div><p>Hallo, ich möchte dieses Paket <span class="rm">zurückschicken</span> – aber ich habe keinen Rücksendeschein, weil ich keinen Drucker habe.</p><div class="transl">Hello, I'd like to return this parcel – but I don't have a return label because I don't have a printer.</div></div>
+      </div>
+      <div class="bubble right">
+        <div class="avatar av-m">🏢</div>
+        <div class="bubble-text bm"><div class="speaker">Mitarbeiter</div><p>Kein Problem. Haben Sie den QR-Code auf Ihrem Handy? Dann kann ich den Schein hier ausdrucken.</p><div class="transl">No problem. Do you have the QR code on your phone? Then I can print the label here.</div></div>
+      </div>
+      <div class="bubble">
+        <div class="avatar av-k">👤</div>
+        <div class="bubble-text bk"><div class="speaker">Kundin</div><p>Ja, hier. Ich habe übrigens eine Frage: Das <span class="rm">Widerrufsrecht</span> gilt 14 Tage – zählt das ab dem Kaufdatum oder ab dem Lieferdatum?</p><div class="transl">Yes, here. I also have a question: the right of withdrawal applies for 14 days – does that count from the purchase date or the delivery date?</div></div>
+      </div>
+      <div class="bubble right">
+        <div class="avatar av-m">🏢</div>
+        <div class="bubble-text bm"><div class="speaker">Mitarbeiter</div><p>Ab dem Tag, an dem Sie die Ware <span class="rm">erhalten</span> haben – also ab Lieferdatum. Und <span class="rm">maßgeblich</span> ist dabei das Datum der Einlieferung bei uns, nicht das Datum der Zustellung beim Händler.</p><div class="transl">From the day you received the goods – so from the delivery date. And what counts is the date of posting with us, not the date of delivery to the retailer.</div></div>
+      </div>
+      <div class="bubble">
+        <div class="avatar av-k">👤</div>
+        <div class="bubble-text bk"><div class="speaker">Kundin</div><p>Das ist gut zu wissen. Ich habe heute noch einen Tag übrig. Kann ich den <span class="rm">Einlieferungsbeleg</span> behalten – als Nachweis, falls der Händler <span class="rm">bestreitet</span>, dass ich es rechtzeitig geschickt habe?</p><div class="transl">Good to know. I have one day left today. Can I keep the drop-off receipt – as proof in case the retailer disputes that I sent it on time?</div></div>
+      </div>
+      <div class="bubble right">
+        <div class="avatar av-m">🏢</div>
+        <div class="bubble-text bm"><div class="speaker">Mitarbeiter</div><p>Unbedingt – bitte aufheben! Das ist Ihr <span class="rm">rechtlicher Nachweis</span>. Darauf stehen Datum, Uhrzeit und die Sendungsnummer.</p><div class="transl">Absolutely – please keep it! That's your legal proof. It shows the date, time and tracking number.</div></div>
+      </div>
+    </div>
+    <div class="dialog-note"><strong>Merke:</strong> zurückschicken · Widerrufsrecht · maßgeblich sein · Einlieferungsbeleg · bestreiten · rechtlicher Nachweis · Datum der Einlieferung</div>
+  </div>
+
+</div>
+
+<!-- TAB 4: ÜBUNGEN -->
+<div class="tab-panel" id="tab-uebungen">
+
+  <div class="card"><h2>Übung 1 – Fachbegriff gesucht</h2></div>
+
+  <details class="flashcard">
+    <summary>Du schickst ein Paket, das später nicht ankommt, und willst eine offizielle Untersuchung. Was beantragst du?</summary>
+    <div class="flashcard-answer">Eine <strong>Nachforschung</strong> – „Ich möchte eine Nachforschung beantragen." (= offizieller Suchauftrag bei der Post)</div>
+  </details>
+
+  <details class="flashcard">
+    <summary>Was ist der Unterschied zwischen „Einlieferungsbeleg" und „Zustellnachweis"?</summary>
+    <div class="flashcard-answer"><strong>Einlieferungsbeleg</strong> = Beleg, den du beim Aufgeben bekommst (Beweis: du hast es abgeschickt).<br><strong>Zustellnachweis</strong> = Beleg auf Seite der Post, dass das Paket beim Empfänger ankam (z.B. Unterschrift, Foto).</div>
+  </details>
+
+  <details class="flashcard">
+    <summary>Ab wann gilt die 14-tägige Frist beim Widerrufsrecht – Kauf oder Lieferung?</summary>
+    <div class="flashcard-answer">Ab dem Tag des <strong>Erhalts / der Lieferung</strong> – nicht ab dem Kaufdatum. Und maßgeblich ist das Datum der Einlieferung bei der Post, nicht die Ankunft beim Händler.</div>
+  </details>
+
+  <details class="flashcard">
+    <summary>Was ist eine Vollmacht – und wann braucht man sie bei der Post?</summary>
+    <div class="flashcard-answer">Eine <strong>Vollmacht</strong> ist ein schriftliches Dokument, das einer anderen Person erlaubt, in deinem Namen zu handeln. Bei der Post braucht man sie, wenn jemand anderes ein Paket für dich abholen soll.</div>
+  </details>
+
+  <details class="flashcard">
+    <summary>Was ist der Unterschied zwischen „zustellen" und „abholen"?</summary>
+    <div class="flashcard-answer"><strong>Zustellen</strong>: Die Post bringt das Paket zu dir (aktiv, vom Zusteller). <br><strong>Abholen</strong>: Du holst das Paket selbst (z.B. in der Filiale). Trennbar: „Das Paket wird zugestellt." / „Ich hole das Paket ab."</div>
+  </details>
+
+  <div class="card" style="margin-top:18px"><h2>Übung 2 – Satzlücken: Welches Wort fehlt?</h2></div>
+
+  <div class="uebung-item">
+    <p>„Laut _______ wurde das Paket bereits gestern an die Nachbarin übergeben."</p>
+    <select><option value="">— wählen —</option><option>Einlieferungsbeleg</option><option>Sendungsverfolgung</option><option>Nachforschung</option></select>
+    <details class="loesung"><summary>Lösung</summary><div class="loesung-text">✅ <strong>Sendungsverfolgung</strong> – das Online-Tracking-System der Post.</div></details>
+  </div>
+
+  <div class="uebung-item">
+    <p>„Das Datum der _______ ist entscheidend – nicht das Datum der Zustellung."</p>
+    <select><option value="">— wählen —</option><option>Entschädigung</option><option>Einlieferung</option><option>Zollabfertigung</option></select>
+    <details class="loesung"><summary>Lösung</summary><div class="loesung-text">✅ <strong>Einlieferung</strong> – der Tag, an dem du das Paket bei der Post abgibst, zählt rechtlich.</div></details>
+  </div>
+
+  <div class="uebung-item">
+    <p>„Die _______ richtet sich nach dem deklarierten Warenwert."</p>
+    <select><option value="">— wählen —</option><option>Vollmacht</option><option>Haftung</option><option>Zollerklärung</option></select>
+    <details class="loesung"><summary>Lösung</summary><div class="loesung-text">✅ <strong>Haftung</strong> – wie viel die Post im Verlustfall erstattet, hängt vom Warenwert und der Versandart ab.</div></details>
+  </div>
+
+  <div class="uebung-item">
+    <p>„Ohne _______ kann ich das Paket leider nicht herausgeben – das ist eine Datenschutzvorschrift."</p>
+    <select><option value="">— wählen —</option><option>Sendungsnummer</option><option>schriftliche Vollmacht</option><option>Benachrichtigung</option></select>
+    <details class="loesung"><summary>Lösung</summary><div class="loesung-text">✅ <strong>schriftliche Vollmacht</strong> – ohne Vollmacht darf die Post kein Paket an Dritte herausgeben.</div></details>
+  </div>
+
+  <div class="card" style="margin-top:18px"><h2>Übung 3 – Was sagst du? Formuliere höflich und vollständig.</h2></div>
+
+  <details class="flashcard">
+    <summary>Du willst wissen, ob du für eine Retoure noch einen Rücksendeschein brauchst, oder ob der QR-Code reicht.</summary>
+    <div class="flashcard-answer">„Reicht es, wenn ich Ihnen den QR-Code auf meinem Handy zeige, oder brauche ich einen ausgedruckten Rücksendeschein?"</div>
+  </details>
+
+  <details class="flashcard">
+    <summary>Das Paket ist laut Tracking „zugestellt", aber du hast es nicht bekommen. Du willst eine offizielle Untersuchung.</summary>
+    <div class="flashcard-answer">„Laut Sendungsverfolgung wurde das Paket zugestellt, aber ich habe es nie erhalten. Ich möchte hiermit offiziell eine Nachforschung beantragen."</div>
+  </details>
+
+  <details class="flashcard">
+    <summary>Du bist unsicher, ob dein Paket ins Ausland eine Zollerklärung braucht und was du deklarieren musst.</summary>
+    <div class="flashcard-answer">„Ich bin nicht sicher, ob ich dafür eine Zollerklärung brauche. Was muss ich beim Inhalt deklarieren, und gibt es einen Höchstwert, ab dem Zollgebühren anfallen?"</div>
+  </details>
+
+</div>
+
+<!-- TAB 5: FEHLER -->
+<div class="tab-panel" id="tab-fehler">
+  <div class="card"><h2>Typische Fehler – Grammatik & Ausdruck</h2></div>
+
+  <div class="fehler-item">
+    <div class="fehler-label label-falsch">✗ Falsch</div>
+    <div class="fehler-falsch">„Das Paket hat verloren."</div>
+    <div class="fehler-label label-richtig" style="margin-top:8px">✓ Richtig</div>
+    <div class="fehler-richtig">„Das Paket ist verloren gegangen."</div>
+    <div class="fehler-erkl">verloren gehen = untrennbare Verbkombination → Perfekt mit <em>sein</em>, nicht haben. Auch: „Das Paket ging verloren." (Präteritum, schriftlicher Stil)</div>
+  </div>
+
+  <div class="fehler-item">
+    <div class="fehler-label label-falsch">✗ Falsch</div>
+    <div class="fehler-falsch">„Ich schicke zurück das Paket morgen."</div>
+    <div class="fehler-label label-richtig" style="margin-top:8px">✓ Richtig</div>
+    <div class="fehler-richtig">„Ich schicke das Paket morgen zurück."</div>
+    <div class="fehler-erkl">Trennbare Verben: Die Vorsilbe geht ans Satzende (Satzklammer). Das Objekt + Zeitangabe stehen vor dem Verbende.</div>
+  </div>
+
+  <div class="fehler-item">
+    <div class="fehler-label label-falsch">✗ Falsch</div>
+    <div class="fehler-falsch">„Laut der Sendungsverfolgung, es wurde geliefert."</div>
+    <div class="fehler-label label-richtig" style="margin-top:8px">✓ Richtig</div>
+    <div class="fehler-richtig">„Laut Sendungsverfolgung wurde es geliefert."</div>
+    <div class="fehler-erkl">laut + Dativ ohne Artikel (Substantiv allein, kein „der/die/das"). Nach laut + Nomen kommt kein Komma. Inversion: Verb vor Subjekt nach Satzanfang mit Adverbial.</div>
+  </div>
+
+  <div class="fehler-item">
+    <div class="fehler-label label-falsch">✗ Falsch</div>
+    <div class="fehler-falsch">„Ich möchte eine Nachforschung beantragen für mein Paket."</div>
+    <div class="fehler-label label-richtig" style="margin-top:8px">✓ Richtig</div>
+    <div class="fehler-richtig">„Ich möchte für mein Paket eine Nachforschung beantragen."</div>
+    <div class="fehler-erkl">Im Deutschen steht die Ergänzung (für mein Paket) möglichst nah am Verb, nicht am Ende nach dem Infinitiv. Das klingt natürlicher und korrekter.</div>
+  </div>
+
+  <div class="fehler-item">
+    <div class="fehler-label label-falsch">✗ Falsch</div>
+    <div class="fehler-falsch">„Die Haftung hängt vom Warenwert und die Versandart ab."</div>
+    <div class="fehler-label label-richtig" style="margin-top:8px">✓ Richtig</div>
+    <div class="fehler-richtig">„Die Haftung richtet sich nach dem Warenwert und der Versandart."</div>
+    <div class="fehler-erkl">Besser: sich richten nach + Dativ (formeller Ausdruck). Wenn man „abhängen von" benutzt: „hängt vom Warenwert und von der Versandart ab" – beide mit von + Dativ!</div>
+  </div>
+
+  <div class="fehler-item">
+    <div class="fehler-label label-falsch">✗ Falsch</div>
+    <div class="fehler-falsch">„Sie ist verhindert kommen."</div>
+    <div class="fehler-label label-richtig" style="margin-top:8px">✓ Richtig</div>
+    <div class="fehler-richtig">„Sie ist verhindert." oder „Sie kann leider nicht kommen."</div>
+    <div class="fehler-erkl">verhindert sein = nicht in der Lage sein (zu kommen) – kein Infinitiv dahinter nötig. Es ist ein Adjektiv (Partizip II als Prädikativum).</div>
+  </div>
+
+  <div class="fehler-item">
+    <div class="fehler-label label-falsch">✗ Falsch</div>
+    <div class="fehler-falsch">„Das Paket ist angekömmt."</div>
+    <div class="fehler-label label-richtig" style="margin-top:8px">✓ Richtig</div>
+    <div class="fehler-richtig">„Das Paket ist angekommen."</div>
+    <div class="fehler-erkl">ankommen → kam an → ist angekommen (unregelmäßig, starkes Verb). Kein -t am Ende beim Partizip: nicht „angekömmt".</div>
+  </div>
+</div>
+
+<!-- TAB 6: SPRECHEN -->
+<div class="tab-panel" id="tab-sprechen">
+  <div class="card"><h2>🎭 Rollenspiele & Diskussion</h2><p style="font-size:.82rem;color:#7a8da0">Übt zu zweit. Benutzt die markierten Redemittel aus den Dialogen!</p></div>
+
+  <div class="prompt-card">
+    <p>Rollenspiel 1: Paket ins Ausland – Zoll und Optionen</p>
+    <div class="hint">Das Paket geht nach Japan (Nicht-EU). Inhalt: Bücher + selbstgemachte Marmelade. Zeitdruck: es muss in 5 Tagen ankommen. Mitarbeiter:in erklärt Zollpflicht, Versandoptionen, eventuelle Beschränkungen für Lebensmittel.</div>
+    <div class="rollen"><span class="rolle rolle-k">👤 Kunde: fragt nach Optionen, Kosten, Tracking</span><span class="rolle rolle-m">🏢 Mitarbeiter:in: berät, erklärt Zoll, nennt Konditionen</span></div>
+  </div>
+
+  <div class="prompt-card">
+    <p>Rollenspiel 2: Verlorenes Paket – Nachforschung & Entschädigung</p>
+    <div class="hint">Paket angeblich „zugestellt", nie erhalten. Inhalt: Laptop (Wert: 800 €). Tracking zeigt: „Übergabe an Mitbewohner" – aber niemand weiß davon. Mitarbeiter:in erklärt Prozess und Haftungsgrenze.</div>
+    <div class="rollen"><span class="rolle rolle-k">👤 Kunde: schildert Problem, fordert Entschädigung</span><span class="rolle rolle-m">🏢 Mitarbeiter:in: beruhigt, erklärt Verfahren, Grenzen</span></div>
+  </div>
+
+  <div class="prompt-card">
+    <p>Rollenspiel 3: Retoure mit Widerrufsrecht und Fristdruck</p>
+    <div class="hint">Letzter Tag der 14-tägigen Frist. Kein Drucker, aber QR-Code auf dem Handy. Artikel: Kaffeemaschine (schwer). Frage: Ist das Datum der Einlieferung entscheidend?</div>
+    <div class="rollen"><span class="rolle rolle-k">👤 Kunde: möchte sichergehen, fragt nach Frist & Nachweis</span><span class="rolle rolle-m">🏢 Mitarbeiter:in: erklärt Rechtslage, druckt Label, gibt Beleg</span></div>
+  </div>
+
+  <div class="prompt-card">
+    <p>💬 Diskussion: Deine Erfahrungen mit Post & Paketen</p>
+    <div class="hint">
+      — Hast du schon einmal ein Paket verloren? Was ist passiert?<br>
+      — Wie ist die Postsituation in deinem Heimatland im Vergleich zu Deutschland?<br>
+      — Was nervt dich am meisten beim Online-Bestellen / Retourieren?<br>
+      — Glaubst du, dass physische Post (Briefe, Postkarten) noch eine Zukunft hat?
+    </div>
+  </div>
+
+  <div class="tip-box"><strong>💡 Tipp für das Rollenspiel:</strong> Versucht, mindestens 5 der markierten Redemittel aus den Dialogen einzubauen – z.B. „laut Sendungsverfolgung", „eine Nachforschung beantragen", „maßgeblich ist...", „Einlieferungsbeleg", „Zollabfertigung". Wer schafft alle 5?</div>
+</div>
+
+<script>
+function showTab(n,b){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('tab-'+n).classList.add('active');
+  b.classList.add('active');
+}
+</script>
+</body>
+</html>
+          </body>
+        </html>
