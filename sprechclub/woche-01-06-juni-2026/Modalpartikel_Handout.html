@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modalpartikel – Handout · deutschoderwas</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+/* ── DESIGN TOKENS ─────────────────────────── */
+:root{
+  /* eine Farbe pro Partikel */
+  --doch:#c0392b; --dochl:#fde8e8;
+  --halt:#e07820; --haltl:#fef0e0;
+  --eben:#c8a010; --ebenl:#fdf8dc;
+  --mal: #2e8b57; --mall: #e0f5ea;
+  --ja:  #7c3aed; --jal:  #ede9fe;
+  --denn:#2563eb; --dennl:#dbeafe;
+  --schon:#0d9488;--schonl:#ccfbf1;
+  --wohl:#6b5c2e; --wohll:#f5f0e0;
+  --aber:#b54040; --aberl:#fde8e8;
+  --nur: #475569; --nurl: #f0f2f5;
+  /* globale Farben */
+  --navy:#0f172a; --nm:#1e293b;
+  --gray:#f8fafc; --gm:#e2e8f0;
+  --grn:#16a34a;  --grl:#dcfce7;
+  --red:#dc2626;  --rl: #fee2e2;
+  --r:12px; --s:0 3px 16px rgba(0,0,0,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--gray);color:var(--navy);font-size:16px;line-height:1.65;}
+
+/* ── HEADER ──────────────────────────────── */
+header{background:var(--navy);}
+.fs{height:6px;background:linear-gradient(90deg,
+  var(--doch) 10%,var(--halt) 20%,var(--eben) 30%,var(--mal) 40%,
+  var(--ja) 50%,var(--denn) 60%,var(--schon) 70%,var(--wohl) 80%,
+  var(--aber) 90%,var(--nur) 100%);}
+.hi{max-width:900px;margin:0 auto;padding:18px 20px 16px;display:flex;align-items:flex-start;gap:14px;}
+.hlogo{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:700;color:#f9a8b0;}
+.hlogo span{color:#fbbf24;}
+.htit{font-size:1.05rem;font-weight:900;color:white;margin-top:4px;}
+.hsub{font-size:.75rem;color:rgba(255,255,255,.38);margin-top:2px;}
+.hbadge{margin-left:auto;background:var(--doch);color:white;font-weight:800;font-size:.8rem;padding:4px 13px;border-radius:30px;white-space:nowrap;flex-shrink:0;}
+/* rainbow pill row */
+.pill-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+.pill{font-size:.69rem;font-weight:900;padding:2px 9px;border-radius:20px;color:white;}
+.pill.eben,.pill.wohl{color:var(--navy);}
+
+/* ── NAV ─────────────────────────────────── */
+nav{background:var(--nm);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;border-bottom:3px solid var(--doch);position:sticky;top:0;z-index:100;}
+nav::-webkit-scrollbar{display:none;}
+nav button{flex-shrink:0;background:none;border:none;color:rgba(255,255,255,.4);
+  font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:800;
+  padding:11px 14px;cursor:pointer;white-space:nowrap;
+  border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .2s;}
+nav button.active{color:#f9a8b0;border-bottom-color:var(--doch);}
+nav button:hover{color:white;}
+
+/* ── LAYOUT ──────────────────────────────── */
+main{padding:20px 16px 70px;max-width:900px;margin:0 auto;}
+.ts{display:none;animation:fi .25s ease;}
+.ts.active{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.stit{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;color:var(--navy);
+  margin-bottom:18px;padding-bottom:10px;border-bottom:3px solid var(--doch);
+  display:flex;align-items:center;gap:9px;}
+.card{background:white;border-radius:var(--r);padding:20px;margin-bottom:14px;
+  box-shadow:var(--s);border:1px solid var(--gm);}
+.card h2{font-size:1rem;font-weight:900;color:var(--navy);margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;}
+.card h3{font-size:.84rem;font-weight:800;color:var(--doch);margin-bottom:9px;
+  text-transform:uppercase;letter-spacing:.5px;}
+
+/* ── PARTIKEL-KACHELN ─────────────────────── */
+.pk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:14px;}
+.pk{border-radius:11px;padding:14px 15px;}
+.pk.doch {background:var(--dochl);border-top:5px solid var(--doch);}
+.pk.halt {background:var(--haltl);border-top:5px solid var(--halt);}
+.pk.eben {background:var(--ebenl);border-top:5px solid var(--eben);}
+.pk.mal  {background:var(--mall) ;border-top:5px solid var(--mal);}
+.pk.ja   {background:var(--jal)  ;border-top:5px solid var(--ja);}
+.pk.denn {background:var(--dennl);border-top:5px solid var(--denn);}
+.pk.schon{background:var(--schonl);border-top:5px solid var(--schon);}
+.pk.wohl {background:var(--wohll);border-top:5px solid var(--wohl);}
+.pk.aber {background:var(--aberl);border-top:5px solid var(--aber);}
+.pk.nur  {background:var(--nurl) ;border-top:5px solid var(--nur);}
+.pk-word{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:700;margin-bottom:3px;}
+.pk.doch  .pk-word{color:var(--doch);}
+.pk.halt  .pk-word{color:var(--halt);}
+.pk.eben  .pk-word{color:var(--eben);}
+.pk.mal   .pk-word{color:var(--mal);}
+.pk.ja    .pk-word{color:var(--ja);}
+.pk.denn  .pk-word{color:var(--denn);}
+.pk.schon .pk-word{color:var(--schon);}
+.pk.wohl  .pk-word{color:var(--wohl);}
+.pk.aber  .pk-word{color:var(--aber);}
+.pk.nur   .pk-word{color:var(--nur);}
+.pk-func{font-size:.79rem;font-weight:800;color:var(--nm);margin-bottom:5px;}
+.pk-ex{font-size:.79rem;color:#475569;font-style:italic;line-height:1.45;}
+.pk-trick{font-size:.73rem;font-weight:700;margin-top:7px;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,.65);}
+.pk.doch  .pk-trick{color:var(--doch);}
+.pk.halt  .pk-trick{color:var(--halt);}
+.pk.eben  .pk-trick{color:var(--eben);}
+.pk.mal   .pk-trick{color:var(--mal);}
+.pk.ja    .pk-trick{color:var(--ja);}
+.pk.denn  .pk-trick{color:var(--denn);}
+.pk.schon .pk-trick{color:var(--schon);}
+.pk.wohl  .pk-trick{color:var(--wohl);}
+.pk.aber  .pk-trick{color:var(--aber);}
+.pk.nur   .pk-trick{color:var(--nur);}
+
+/* ── INLINE BADGES ───────────────────────── */
+.ib{display:inline-block;font-size:.71rem;font-weight:900;padding:1px 8px;
+  border-radius:20px;color:white;vertical-align:middle;margin:0 2px;}
+.ib.doch {background:var(--doch);}
+.ib.halt {background:var(--halt);}
+.ib.eben {background:var(--eben);color:var(--navy);}
+.ib.mal  {background:var(--mal);}
+.ib.ja   {background:var(--ja);}
+.ib.denn {background:var(--denn);}
+.ib.schon{background:var(--schon);}
+.ib.wohl {background:var(--wohl);}
+.ib.aber {background:var(--aber);}
+.ib.nur  {background:var(--nur);}
+
+/* ── NOTIZEN ─────────────────────────────── */
+.note{background:var(--schonl);border-left:4px solid var(--schon);
+  border-radius:8px;padding:10px 14px;font-size:.87rem;margin-top:8px;}
+.note strong{color:var(--schon);}
+.note-warn{background:var(--dochl);border-left:4px solid var(--doch);
+  border-radius:8px;padding:10px 14px;font-size:.87rem;margin-top:8px;}
+.note-warn strong{color:var(--doch);}
+.note-gold{background:var(--ebenl);border-left:4px solid var(--eben);
+  border-radius:8px;padding:10px 14px;font-size:.87rem;margin-top:8px;}
+.note-gold strong{color:var(--eben);}
+
+/* ── DIALOGE ─────────────────────────────── */
+.d-scene{border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:var(--s);}
+.d-head{padding:11px 17px;display:flex;align-items:center;gap:9px;
+  font-size:.73rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:white;}
+.d-body{background:white;padding:16px;}
+/* speaker rows */
+.dlr{display:flex;flex-direction:column;margin-bottom:10px;}
+.dlr.L{align-items:flex-start;}
+.dlr.R{align-items:flex-end;}
+.dlr .who{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.3px;margin-bottom:3px;}
+.dlr.L .who{color:#c0392b;}
+.dlr.R .who{color:#2563eb;}
+.dlr .bub{display:inline-block;padding:9px 13px;border-radius:12px;font-size:.9rem;line-height:1.55;max-width:93%;}
+.dlr.L .bub{background:#fef2f2;border-bottom-left-radius:2px;}
+.dlr.R .bub{background:#eff6ff;border-bottom-right-radius:2px;}
+.dlr .bub strong{font-weight:900;color:var(--navy);}
+.dlr .ann{font-size:.71rem;color:#64748b;font-style:italic;margin-top:3px;display:block;}
+
+/* ── VERGLEICH ───────────────────────────── */
+.cp{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px;}
+@media(max-width:480px){.cp{grid-template-columns:1fr;}}
+.cp-side{border-radius:10px;padding:12px 14px;}
+.cp-side.ohne{background:var(--gray);border:2px solid var(--gm);}
+.cp-side.mit {background:var(--dochl);border:2px solid var(--doch);}
+.cp-label{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.cp-side.ohne .cp-label{color:#94a3b8;}
+.cp-side.mit  .cp-label{color:var(--doch);}
+.cp-sent{font-weight:800;font-size:.92rem;color:var(--nm);}
+.cp-note{font-size:.79rem;color:#64748b;margin-top:3px;font-style:italic;}
+
+/* ── LERNKARTEN ──────────────────────────── */
+details.flash{background:white;border:2px solid var(--gm);border-radius:10px;
+  margin-bottom:9px;overflow:hidden;}
+details.flash[open]{border-color:var(--doch);}
+details.flash summary{padding:11px 15px;font-weight:700;cursor:pointer;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;
+  color:var(--navy);font-size:.91rem;gap:8px;}
+details.flash summary::-webkit-details-marker{display:none;}
+details.flash summary::after{content:'▼';font-size:.67rem;color:var(--doch);flex-shrink:0;}
+details.flash[open] summary::after{transform:rotate(180deg);display:inline-block;}
+.fa{padding:10px 15px 13px;color:var(--doch);font-weight:700;font-size:.9rem;
+  border-top:1px solid var(--dochl);}
+.fa .sub{font-size:.81rem;color:#64748b;font-weight:400;margin-top:4px;}
+.fa .ex{font-size:.83rem;margin-top:5px;color:var(--nm);}
+
+/* ── LÜCKEN / EXERCISES ──────────────────── */
+.gap-s{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:8px;
+  font-size:.92rem;background:var(--gray);padding:9px 13px;border-radius:8px;border:1px solid var(--gm);}
+.gap-s select{font-family:'Nunito',sans-serif;font-size:.87rem;font-weight:700;
+  padding:3px 7px;border:2px solid var(--doch);border-radius:7px;
+  background:white;color:var(--navy);cursor:pointer;max-width:155px;}
+.gap-s select.correct{border-color:var(--grn);background:var(--grl);color:var(--grn);}
+.gap-s select.wrong  {border-color:var(--red);background:var(--rl); color:var(--red);}
+.gap-s .ctx{font-size:.71rem;color:#94a3b8;margin-left:auto;font-style:italic;}
+
+/* MC */
+.mc-q{margin-bottom:12px;background:var(--gray);border-radius:10px;padding:12px;}
+.mc-q p{font-size:.92rem;font-weight:700;margin-bottom:8px;color:var(--nm);}
+.mc-opts{display:flex;flex-wrap:wrap;gap:7px;}
+.mc-btn{background:white;border:2px solid var(--gm);border-radius:8px;padding:6px 13px;
+  font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;
+  cursor:pointer;transition:all .15s;color:var(--navy);}
+.mc-btn:hover{border-color:var(--doch);}
+.mc-btn.correct{background:var(--grl);border-color:var(--grn);color:var(--grn);}
+.mc-btn.wrong  {background:var(--rl); border-color:var(--red);color:var(--red);}
+
+/* FEHLER */
+.fc{background:white;border-radius:var(--r);border:2px solid var(--red);overflow:hidden;margin-bottom:10px;}
+.fc .wl{background:var(--rl);padding:9px 14px;font-size:.91rem;color:#7f1d1d;font-weight:600;}
+.fc .wl::before{content:'✗ ';font-weight:800;}
+.fc .cl{background:var(--grl);padding:9px 14px;font-size:.91rem;color:var(--grn);font-weight:700;}
+.fc .cl::before{content:'✓ ';font-weight:800;}
+.fc .ex{padding:7px 14px;font-size:.8rem;color:#64748b;border-top:1px solid var(--gm);}
+
+/* ── SPRECHEN ─────────────────────────────── */
+.sc{background:white;border-radius:var(--r);border-left:5px solid var(--doch);
+  padding:14px 17px;margin-bottom:11px;box-shadow:var(--s);}
+.sc .sn{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:700;color:var(--doch);float:left;margin-right:11px;line-height:1;}
+.sc .st{font-size:.96rem;font-weight:800;color:var(--navy);margin-bottom:3px;}
+.sc .sp{font-size:.86rem;color:#64748b;margin-bottom:9px;}
+.sc ul{list-style:none;}
+.sc ul li{padding:4px 9px;background:var(--dochl);border-radius:6px;font-size:.84rem;font-weight:700;color:var(--nm);margin-bottom:4px;}
+.sc ul li::before{content:'💬 ';}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="fs"></div>
+  <div class="hi">
+    <div>
+      <div class="hlogo">deutsch<span>oder</span>was · Sprechclub</div>
+      <div class="htit">🎚️ Modalpartikel – die geheime Würze des Deutschen</div>
+      <div class="hsub">doch · halt · eben · mal · ja · denn · schon · wohl · aber · nur · einfach</div>
+      <div class="pill-row">
+        <span class="pill" style="background:var(--doch)">doch</span>
+        <span class="pill" style="background:var(--halt)">halt</span>
+        <span class="pill eben" style="background:var(--ebenl);border:1.5px solid var(--eben)">eben</span>
+        <span class="pill" style="background:var(--mal)">mal</span>
+        <span class="pill" style="background:var(--ja)">ja</span>
+        <span class="pill" style="background:var(--denn)">denn</span>
+        <span class="pill" style="background:var(--schon)">schon</span>
+        <span class="pill wohl" style="background:var(--wohll);border:1.5px solid var(--wohl);color:var(--navy)">wohl</span>
+        <span class="pill" style="background:var(--aber)">aber</span>
+        <span class="pill" style="background:var(--nur)">nur</span>
+      </div>
+    </div>
+    <div class="hbadge">B1 / B2</div>
+  </div>
+</header>
+
+<nav id="mn">
+  <button class="active" onclick="T('referenz',this)">📋 Referenz</button>
+  <button onclick="T('dialoge',this)">💬 10 Dialoge</button>
+  <button onclick="T('vergleich',this)">🔄 Mit vs. Ohne</button>
+  <button onclick="T('lernkarten',this)">🃏 Lernkarten</button>
+  <button onclick="T('uebungen',this)">✏️ Übungen</button>
+  <button onclick="T('quiz',this)">🎯 Quiz</button>
+  <button onclick="T('sprechen',this)">🎤 Sprechen</button>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════════
+     REFERENZ
+══════════════════════════════════════ -->
+<section id="referenz" class="ts active">
+  <div class="stit">📋 Alle Partikel – Schnellübersicht</div>
+
+  <div class="card">
+    <h2>🌶️ Warum Modalpartikel?</h2>
+    <p style="font-size:.93rem;margin-bottom:12px;">„Das ist schwer." klingt neutral. „Das ist <span class="ib halt">halt</span> schwer." klingt wie Akzeptanz. „Das ist <span class="ib doch">doch</span> schwer!" klingt wie ein Widerspruch. Ein einziges Wort verändert den <strong>ganzen Ton</strong>.</p>
+    <div class="note-gold"><strong>Goldene Regel:</strong> Modalpartikel stehen im <strong>Mittelfeld</strong> – nach dem konjugierten Verb, vor dem Rest. Sie sind <strong>unbetont</strong>. „Komm <em>doch mal</em> her!" – doch mal steht nach „Komm".</div>
+  </div>
+
+  <div class="pk-grid">
+    <div class="pk doch">
+      <div class="pk-word">doch</div>
+      <div class="pk-func">Widerspruch · Erinnerung · Bestätigung</div>
+      <div class="pk-ex">„Du wolltest <strong>doch</strong> kommen!" · „Das ist <strong>doch</strong> falsch!" · „Komm <strong>doch</strong> mal her!"</div>
+      <div class="pk-trick">💡 Sagt „eigentlich" oder „nicht wahr?" – erinnert an Bekanntes</div>
+    </div>
+    <div class="pk halt">
+      <div class="pk-word">halt</div>
+      <div class="pk-func">Resignation · Akzeptanz · So ist es nun mal</div>
+      <div class="pk-ex">„Das Leben ist <strong>halt</strong> nicht fair." · „Dann warte ich <strong>halt</strong>."</div>
+      <div class="pk-trick">💡 Süddeutsch = halt · Norddeutsch = eben. Heute beide überall!</div>
+    </div>
+    <div class="pk eben">
+      <div class="pk-word">eben</div>
+      <div class="pk-func">Resignation · Bestätigung · Genau das</div>
+      <div class="pk-ex">„Das ist <strong>eben</strong> das Problem." · „Dann musst du <strong>eben</strong> warten."</div>
+      <div class="pk-trick">💡 Eben = halt. Klingt minimal intellektueller / bestätigender.</div>
+    </div>
+    <div class="pk mal">
+      <div class="pk-word">mal</div>
+      <div class="pk-func">Bitten weich machen · locker · kurz</div>
+      <div class="pk-ex">„Komm <strong>mal</strong> her!" · „Schau <strong>mal</strong>!" · „Probier das <strong>mal</strong>."</div>
+      <div class="pk-trick">💡 Mal = kurz, einmal, locker. Macht jeden Befehl freundlicher!</div>
+    </div>
+    <div class="pk ja">
+      <div class="pk-word">ja</div>
+      <div class="pk-func">Gemeinsames Wissen · Überraschung</div>
+      <div class="pk-ex">„Das weißt du <strong>ja</strong>." · „Du bist <strong>ja</strong> schon hier!"</div>
+      <div class="pk-trick">💡 „Wir wissen das beide" – oder freudige Überraschung.</div>
+    </div>
+    <div class="pk denn">
+      <div class="pk-word">denn</div>
+      <div class="pk-func">Nur in Fragen! Echtes Interesse</div>
+      <div class="pk-ex">„Wo wohnst du <strong>denn</strong>?" · „Was ist <strong>denn</strong> los?"</div>
+      <div class="pk-trick">💡 NUR in Fragen – macht sie warm & interessiert.</div>
+    </div>
+    <div class="pk schon">
+      <div class="pk-word">schon</div>
+      <div class="pk-func">Beruhigung · Trost · Zuversicht</div>
+      <div class="pk-ex">„Das wird <strong>schon</strong>!" · „Du schaffst das <strong>schon</strong>."</div>
+      <div class="pk-trick">💡 Verbales Schulterklopfen – „Alles wird gut!"</div>
+    </div>
+    <div class="pk wohl">
+      <div class="pk-word">wohl</div>
+      <div class="pk-func">Vermutung · Unsicherheit · Wahrscheinlich</div>
+      <div class="pk-ex">„Er kommt <strong>wohl</strong> nicht." · „Sie hat <strong>wohl</strong> vergessen."</div>
+      <div class="pk-trick">💡 Ich bin nicht sicher, aber ich glaube / probably.</div>
+    </div>
+    <div class="pk aber">
+      <div class="pk-word">aber</div>
+      <div class="pk-func">Überraschung · Verstärkung (als Partikel!)</div>
+      <div class="pk-ex">„Das ist <strong>aber</strong> schön!" · „Du bist <strong>aber</strong> gewachsen!"</div>
+      <div class="pk-trick">💡 NICHT aber als Gegensatz! Hier = Ausruf, Überraschung.</div>
+    </div>
+    <div class="pk nur">
+      <div class="pk-word">nur</div>
+      <div class="pk-func">Sorge · Ratlosigkeit (in Fragen)</div>
+      <div class="pk-ex">„Was hat er <strong>nur</strong>?" · „Wo ist sie <strong>nur</strong>?"</div>
+      <div class="pk-trick">💡 Nur in Fragen = Sorge & Ratlosigkeit ausdrücken.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🔗 Reihenfolge bei mehreren Partikeln</h2>
+    <div class="note"><strong>Erst Bestätigung</strong> (<span class="ib ja">ja</span><span class="ib doch">doch</span>) → <strong>dann Akzeptanz</strong> (<span class="ib halt">halt</span><span class="ib wohl">wohl</span>) → <strong>dann weich machen</strong> (<span class="ib mal">mal</span><span class="ib schon">schon</span>)<br>
+    „Komm <span class="ib doch">doch</span> <span class="ib mal">mal</span> her!" · „Das ist <span class="ib ja">ja</span> <span class="ib doch">doch</span> interessant." · „Das wird <span class="ib wohl">wohl</span> <span class="ib schon">schon</span> klappen."</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     10 DIALOGE
+══════════════════════════════════════ -->
+<section id="dialoge" class="ts">
+  <div class="stit">💬 10 Alltagsdialoge – Partikeln erleben</div>
+  <p style="font-size:.87rem;color:#64748b;margin-bottom:16px;">Laut lesen, Rollen wechseln! Partikeln sind <strong>fett</strong> markiert, Annotationen kursiv.</p>
+
+  <!-- 1 -->
+  <div class="d-scene">
+    <div class="d-head" style="background:#b54040">🏠 1 · Zu Hause – Zimmer aufräumen</div>
+    <div class="d-body">
+      <div class="dlr L"><div class="who">Mutter</div><div class="bub">Räum <strong>doch endlich mal</strong> dein Zimmer auf! <span class="ann">doch + mal = genervt, aber noch freundlich</span></div></div>
+      <div class="dlr R"><div class="who">Sohn</div><div class="bub">Mama, das ist <strong>halt</strong> jetzt nicht der richtige Moment… <span class="ann">halt = Resignation / Erklärung</span></div></div>
+      <div class="dlr L"><div class="who">Mutter</div><div class="bub">Das sagst du <strong>doch</strong> immer! Wann <strong>denn</strong>? <span class="ann">doch = Erinnerung an Muster · denn = Frage mit Ungeduld</span></div></div>
+      <div class="dlr R"><div class="who">Sohn</div><div class="bub"><strong>Eben</strong>, das ist <strong>ja</strong> auch nicht so wichtig. Ich mach das <strong>schon</strong>. <span class="ann">eben = resigniert · ja = gemeinsam bekannt · schon = Beruhigung</span></div></div>
+      <div class="dlr L"><div class="who">Mutter</div><div class="bub">Nun <strong>mal</strong> ehrlich – seit drei Wochen sagst du das! Jetzt aber wirklich! <span class="ann">mal = einlenken · aber = verstärkender Ausruf</span></div></div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="d-scene">
+    <div class="d-head" style="background:#1d4ed8">💼 2 · Im Büro – überraschende Neuigkeit</div>
+    <div class="d-body">
+      <div class="dlr L"><div class="who">Lisa</div><div class="bub">Du, ich war gestern beim Vorstellungsgespräch.</div></div>
+      <div class="dlr R"><div class="who">Marc</div><div class="bub">Was?! Wo <strong>denn</strong>? <span class="ann">denn = echtes Interesse in Fragen</span></div></div>
+      <div class="dlr L"><div class="who">Lisa</div><div class="bub">Bei der Agentur in der Stadt. Lief <strong>wohl</strong> ganz gut. <span class="ann">wohl = vorsichtige Vermutung</span></div></div>
+      <div class="dlr R"><div class="who">Marc</div><div class="bub">Echt? Du wolltest <strong>doch</strong> nie wechseln! <span class="ann">doch = Erinnerung an frühere Aussage</span></div></div>
+      <div class="dlr L"><div class="who">Lisa</div><div class="bub">Ja, aber das Angebot war <strong>einfach</strong> zu gut. Mal sehen. <span class="ann">einfach = ohne Drama</span></div></div>
+      <div class="dlr R"><div class="who">Marc</div><div class="bub">Erzähl <strong>mal</strong> – was haben sie <strong>denn</strong> gefragt? <span class="ann">mal = neugierige Aufforderung · denn = Interesse</span></div></div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="d-scene">
+    <div class="d-head" style="background:#166534">☕ 3 · Im Café – Bitten höflich machen</div>
+    <div class="d-body">
+      <div class="dlr L"><div class="who">Anna (direkt)</div><div class="bub">Gib mir den Stift. <span class="ann">→ klingt wie Befehl, fast unhöflich</span></div></div>
+      <div class="dlr R"><div class="who">Anna (höflicher)</div><div class="bub">Gibst du mir <strong>mal</strong> kurz den Stift? <span class="ann">mal = lockerer, alltäglich</span></div></div>
+      <div class="dlr L"><div class="who">Anna (sehr höflich)</div><div class="bub">Kannst du mir <strong>vielleicht mal</strong> kurz den Stift geben? <span class="ann">sehr höflich, zögernd</span></div></div>
+      <div class="dlr R"><div class="who">Anna (familiär)</div><div class="bub">Gib mir <strong>doch mal</strong> den Stift, ja? <span class="ann">doch + mal = ungeduldig-freundlich</span></div></div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="d-scene">
+    <div class="d-head" style="background:#6d28d9">📞 4 · Überraschender Anruf nach langer Zeit</div>
+    <div class="d-body">
+      <div class="dlr L"><div class="who">Person A</div><div class="bub">Hallo, ich bin's! Wie geht's dir <strong>denn</strong>? <span class="ann">denn = warme, freundliche Frage</span></div></div>
+      <div class="dlr R"><div class="who">Person B</div><div class="bub">Du bist <strong>ja</strong> wieder da! Das ist <strong>aber</strong> schön! <span class="ann">ja = freudige Überraschung · aber = Ausruf-Partikel</span></div></div>
+      <div class="dlr L"><div class="who">Person A</div><div class="bub">Erzähl <strong>mal</strong> – was machst du <strong>denn</strong> so? <span class="ann">mal = Einladung · denn = echtes Interesse</span></div></div>
+      <div class="dlr R"><div class="who">Person B</div><div class="bub">Viel! Ich hab <strong>doch</strong> diesen neuen Job angefangen – du weißt <strong>ja</strong>. <span class="ann">doch = Erinnerung · ja = wir beide wissen das</span></div></div>
+      <div class="dlr L"><div class="who">Person A</div><div class="bub">Stimmt <strong>ja</strong>! Wie läuft's <strong>denn</strong>? <span class="ann">ja = gemeinsames Wissen · denn = echtes Interesse</span></div></div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="d-scene">
+    <div class="d-head" style="background:#c2410c">🍽️ 5 · Im Restaurant – bestellen & entschuldigen</div>
+    <div class="d-body">
+      <div class="dlr L"><div class="who">Gast</div><div class="bub">Können Sie mir <strong>denn mal</strong> die Karte bringen? <span class="ann">denn + mal = höflich, warm</span></div></div>
+      <div class="dlr R"><div class="who">Kellner</div><div class="bub">Klar, mache ich gleich. Heute haben wir <strong>halt</strong> nicht mehr alles… <span class="ann">halt = resignierende Entschuldigung</span></div></div>
+      <div class="dlr L"><div class="who">Gast</div><div class="bub">Was ist <strong>denn</strong> heute frisch? <span class="ann">denn = echtes Interesse in Frage</span></div></div>
+      <div class="dlr R"><div class="who">Kellner</div><div class="bub">Der Fisch ist <strong>wohl</strong> das Beste heute. <span class="ann">wohl = vorsichtige Empfehlung</span></div></div>
+      <div class="dlr L"><div class="who">Gast</div><div class="bub">Das ist <strong>ja</strong> toll! Dann nehme ich das <strong>einfach</strong>. <span class="ann">ja = angenehme Überraschung · einfach = ohne Drama</span></div></div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="d-scene">
+    <div class="d-head" style="background:#0d9488">🚶 6 · Auf der Straße – jemanden beruhigen</div>
+    <div class="d-body">
+      <div class="dlr L"><div class="who">Freundin A</div><div class="bub">Ich mache mir so Sorgen um die Prüfung morgen…</div></div>
+      <div class="dlr R"><div class="who">Freundin B</div><div class="bub">Das wird <strong>schon</strong>! Du bist <strong>ja</strong> gut vorbereitet. <span class="ann">schon = Trost · ja = gemeinsames Wissen</span></div></div>
+      <div class="dlr L"><div class="who">Freundin A</div><div class="bub">Ja, aber was, wenn ich alles vergesse?</div></div>
+      <div class="dlr R"><div class="who">Freundin B</div><div class="bub">Das wird <strong>halt</strong> nicht passieren. Du kannst das <strong>doch</strong>! <span class="ann">halt = Akzeptanz/Zuversicht · doch = Ermutigung</span></div></div>
+      <div class="dlr L"><div class="who">Freundin A</div><div class="bub">Danke… ich versuche es <strong>einfach</strong>. <span class="ann">einfach = ohne Drama, entspannt</span></div></div>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="d-scene">
+    <div class="d-head" style="background:#6b21a8">👪 7 · Familienabend – wo sind die Schlüssel?</div>
+    <div class="d-body">
+      <div class="dlr L"><div class="who">Papa</div><div class="bub">Wo sind <strong>denn</strong> meine Schlüssel? <span class="ann">denn = fragende Ratlosigkeit</span></div></div>
+      <div class="dlr R"><div class="who">Tochter</div><div class="bub">Keine Ahnung. Du hast sie <strong>wohl</strong> irgendwo liegen lassen. <span class="ann">wohl = vorsichtige Vermutung</span></div></div>
+      <div class="dlr L"><div class="who">Papa</div><div class="bub">Wo sind sie <strong>nur</strong>?! Ich habe sie <strong>doch</strong> gerade noch gehabt! <span class="ann">nur = Sorge · doch = Erinnerung</span></div></div>
+      <div class="dlr R"><div class="who">Mutter</div><div class="bub">Schau <strong>mal</strong> in der Küche – da liegen sie <strong>doch</strong> immer. <span class="ann">mal = freundliche Aufforderung · doch = bekannte Routine</span></div></div>
+      <div class="dlr L"><div class="who">Papa</div><div class="bub">Du hast <strong>ja</strong> recht! Danke. <span class="ann">ja = angenehme Überraschung / Bestätigung</span></div></div>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="d-scene">
+    <div class="d-head" style="background:#155e75">🏡 8 · WG-Streit – wer putzt?</div>
+    <div class="d-body">
+      <div class="dlr L"><div class="who">Tim</div><div class="bub">Die Küche ist <strong>ja</strong> schon wieder dreckig! <span class="ann">ja = Überraschung (negativ)</span></div></div>
+      <div class="dlr R"><div class="who">Sara</div><div class="bub">Das ist <strong>halt</strong> so, wenn drei Leute zusammenwohnen. <span class="ann">halt = Resignation</span></div></div>
+      <div class="dlr L"><div class="who">Tim</div><div class="bub">Du wolltest <strong>doch</strong> diese Woche putzen! <span class="ann">doch = Erinnerung an Vereinbarung</span></div></div>
+      <div class="dlr R"><div class="who">Sara</div><div class="bub"><strong>Eben</strong>, aber ich hatte <strong>halt</strong> keine Zeit. Ich mach's <strong>schon</strong> morgen. <span class="ann">eben = Bestätigung · halt = Erklärung · schon = Beruhigung</span></div></div>
+      <div class="dlr L"><div class="who">Tim</div><div class="bub">Können wir <strong>doch mal</strong> einen Putzplan machen? <span class="ann">doch + mal = konstruktiver, freundlicher Vorschlag</span></div></div>
+      <div class="dlr R"><div class="who">Sara</div><div class="bub">Das ist <strong>ja</strong> eine gute Idee! <span class="ann">ja = positive Überraschung</span></div></div>
+    </div>
+  </div>
+
+  <!-- 9 -->
+  <div class="d-scene">
+    <div class="d-head" style="background:#9f1239">🏥 9 · Beim Arzt – Diagnose & Trost</div>
+    <div class="d-body">
+      <div class="dlr L"><div class="who">Arzt</div><div class="bub">Was fehlt Ihnen <strong>denn</strong>? <span class="ann">denn = professionell-freundliche Frage</span></div></div>
+      <div class="dlr R"><div class="who">Patient</div><div class="bub">Ich fühle mich <strong>einfach</strong> sehr müde. Schon seit Wochen. <span class="ann">einfach = Erklärung ohne Rechtfertigung</span></div></div>
+      <div class="dlr L"><div class="who">Arzt</div><div class="bub">Das ist <strong>wohl</strong> Stress. Sie arbeiten <strong>ja</strong> viel, das weiß ich. <span class="ann">wohl = vorsichtige Diagnose · ja = gemeinsames Wissen</span></div></div>
+      <div class="dlr R"><div class="who">Patient</div><div class="bub">Das stimmt. Aber ich kann <strong>doch</strong> nicht einfach aufhören! <span class="ann">doch = Widerspruch / Gegenargument</span></div></div>
+      <div class="dlr L"><div class="who">Arzt</div><div class="bub">Das wird <strong>schon</strong> besser, wenn Sie <strong>mal</strong> eine Woche Urlaub machen. <span class="ann">schon = Beruhigung · mal = entspannter Ratschlag</span></div></div>
+    </div>
+  </div>
+
+  <!-- 10 -->
+  <div class="d-scene">
+    <div class="d-head" style="background:#1a5c3a">🛒 10 · Im Supermarkt – ein kleines Missverständnis</div>
+    <div class="d-body">
+      <div class="dlr L"><div class="who">Kundin</div><div class="bub">Entschuldigung, wo finde ich <strong>denn</strong> die Milch? <span class="ann">denn = höfliche, freundliche Frage</span></div></div>
+      <div class="dlr R"><div class="who">Verkäufer</div><div class="bub">Die ist <strong>doch</strong> hinten links! Das steht <strong>ja</strong> auch auf dem Schild. <span class="ann">doch = Überraschung, eigentlich klar · ja = gemeinsames Wissen</span></div></div>
+      <div class="dlr L"><div class="who">Kundin</div><div class="bub">Oh, das ist <strong>aber</strong> versteckt! Ich habe <strong>wohl</strong> nicht richtig geschaut. <span class="ann">aber = Überraschung als Ausruf · wohl = vorsichtige Selbstkritik</span></div></div>
+      <div class="dlr R"><div class="who">Verkäufer</div><div class="bub">Das passiert <strong>halt</strong>. Kommen Sie <strong>mal</strong> mit, ich zeige es Ihnen. <span class="ann">halt = Akzeptanz · mal = freundliche Aufforderung</span></div></div>
+      <div class="dlr L"><div class="who">Kundin</div><div class="bub">Das ist <strong>ja</strong> nett, danke <strong>schon</strong> mal! <span class="ann">ja = freudige Überraschung · schon mal = im Voraus danken</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     MIT VS OHNE
+══════════════════════════════════════ -->
+<section id="vergleich" class="ts">
+  <div class="stit">🔄 Mit vs. Ohne – was ändert die Partikel?</div>
+  <div class="card">
+    <p style="font-size:.88rem;color:#64748b;margin-bottom:14px;">Derselbe Satz – einmal ohne, einmal mit. Spür den Unterschied!</p>
+    <div class="cp"><div class="cp-side ohne"><div class="cp-label">Ohne</div><div class="cp-sent">Komm her.</div><div class="cp-note">klingt wie ein Befehl, knapp, fast unhöflich</div></div><div class="cp-side mit"><div class="cp-label">Mit <span class="ib doch">doch</span><span class="ib mal">mal</span></div><div class="cp-sent">Komm doch mal her.</div><div class="cp-note">freundlich, einladend, locker</div></div></div>
+    <div class="cp"><div class="cp-side ohne"><div class="cp-label">Ohne</div><div class="cp-sent">Wo wohnst du?</div><div class="cp-note">sachliche Frage, fast wie ein Verhör</div></div><div class="cp-side mit"><div class="cp-label">Mit <span class="ib denn">denn</span></div><div class="cp-sent">Wo wohnst du denn?</div><div class="cp-note">echtes Interesse, warmer Ton</div></div></div>
+    <div class="cp"><div class="cp-side ohne"><div class="cp-label">Ohne</div><div class="cp-sent">Das wird funktionieren.</div><div class="cp-note">sachliche Vorhersage</div></div><div class="cp-side mit"><div class="cp-label">Mit <span class="ib schon">schon</span></div><div class="cp-sent">Das wird schon funktionieren.</div><div class="cp-note">beruhigend, Mut zusprechend</div></div></div>
+    <div class="cp"><div class="cp-side ohne"><div class="cp-label">Ohne</div><div class="cp-sent">Das Leben ist nicht fair.</div><div class="cp-note">feststellend, neutral</div></div><div class="cp-side mit"><div class="cp-label">Mit <span class="ib halt">halt</span></div><div class="cp-sent">Das Leben ist halt nicht fair.</div><div class="cp-note">resignierend-akzeptierend, so ist es nun mal</div></div></div>
+    <div class="cp"><div class="cp-side ohne"><div class="cp-label">Ohne</div><div class="cp-sent">Du bist gekommen!</div><div class="cp-note">neutral feststellend</div></div><div class="cp-side mit"><div class="cp-label">Mit <span class="ib ja">ja</span></div><div class="cp-sent">Du bist ja gekommen!</div><div class="cp-note">überrascht-erfreut, „hätte ich nicht gedacht!"</div></div></div>
+    <div class="cp"><div class="cp-side ohne"><div class="cp-label">Ohne</div><div class="cp-sent">Er kommt nicht.</div><div class="cp-note">klare Aussage, sicher</div></div><div class="cp-side mit"><div class="cp-label">Mit <span class="ib wohl">wohl</span></div><div class="cp-sent">Er kommt wohl nicht.</div><div class="cp-note">Vermutung, vorsichtig, distanziert</div></div></div>
+    <div class="cp"><div class="cp-side ohne"><div class="cp-label">Ohne</div><div class="cp-sent">Das ist schön.</div><div class="cp-note">sachliches Lob</div></div><div class="cp-side mit"><div class="cp-label">Mit <span class="ib aber">aber</span></div><div class="cp-sent">Das ist aber schön!</div><div class="cp-note">positiver Ausruf, überrascht-begeistert</div></div></div>
+    <div class="cp"><div class="cp-side ohne"><div class="cp-label">Ohne</div><div class="cp-sent">Schau das an.</div><div class="cp-note">sachliche Aufforderung</div></div><div class="cp-side mit"><div class="cp-label">Mit <span class="ib mal">mal</span></div><div class="cp-sent">Schau mal!</div><div class="cp-note">Aufmerksamkeit holen, locker, natürlich</div></div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     LERNKARTEN
+══════════════════════════════════════ -->
+<section id="lernkarten" class="ts">
+  <div class="stit">🃏 Lernkarten – rate die Funktion!</div>
+  <p style="font-size:.87rem;color:#64748b;margin-bottom:14px;">Kannst du die Funktion nennen, bevor du aufklappst?</p>
+
+  <details class="flash"><summary><span class="ib doch">doch</span> – Funktion & Trick</summary><div class="fa">Widerspruch · Erinnerung · Bestätigung<div class="sub">Trick: „doch" sagt „eigentlich" oder „nicht wahr?" – erinnert an etwas, das beide wissen. Auch in Aufforderungen macht es diese freundlicher.</div><div class="ex">„Du wolltest doch kommen!" · „Das ist doch nicht so schwer." · „Komm doch mal her!"</div></div></details>
+  <details class="flash"><summary><span class="ib halt">halt</span> / <span class="ib eben">eben</span> – Unterschied & Verwendung</summary><div class="fa">Resignation · Akzeptanz · So ist es nun mal<div class="sub">halt = eher süddeutsch · eben = eher norddeutsch · heute beide überall! Kein echter Bedeutungsunterschied.</div><div class="ex">„Das ist halt/eben so." · „Dann musst du eben warten." · „So ist das halt im Beruf."</div></div></details>
+  <details class="flash"><summary><span class="ib mal">mal</span> – warum macht es Bitten höflicher?</summary><div class="fa">Mal = kurz, einmal, locker – macht jeden Befehl zum freundlichen Vorschlag!<div class="sub">Ohne mal: „Komm her!" → Befehl. Mit mal: „Komm mal her!" → Einladung.</div><div class="ex">„Schau mal!" · „Probier das mal." · „Warte mal kurz." · „Erzähl mal!"</div></div></details>
+  <details class="flash"><summary><span class="ib ja">ja</span> – zwei verschiedene Verwendungen</summary><div class="fa">1. Gemeinsames Wissen: „Das weißt du ja." (wir beide wissen das)<br>2. Freudige Überraschung: „Du bist ja schon da!" (unerwartet!)<div class="sub">Trick: ja = „wie wir beide wissen" – oder drückt angenehme Überraschung aus.</div></div></details>
+  <details class="flash"><summary><span class="ib denn">denn</span> – die wichtigste Einschränkung!</summary><div class="fa">NUR in Fragen! Macht Fragen wärmer, interessierter, freundlicher.<div class="sub">Ohne denn: „Wo wohnst du?" (Verhör) · Mit denn: „Wo wohnst du denn?" (echtes Interesse)<br>Nicht in Aussagesätzen verwenden!</div><div class="ex">„Was ist denn los?" · „Wie geht's dir denn?" · „Wo warst du denn?"</div></div></details>
+  <details class="flash"><summary><span class="ib schon">schon</span> – wie tröste ich damit?</summary><div class="fa">Beruhigung · Trost · Zuversicht – wie verbales Schulterklopfen<div class="sub">Trick: „schon" sagt: Alles wird gut, ich vertraue dir, das klappt!</div><div class="ex">„Das wird schon!" · „Du schaffst das schon." · „Das klappt schon irgendwie."</div></div></details>
+  <details class="flash"><summary><span class="ib wohl">wohl</span> – Vermutung ausdrücken</summary><div class="fa">Unsicherheit · Vermutung · Wahrscheinlich – ich bin nicht 100% sicher<div class="sub">Trick: wohl = probably / I suppose / I think</div><div class="ex">„Er kommt wohl nicht." · „Sie hat wohl vergessen." · „Das ist wohl das Beste."</div></div></details>
+  <details class="flash"><summary><span class="ib aber">aber</span> als Partikel – Achtung!</summary><div class="fa">Überraschung · Verstärkung – NICHT als Gegensatz!<div class="sub">Als Partikel = Ausruf. Nicht verwechseln mit „aber" als Konjunktion zwischen zwei Sätzen!</div><div class="ex">„Das ist aber schön!" · „Du bist aber gewachsen!" · „Das war aber knapp!"</div></div></details>
+  <details class="flash"><summary><span class="ib nur">nur</span> – wann & wie?</summary><div class="fa">In Fragen: Sorge, Ratlosigkeit, Ungeduld ausdrücken<div class="sub">Nur in Fragen! Zeigt: ich verstehe das nicht / ich mache mir Sorgen.</div><div class="ex">„Was hat er nur?" · „Wo ist sie nur?" · „Warum macht er das nur?"</div></div></details>
+</section>
+
+<!-- ══════════════════════════════════════
+     ÜBUNGEN
+══════════════════════════════════════ -->
+<section id="uebungen" class="ts">
+  <div class="stit">✏️ Übungen – welche Partikel passt?</div>
+
+  <div class="card">
+    <h3>Block 1 – Lückentext</h3>
+    <div class="gap-s">„Komm <select id="u1" onchange="S('u1','mal')"><option value="">___</option><option>mal</option><option>wohl</option><option>aber</option><option>nur</option></select> her, ich zeige dir etwas!"<span class="ctx">Bitte weich machen</span></div>
+    <div class="gap-s">„Wo wohnst du <select id="u2" onchange="S('u2','denn')"><option value="">___</option><option>halt</option><option>denn</option><option>ja</option><option>mal</option></select>?" – echtes Interesse<span class="ctx">nur in Fragen!</span></div>
+    <div class="gap-s">„Das wird <select id="u3" onchange="S('u3','schon')"><option value="">___</option><option>wohl</option><option>halt</option><option>schon</option><option>aber</option></select>, mach dir keine Sorgen!"<span class="ctx">Beruhigung / Trost</span></div>
+    <div class="gap-s">„Das ist <select id="u4" onchange="S('u4','halt')"><option value="">___</option><option>schon</option><option>halt</option><option>doch</option><option>mal</option></select> so – nichts zu machen."<span class="ctx">Resignation / Akzeptanz</span></div>
+    <div class="gap-s">„Du wolltest <select id="u5" onchange="S('u5','doch')"><option value="">___</option><option>wohl</option><option>aber</option><option>doch</option><option>eben</option></select> heute kommen!" – Erinnerung<span class="ctx">erinnert an Vereinbarung</span></div>
+    <div class="gap-s">„Er hat <select id="u6" onchange="S('u6','wohl')"><option value="">___</option><option>ja</option><option>mal</option><option>wohl</option><option>doch</option></select> verschlafen." – Vermutung<span class="ctx">nicht sicher</span></div>
+    <div class="gap-s">„Du bist <select id="u7" onchange="S('u7','ja')"><option value="">___</option><option>doch</option><option>ja</option><option>schon</option><option>mal</option></select> schon hier!" – freudige Überraschung<span class="ctx">unerwartet!</span></div>
+    <div class="gap-s">„Was hat er <select id="u8" onchange="S('u8','nur')"><option value="">___</option><option>denn</option><option>wohl</option><option>nur</option><option>halt</option></select>?" – Sorge / Ratlosigkeit<span class="ctx">in Fragen = Sorge</span></div>
+    <div class="gap-s">„Das ist <select id="u9" onchange="S('u9','aber')"><option value="">___</option><option>doch</option><option>halt</option><option>aber</option><option>ja</option></select> schön!" – Überraschungs-Ausruf<span class="ctx">aber als Partikel</span></div>
+    <div class="gap-s">„Das ist <select id="u10" onchange="S('u10','eben')"><option value="">___</option><option>mal</option><option>schon</option><option>eben</option><option>denn</option></select> das Problem." – Bestätigung<span class="ctx">= genau das · halt (norddeutsch)</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Block 2 – Fehler korrigieren</h3>
+    <div class="fc"><div class="wl">„denn" kann in Aussagesätzen UND in Fragen vorkommen.</div><div class="cl">„denn" als Modalpartikel gibt es NUR in Fragen.</div><div class="ex">„Was machst du denn?" ✓ · „Ich komme denn morgen." ✗ – Das wäre „denn" als Konjunktion (= weil), eine ganz andere Funktion!</div></div>
+    <div class="fc"><div class="wl">Modalpartikel werden im Satz betont gesprochen.</div><div class="cl">Modalpartikel sind UNBETONT – das ist ihr Merkmal!</div><div class="ex">Wenn man sie betont, ändert sich ihre Bedeutung oder der Satz klingt seltsam. „Das ist DOCH falsch!" ist Betonung als Widerspruch – kein Modalpartikel mehr.</div></div>
+    <div class="fc"><div class="wl">„Das ist aber schön!" – „aber" bedeutet hier dasselbe wie in „Ich will, aber ich kann nicht."</div><div class="cl">Als Partikel = Überraschung/Ausruf. Als Konjunktion = Gegensatz. Komplett verschieden!</div><div class="ex">„aber" als Partikel: klingt wie ein Ausruf, steht mitten im Satz. „aber" als Konjunktion: verbindet zwei Sätze / Ideen.</div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     QUIZ
+══════════════════════════════════════ -->
+<section id="quiz" class="ts">
+  <div class="stit">🎯 Quiz – alles gemischt</div>
+  <div class="card">
+    <h2>Welche Partikel passt?</h2>
+    <div class="mc-q"><p>„Komm ___ her, ich zeige dir etwas!" – am freundlichsten:</p><div class="mc-opts"><button class="mc-btn" onclick="mc(this,'correct')">doch mal ✓</button><button class="mc-btn" onclick="mc(this,'wrong')">aber</button><button class="mc-btn" onclick="mc(this,'wrong')">wohl</button></div></div>
+    <div class="mc-q"><p>„Wo warst du ___?" – freundliche Nachfrage:</p><div class="mc-opts"><button class="mc-btn" onclick="mc(this,'wrong')">halt</button><button class="mc-btn" onclick="mc(this,'correct')">denn ✓</button><button class="mc-btn" onclick="mc(this,'wrong')">ja</button></div></div>
+    <div class="mc-q"><p>„Das ist ___ schwierig, das müssen wir akzeptieren." – Akzeptanz:</p><div class="mc-opts"><button class="mc-btn" onclick="mc(this,'wrong')">doch</button><button class="mc-btn" onclick="mc(this,'wrong')">mal</button><button class="mc-btn" onclick="mc(this,'correct')">halt ✓</button></div></div>
+    <div class="mc-q"><p>„Du wolltest mir ___ helfen!" – Erinnerung an Versprechen:</p><div class="mc-opts"><button class="mc-btn" onclick="mc(this,'correct')">doch ✓</button><button class="mc-btn" onclick="mc(this,'wrong')">wohl</button><button class="mc-btn" onclick="mc(this,'wrong')">aber</button></div></div>
+    <div class="mc-q"><p>„Das war ___ knapp!" – Überraschungs-Ausruf:</p><div class="mc-opts"><button class="mc-btn" onclick="mc(this,'wrong')">denn</button><button class="mc-btn" onclick="mc(this,'correct')">aber ✓</button><button class="mc-btn" onclick="mc(this,'wrong')">mal</button></div></div>
+    <div class="mc-q"><p>„Wo sind meine Schlüssel ___?" – Ratlosigkeit & Sorge:</p><div class="mc-opts"><button class="mc-btn" onclick="mc(this,'correct')">nur ✓</button><button class="mc-btn" onclick="mc(this,'wrong')">schon</button><button class="mc-btn" onclick="mc(this,'wrong')">doch</button></div></div>
+    <div class="mc-q"><p>„Das wird ___, mach dir keine Sorgen!" – beruhigen:</p><div class="mc-opts"><button class="mc-btn" onclick="mc(this,'wrong')">wohl</button><button class="mc-btn" onclick="mc(this,'wrong')">halt</button><button class="mc-btn" onclick="mc(this,'correct')">schon ✓</button></div></div>
+    <div class="mc-q"><p>„Er hat ___ verschlafen." – Vermutung ohne Sicherheit:</p><div class="mc-opts"><button class="mc-btn" onclick="mc(this,'correct')">wohl ✓</button><button class="mc-btn" onclick="mc(this,'wrong')">mal</button><button class="mc-btn" onclick="mc(this,'wrong')">ja</button></div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SPRECHEN
+══════════════════════════════════════ -->
+<section id="sprechen" class="ts">
+  <div class="stit">🎤 Sprechen – Partikel aktiv benutzen</div>
+
+  <div class="sc"><div class="sn">1</div><div class="st">Was hast du heute gemacht? – mit 3 Partikeln!</div><div class="sp">Erzähle deinen Tag – nutze mindestens 3 verschiedene Partikel.</div><ul><li>„Ich war heute <strong>mal</strong> im Park. Das war <strong>ja</strong> toll!"</li><li>„Aber so richtig schön war's <strong>halt</strong> nicht…"</li><li>„Ich habe <strong>wohl</strong> zu lange gewartet."</li></ul></div>
+
+  <div class="sc" style="border-left-color:var(--ja);"><div class="sn" style="color:var(--ja)">2</div><div class="st">Beschreibe eine Überraschung – mit ja & aber!</div><div class="sp">Eine Situation, in der du wirklich überrascht warst.</div><ul><li>„Ich öffne die Tür und da steht <strong>ja</strong> mein alter Freund!"</li><li>„Das war <strong>aber</strong> eine Überraschung!"</li><li>„Du bist <strong>ja</strong> wirklich gekommen!"</li></ul></div>
+
+  <div class="sc" style="border-left-color:var(--mal);"><div class="sn" style="color:var(--mal)">3</div><div class="st">Bitte um 3 Dinge – höflich mit doch mal!</div><div class="sp">Bitte jemanden um drei Dinge – mit Partikeln.</div><ul><li>„Gibst du mir <strong>doch mal</strong> das Salz?"</li><li>„Kannst du <strong>mal</strong> die Tür zumachen?"</li><li>„Reichst du mir <strong>bitte mal</strong> die Zeitung?"</li></ul></div>
+
+  <div class="sc" style="border-left-color:var(--schon);"><div class="sn" style="color:var(--schon)">4</div><div class="st">Beruhige jemanden – schon + halt!</div><div class="sp">Dein Freund hat einen schlechten Tag. Tröste mit Partikeln!</div><ul><li>„Das wird <strong>schon</strong> wieder!"</li><li>„Heute ist <strong>halt</strong> nicht dein Tag."</li><li>„Morgen sieht's <strong>schon</strong> wieder anders aus."</li></ul></div>
+
+  <div class="sc" style="border-left-color:var(--denn);"><div class="sn" style="color:var(--denn)">5</div><div class="st">Frag nach dem Wochenende – nur mit denn!</div><div class="sp">Frag interessiert nach dem Wochenende. Nutze „denn" so oft wie möglich!</div><ul><li>„Wie war's <strong>denn</strong> am Wochenende?"</li><li>„Wo warst du <strong>denn</strong>?"</li><li>„Was hast du <strong>denn</strong> gemacht?"</li></ul></div>
+</section>
+
+</main>
+
+<script>
+function T(id,btn){
+  document.querySelectorAll('.ts').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  var n=document.getElementById('mn');
+  n.scrollTo({left:btn.offsetLeft-(n.offsetWidth/2)+(btn.offsetWidth/2),behavior:'smooth'});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function S(id,correct){
+  var s=document.getElementById(id);
+  if(!s)return;
+  s.classList.remove('correct','wrong');
+  if(!s.value)return;
+  s.classList.add(s.value===correct?'correct':'wrong');
+}
+function mc(btn,result){
+  btn.closest('.mc-opts').querySelectorAll('.mc-btn').forEach(b=>b.classList.remove('correct','wrong'));
+  btn.classList.add(result);
+}
+</script>
+</body>
+</html>
