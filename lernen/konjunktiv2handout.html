@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konjunktiv II – Vollständiges Handout · deutschoderwas</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0f1e35; --navy-mid:#1a3050; --navy-light:#243d63;
+  --teal:#0d9488; --teal-light:#ccfbf1; --teal-mid:#5eead4;
+  --gold:#e2a832; --gold-light:#fdf3dc;
+  --purple:#7c3aed; --purple-light:#ede9fe;
+  --coral:#e05c3a; --coral-light:#fdeee9;
+  --green:#16a34a; --green-light:#dcfce7;
+  --red:#dc2626; --red-light:#fee2e2;
+  --gray:#f0f2f5; --gray-mid:#e2e8f0; --gray-dark:#94a3b8;
+  --text:#1e293b; --radius:12px; --shadow:0 3px 16px rgba(0,0,0,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:#f8f9fc;color:var(--text);font-size:16px;line-height:1.65;}
+
+header{background:var(--navy);border-bottom:4px solid var(--teal);}
+.header-inner{padding:22px 20px 20px;max-width:860px;margin:0 auto;display:flex;align-items:flex-start;gap:16px;}
+.header-logo{font-size:1.3rem;font-weight:900;color:var(--teal-mid);letter-spacing:-.3px;}
+.header-logo span{color:var(--gold);}
+.header-title{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;color:white;margin-top:4px;}
+.header-sub{font-size:.76rem;color:rgba(255,255,255,.45);margin-top:3px;}
+.header-badge{margin-left:auto;background:var(--teal);color:white;font-weight:800;font-size:.82rem;padding:5px 13px;border-radius:30px;white-space:nowrap;flex-shrink:0;}
+
+nav{background:var(--navy-mid);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-bottom:2px solid var(--teal);position:sticky;top:0;z-index:100;}
+nav::-webkit-scrollbar{display:none;}
+nav button{flex-shrink:0;background:none;border:none;color:rgba(255,255,255,.4);font-family:'Nunito',sans-serif;font-size:.79rem;font-weight:800;padding:12px 15px;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;}
+nav button.active{color:var(--teal-mid);border-bottom-color:var(--teal);}
+nav button:hover{color:white;}
+
+main{padding:20px 16px 70px;max-width:860px;margin:0 auto;}
+.tab-section{display:none;animation:fi .25s ease;}
+.tab-section.active{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+.section-title{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:700;color:var(--navy);margin-bottom:18px;padding-bottom:11px;border-bottom:3px solid var(--teal);display:flex;align-items:center;gap:10px;}
+.card{background:white;border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:var(--shadow);border:1px solid var(--gray-mid);}
+.card h2{font-size:1rem;font-weight:900;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.card h3{font-size:.85rem;font-weight:800;color:var(--teal);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;}
+
+/* NOTES */
+.note{background:var(--teal-light);border-left:4px solid var(--teal);border-radius:8px;padding:12px 16px;font-size:.88rem;color:var(--navy);margin-top:10px;}
+.note strong{color:var(--teal);}
+.note-gold{background:var(--gold-light);border-left:4px solid var(--gold);border-radius:8px;padding:12px 16px;font-size:.88rem;color:var(--navy);margin-top:10px;}
+.note-purple{background:var(--purple-light);border-left:4px solid var(--purple);border-radius:8px;padding:12px 16px;font-size:.88rem;color:var(--navy);margin-top:10px;}
+.note-coral{background:var(--coral-light);border-left:4px solid var(--coral);border-radius:8px;padding:12px 16px;font-size:.88rem;color:var(--navy);margin-top:10px;}
+
+/* CONJUGATION TABLES */
+.conj-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:12px;}
+.conj-table{border-radius:10px;overflow:hidden;border:1px solid var(--gray-mid);}
+.conj-table .ct-head{padding:10px 14px;font-weight:900;font-size:.85rem;color:white;display:flex;justify-content:space-between;align-items:center;}
+.conj-table .ct-head.teal{background:var(--teal);}
+.conj-table .ct-head.purple{background:var(--purple);}
+.conj-table .ct-head.gold{background:#b8811a;}
+.conj-table .ct-head.coral{background:var(--coral);}
+.conj-table .ct-head.navy{background:var(--navy);}
+.conj-table .ct-head .ct-sub{font-size:.72rem;font-weight:600;opacity:.75;}
+.conj-table table{width:100%;border-collapse:collapse;font-size:.87rem;}
+.conj-table td{padding:7px 12px;border-bottom:1px solid var(--gray);}
+.conj-table tr:last-child td{border-bottom:none;}
+.conj-table tr:nth-child(even) td{background:var(--gray);}
+.conj-table td:first-child{color:var(--gray-dark);font-weight:700;width:36%;}
+.conj-table td:last-child{font-weight:800;color:var(--navy);}
+.conj-table td .highlight{color:var(--teal);font-weight:900;}
+.conj-table td .highlight-p{color:var(--purple);font-weight:900;}
+.conj-table td .highlight-g{color:#b8811a;font-weight:900;}
+
+/* FORMULA BOX */
+.formula-box{background:var(--navy);color:white;border-radius:10px;padding:16px 18px;margin-bottom:12px;}
+.formula-box .fb-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.6px;color:var(--teal-mid);font-weight:800;margin-bottom:7px;}
+.formula-box .fb-formula{font-size:1rem;font-weight:800;}
+.formula-box .fb-formula .slot{color:var(--gold);}
+.formula-box .fb-ex{font-size:.84rem;color:rgba(255,255,255,.65);margin-top:7px;}
+.formula-box .fb-ex span{color:var(--teal-mid);}
+
+/* USAGE CARDS */
+.usage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:12px;}
+.usage-tile{border-radius:10px;padding:15px 16px;}
+.usage-tile.u1{background:var(--teal-light);border-top:4px solid var(--teal);}
+.usage-tile.u2{background:var(--purple-light);border-top:4px solid var(--purple);}
+.usage-tile.u3{background:var(--gold-light);border-top:4px solid var(--gold);}
+.usage-tile.u4{background:var(--coral-light);border-top:4px solid var(--coral);}
+.usage-tile .ut-num{font-size:1.5rem;font-weight:900;margin-bottom:4px;}
+.usage-tile.u1 .ut-num{color:var(--teal);}
+.usage-tile.u2 .ut-num{color:var(--purple);}
+.usage-tile.u3 .ut-num{color:#b8811a;}
+.usage-tile.u4 .ut-num{color:var(--coral);}
+.usage-tile .ut-title{font-weight:900;font-size:.93rem;color:var(--navy);margin-bottom:5px;}
+.usage-tile .ut-desc{font-size:.82rem;color:var(--text);margin-bottom:6px;}
+.usage-tile .ut-ex{font-size:.82rem;font-style:italic;color:var(--navy);background:rgba(255,255,255,.5);border-radius:6px;padding:5px 8px;}
+
+/* SENTENCE LIST */
+.slist{list-style:none;}
+.slist li{padding:9px 14px;margin-bottom:6px;border-radius:8px;font-size:.93rem;}
+.slist li.tl{background:var(--teal-light);border-left:4px solid var(--teal);}
+.slist li.pl{background:var(--purple-light);border-left:4px solid var(--purple);}
+.slist li.gl{background:var(--gold-light);border-left:4px solid var(--gold);}
+.slist li.cl{background:var(--coral-light);border-left:4px solid var(--coral);}
+.slist li.nl{background:var(--gray);border-left:4px solid var(--gray-dark);}
+
+/* CONTRAST TABLE */
+.contrast-table{width:100%;border-collapse:collapse;font-size:.88rem;}
+.contrast-table th{background:var(--navy);color:white;padding:9px 12px;text-align:left;font-weight:800;}
+.contrast-table td{padding:9px 12px;border-bottom:1px solid var(--gray-mid);vertical-align:top;}
+.contrast-table tr:nth-child(even) td{background:var(--gray);}
+.contrast-table td:first-child{font-weight:700;color:var(--teal);}
+.contrast-table td:nth-child(2){color:#64748b;font-size:.85rem;}
+.contrast-table td:nth-child(3){font-weight:700;color:var(--navy);}
+
+/* PHRASE ROWS */
+.phrase-row{padding:9px 13px;border-radius:8px;margin-bottom:7px;background:var(--gray);border-left:4px solid var(--teal);font-size:.92rem;}
+.phrase-row .ph-de{font-weight:700;color:var(--navy);}
+.phrase-row .ph-en{font-size:.79rem;color:#64748b;margin-top:1px;}
+.phrase-row .ph-note{font-size:.76rem;color:var(--teal);font-weight:700;margin-top:2px;}
+.phrase-row.pur{border-left-color:var(--purple);background:var(--purple-light);}
+.phrase-row.gld{border-left-color:var(--gold);background:var(--gold-light);}
+.phrase-row.cor{border-left-color:var(--coral);background:var(--coral-light);}
+
+/* DIALOG */
+.dialog-scene{background:var(--gray);border-radius:12px;padding:15px;margin-bottom:10px;}
+.dialog-scene .scene-tag{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--teal);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--gray-mid);}
+.d-line{margin-bottom:9px;}
+.d-line .who{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.3px;margin-bottom:3px;}
+.d-line.a .who{color:var(--coral);}
+.d-line.b .who{color:var(--teal);}
+.d-line .bubble{display:inline-block;padding:8px 13px;border-radius:11px;font-size:.91rem;max-width:97%;}
+.d-line.a{text-align:left;}
+.d-line.b{text-align:right;}
+.d-line.a .bubble{background:var(--coral-light);border-bottom-left-radius:2px;}
+.d-line.b .bubble{background:var(--teal-light);border-bottom-right-radius:2px;}
+.d-line .bubble strong{color:var(--teal);} .d-line.a .bubble strong{color:var(--coral);}
+.kii-badge{display:inline-block;font-size:.68rem;font-weight:800;background:var(--navy);color:var(--teal-mid);padding:1px 7px;border-radius:20px;margin-left:5px;vertical-align:middle;}
+
+/* FLASHCARDS */
+details.flash{background:white;border:2px solid var(--gray-mid);border-radius:10px;margin-bottom:9px;overflow:hidden;}
+details.flash[open]{border-color:var(--teal);}
+details.flash summary{padding:13px 16px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--navy);font-size:.92rem;gap:8px;}
+details.flash summary::-webkit-details-marker{display:none;}
+details.flash summary::after{content:'▼';font-size:.68rem;color:var(--teal);flex-shrink:0;}
+details.flash[open] summary::after{transform:rotate(180deg);display:inline-block;}
+.flash-answer{padding:10px 16px 14px;color:var(--teal);font-weight:700;font-size:.91rem;border-top:1px solid var(--teal-light);}
+.flash-answer .sub{font-size:.82rem;color:#64748b;font-weight:400;margin-top:4px;}
+.flash-answer .ex{font-size:.85rem;margin-top:6px;color:var(--navy);}
+
+/* EXERCISES */
+.gap-s{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:9px;font-size:.93rem;background:var(--gray);padding:10px 14px;border-radius:8px;border:1px solid var(--gray-mid);}
+.gap-s select{font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:700;padding:4px 8px;border:2px solid var(--teal);border-radius:7px;background:white;color:var(--navy);cursor:pointer;max-width:190px;}
+.gap-s select.correct{border-color:var(--green);background:var(--green-light);color:var(--green);}
+.gap-s select.wrong{border-color:var(--red);background:var(--red-light);color:var(--red);}
+.gap-s .ctx{font-size:.72rem;color:#64748b;margin-left:auto;font-style:italic;}
+.mc-q{margin-bottom:14px;}
+.mc-q p{font-size:.94rem;font-weight:700;margin-bottom:8px;color:var(--navy);}
+.mc-opts{display:flex;flex-wrap:wrap;gap:8px;}
+.mc-btn{background:var(--gray);border:2px solid var(--gray-mid);border-radius:8px;padding:8px 14px;font-family:'Nunito',sans-serif;font-size:.87rem;font-weight:700;cursor:pointer;transition:all .15s;color:var(--navy);text-align:left;}
+.mc-btn:hover{border-color:var(--teal);}
+.mc-btn.correct{background:var(--green-light);border-color:var(--green);color:var(--green);}
+.mc-btn.wrong{background:var(--red-light);border-color:var(--red);color:var(--red);}
+
+/* SPEAK CARDS */
+.speak-card{background:white;border-radius:var(--radius);border-left:5px solid var(--teal);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow);}
+.speak-card .sc-num{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:700;color:var(--teal);float:left;margin-right:12px;line-height:1;}
+.speak-card .sc-title{font-size:.98rem;font-weight:800;color:var(--navy);margin-bottom:4px;}
+.speak-card .sc-prompt{font-size:.88rem;color:#64748b;margin-bottom:10px;}
+.speak-card ul{list-style:none;}
+.speak-card ul li{padding:5px 10px;background:var(--teal-light);border-radius:6px;font-size:.86rem;font-weight:700;color:var(--navy);margin-bottom:5px;}
+.speak-card ul li::before{content:'💬 ';}
+.speak-card.pur{border-left-color:var(--purple);}
+.speak-card.pur .sc-num{color:var(--purple);}
+.speak-card.pur ul li{background:var(--purple-light);}
+.speak-card.gld{border-left-color:var(--gold);}
+.speak-card.gld .sc-num{color:#b8811a;}
+.speak-card.gld ul li{background:var(--gold-light);}
+
+/* FEHLER */
+.fehler-card{background:white;border-radius:var(--radius);border:2px solid var(--red);overflow:hidden;margin-bottom:12px;}
+.fehler-card .wl{background:var(--red-light);padding:11px 16px;font-size:.92rem;color:#7f1d1d;font-weight:600;}
+.fehler-card .wl::before{content:'✗ ';font-weight:800;}
+.fehler-card .cl{background:var(--green-light);padding:11px 16px;font-size:.92rem;color:var(--green);font-weight:700;}
+.fehler-card .cl::before{content:'✓ ';font-weight:800;}
+.fehler-card .ex{padding:9px 16px;font-size:.81rem;color:#64748b;border-top:1px solid var(--gray-mid);}
+
+/* FULL CONJUGATION GRID – all verbs */
+.full-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:12px;}
+.mini-conj{border-radius:8px;overflow:hidden;border:1px solid var(--gray-mid);font-size:.83rem;}
+.mini-conj .mc-head{background:var(--navy-light);color:white;font-weight:900;padding:6px 10px;font-size:.8rem;}
+.mini-conj table{width:100%;border-collapse:collapse;}
+.mini-conj td{padding:5px 9px;border-bottom:1px solid var(--gray);}
+.mini-conj tr:last-child td{border:none;}
+.mini-conj td:first-child{color:var(--gray-dark);font-weight:600;width:35%;}
+.mini-conj td:last-child{font-weight:800;color:var(--navy);}
+.mini-conj .hl{color:var(--teal)!important;}
+.mini-conj .hg{color:#b8811a!important;}
+.mini-conj .hp{color:var(--purple)!important;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="header-logo">deutsch<span>oder</span>was · Sprechclub</div>
+      <div class="header-title">Konjunktiv II – Vollständiges Handout</div>
+      <div class="header-sub">hätte · wäre · würde · könnte · müsste · sollte · dürfte – alle Formen, alle Verwendungen</div>
+    </div>
+    <div class="header-badge">B1 → C1</div>
+  </div>
+</header>
+
+<nav id="main-nav">
+  <button class="active" onclick="showTab('system',this)">🗺️ System</button>
+  <button onclick="showTab('formen',this)">📐 Alle Formen</button>
+  <button onclick="showTab('verwendung',this)">🎯 Verwendung</button>
+  <button onclick="showTab('redemittel',this)">💬 Redemittel</button>
+  <button onclick="showTab('dialoge',this)">🗣️ Dialoge</button>
+  <button onclick="showTab('lernkarten',this)">🃏 Lernkarten</button>
+  <button onclick="showTab('uebungen',this)">✏️ Übungen</button>
+  <button onclick="showTab('sprechen',this)">🎤 Sprechen</button>
+</nav>
+
+<main>
+
+<!-- ===== SYSTEM ===== -->
+<section id="system" class="tab-section active">
+  <div class="section-title">🗺️ Was ist der Konjunktiv II – und warum brauche ich ihn?</div>
+
+  <div class="card">
+    <h2>💡 Die Grundidee</h2>
+    <p style="font-size:.93rem;margin-bottom:14px;">Der Konjunktiv II (KII) macht Deutsch <strong>höflicher, diplomatischer und nuancierter</strong>. Ohne ihn klingt man schroff – besonders im Restaurant, auf dem Amt und bei Bitten.</p>
+    <div class="usage-grid">
+      <div class="usage-tile u1">
+        <div class="ut-num">1</div>
+        <div class="ut-title">Höfliche Bitten</div>
+        <div class="ut-desc">Wünsche und Bitten freundlich ausdrücken</div>
+        <div class="ut-ex">„Könnten Sie mir helfen?" „Ich hätte gerne…"</div>
+      </div>
+      <div class="usage-tile u2">
+        <div class="ut-num">2</div>
+        <div class="ut-title">Irreale Bedingungen</div>
+        <div class="ut-desc">Wenn etwas nicht real ist – aber möglich wäre</div>
+        <div class="ut-ex">„Wenn ich reich wäre, würde ich reisen."</div>
+      </div>
+      <div class="usage-tile u3">
+        <div class="ut-num">3</div>
+        <div class="ut-title">Ratschläge & Empfehlungen</div>
+        <div class="ut-desc">Was man an der Stelle eines anderen tun würde</div>
+        <div class="ut-ex">„An deiner Stelle würde ich…" „Du solltest…"</div>
+      </div>
+      <div class="usage-tile u4">
+        <div class="ut-num">4</div>
+        <div class="ut-title">Träume & Wünsche</div>
+        <div class="ut-desc">Irreale Vorstellungen und Wunschszenarien</div>
+        <div class="ut-ex">„Ich wäre gerne in Japan." „Das wäre schön!"</div>
+      </div>
+    </div>
+    <div class="note"><strong>Merkregel:</strong> Konjunktiv II = die Realität ist anders – aber stell dir vor, sie wäre so! Oder: höflicher als direkt sagen.</div>
+  </div>
+
+  <div class="card">
+    <h2>⚡ Die 3 Wege zum Konjunktiv II</h2>
+    <div class="formula-box">
+      <div class="fb-label">Weg 1 – Direkte KII-Form (häufigste Verben)</div>
+      <div class="fb-formula">Verb im KII <slot style="color:var(--gold)">(wäre / hätte / könnte…)</slot> → direkt benutzen</div>
+      <div class="fb-ex">Ich <span>wäre</span> glücklich. · Er <span>hätte</span> Zeit. · Sie <span>könnte</span> kommen.</div>
+    </div>
+    <div class="formula-box" style="margin-top:8px;">
+      <div class="fb-label">Weg 2 – würde + Infinitiv (für alle anderen Verben)</div>
+      <div class="fb-formula"><slot style="color:var(--gold)">würde</slot> + Infinitiv am Satzende</div>
+      <div class="fb-ex">Ich <span>würde</span> gerne reisen. · Er <span>würde</span> arbeiten. · Wir <span>würden</span> das machen.</div>
+    </div>
+    <div class="formula-box" style="margin-top:8px;">
+      <div class="fb-label">Weg 3 – KII der Vergangenheit (hätte/wäre + Partizip II)</div>
+      <div class="fb-formula"><slot style="color:var(--gold)">hätte / wäre</slot> + Partizip II (am Satzende)</div>
+      <div class="fb-ex">Ich <span>hätte</span> das gewusst. · Er <span>wäre</span> gekommen. · Sie <span>hätte</span> angerufen.</div>
+    </div>
+    <div class="note-gold"><strong>Faustregel:</strong> Häufige Verben direkt (wäre, hätte, könnte, müsste, sollte, dürfte, wollte) → alle anderen mit „würde + Infinitiv".</div>
+  </div>
+
+  <div class="card">
+    <h2>🔄 Indikativ vs. Konjunktiv II – der Unterschied</h2>
+    <table class="contrast-table">
+      <thead><tr><th>Verb</th><th>Indikativ (Realität)</th><th>Konjunktiv II (irreal / höflich)</th></tr></thead>
+      <tbody>
+        <tr><td>sein</td><td>ich bin · er ist</td><td>ich <strong>wäre</strong> · er <strong>wäre</strong></td></tr>
+        <tr><td>haben</td><td>ich habe · er hat</td><td>ich <strong>hätte</strong> · er <strong>hätte</strong></td></tr>
+        <tr><td>können</td><td>ich kann · er kann</td><td>ich <strong>könnte</strong> · er <strong>könnte</strong></td></tr>
+        <tr><td>müssen</td><td>ich muss · er muss</td><td>ich <strong>müsste</strong> · er <strong>müsste</strong></td></tr>
+        <tr><td>sollen</td><td>ich soll · er soll</td><td>ich <strong>sollte</strong> · er <strong>sollte</strong></td></tr>
+        <tr><td>dürfen</td><td>ich darf · er darf</td><td>ich <strong>dürfte</strong> · er <strong>dürfte</strong></td></tr>
+        <tr><td>wollen</td><td>ich will · er will</td><td>ich <strong>wollte</strong> · er <strong>wollte</strong></td></tr>
+        <tr><td>werden</td><td>ich werde · er wird</td><td>ich <strong>würde</strong> · er <strong>würde</strong></td></tr>
+        <tr><td>gehen</td><td>ich gehe (Indikativ)</td><td>ich <strong>würde gehen</strong> (KII)</td></tr>
+        <tr><td>arbeiten</td><td>ich arbeite</td><td>ich <strong>würde arbeiten</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== ALLE FORMEN ===== -->
+<section id="formen" class="tab-section">
+  <div class="section-title">📐 Alle Formen – vollständige Konjugation</div>
+
+  <!-- WÄRE -->
+  <div class="card">
+    <h2><span style="color:var(--teal)">wäre</span> – Konjunktiv II von „sein"</h2>
+    <div class="conj-wrap">
+      <div class="conj-table">
+        <div class="ct-head teal">wäre <span class="ct-sub">= KII von sein</span></div>
+        <table>
+          <tr><td>ich</td><td><span class="highlight">wäre</span></td></tr>
+          <tr><td>du</td><td><span class="highlight">wär<strong>e</strong>st</span></td></tr>
+          <tr><td>er/sie/es</td><td><span class="highlight">wäre</span></td></tr>
+          <tr><td>wir</td><td><span class="highlight">wär<strong>en</strong></span></td></tr>
+          <tr><td>ihr</td><td><span class="highlight">wär<strong>et</strong></span></td></tr>
+          <tr><td>sie/Sie</td><td><span class="highlight">wär<strong>en</strong></span></td></tr>
+        </table>
+      </div>
+    </div>
+    <ul class="slist">
+      <li class="tl">Wenn ich reich <strong>wäre</strong>, würde ich reisen.</li>
+      <li class="tl">Ich <strong>wäre</strong> gerne Ärztin.</li>
+      <li class="tl">Das <strong>wäre</strong> schön!</li>
+      <li class="tl">Wenn ich du <strong>wärst</strong>, würde ich das nicht tun.</li>
+      <li class="tl">Wir <strong>wären</strong> gerne dabei.</li>
+    </ul>
+  </div>
+
+  <!-- HÄTTE -->
+  <div class="card">
+    <h2><span style="color:var(--purple)">hätte</span> – Konjunktiv II von „haben"</h2>
+    <div class="conj-wrap">
+      <div class="conj-table">
+        <div class="ct-head purple">hätte <span class="ct-sub">= KII von haben</span></div>
+        <table>
+          <tr><td>ich</td><td><span class="highlight-p">hätte</span></td></tr>
+          <tr><td>du</td><td><span class="highlight-p">hättest</span></td></tr>
+          <tr><td>er/sie/es</td><td><span class="highlight-p">hätte</span></td></tr>
+          <tr><td>wir</td><td><span class="highlight-p">hätten</span></td></tr>
+          <tr><td>ihr</td><td><span class="highlight-p">hättet</span></td></tr>
+          <tr><td>sie/Sie</td><td><span class="highlight-p">hätten</span></td></tr>
+        </table>
+      </div>
+    </div>
+    <ul class="slist">
+      <li class="pl">Ich <strong>hätte</strong> gerne einen Kaffee.</li>
+      <li class="pl">Wenn ich Zeit <strong>hätte</strong>, würde ich mehr lesen.</li>
+      <li class="pl"><strong>Hättest</strong> du Lust, ins Kino zu gehen?</li>
+      <li class="pl">Wir <strong>hätten</strong> mehr Geld gespart.</li>
+      <li class="pl">Ich <strong>hätte</strong> das nie gedacht!</li>
+    </ul>
+  </div>
+
+  <!-- WÜRDE -->
+  <div class="card">
+    <h2><span style="color:#b8811a">würde</span> – Konjunktiv II von „werden" (+ Infinitiv)</h2>
+    <div class="conj-wrap">
+      <div class="conj-table">
+        <div class="ct-head gold">würde + Infinitiv <span class="ct-sub">universelle KII-Form</span></div>
+        <table>
+          <tr><td>ich</td><td><span class="highlight-g">würde</span> + Inf.</td></tr>
+          <tr><td>du</td><td><span class="highlight-g">würdest</span> + Inf.</td></tr>
+          <tr><td>er/sie/es</td><td><span class="highlight-g">würde</span> + Inf.</td></tr>
+          <tr><td>wir</td><td><span class="highlight-g">würden</span> + Inf.</td></tr>
+          <tr><td>ihr</td><td><span class="highlight-g">würdet</span> + Inf.</td></tr>
+          <tr><td>sie/Sie</td><td><span class="highlight-g">würden</span> + Inf.</td></tr>
+        </table>
+      </div>
+    </div>
+    <ul class="slist">
+      <li class="gl">Ich <strong>würde</strong> gerne reisen.</li>
+      <li class="gl">Er <strong>würde</strong> sofort kommen.</li>
+      <li class="gl"><strong>Würdest</strong> du mir helfen?</li>
+      <li class="gl">An deiner Stelle <strong>würde</strong> ich das anders machen.</li>
+      <li class="gl">Wir <strong>würden</strong> das kaufen, wenn es günstiger wäre.</li>
+    </ul>
+    <div class="note-gold"><strong>Wann „würde + Inf." statt direkter Form?</strong> Bei allen Verben außer: wäre, hätte, könnte, müsste, sollte, dürfte, wollte. Diese haben eigene KII-Formen!</div>
+  </div>
+
+  <!-- MODALVERBEN -->
+  <div class="card">
+    <h2>⚙️ Modalverben im Konjunktiv II – alle 6</h2>
+    <div class="full-grid">
+      <div class="mini-conj">
+        <div class="mc-head">könnte (können)</div>
+        <table>
+          <tr><td>ich</td><td class="hl">könnte</td></tr>
+          <tr><td>du</td><td class="hl">könntest</td></tr>
+          <tr><td>er/sie</td><td class="hl">könnte</td></tr>
+          <tr><td>wir/sie</td><td class="hl">könnten</td></tr>
+        </table>
+      </div>
+      <div class="mini-conj">
+        <div class="mc-head">müsste (müssen)</div>
+        <table>
+          <tr><td>ich</td><td class="hg">müsste</td></tr>
+          <tr><td>du</td><td class="hg">müsstest</td></tr>
+          <tr><td>er/sie</td><td class="hg">müsste</td></tr>
+          <tr><td>wir/sie</td><td class="hg">müssten</td></tr>
+        </table>
+      </div>
+      <div class="mini-conj">
+        <div class="mc-head">sollte (sollen)</div>
+        <table>
+          <tr><td>ich</td><td class="hp">sollte</td></tr>
+          <tr><td>du</td><td class="hp">solltest</td></tr>
+          <tr><td>er/sie</td><td class="hp">sollte</td></tr>
+          <tr><td>wir/sie</td><td class="hp">sollten</td></tr>
+        </table>
+      </div>
+      <div class="mini-conj">
+        <div class="mc-head">dürfte (dürfen)</div>
+        <table>
+          <tr><td>ich</td><td class="hl">dürfte</td></tr>
+          <tr><td>du</td><td class="hl">dürftest</td></tr>
+          <tr><td>er/sie</td><td class="hl">dürfte</td></tr>
+          <tr><td>wir/sie</td><td class="hl">dürften</td></tr>
+        </table>
+      </div>
+      <div class="mini-conj">
+        <div class="mc-head">wollte (wollen)</div>
+        <table>
+          <tr><td>ich</td><td class="hg">wollte</td></tr>
+          <tr><td>du</td><td class="hg">wolltest</td></tr>
+          <tr><td>er/sie</td><td class="hg">wollte</td></tr>
+          <tr><td>wir/sie</td><td class="hg">wollten</td></tr>
+        </table>
+      </div>
+      <div class="mini-conj">
+        <div class="mc-head">möchte* (mögen)</div>
+        <table>
+          <tr><td>ich</td><td class="hp">möchte</td></tr>
+          <tr><td>du</td><td class="hp">möchtest</td></tr>
+          <tr><td>er/sie</td><td class="hp">möchte</td></tr>
+          <tr><td>wir/sie</td><td class="hp">möchten</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="note-purple"><strong>Bedeutung der Modalverben im KII:</strong><br>
+    <strong>könnte</strong> = could (Möglichkeit/Höflichkeit) · <strong>müsste</strong> = should/ought to (Notwendigkeit) · <strong>sollte</strong> = should (Ratschlag) · <strong>dürfte</strong> = probably / may · <strong>wollte</strong> = would want to · <strong>möchte*</strong> = would like (*bereits KII-Form, sehr häufig)</div>
+  </div>
+
+  <!-- KII VERGANGENHEIT -->
+  <div class="card">
+    <h2>⏳ Konjunktiv II der Vergangenheit – hätte/wäre + Partizip II</h2>
+    <div class="formula-box">
+      <div class="fb-label">Formel – was hätte anders sein können?</div>
+      <div class="fb-formula"><slot>hätte</slot> / <slot>wäre</slot> + <span style="color:var(--gold)">Partizip II</span></div>
+      <div class="fb-ex">
+        Ich <span>hätte</span> das gewusst. (wissen → gewusst) ·
+        Er <span>wäre</span> gekommen. (kommen → gekommen) ·
+        Sie <span>hätte</span> angerufen. (anrufen → angerufen)
+      </div>
+    </div>
+    <table class="contrast-table" style="margin-top:12px;">
+      <thead><tr><th>Infinitiv</th><th>KII Gegenwart</th><th>KII Vergangenheit</th></tr></thead>
+      <tbody>
+        <tr><td>kommen</td><td>er würde kommen</td><td>er <strong>wäre gekommen</strong></td></tr>
+        <tr><td>kaufen</td><td>ich würde kaufen</td><td>ich <strong>hätte gekauft</strong></td></tr>
+        <tr><td>gehen</td><td>ich würde gehen</td><td>ich <strong>wäre gegangen</strong></td></tr>
+        <tr><td>helfen</td><td>du würdest helfen</td><td>du <strong>hättest geholfen</strong></td></tr>
+        <tr><td>sagen</td><td>er würde sagen</td><td>er <strong>hätte gesagt</strong></td></tr>
+        <tr><td>fahren</td><td>wir würden fahren</td><td>wir <strong>wären gefahren</strong></td></tr>
+      </tbody>
+    </table>
+    <ul class="slist" style="margin-top:12px;">
+      <li class="cl">Wenn ich das gewusst hätte, <strong>hätte</strong> ich anders gehandelt.</li>
+      <li class="cl">Du <strong>hättest</strong> früher kommen sollen!</li>
+      <li class="cl">Er <strong>wäre</strong> lieber zu Hause geblieben.</li>
+      <li class="cl">Wir <strong>hätten</strong> mehr Zeit gebraucht.</li>
+    </ul>
+    <div class="note-coral"><strong>Merkhilfe:</strong> Verben mit „sein" im Perfekt → wäre + Partizip II (kommen, gehen, fahren, bleiben…)<br>
+    Verben mit „haben" im Perfekt → hätte + Partizip II (kaufen, machen, helfen, sagen…)</div>
+  </div>
+</section>
+
+<!-- ===== VERWENDUNG ===== -->
+<section id="verwendung" class="tab-section">
+  <div class="section-title">🎯 Verwendung – wann und wie?</div>
+
+  <div class="card">
+    <h2>1️⃣ Höfliche Bitten – Restaurant & Alltag</h2>
+    <div class="note" style="margin-bottom:12px;"><strong>Warum KII?</strong> Ohne KII klingt man fordernd oder unhöflich. Mit KII zeigt man Respekt.<br>
+    „Gib mir Wasser" → schroff. „Könnten Sie mir Wasser bringen?" → höflich ✓</div>
+    <ul class="slist">
+      <li class="tl">Ich <strong>hätte</strong> gerne das Tagesgericht. <span style="font-size:.78rem;color:var(--teal)">→ höflichste Form im Restaurant</span></li>
+      <li class="tl"><strong>Könnten</strong> Sie mir helfen? <span style="font-size:.78rem;color:var(--teal)">→ sehr höfliche Bitte</span></li>
+      <li class="tl"><strong>Wäre</strong> es möglich, das zu verschieben? <span style="font-size:.78rem;color:var(--teal)">→ formell, höflich</span></li>
+      <li class="tl">Das <strong>dürfte</strong> kein Problem sein. <span style="font-size:.78rem;color:var(--teal)">→ dürfte = wahrscheinlich</span></li>
+      <li class="tl"><strong>Würden</strong> Sie bitte das Fenster öffnen? <span style="font-size:.78rem;color:var(--teal)">→ sehr förmlich</span></li>
+      <li class="tl">Ich <strong>möchte</strong> gerne einen Termin vereinbaren. <span style="font-size:.78rem;color:var(--teal)">→ möchte = KII von mögen</span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>2️⃣ Irreale Bedingungen – Wenn-Sätze</h2>
+    <div class="formula-box">
+      <div class="fb-label">Struktur: Wenn-Satz (KII) + Hauptsatz (KII)</div>
+      <div class="fb-formula">Wenn ich <slot>Zeit hätte</slot>, <slot>würde</slot> ich mehr lesen.</div>
+      <div class="fb-ex">BEIDE Teile stehen im KII! · Verb im Wenn-Satz: am Ende · Verb im HS: Position 2</div>
+    </div>
+    <ul class="slist">
+      <li class="pl">Wenn ich <strong>reich wäre</strong>, <strong>würde</strong> ich als erstes reisen.</li>
+      <li class="pl">Wenn ich du <strong>wäre</strong>, <strong>würde</strong> ich das nicht tun.</li>
+      <li class="pl">Wenn er mehr Zeit <strong>hätte</strong>, <strong>könnte</strong> er mehr lernen.</li>
+      <li class="pl">Wenn die Verkehrsmittel besser <strong>wären</strong>, <strong>müsste</strong> man kein Auto haben.</li>
+      <li class="pl">Wenn ich das gewusst <strong>hätte</strong>, <strong>wäre</strong> ich früher gegangen.</li>
+    </ul>
+    <div class="note-purple"><strong>Auch ohne „wenn" möglich:</strong><br>
+    <strong>Wäre</strong> ich reich, würde ich reisen. (= Wenn ich reich wäre…)<br>
+    <strong>Hätte</strong> ich Zeit, käme ich. (= Wenn ich Zeit hätte…)</div>
+  </div>
+
+  <div class="card">
+    <h2>3️⃣ Ratschläge geben</h2>
+    <ul class="slist">
+      <li class="gl"><strong>An deiner Stelle würde ich</strong> erst eine Liste machen.</li>
+      <li class="gl">Du <strong>solltest</strong> mit deinem Chef reden.</li>
+      <li class="gl">Du <strong>müsstest</strong> nicht sofort kündigen.</li>
+      <li class="gl">Es <strong>wäre</strong> sinnvoll, einen Kurs zu machen.</li>
+      <li class="gl">Ich <strong>würde</strong> an deiner Stelle nichts überstürzen.</li>
+      <li class="gl"><strong>Wäre</strong> ich du, <strong>würde</strong> ich das nicht tun.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>4️⃣ Träume & Wunschszenarien</h2>
+    <ul class="slist">
+      <li class="cl">Ich <strong>wäre</strong> gerne für ein Jahr in Japan.</li>
+      <li class="cl">Wenn ich einen Wunsch <strong>hätte</strong>, <strong>würde</strong> ich meiner Mutter ein Haus kaufen.</li>
+      <li class="cl">Das <strong>wäre</strong> mein Traumjob!</li>
+      <li class="cl">Ich <strong>würde</strong> sofort Ja sagen!</li>
+      <li class="cl">Ach, wenn ich doch mehr Zeit <strong>hätte</strong>…</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== REDEMITTEL ===== -->
+<section id="redemittel" class="tab-section">
+  <div class="section-title">💬 Redemittel – echte Sätze für jede Situation</div>
+
+  <div class="card">
+    <h2>🍽️ Im Restaurant & Geschäft – Höfliche Bestellung</h2>
+    <div class="phrase-row"><div class="ph-de">Ich hätte gerne [das Tagesgericht / einen Kaffee / die Rechnung].</div><div class="ph-en">I would like … please. – höflichste Form!</div></div>
+    <div class="phrase-row"><div class="ph-de">Könnte ich bitte [die Speisekarte / ein Glas Wasser] haben?</div><div class="ph-en">Could I please have…?</div></div>
+    <div class="phrase-row"><div class="ph-de">Wäre es möglich, das ohne [Zwiebeln / Gluten] zu bekommen?</div><div class="ph-en">Would it be possible to get that without…?</div></div>
+    <div class="phrase-row"><div class="ph-de">Das dürfte kein Problem sein.</div><div class="ph-en">That probably won't be a problem. (dürfte = probably)</div></div>
+  </div>
+
+  <div class="card">
+    <h2>🏢 Auf dem Amt & im Beruf – Formell fragen</h2>
+    <div class="phrase-row pur"><div class="ph-de">Könnten Sie mir sagen, wo ich das Formular ausfüllen muss?</div></div>
+    <div class="phrase-row pur"><div class="ph-de">Wäre es möglich, einen Termin für nächste Woche zu vereinbaren?</div></div>
+    <div class="phrase-row pur"><div class="ph-de">Ich würde gerne mehr Informationen erhalten.</div></div>
+    <div class="phrase-row pur"><div class="ph-de">Dürfte ich Sie kurz etwas fragen?</div><div class="ph-note">Sehr höflich – dürfte = May I…?</div></div>
+  </div>
+
+  <div class="card">
+    <h2>🤝 Ratschläge geben & annehmen</h2>
+    <div class="phrase-row gld"><div class="ph-de">An deiner / Ihrer Stelle würde ich …</div><div class="ph-en">If I were you, I would…</div></div>
+    <div class="phrase-row gld"><div class="ph-de">Du solltest / Sie sollten unbedingt …</div><div class="ph-en">You really should…</div></div>
+    <div class="phrase-row gld"><div class="ph-de">Es wäre sinnvoll / ratsam, wenn du …</div><div class="ph-en">It would make sense / be advisable if you…</div></div>
+    <div class="phrase-row gld"><div class="ph-de">Du müsstest nicht sofort [kündigen / entscheiden].</div><div class="ph-en">You wouldn't have to… right away.</div></div>
+    <div class="phrase-row gld"><div class="ph-de">Ich würde dir empfehlen, zuerst …</div><div class="ph-en">I would recommend you first…</div></div>
+  </div>
+
+  <div class="card">
+    <h2>🌟 Träume & irreale Bedingungen</h2>
+    <div class="phrase-row"><div class="ph-de">Wenn ich [unendlich Geld / mehr Zeit / die Wahl] hätte, würde ich …</div></div>
+    <div class="phrase-row"><div class="ph-de">Wenn ich du wäre, würde ich …</div><div class="ph-en">If I were you, I would…</div></div>
+    <div class="phrase-row"><div class="ph-de">Ich wäre gerne [in Japan / Ärztin / früher aufgestanden].</div></div>
+    <div class="phrase-row"><div class="ph-de">Das wäre mein Traumleben!</div><div class="ph-en">That would be my dream life!</div></div>
+    <div class="phrase-row"><div class="ph-de">Ohne dich wäre das nicht möglich gewesen.</div><div class="ph-en">Without you this wouldn't have been possible.</div></div>
+  </div>
+
+  <div class="card">
+    <h2>⏳ Vergangenheit – was wäre anders gewesen?</h2>
+    <div class="phrase-row cor"><div class="ph-de">Wenn ich das gewusst hätte, hätte ich es anders gemacht.</div><div class="ph-en">If I had known that, I would have done it differently.</div></div>
+    <div class="phrase-row cor"><div class="ph-de">Du hättest früher kommen sollen!</div><div class="ph-en">You should have come earlier!</div></div>
+    <div class="phrase-row cor"><div class="ph-de">Er wäre lieber zu Hause geblieben.</div><div class="ph-en">He would have preferred to stay home.</div></div>
+    <div class="phrase-row cor"><div class="ph-de">Ich hätte das nie gedacht!</div><div class="ph-en">I never would have thought that!</div></div>
+    <div class="phrase-row cor"><div class="ph-de">Das hätte ich auch so gemacht.</div><div class="ph-en">I would have done that the same way.</div></div>
+  </div>
+</section>
+
+<!-- ===== DIALOGE ===== -->
+<section id="dialoge" class="tab-section">
+  <div class="section-title">🗣️ Dialoge – laut lesen, Rollen wechseln!</div>
+
+  <div class="card">
+    <h2>🍽️ Dialog 1 – Im Restaurant</h2>
+    <div class="dialog-scene">
+      <div class="scene-tag">Restaurant · höfliche Bestellung · Konjunktiv II überall!</div>
+      <div class="d-line b"><div class="who">Kellner</div><div class="bubble">Was darf es sein?</div></div>
+      <div class="d-line a"><div class="who">Gast</div><div class="bubble">Ich <strong>hätte gerne</strong> das Tagesgericht und einen Mineralwasser bitte.<span class="kii-badge">hätte gerne = KII</span></div></div>
+      <div class="d-line b"><div class="bubble">Gerne. <strong>Könnten</strong> Sie kurz warten? Wir sind etwas beschäftigt.<span class="kii-badge">könnten = KII</span></div></div>
+      <div class="d-line a"><div class="bubble">Natürlich. Ach, noch eine Frage: <strong>Wäre</strong> es möglich, das ohne Zwiebeln zu bekommen?<span class="kii-badge">wäre möglich = KII</span></div></div>
+      <div class="d-line b"><div class="bubble">Das <strong>dürfte</strong> kein Problem sein.<span class="kii-badge">dürfte = wahrscheinlich</span></div></div>
+      <div class="d-line a"><div class="bubble">Wunderbar, danke schön!</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🌟 Dialog 2 – Traumleben: Irreale Bedingungen</h2>
+    <div class="dialog-scene">
+      <div class="scene-tag">Alltag · Träume und Wünsche · Wenn-Sätze im KII</div>
+      <div class="d-line a"><div class="who">Mia</div><div class="bubble">Wenn ich unendlich Geld <strong>hätte</strong>, <strong>würde</strong> ich als erstes ein Jahr reisen.</div></div>
+      <div class="d-line b"><div class="who">Tom</div><div class="bubble">Wirklich? Ich <strong>würde</strong> erst mal eine eigene Stiftung gründen.</div></div>
+      <div class="d-line a"><div class="bubble">Das ist schön. Wo <strong>wärst</strong> du am liebsten?</div></div>
+      <div class="d-line b"><div class="bubble">Ich <strong>wäre</strong> gerne für ein Jahr in Japan.</div></div>
+      <div class="d-line a"><div class="bubble">Und wenn du nur einen Wunsch <strong>hättest</strong>?</div></div>
+      <div class="d-line b"><div class="bubble">Dann <strong>würde</strong> ich meiner Mutter ein Haus kaufen.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>👔 Dialog 3 – Ratschläge im Job</h2>
+    <div class="dialog-scene">
+      <div class="scene-tag">Beruf · Ratschläge geben · sollte / müsste / würde</div>
+      <div class="d-line a"><div class="who">Kollegin</div><div class="bubble">Ich bin unglücklich in meinem Job. Was soll ich tun?</div></div>
+      <div class="d-line b"><div class="who">Mentor</div><div class="bubble"><strong>An deiner Stelle würde ich</strong> erst mal eine klare Liste machen: Was läuft gut? Was nicht?</div></div>
+      <div class="d-line a"><div class="bubble">Das macht Sinn. Und dann?</div></div>
+      <div class="d-line b"><div class="bubble">Du <strong>solltest</strong> mit deinem Chef reden – vielleicht gibt es andere Möglichkeiten im Unternehmen.</div></div>
+      <div class="d-line a"><div class="bubble">Und wenn das nicht hilft?</div></div>
+      <div class="d-line b"><div class="bubble">Dann <strong>wäre</strong> ein Bewerbungscoaching sinnvoll. Du <strong>müsstest</strong> nicht sofort kündigen.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>⏳ Dialog 4 – KII der Vergangenheit: Reue & Reflexion</h2>
+    <div class="dialog-scene">
+      <div class="scene-tag">Gespräch · hätte/wäre + Partizip II · Reue ausdrücken</div>
+      <div class="d-line a"><div class="who">Anna</div><div class="bubble">Ich hätte das Stipendium annehmen sollen. Das <strong>wäre</strong> eine tolle Chance <strong>gewesen</strong>!</div></div>
+      <div class="d-line b"><div class="who">Ben</div><div class="bubble">Wenn du es gewusst <strong>hättest</strong>, <strong>hättest</strong> du es sicher genommen.</div></div>
+      <div class="d-line a"><div class="bubble">Ja, aber ich <strong>hätte</strong> auch früher nachfragen <strong>können</strong>. Ich <strong>wäre</strong> nicht so passiv <strong>gewesen</strong>.</div></div>
+      <div class="d-line b"><div class="bubble">Mach dir keine Sorgen – du <strong>hättest</strong> das nicht wissen können. Die nächste Chance kommt bestimmt!</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LERNKARTEN ===== -->
+<section id="lernkarten" class="tab-section">
+  <div class="section-title">🃏 Lernkarten – aufklappen & antworten</div>
+  <p style="font-size:.88rem;color:#64748b;margin-bottom:16px;">Tippe auf eine Karte. Kannst du antworten, bevor du aufklappst?</p>
+
+  <details class="flash"><summary>Was ist der Konjunktiv II von „sein" – alle Formen?</summary>
+    <div class="flash-answer">ich wäre · du wärst · er/sie wäre · wir wären · ihr wäret · sie/Sie wären
+      <div class="sub">Merke: wäre = Stamm von „war" + KII-Endungen (-e, -est, -e, -en, -et, -en)</div>
+      <div class="ex">„Wenn ich du wäre, würde ich das nicht tun." · „Das wäre schön!"</div>
+    </div>
+  </details>
+
+  <details class="flash"><summary>Was ist der Konjunktiv II von „haben" – alle Formen?</summary>
+    <div class="flash-answer">ich hätte · du hättest · er/sie hätte · wir hätten · ihr hättet · sie/Sie hätten
+      <div class="sub">Merke: hätte = hatte + Umlaut</div>
+      <div class="ex">„Ich hätte gerne einen Kaffee." · „Wenn ich Zeit hätte, würde ich kommen."</div>
+    </div>
+  </details>
+
+  <details class="flash"><summary>Wann benutzt man „würde + Infinitiv" statt der direkten KII-Form?</summary>
+    <div class="flash-answer">Bei allen Verben außer: wäre, hätte, könnte, müsste, sollte, dürfte, wollte.
+      <div class="sub">Diese haben eigene KII-Formen. Alle anderen → würde + Infinitiv am Satzende.</div>
+      <div class="ex">ich würde gehen · ich würde kaufen · ich würde arbeiten (NICHT: ich ginge / kaufte)</div>
+    </div>
+  </details>
+
+  <details class="flash"><summary>Wie bildet man den KII der Vergangenheit?</summary>
+    <div class="flash-answer">hätte / wäre + Partizip II
+      <div class="sub">Wann „wäre"? → Verben mit „sein" im Perfekt (kommen, gehen, fahren…)<br>Wann „hätte"? → Verben mit „haben" im Perfekt (kaufen, machen, helfen…)</div>
+      <div class="ex">Ich hätte das gewusst. · Er wäre gekommen. · Wir hätten mehr Zeit gebraucht.</div>
+    </div>
+  </details>
+
+  <details class="flash"><summary>Was bedeutet „dürfte" im Konjunktiv II?</summary>
+    <div class="flash-answer">= wahrscheinlich / probably – drückt höfliche Vermutung aus
+      <div class="sub">Nicht: „ich darf" (Erlaubnis), sondern KII = vorsichtige Einschätzung</div>
+      <div class="ex">„Das dürfte kein Problem sein." = That probably won't be a problem.</div>
+    </div>
+  </details>
+
+  <details class="flash"><summary>Wie sagt man „If I were you" auf Deutsch – 2 Möglichkeiten?</summary>
+    <div class="flash-answer">1. „Wenn ich du wäre, würde ich…" 2. „An deiner Stelle würde ich…"
+      <div class="sub">Beide sind korrekt und sehr üblich für Ratschläge. Option 2 ist etwas eleganter.</div>
+    </div>
+  </details>
+
+  <details class="flash"><summary>Wenn-Satz im KII: Was passiert mit den Verben?</summary>
+    <div class="flash-answer">BEIDE Teilsätze stehen im KII! Verb im Wenn-Satz: ans Ende. Verb im Hauptsatz: Position 2.
+      <div class="sub">Wenn ich Zeit [hätte], [würde] ich mehr lesen. · Wenn er kommen [wollte], [könnte] er das.</div>
+    </div>
+  </details>
+
+  <details class="flash"><summary>Wie übersetzt man „Könnten Sie mir helfen?" – und warum KII?</summary>
+    <div class="flash-answer">= Could you help me? – KII macht die Bitte höflicher und weniger fordernd.
+      <div class="sub">„Helfen Sie mir!" (direkt/schroff) → „Könnten Sie mir helfen?" (höflich/respektvoll)</div>
+    </div>
+  </details>
+
+  <details class="flash"><summary>Was ist der Unterschied: „sollte" vs. „müsste" im KII?</summary>
+    <div class="flash-answer">sollte = Ratschlag (should – moral/social) · müsste = Notwendigkeit (ought to / would have to)
+      <div class="sub">Du solltest mehr schlafen. (Empfehlung) · Du müsstest nicht sofort entscheiden. (Notwendigkeit)</div>
+    </div>
+  </details>
+</section>
+
+<!-- ===== ÜBUNGEN ===== -->
+<section id="uebungen" class="tab-section">
+  <div class="section-title">✏️ Übungen – Formen & Verwendung</div>
+
+  <div class="card">
+    <h3>Block 1 – Richtige KII-Form wählen</h3>
+
+    <div class="gap-s">Wenn ich mehr Zeit
+      <select id="u1" onchange="checkSelect('u1','hätte')">
+        <option value="">___</option><option>habe</option><option>hätte</option><option>hatte</option><option>wäre</option>
+      </select>
+      , würde ich mehr lesen.
+      <span class="ctx">→ KII von haben</span>
+    </div>
+
+    <div class="gap-s">Ich
+      <select id="u2" onchange="checkSelect('u2','wäre')">
+        <option value="">___</option><option>bin</option><option>wäre</option><option>war</option><option>würde</option>
+      </select>
+      gerne für ein Jahr in Japan.
+      <span class="ctx">→ KII von sein</span>
+    </div>
+
+    <div class="gap-s">Wenn ich du
+      <select id="u3" onchange="checkSelect('u3','wäre')">
+        <option value="">___</option><option>bin</option><option>war</option><option>wäre</option><option>würde</option>
+      </select>
+      , würde ich das nicht tun.
+      <span class="ctx">→ KII von sein, 1. Person</span>
+    </div>
+
+    <div class="gap-s">
+      <select id="u4" onchange="checkSelect('u4','Könnten')">
+        <option value="">___</option><option>Können</option><option>Könnten</option><option>Konnten</option><option>Würden können</option>
+      </select>
+      Sie mir bitte helfen?
+      <span class="ctx">→ höfliche Bitte, KII von können</span>
+    </div>
+
+    <div class="gap-s">An deiner Stelle
+      <select id="u5" onchange="checkSelect('u5','würde ich')">
+        <option value="">___</option><option>werde ich</option><option>würde ich</option><option>wäre ich</option><option>hätte ich</option>
+      </select>
+      zuerst mit dem Chef reden.
+      <span class="ctx">→ Ratschlag mit würde</span>
+    </div>
+
+    <div class="gap-s">Das
+      <select id="u6" onchange="checkSelect('u6','dürfte')">
+        <option value="">___</option><option>darf</option><option>dürfte</option><option>würde dürfen</option><option>durfte</option>
+      </select>
+      kein Problem sein.
+      <span class="ctx">→ KII von dürfen = wahrscheinlich</span>
+    </div>
+
+    <div class="gap-s">Du
+      <select id="u7" onchange="checkSelect('u7','solltest')">
+        <option value="">___</option><option>sollst</option><option>solltest</option><option>würdest sollen</option><option>müsstest</option>
+      </select>
+      mehr schlafen. Das wäre besser für dich.
+      <span class="ctx">→ Ratschlag, KII von sollen</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Block 2 – KII der Vergangenheit</h3>
+
+    <div class="gap-s">Wenn ich das gewusst
+      <select id="v1" onchange="checkSelect('v1','hätte')">
+        <option value="">___</option><option>habe</option><option>hätte</option><option>wäre</option><option>hatte</option>
+      </select>
+      , hätte ich anders gehandelt.
+      <span class="ctx">→ wissen → hat gewusst → hätte gewusst</span>
+    </div>
+
+    <div class="gap-s">Er
+      <select id="v2" onchange="checkSelect('v2','wäre gekommen')">
+        <option value="">___</option><option>hätte gekommen</option><option>wäre gekommen</option><option>würde kommen</option>
+      </select>
+      , wenn er Zeit gehabt hätte.
+      <span class="ctx">→ kommen → sein-Verb → wäre</span>
+    </div>
+
+    <div class="gap-s">Du
+      <select id="v3" onchange="checkSelect('v3','hättest früher kommen sollen')">
+        <option value="">___</option>
+        <option value="hättest früher kommen sollen">hättest früher kommen sollen</option>
+        <option value="wärst früher kommen sollen">wärst früher kommen sollen</option>
+        <option value="würdest früher kommen sollen">würdest früher kommen sollen</option>
+      </select>
+      !
+      <span class="ctx">→ Vorwurf in der Vergangenheit</span>
+    </div>
+
+    <div class="gap-s">Das
+      <select id="v4" onchange="checkSelect('v4','hätte ich nie gedacht')">
+        <option value="">___</option>
+        <option value="hätte ich nie gedacht">hätte ich nie gedacht</option>
+        <option value="wäre ich nie gedacht">wäre ich nie gedacht</option>
+        <option value="würde ich nie denken">würde ich nie denken</option>
+      </select>
+      !
+      <span class="ctx">→ denken → haben-Verb → hätte</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Block 3 – Multiple Choice: Bedeutung & Verwendung</h3>
+
+    <div class="mc-q">
+      <p>„Ich hätte gerne ein Glas Wasser." – Warum KII?</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong')">Weil das Wasser in der Vergangenheit war</button>
+        <button class="mc-btn" onclick="mc(this,'correct')">Weil KII höflicher klingt als „Gib mir Wasser!"</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">Weil es eine irreale Bedingung ist</button>
+      </div>
+    </div>
+
+    <div class="mc-q">
+      <p>Welcher Satz ist FALSCH?</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong')">„Wenn ich Zeit hätte, würde ich kommen." ✓</button>
+        <button class="mc-btn" onclick="mc(this,'correct')">„Wenn ich Zeit hätte, komme ich." ✗ (Mischung Indikativ/KII!)</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">„Könnten Sie mir helfen?" ✓</button>
+      </div>
+    </div>
+
+    <div class="mc-q">
+      <p>„Du hättest früher kommen sollen!" – Was drückt das aus?</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong')">Einen Wunsch für die Zukunft</button>
+        <button class="mc-btn" onclick="mc(this,'correct')">Einen Vorwurf über etwas, das in der Vergangenheit anders hätte sein sollen</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">Eine höfliche Bitte</button>
+      </div>
+    </div>
+
+    <div class="mc-q">
+      <p>Welche Form ist KII von „gehen"?</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong')">ginge (veraltet – klingt unnatürlich)</button>
+        <button class="mc-btn" onclick="mc(this,'correct')">würde gehen (moderne, natürliche Form)</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">wäre gehen</button>
+      </div>
+    </div>
+
+    <div class="mc-q">
+      <p>Was bedeutet „Das dürfte schwierig sein"?</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong')">Das ist verboten.</button>
+        <button class="mc-btn" onclick="mc(this,'correct')">Das wird wahrscheinlich schwierig sein. (dürfte = höfliche Vermutung)</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">Das ist erlaubt, schwierig zu sein.</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPRECHEN ===== -->
+<section id="sprechen" class="tab-section">
+  <div class="section-title">🎤 Freies Sprechen – KII aktiv benutzen</div>
+  <p style="font-size:.88rem;color:#64748b;margin-bottom:16px;">Sprich 1–2 Minuten zu jeder Frage. Benutze mindestens 3 KII-Formen!</p>
+
+  <div class="speak-card">
+    <div class="sc-num">1</div>
+    <div class="sc-title">Traumleben: Wenn du alles hättest…</div>
+    <div class="sc-prompt">Wenn du unendlich Geld, Zeit und Freiheit hättest – was würdest du tun?</div>
+    <ul>
+      <li>„Wenn ich unendlich Geld hätte, würde ich als erstes…"</li>
+      <li>„Ich wäre gerne für ein Jahr in…, weil…"</li>
+      <li>„Wenn ich nur einen Wunsch hätte, würde ich…"</li>
+    </ul>
+  </div>
+
+  <div class="speak-card pur">
+    <div class="sc-num">2</div>
+    <div class="sc-title">Ratschlag geben – ein Freund hat ein Problem</div>
+    <div class="sc-prompt">Dein Freund ist unglücklich in seinem Job / seiner Wohnsituation / Beziehung. Was rätst du?</div>
+    <ul>
+      <li>„An deiner Stelle würde ich zuerst…"</li>
+      <li>„Du solltest unbedingt…"</li>
+      <li>„Es wäre sinnvoll, wenn du…"</li>
+      <li>„Du müsstest nicht sofort…"</li>
+    </ul>
+  </div>
+
+  <div class="speak-card gld">
+    <div class="sc-num">3</div>
+    <div class="sc-title">Ohne Konjunktiv II klingt Deutsch unfreundlich – stimmt das?</div>
+    <div class="sc-prompt">Diskutiert: Wann braucht man KII wirklich? Habt ihr das selbst erlebt?</div>
+    <ul>
+      <li>„Im Restaurant ohne KII würde ich sagen…"</li>
+      <li>„Auf dem Amt wäre es sehr unhöflich, wenn man…"</li>
+      <li>„Ich habe einmal erlebt, dass jemand ohne KII… Das klang…"</li>
+    </ul>
+  </div>
+
+  <div class="speak-card">
+    <div class="sc-num">4</div>
+    <div class="sc-title">Rückblick: Was hättest du anders gemacht?</div>
+    <div class="sc-prompt">KII der Vergangenheit – eine Entscheidung in deinem Leben, die du anders hättest treffen können.</div>
+    <ul>
+      <li>„Wenn ich das damals gewusst hätte, wäre ich…"</li>
+      <li>„Ich hätte lieber… statt…"</li>
+      <li>„Das hätte ich anders gemacht: …"</li>
+      <li>„An meiner Stelle hätte jeder…"</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  var n=document.getElementById('main-nav');
+  n.scrollTo({left:btn.offsetLeft-(n.offsetWidth/2)+(btn.offsetWidth/2),behavior:'smooth'});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function checkSelect(id,correct){
+  var s=document.getElementById(id);
+  if(!s)return;
+  s.classList.remove('correct','wrong');
+  if(!s.value)return;
+  s.classList.add(s.value===correct?'correct':'wrong');
+}
+function mc(btn,result){
+  btn.closest('.mc-opts').querySelectorAll('.mc-btn').forEach(b=>b.classList.remove('correct','wrong'));
+  btn.classList.add(result);
+}
+</script>
+</body>
+</html>

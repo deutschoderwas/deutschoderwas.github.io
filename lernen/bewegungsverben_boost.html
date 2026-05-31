@@ -1,0 +1,237 @@
+<!DOCTYPE html><html lang="de"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Wortschatzboost: Bewegungsverben · deutschoderwas</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#C4622D;--acc-lt:#F5D5B0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}.tbtn.reset{background:#555;color:white;}
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;scrollbar-width:none;}
+.phase-nav::-webkit-scrollbar{display:none;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;}.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.4rem;line-height:1.5;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.4rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--acc-lt);color:var(--acc);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.vok-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.vok-card.flipped{background:var(--acc-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);white-space:pre-line;}
+.vok-card.flipped .vok-back{display:block;}.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+.ex{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.85rem 1.2rem;margin-bottom:.55rem;border-left:4px solid var(--acc);font-size:.93rem;line-height:1.7;}
+.ex .de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);margin-bottom:.2rem;}
+.ex .en{font-size:.79rem;color:#888;font-style:italic;}.ex strong{color:var(--acc);}
+.dialog{background:var(--sand-lt);border-radius:16px;overflow:hidden;margin-bottom:1.1rem;border:1.5px solid var(--sand);}
+.dialog-hd{background:var(--dark);color:white;padding:.6rem 1.3rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
+.dialog-body{padding:1rem 1.3rem;}
+.dl{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start;}.dl:last-child{margin-bottom:0;}
+.dl-spk{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:60px;padding-top:.25rem;flex-shrink:0;color:var(--acc);line-height:1.3;}
+.dl-spk.b{color:var(--rust);}.dl-spk.c{color:#6B3D8A;}
+.dl-txt{font-size:.9rem;line-height:1.65;}.dl-txt strong{font-family:'Fraunces',serif;color:var(--brown);}
+.dl-ann{background:rgba(0,0,0,.04);border-left:3px solid var(--acc);font-size:.75rem;color:#555;padding:.3rem .7rem;margin-top:.2rem;border-radius:0 6px 6px 0;line-height:1.5;}
+.phrase-list{list-style:none;margin-bottom:1.1rem;}
+.phrase-list li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .9rem;border-radius:10px;margin-bottom:.4rem;background:white;border:1.5px solid var(--sand);font-size:.89rem;line-height:1.6;}
+.phrase-list li::before{content:'→';color:var(--acc);font-weight:700;flex-shrink:0;margin-top:.1rem;}
+.phrase-list li strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list li em{color:#888;font-size:.8rem;}
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.3rem;margin-bottom:.8rem;}
+.mc-q{font-size:.94rem;font-weight:600;margin-bottom:.75rem;line-height:1.55;}
+.mc-opts{display:flex;flex-direction:column;gap:.38rem;}
+.mc-opt{padding:.48rem 1rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.88rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--acc);background:var(--acc-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.81rem;margin-top:.6rem;display:none;font-weight:500;line-height:1.55;padding:.4rem .7rem;border-radius:8px;}
+.mc-fb.show{display:block;}.mc-fb.ok{color:var(--green);background:var(--green-lt);}.mc-fb.nope{color:var(--red);background:var(--red-lt);}
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.95rem 1.3rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.92rem;margin-bottom:.6rem;line-height:1.55;}
+.rf-btns{display:flex;gap:.45rem;}
+.rfbtn{padding:.28rem .85rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--acc);color:var(--acc);}.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.8rem;margin-top:.55rem;font-weight:500;display:none;line-height:1.55;padding:.35rem .6rem;border-radius:6px;}
+.rf-fb.show{display:block;}.rf-fb.ok{color:var(--green);background:var(--green-lt);}.rf-fb.bad{color:var(--red);background:var(--red-lt);}
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:13px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.speak-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.09);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);line-height:1.4;}
+.speak-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}.speak-hint{font-size:.68rem;color:#bbb;margin-top:.45rem;}
+.rsp-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;margin-bottom:.9rem;}
+.rsp-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.1);}.rsp-card.open .rsp-back{display:block;}.rsp-card.open .rsp-hint{display:none;}
+.rsp-top{background:var(--dark);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.75rem;}
+.rsp-emoji{font-size:1.4rem;flex-shrink:0;}.rsp-title{font-family:'Fraunces',serif;font-weight:700;color:white;font-size:1rem;}
+.rsp-body{padding:1rem 1.2rem;}.rsp-situation{font-size:.89rem;color:var(--dark);line-height:1.6;margin-bottom:.6rem;}
+.rsp-back{display:none;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--sand);}
+.rsp-rolle{font-size:.83rem;line-height:1.7;color:var(--dark);margin-bottom:.45rem;padding:.4rem .8rem;border-radius:8px;background:var(--cream);}
+.rsp-rolle strong{color:var(--acc);}.rsp-hint{font-size:.7rem;color:#bbb;}
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:.8rem;display:flex;align-items:flex-start;gap:1rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--acc-lt);flex-shrink:0;line-height:1;margin-top:.1rem;}
+.these-text{font-size:.93rem;line-height:1.65;}.these-starter{font-size:.77rem;color:#888;margin-top:.35rem;}
+.tipp{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-top:1.3rem;display:flex;gap:.9rem;align-items:flex-start;}
+.tipp-icon{font-size:1.3rem;flex-shrink:0;}.tipp-body{font-size:.87rem;line-height:1.75;}.tipp-body strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+.kultur{background:linear-gradient(135deg,var(--acc-lt),rgba(255,255,255,.5));border:1.5px solid var(--acc);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.kultur-title{font-family:'Fraunces',serif;font-weight:700;color:var(--acc);font-size:.9rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;}
+.kultur-body{font-size:.86rem;line-height:1.75;color:var(--dark);}
+</style></head><body>
+<div class="timer-bar">
+  <div class="timer-display" id="td">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="tf"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;flex-shrink:0;">Unterrichtszeit</span>
+  <div class="timer-btns"><button class="tbtn start" onclick="toggleTimer()">▶ Start</button><button class="tbtn reset" onclick="resetTimer()">↺</button></div>
+</div>
+<div class="phase-nav"><span class="brand-tag">deutsch<span>oder</span>was</span><button class="phase-btn active" onclick="showPhase('p1',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('p2',this)">② Wortschatz</button>
+  <button class="phase-btn" onclick="showPhase('p3',this)">③ Dialoge</button>
+  <button class="phase-btn" onclick="showPhase('p4',this)">④ Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('p5',this)">⑤ Rollenspiele</button>
+  <button class="phase-btn" onclick="showPhase('p6',this)">⑥ Übungen</button>
+  <button class="phase-btn" onclick="showPhase('p7',this)">⑦ Sprechen</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;flex-shrink:0;">Wortschatzboost ab B1 · 60 Min.</span>
+</div>
+<main>
+<div id="phase-p1" class="phase active"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 · Einstieg · 8 Min.</div>
+<div class="card-title">Wortschatzboost: Bewegungsverben</div><div class="card-sub">laufen, rennen, schleichen, stolpern &ndash; Deutsch bewegt sich vielf&auml;ltig!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div>
+<div class="kultur"><div class="kultur-title">🌍 Kulturnotiz</div><div class="kultur-body">Das Deutsche hat <strong>extrem viele Verben f&uuml;r Bewegung</strong> &ndash; wo Englisch nur 'walk' sagt, hat Deutsch: gehen, laufen, schlendern, marschieren, schleichen, stolpern, tr&ouml;deln... Jedes Wort tr&auml;gt eine Haltung, Geschwindigkeit oder Emotion.</div></div>
+<div class="slabel">Warming-up – Sprecht zuerst!</div>
+<div class="speak-grid" id="warmup"></div>
+<div class="tipp"><div class="tipp-icon">🎯</div><div class="tipp-body"><strong>Heute lernen wir:</strong> Schlendern, stampfen, schleichen, rasen &ndash; Deutsch hat f&uuml;r jede Bewegung das perfekte Verb!</div></div>
+</div></div></div>
+
+<div id="phase-p2" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 · Wortschatz · 12 Min.</div>
+<div class="card-title">Wichtige Wörter &amp; <em>Ausdrücke</em></div>
+<div class="card-sub">Klickt auf die Karten – Deutsch vorne, Erklärung hinten!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div><div class="slabel">&#128694; Wie man sich bewegt</div><div class="vok-grid" id="v1"></div>
+<div class="slabel">&#127939; Richtung &amp; Ziel</div><div class="vok-grid" id="v2"></div>
+
+</div></div></div>
+
+<div id="phase-p3" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 · Dialoge · 12 Min.</div>
+<div class="card-title">Echte Gespräche – <em>so klingt das!</em></div>
+<div class="card-sub">Lest die Dialoge laut – wechselt die Rollen!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div><div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">&#128694;</span> Rate das Verb &ndash; Errate die Bewegung</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Julia</span><div><div class="dl-txt">Ich gehe durch ein Museum. Es ist sch&ouml;n. Ich habe keine Eile. Ich schaue alles an. Was ist das Verb?</div></div></div>
+<div class="dl"><span class="dl-spk b">Gruppe</span><div><div class="dl-txt"><strong>Schlendern!</strong> 'Sie schlendern durch das Museum.'</div></div></div>
+<div class="dl"><span class="dl-spk ">Julia</span><div><div class="dl-txt">Richtig! Und jetzt: Ich bin p&auml;nktlich aber die Bahn f&auml;hrt in 3 Minuten. Was mache ich?</div></div></div>
+<div class="dl"><span class="dl-spk b">Gruppe</span><div><div class="dl-txt"><strong>Eilen! Rasen!</strong> 'Sie eilt zur Bahn.' oder 'Sie rast zum Bahnhof.'</div></div></div>
+<div class="dl"><span class="dl-spk ">Julia</span><div><div class="dl-txt">Super. Und: Ich bin w&uuml;tend auf meinen Chef und gehe aus dem B&uuml;ro. Laut. Dramatisch.</div></div></div>
+<div class="dl"><span class="dl-spk b">Gruppe</span><div><div class="dl-txt"><strong>Stampfen!</strong> 'Sie stampfte aus dem B&uuml;ro.'</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">&#128218;</span> Bewegungsverb &ndash; &uuml;bertragene Bedeutung</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Lea</span><div><div class="dl-txt">'Ich bin &uuml;ber einen interessanten Artikel <strong>gestolpert</strong>.' Was bedeutet das?</div></div></div>
+<div class="dl"><span class="dl-spk b">Tim</span><div><div class="dl-txt">Das hei&szlig;t du hast den Artikel <strong>zuf&auml;llig gefunden</strong> &ndash; nicht gesucht!</div></div></div>
+<div class="dl"><span class="dl-spk ">Lea</span><div><div class="dl-txt">Genau! Und: 'Die Partei ist &uuml;ber einen Skandal <strong>gestolpert</strong>.'</div></div></div>
+<div class="dl"><span class="dl-spk b">Tim</span><div><div class="dl-txt">Dort bedeutet es: Sie sind <strong>durch den Skandal gef&auml;llt worden</strong>.</div><div class="dl-ann">&uuml;ber etwas stolpern = Karrieresturz!</div></div></div>
+<div class="dl"><span class="dl-spk ">Lea</span><div><div class="dl-txt">Bewegungsverben haben oft <strong>&uuml;bertragene Bedeutungen</strong> im Deutschen!</div></div></div>
+<div class="dl"><span class="dl-spk b">Tim</span><div><div class="dl-txt">Stimmt. 'Jemanden zur&uuml;ck<strong>halten</strong>', 'auf etwas zu<strong>gehen</strong>'... &uuml;berall!</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">&#127939;</span> Beschreibe den Weg &ndash; pr&auml;zise</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Nadia</span><div><div class="dl-txt">Beschreib mir wie du heute morgen hier angekommen bist &ndash; so detailliert wie m&ouml;glich!</div></div></div>
+<div class="dl"><span class="dl-spk b">Marco</span><div><div class="dl-txt">Ich bin aus dem Haus <strong>geschlendert</strong>, dann an der Stra&szlig;enbahn <strong>vorbeigehetzt</strong> weil ich fast zu sp&auml;t war...</div></div></div>
+<div class="dl"><span class="dl-spk ">Nadia</span><div><div class="dl-txt">Sehr gut! Was noch?</div></div></div>
+<div class="dl"><span class="dl-spk b">Marco</span><div><div class="dl-txt">Am Eingang habe ich fast den Kaffee <strong>verschleppt</strong> &ndash; dann bin ich die Treppe <strong>hochgestampft</strong> weil der Fahrstuhl kaputt war.</div></div></div>
+<div class="dl"><span class="dl-spk ">Nadia</span><div><div class="dl-txt">Perfekt &ndash; 5 verschiedene Verben! Das ist Deutsch lebendig!</div></div></div>
+</div></div>
+
+</div></div></div>
+
+<div id="phase-p4" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 · Redemittel · 8 Min.</div>
+<div class="card-title">So sagt man das <em>wirklich!</em></div>
+<div class="card-sub">Echte Sätze – kein Lehrbuchangeldeutsch!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div><div class="slabel">&#128694; Grundverben</div>
+<ul class="phrase-list">
+<li><strong>Ich <strong>schlendern</strong> gerne durch Parks und alte St&auml;dte.</strong> <span style="color:#888;font-size:.82rem;">= I like to stroll through parks and old cities.</span> <em>– </em></li>
+<li><strong>H&ouml;r auf zu <strong>tr&ouml;deln</strong> &ndash; wir sind sp&auml;t!</strong> <span style="color:#888;font-size:.82rem;">= Stop dawdling &ndash; we're late!</span> <em>– negativ!</em></li>
+<li><strong>Er <strong>schlich</strong> leise ins Zimmer.</strong> <span style="color:#888;font-size:.82rem;">= He crept quietly into the room.</span> <em>– schleichen &rarr; schlich</em></li>
+</ul>
+<div class="slabel">&#128640; Schnell &amp; langsam</div>
+<ul class="phrase-list">
+<li><strong>Sie <strong>eilte</strong> zur Haltestelle.</strong> <span style="color:#888;font-size:.82rem;">= She hurried to the stop.</span> <em>– formell</em></li>
+<li><strong>Er <strong>raste</strong> die Stra&szlig;e entlang.</strong> <span style="color:#888;font-size:.82rem;">= He raced / sped along the street.</span> <em>– oft negativ</em></li>
+<li><strong>Wir <strong>stromerten</strong> durch die Stadt.</strong> <span style="color:#888;font-size:.82rem;">= We roamed through the city.</span> <em>– entspannt</em></li>
+</ul>
+<div class="slabel">&#128218; &Uuml;bertragene Bedeutungen</div>
+<ul class="phrase-list">
+<li><strong>Ich bin <strong>&uuml;ber einen Fehler gestolpert</strong>.</strong> <span style="color:#888;font-size:.82rem;">= I stumbled upon / discovered a mistake.</span> <em>– zuf&auml;llig!</em></li>
+<li><strong>Sie <strong>eilte</strong> ihm zu Hilfe.</strong> <span style="color:#888;font-size:.82rem;">= She rushed to help him.</span> <em>– </em></li>
+</ul>
+
+</div></div></div>
+
+<div id="phase-p5" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 · Rollenspiele · 12 Min.</div>
+<div class="card-title">Euer Auftritt – <em>los geht's!</em></div>
+<div class="card-sub">Klickt auf die Karte für Rollen &amp; Tipps</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div><div id="rsp1"></div>
+</div></div></div>
+
+<div id="phase-p6" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 · Übungen · 8 Min.</div>
+<div class="card-title">Jetzt testen wir!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div>
+<div class="slabel">Multiple Choice</div><div id="mc1"></div>
+<hr class="div"><div class="slabel">Richtig oder Falsch?</div><div id="rf1"></div>
+</div></div></div>
+
+<div id="phase-p7" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 · Freies Sprechen · 10 Min.</div>
+<div class="card-title">Eure Meinung – <em>jetzt seid ihr dran!</em></div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 10 Minuten</div><div class="these"><div class="these-num">1</div><div class="these-text">Welches Bewegungsverb passt am besten zu deiner Pers&ouml;nlichkeit?<div class="these-starter">'Ich bin eher ein... / Wenn ich gestresst bin... / Im Urlaub...'</div></div></div>
+<div class="these"><div class="these-num">2</div><div class="these-text">Warum hat das Deutsche so viele Bewegungsverben?<div class="these-starter">'Das liegt vielleicht an der... / Im Vergleich zum Englischen...'</div></div></div>
+
+<div class="slabel">Sprechkarten</div><div class="speak-grid" id="speakCards"></div>
+</div></div></div>
+</main>
+<script>
+const TOTAL=3600;let rem=TOTAL,intv=null,run=false;
+function upd(){const m=Math.floor(rem/60),s=rem%60;const d=document.getElementById('td');d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('tf').style.width=(rem/TOTAL*100)+'%';d.className='timer-display';if(rem<=600)d.classList.add('warn');if(rem<=120)d.classList.add('urgent');}
+function toggleTimer(){if(run){clearInterval(intv);run=false;document.querySelector('.tbtn.start').textContent='▶ Start';}else{run=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';intv=setInterval(()=>{if(rem>0){rem--;upd();}else{clearInterval(intv);run=false;}},1000);}}
+function resetTimer(){clearInterval(intv);run=false;rem=TOTAL;upd();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));document.getElementById('phase-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function buildVokCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(v=>{const d=document.createElement('div');d.className='vok-card';d.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${(v.back||'').replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint||'👆 klicken!'}</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildSpeakCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(i=>{const d=document.createElement('div');d.className='speak-card';d.innerHTML=`<div class="speak-front">${i.front}</div><div class="speak-back">${i.back}</div><div class="speak-hint">👆 Tipp & Formulierungshilfe</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildRSP(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(item=>{const d=document.createElement('div');d.className='rsp-card';d.innerHTML=`<div class="rsp-top"><span class="rsp-emoji">${item.emoji}</span><span class="rsp-title">${item.title}</span></div><div class="rsp-body"><div class="rsp-situation">${item.situation}</div><div class="rsp-back"><div class="rsp-rolle"><strong>🔴 Person A:</strong> ${item.a}</div><div class="rsp-rolle"><strong>🔵 Person B:</strong> ${item.b}</div>${item.tipps?`<div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">💡 Tipps:</strong> ${item.tipps}</div>`:''}</div><div class="rsp-hint">👆 klicken für Rollen & Tipps</div></div>`;d.addEventListener('click',()=>d.classList.toggle('open'));g.appendChild(d);});}
+function buildMC(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='mc';const opts=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${id}${i}')">${o}</button>`).join('');div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${opts}</div><div class="mc-fb" id="mcfb${id}${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerMC(btn,j,correct,fbId){btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');if(j!==correct)btn.classList.add('nope');const fb=document.getElementById(fbId);if(fb){fb.classList.add('show');fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);}}
+function buildRF(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='rf';div.id=`rf_${id}_${i}`;div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('${id}',${i},true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF('${id}',${i},false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb_${id}_${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerRF(id,i,answer,btn){const rfData=window['rfData_'+id];const card=document.getElementById(`rf_${id}_${i}`);card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));btn.classList.add(answer?'sel-r':'sel-f');const correct=rfData&&answer===rfData[i].ok;card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);const fb=document.getElementById(`rffb_${id}_${i}`);if(fb){fb.classList.add('show');fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);}}
+buildVokCards([{"front": "schlendern", "back": "= to stroll / saunter\n'Wir schlenderten durch die Altstadt.'\nLangsam, entspannt, ohne Ziel", "hint": "entspannt, langsam"}, {"front": "schleichen", "back": "= to sneak / creep\n'Er schlich ins Zimmer.'\nLeise, heimlich", "hint": "leise + heimlich"}, {"front": "stolpern", "back": "= to stumble / trip\n'Sie stolperte &uuml;ber den Stein.'\n&uuml;bertragen: stolpern &uuml;ber = to come across", "hint": "&uuml;ber etwas stolpern!"}, {"front": "tr&ouml;deln", "back": "= to dawdle / dilly-dally\n'H&ouml;r auf zu tr&ouml;deln!'\nLangsam + zeitverschwendend", "hint": "negativ!"}, {"front": "rasen", "back": "= to race / speed\n'Er raste die Treppe runter.'\nSehr schnell, oft gef&auml;hrlich", "hint": "schnell + r&uuml;cksichtslos"}, {"front": "stromern", "back": "= to roam / wander around\n'Wir stromerten durch den Wald.'\nZiellos, erkundend", "hint": "erkunden"}, {"front": "stampfen", "back": "= to stomp / stamp\n'Sie stampfte w&uuml;tend aus dem Zimmer.'\nAusdruck von &Auml;rger/Energie", "hint": "wutbedingt!"}, {"front": "schreiten", "back": "= to stride / walk solemnly\n'Er schritt w&uuml;rdevoll zum Podium.'\nFeierlich, langsam, bewusst", "hint": "w&uuml;rdevoll"}],'v1');
+buildVokCards([{"front": "sich n&auml;hern", "back": "= to approach\n'Das Auto n&auml;herte sich langsam.'\nreflexiv!", "hint": "reflexiv!"}, {"front": "fliehen", "back": "= to flee / escape\n'Sie flohen aus dem brennenden Haus.'\n&uuml;bertragen: vor Problemen fliehen", "hint": "Flucht!"}, {"front": "aufbrechen", "back": "= to set off / depart\n'Wir brechen morgen fr&uuml;h auf.'\nBeginn einer Reise/Bewegung", "hint": "Reisebeginn!"}, {"front": "eilen", "back": "= to hurry / hasten\n'Sie eilte zur Besprechung.'\neilen zu + Dativ", "hint": "Eile = hurry"}],'v2');
+buildMC([{"q": "Was bedeutet 'schlendern'?", "opts": ["Schnell laufen", "Gem&auml;chlich und entspannt spazieren", "Heimlich gehen"], "correct": 1, "fb": "&#10003; Schlendern = stroll. Langsam, entspannt, oft ohne konkretes Ziel."}, {"q": "'Ich bin &uuml;ber einen Artikel gestolpert.' Was bedeutet das?", "opts": ["Ich bin &uuml;ber einen Artikel gefallen", "Ich habe den Artikel zuf&auml;llig gefunden", "Ich habe viel gelesen"], "correct": 1, "fb": "&#10003; &Uuml;bertragene Bedeutung: stolpern &uuml;ber = to come across accidentally. Sehr h&auml;ufig!"}, {"q": "Welches Verb beschreibt Bewegung mit W&uuml;rde und Feierlichkeit?", "opts": ["rasen", "schleichen", "schreiten"], "correct": 2, "fb": "&#10003; Schreiten = to stride solemnly. 'Er schritt w&uuml;rdevoll zum Podium.' Sehr formell!"}],'mc1');
+window.rfData_rf1=[{"s": "'Tr&ouml;deln' ist ein positives Verb.", "ok": false, "fb": "&#10007; Falsch! Tr&ouml;deln ist negativ &ndash; bedeutet Zeit verschwenden, langsam sein. 'H&ouml;r auf zu tr&ouml;deln!'"}, {"s": "Bewegungsverben k&ouml;nnen &uuml;bertragene Bedeutungen haben.", "ok": true, "fb": "&#10003; Richtig! 'Stolpern &uuml;ber' = zuf&auml;llig finden/&uuml;ber etwas fallen. 'Eilen' = Hilfe leisten... Sehr produktiv!"}, {"s": "'Rasen' und 'eilen' bedeuten dasselbe.", "ok": false, "fb": "&#10007; Nicht ganz! Eilen = hurry (formell, positiv). Rasen = race/speed (oft negativ, r&uuml;cksichtslos)."}];buildRF(window.rfData_rf1,'rf1');
+buildRSP([{"emoji": "&#128694;", "title": "Bewegungsfilm ohne Worte", "situation": "Person A beschreibt eine Szene nur mit Bewegungsverben &ndash; Person B r\u00e4t den Kontext.", "a": "A: W&auml;hle eine Situation (Einbrecher, Tourist, w\u00fctender Chef) &ndash; beschreibe Bewegungen.", "b": "B: Rate was die Person ist und was sie f&uuml;hlt.", "tipps": "Je pr&auml;ziser das Verb, desto klarer die Emotion!"}, {"emoji": "&#127939;", "title": "Erz&auml;hle deinen Tag", "situation": "Erz&auml;hle deinen gestrigen Tag &ndash; nur Bewegungsverben benutzen, keine 'gehen'!", "a": "Pers A: Erz&auml;hlt &ndash; 'Ich schlich morgens aus dem Bett...'", "b": "Pers B: H&ouml;rt zu und notiert alle Verben &ndash; bewertet Pr&auml;zision.", "tipps": "Kein 'gehen' erlaubt! Jede Bewegung braucht das richtige Verb."}],'rsp1');
+buildSpeakCards([{"front": "Beschreibe deinen Morgen nur mit Bewegungsverben!", "back": "'Ich schlich aus dem Bett... / Ich eilte zum Bad... / Ich schlenderte zur K&uuml;che...'"}, {"front": "Mit welchem Verb w&uuml;rdest du deinen Chef beschreiben?", "back": "'Er/Sie stampft... / schreitet... / schleicht... / eilt... immer...'"}, {"front": "Benutze 'stolpern' in zwei verschiedenen Bedeutungen!", "back": "'Ich stolperte &uuml;ber einen Stein.' (w&ouml;rtlich) / 'Ich stolperte &uuml;ber einen Fehler.' (&uuml;bertragen)"}],'speakCards');
+buildSpeakCards([{"front": "Welches Bewegungsverb hast du noch nie benutzt aber m&ouml;chtest du &uuml;ben?", "back": "'Ich m&ouml;chte... &uuml;ben weil... / Ein Beispielsatz w&auml;re...'"}],'warmup');
+upd();</script></body></html>

@@ -1,0 +1,592 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="no-referrer">
+<title>Freies Sprechen – Freie Dialoge · deutschoderwas</title>
+<style>
+/* Self-contained fonts: system stack works offline, Google Fonts loads when online */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+:root {
+  --cream:#F7F3EE; --dark:#1A1410; --brown:#5C3D2E;
+  --rust:#C4622D; --rust-lt:#E8896A; --sand:#D9C4A8; --sand-lt:#EEE4D4;
+  --green:#3D6B4F; --green-lt:#D4E8DC; --red:#C0392B; --red-lt:#F5DDD9;
+  --teal:#2D8A7A; --teal-lt:#B8DDD4;
+  --pro:#3D6B4F; --contra:#C0392B;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}
+.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--rust),var(--teal));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.tbtn.start{background:var(--green);color:white;}
+.tbtn.pause{background:var(--rust);color:white;}
+.tbtn.reset{background:#555;color:white;}
+
+/* TOPIC TIMER */
+.topic-timer{
+  background:rgba(255,255,255,.1);
+  border-radius:8px;padding:.2rem .8rem;
+  font-size:.75rem;color:#ccc;
+  display:flex;align-items:center;gap:.4rem;
+  cursor:pointer;transition:background .2s;
+}
+.topic-timer:hover{background:rgba(255,255,255,.2);}
+.topic-timer.running{color:#FFCE00;}
+
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--rust);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--rust);color:var(--rust-lt);}
+.phase-btn.active{background:var(--rust);border-color:var(--rust);color:white;}
+.phase-time{font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;}
+
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}
+.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;position:relative;overflow:hidden;}
+.card-header::after{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.04);}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--rust-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--teal-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.35rem;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--rust) 0%,var(--teal) 100%);}
+.card-body{padding:1.6rem 1.8rem;}
+
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--rust);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.3rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--sand-lt);color:var(--brown);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+
+/* DEBATTE CARDS */
+.debatte-card{
+  background:white;border:1.5px solid var(--sand);
+  border-radius:16px;overflow:hidden;
+  margin-bottom:1.5rem;
+  transition:box-shadow .2s;
+}
+.debatte-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.08);}
+.debatte-header{
+  background:var(--dark);color:white;
+  padding:1rem 1.4rem;
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;
+}
+.debatte-thema{
+  font-family:'Fraunces',serif;font-size:1.05rem;font-weight:700;
+  color:white;line-height:1.3;flex:1;
+}
+.debatte-niveau{
+  font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:.2rem .7rem;border-radius:20px;flex-shrink:0;
+  background:rgba(255,255,255,.15);color:rgba(255,255,255,.8);
+}
+.pro-contra{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+@media(max-width:560px){.pro-contra{grid-template-columns:1fr;}}
+.pro-col,.contra-col{padding:1rem 1.3rem;}
+.pro-col{border-right:1px solid var(--sand);}
+@media(max-width:560px){.pro-col{border-right:none;border-bottom:1px solid var(--sand);}}
+.col-header{
+  font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  margin-bottom:.7rem;display:flex;align-items:center;gap:.4rem;
+}
+.col-header.pro{color:var(--pro);}
+.col-header.contra{color:var(--contra);}
+.punkt{
+  display:flex;align-items:flex-start;gap:.6rem;
+  font-size:.86rem;line-height:1.55;margin-bottom:.55rem;
+  color:var(--dark);
+}
+.punkt-dot{
+  width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;font-weight:900;flex-shrink:0;margin-top:.1rem;
+}
+.punkt-dot.pro{background:var(--green-lt);color:var(--pro);}
+.punkt-dot.contra{background:var(--red-lt);color:var(--contra);}
+.debatte-starter{
+  background:var(--sand-lt);padding:.8rem 1.3rem;
+  border-top:1px solid var(--sand);
+  font-size:.82rem;color:var(--brown);line-height:1.6;
+}
+.debatte-starter strong{color:var(--rust);}
+
+/* ROLLENSPIEL CARDS */
+.rsp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-bottom:1.2rem;}
+.rsp-card{
+  background:white;border:1.5px solid var(--sand);
+  border-radius:14px;overflow:hidden;
+  cursor:pointer;transition:all .2s;
+}
+.rsp-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.1);}
+.rsp-card.open .rsp-back{display:block;}
+.rsp-card.open .rsp-hint{display:none;}
+.rsp-top{
+  background:var(--dark);padding:.75rem 1.1rem;
+  display:flex;align-items:center;gap:.7rem;
+}
+.rsp-emoji{font-size:1.3rem;}
+.rsp-title{font-family:'Fraunces',serif;font-weight:700;color:white;font-size:.95rem;}
+.rsp-body{padding:.9rem 1.1rem;}
+.rsp-situation{font-size:.88rem;color:var(--dark);line-height:1.5;margin-bottom:.5rem;}
+.rsp-back{display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--sand);}
+.rsp-rolle{font-size:.8rem;line-height:1.6;color:var(--dark);}
+.rsp-rolle strong{color:var(--teal);}
+.rsp-hint{font-size:.68rem;color:#aaa;}
+
+/* SPRECHKARTEN */
+.sk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.sk-card{
+  background:white;border:1.5px solid var(--sand);border-radius:12px;
+  padding:1rem 1.2rem;cursor:pointer;transition:all .2s;
+  border-left:4px solid var(--rust);
+}
+.sk-card:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(196,98,45,.12);}
+.sk-card.flipped{background:var(--sand-lt);}
+.sk-front{font-family:'Fraunces',serif;font-weight:700;font-size:.93rem;color:var(--dark);}
+.sk-back{font-size:.82rem;color:var(--dark);line-height:1.55;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);}
+.sk-card.flipped .sk-back{display:block;}
+.sk-hint{font-size:.68rem;color:#aaa;margin-top:.3rem;}
+
+.tipp{background:var(--dark);color:var(--cream);border-radius:14px;padding:1rem 1.3rem;margin-top:1.2rem;display:flex;gap:.8rem;align-items:flex-start;}
+.tipp-icon{font-size:1.2rem;flex-shrink:0;}
+.tipp-text{font-size:.86rem;line-height:1.7;}
+.tipp-text strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+
+/* REDEMITTEL für Debatten */
+.rdm-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem;}
+@media(max-width:560px){.rdm-grid{grid-template-columns:1fr;}}
+.rdm-item{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.7rem 1rem;font-size:.86rem;line-height:1.5;}
+.rdm-item strong{color:var(--rust);font-family:'Fraunces',serif;display:block;font-size:.78rem;margin-bottom:.2rem;text-transform:uppercase;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+
+<div class="timer-bar">
+  <div class="timer-display" id="timerDisplay">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="timerFill"></div></div>
+  <div class="topic-timer" id="topicTimer" onclick="toggleTopicTimer()">⏱ Themen-Timer: <span id="topicDisplay">5:00</span></div>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">▶ Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">↺</button>
+  </div>
+</div>
+
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <button class="phase-btn active" onclick="showPhase('warm',this)">① Warming-up</button>
+  <button class="phase-btn" onclick="showPhase('redemittel',this)">② Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('debatten',this)">③ Debatten</button>
+  <button class="phase-btn" onclick="showPhase('rollenspiele',this)">④ Rollenspiele</button>
+  <button class="phase-btn" onclick="showPhase('spontan',this)">⑤ Spontan!</button>
+  <span class="phase-time">B1/B2 · 60 Min.</span>
+</div>
+
+<main>
+
+<!-- ① WARMING-UP -->
+<div id="phase-warm" class="phase active">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Freies Sprechen · B1/B2 · Warming-up · 8 Min.</div>
+      <div class="card-title">Freies Sprechen – <em>Freie Dialoge!</em></div>
+      <div class="card-sub">Debatten · Rollenspiele · Spontane Gespräche</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+
+      <div class="slabel">Warming-up – eine Frage pro Person!</div>
+      <div class="sk-grid" id="warmupGrid"></div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🎯</div>
+        <div class="tipp-text"><strong>Heute gilt:</strong> Kein Schweigen! Wenn du ein Wort nicht weißt – beschreib es. Wenn du eine Meinung nicht hast – erfinde eine. Das ist Sprechen üben, nicht Perfektsein!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② REDEMITTEL -->
+<div id="phase-redemittel" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Freies Sprechen · Redemittel · 8 Min.</div>
+      <div class="card-title">Debattieren auf <em>Deutsch</em></div>
+      <div class="card-sub">Diese Phrasen brauchst du heute!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+
+      <div class="slabel">Meinung äußern</div>
+      <div class="rdm-grid">
+        <div class="rdm-item"><strong>neutral</strong>„Ich bin der Meinung, dass…"</div>
+        <div class="rdm-item"><strong>neutral</strong>„Meiner Ansicht nach…"</div>
+        <div class="rdm-item"><strong>stark</strong>„Ich bin fest davon überzeugt, dass…"</div>
+        <div class="rdm-item"><strong>umgangssprachlich</strong>„Also, ich finde ja, dass…"</div>
+      </div>
+
+      <div class="slabel">Zustimmen</div>
+      <div class="rdm-grid">
+        <div class="rdm-item"><strong>voll zustimmen</strong>„Da stimme ich dir / Ihnen vollkommen zu."</div>
+        <div class="rdm-item"><strong>teilweise</strong>„Da ist was dran, aber…"</div>
+        <div class="rdm-item"><strong>neutral</strong>„Das sehe ich genauso."</div>
+        <div class="rdm-item"><strong>umgangssprachlich</strong>„Absolut! / Genau das meine ich auch."</div>
+      </div>
+
+      <div class="slabel">Widersprechen</div>
+      <div class="rdm-grid">
+        <div class="rdm-item"><strong>höflich</strong>„Ich sehe das etwas anders. Meiner Meinung nach…"</div>
+        <div class="rdm-item"><strong>direkt</strong>„Das würde ich so nicht sagen, weil…"</div>
+        <div class="rdm-item"><strong>stark</strong>„Da muss ich dir / Ihnen widersprechen."</div>
+        <div class="rdm-item"><strong>differenziert</strong>„Das stimmt nur bedingt, denn…"</div>
+      </div>
+
+      <div class="slabel">Argumente einleiten</div>
+      <div class="rdm-grid">
+        <div class="rdm-item"><strong>erstens</strong>„Zum einen… zum anderen…"</div>
+        <div class="rdm-item"><strong>Beispiel</strong>„Ein gutes Beispiel dafür ist…"</div>
+        <div class="rdm-item"><strong>Schluss</strong>„Zusammenfassend würde ich sagen…"</div>
+        <div class="rdm-item"><strong>Gegenfrage</strong>„Aber was ist, wenn…?"</div>
+      </div>
+
+      <div class="slabel">Zeit gewinnen (sehr wichtig!)</div>
+      <div class="rdm-grid">
+        <div class="rdm-item"><strong>Pause</strong>„Das ist eine gute Frage…"</div>
+        <div class="rdm-item"><strong>Pause</strong>„Hmm, da muss ich kurz überlegen…"</div>
+        <div class="rdm-item"><strong>Pause</strong>„Also… wie soll ich das sagen…"</div>
+        <div class="rdm-item"><strong>Pause</strong>„Ich bin mir nicht ganz sicher, aber ich glaube…"</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ DEBATTEN -->
+<div id="phase-debatten" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Freies Sprechen · Debatten · 20 Min.</div>
+      <div class="card-title">Aktuelle Themen – <em>Pro & Contra</em></div>
+      <div class="card-sub">Klick auf eine Debatte – dann diskutiert! ⏱ 5 Min. pro Thema</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 20 Minuten · ca. 5 Min. pro Thema</div>
+      <div id="debattenContainer"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ ROLLENSPIELE -->
+<div id="phase-rollenspiele" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Freies Sprechen · Rollenspiele · 15 Min.</div>
+      <div class="card-title">Freie Dialoge – <em>Ihr seid dran!</em></div>
+      <div class="card-sub">Person A & B – klick für Rollenbeschreibung · ⏱ 3–4 Min. pro Rollenspiel</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 15 Minuten</div>
+      <div class="rsp-grid" id="rollenspielGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ SPONTAN -->
+<div id="phase-spontan" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Freies Sprechen · Spontan · 9 Min.</div>
+      <div class="card-title">Keine Vorbereitung – <em>einfach sprechen!</em></div>
+      <div class="card-sub">Zufallsfragen – klick und antworte sofort!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 9 Minuten</div>
+
+      <div class="slabel">Zufallsfrage – klick auf die Karte!</div>
+      <div style="text-align:center;margin-bottom:1.5rem;">
+        <div id="randomCard" style="background:var(--dark);color:white;border-radius:16px;padding:2rem 1.5rem;cursor:pointer;transition:transform .2s;" onclick="nextRandom()">
+          <div style="font-size:.7rem;color:#aaa;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.7rem;">Klick für eine Frage!</div>
+          <div id="randomQ" style="font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;line-height:1.4;">🎲 Klick mich!</div>
+          <div style="font-size:.72rem;color:#888;margin-top:.8rem;">nochmal klicken = nächste Frage</div>
+        </div>
+      </div>
+
+      <div class="slabel">Abschlussrunde</div>
+      <div style="background:var(--dark);color:white;border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:1rem;">
+        <div style="font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--rust-lt);margin-bottom:.5rem;">🎤 Jeder sagt einen Satz:</div>
+        <div style="font-size:.9rem;line-height:1.7;">„Wenn ich an die heutige Stunde denke, war das Interessanteste für mich…"<br>„Ein Satz auf Deutsch, den ich heute gelernt habe / benutzt habe: …"</div>
+      </div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🏠</div>
+        <div class="tipp-text"><strong>Bis nächste Woche:</strong> Such dir ein aktuelles Thema aus den Nachrichten – auf Deutsch! Bereite 3 Argumente vor (Pro oder Contra) und stell es uns vor.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// TIMER
+const TOTAL=3600;let remaining=TOTAL,interval=null,running=false;
+function updateTimerDisplay(){
+  const m=Math.floor(remaining/60),s=remaining%60;
+  const d=document.getElementById('timerDisplay');
+  d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  document.getElementById('timerFill').style.width=(remaining/TOTAL*100)+'%';
+  d.className='timer-display';
+  if(remaining<=600)d.classList.add('warn');
+  if(remaining<=120)d.classList.add('urgent');
+}
+function toggleTimer(){
+  if(running){clearInterval(interval);running=false;document.querySelector('.tbtn.start').textContent='▶ Start';}
+  else{running=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';interval=setInterval(()=>{if(remaining>0){remaining--;updateTimerDisplay();}else{clearInterval(interval);running=false;}},1000);}
+}
+function resetTimer(){clearInterval(interval);running=false;remaining=TOTAL;updateTimerDisplay();document.querySelector('.tbtn.start').textContent='▶ Start';}
+
+// TOPIC TIMER (5 min)
+let topicRemaining=300,topicInterval=null,topicRunning=false;
+function toggleTopicTimer(){
+  const el=document.getElementById('topicTimer');
+  if(topicRunning){
+    clearInterval(topicInterval);topicRunning=false;el.classList.remove('running');
+  } else {
+    topicRunning=true;el.classList.add('running');
+    topicInterval=setInterval(()=>{
+      if(topicRemaining>0){topicRemaining--;updateTopicDisplay();}
+      else{clearInterval(topicInterval);topicRunning=false;el.classList.remove('running');topicRemaining=300;updateTopicDisplay();alert('⏰ Zeit! Nächstes Thema!');}
+    },1000);
+  }
+}
+function updateTopicDisplay(){
+  const m=Math.floor(topicRemaining/60),s=topicRemaining%60;
+  document.getElementById('topicDisplay').textContent=`${m}:${String(s).padStart(2,'0')}`;
+}
+
+function showPhase(id,btn){
+  document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('phase-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// WARMING UP
+const warmupData=[
+  {front:'Was hast du heute / diese Woche erlebt, das interessant war?',back:'Tipp: Beschreib es mit Details – wo, wann, mit wem, warum interessant?'},
+  {front:'Was nervt dich gerade am meisten – und warum?',back:'Tipp: Benutze: „Was mich gerade wirklich nervt ist…" / „Ich ärgere mich über…"'},
+  {front:'Wenn du morgen einen freien Tag hättest – was würdest du tun?',back:'Tipp: Konjunktiv 2! „Ich würde…" / „Am liebsten würde ich…"'},
+  {front:'Was ist deiner Meinung nach das größte Problem in deiner Stadt?',back:'Tipp: „Ich bin der Meinung, dass…" / „Das größte Problem ist meines Erachtens…"'},
+  {front:'Was war das Lustigste, das dir auf Deutsch passiert ist?',back:'Tipp: Erzähl die Geschichte mit Vergangenheit! „Es war, als ich… Plötzlich…"'},
+  {front:'Wenn du eine Regel in Deutschland ändern könntest – welche wäre das?',back:'Tipp: Konjunktiv 2 + Begründung: „Ich würde… ändern, weil…"'},
+];
+function buildWarmup(){
+  const grid=document.getElementById('warmupGrid');
+  warmupData.forEach(item=>{
+    const div=document.createElement('div');div.className='sk-card';
+    div.innerHTML=`<div class="sk-front">${item.front}</div><div class="sk-back">${item.back}</div><div class="sk-hint">👆 klicken für Tipp</div>`;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+// DEBATTEN
+const debatten=[
+  {
+    thema:'Sollte Homeoffice für alle Berufe, die es erlauben, verpflichtend angeboten werden?',
+    niveau:'B1/B2',
+    pro:['Bessere Work-Life-Balance und weniger Stress durch Pendeln','Produktivitätsstudien zeigen: viele Menschen arbeiten zuhause effizienter','Reduzierung von CO₂-Emissionen durch weniger Verkehr','Attraktiver für Familien mit Kindern und Pflegenden'],
+    contra:['Soziale Isolation und weniger Teamgeist im Büro','Zuhause gibt es oft mehr Ablenkungen – Kinder, Lärm, Haushalt','Nicht alle haben zu Hause geeignete Arbeitsbedingungen','Kreativität und spontane Ideen entstehen oft im direkten Austausch'],
+    starter:'„Ich bin der Meinung, dass Homeoffice…" / „Das stimmt nur bedingt, denn…" / „Ein gutes Beispiel dafür ist…"'
+  },
+  {
+    thema:'Sollte das Tempolimit auf deutschen Autobahnen auf 130 km/h begrenzt werden?',
+    niveau:'B1/B2',
+    pro:['Weniger Unfälle und damit mehr Sicherheit auf den Straßen','Deutliche Reduzierung von CO₂-Emissionen','In fast allen anderen EU-Ländern gibt es bereits ein Limit','Geringerer Kraftstoffverbrauch – gut für die Geldbörse'],
+    contra:['Die freie Fahrt gilt als deutsches Kulturgut und Symbol der Freiheit','Moderne Autos sind sicherer – Technik ersetzt das Limit','Wirtschaftliche Nachteile für Hersteller von Hochleistungsautos','Unfallstatistiken zeigen: die meisten Unfälle passieren nicht wegen fehlenden Limits'],
+    starter:'„Meiner Ansicht nach…" / „Da ist was dran, aber…" / „Ich muss da widersprechen, weil…"'
+  },
+  {
+    thema:'Sollten soziale Medien für Kinder unter 14 Jahren verboten werden?',
+    niveau:'B1/B2',
+    pro:['Kinder entwickeln noch keine kritische Medienkompetenz','Cybermobbing und Vergleichsdruck schaden der psychischen Gesundheit','Studien zeigen Zusammenhang zwischen Social Media und Depressionen bei Teenagern','Eltern können die Nutzung kaum effektiv kontrollieren'],
+    contra:['Verbote sind schwer durchzusetzen – Kinder finden immer einen Weg','Soziale Medien sind auch ein Ort zum Lernen und Vernetzen','Bessere Medienerziehung ist wirksamer als Verbote','Kinder werden ausgeschlossen, wenn alle anderen dabei sind'],
+    starter:'„Ich bin fest davon überzeugt, dass…" / „Das sehe ich genauso." / „Aber was ist, wenn…?"'
+  },
+  {
+    thema:'Sollte Fleisch in Deutschland stärker besteuert werden, um den Konsum zu reduzieren?',
+    niveau:'B2',
+    pro:['Massentierhaltung ist eine der größten Quellen für Treibhausgase','Günstigeres Fleisch führt zu Überkonsum – höhere Preise bremsen das','Einnahmen könnten in ökologische Landwirtschaft investiert werden','Tierwohlstandards könnten durch höhere Preise finanziert werden'],
+    contra:['Menschen mit wenig Geld werden unverhältnismäßig belastet','Es ist eine staatliche Einmischung in persönliche Ernährungsentscheidungen','Fleischkonsum ist kulturell und regional tief verwurzelt','Steuern alleine ändern keine Verhaltensweisen – Aufklärung ist wirkungsvoller'],
+    starter:'„Zum einen… zum anderen…" / „Das stimmt nur bedingt, denn…" / „Zusammenfassend würde ich sagen…"'
+  },
+  {
+    thema:'Sollte Deutschland mehr Geflüchtete aufnehmen als bisher?',
+    niveau:'B2',
+    pro:['Deutschland hat als wirtschaftsstarkes Land besondere Verantwortung','Fachkräftemangel könnte durch qualifizierte Zuwanderer teilweise gelöst werden','Internationale Schutzpflichten und humanitäre Werte verpflichten dazu','Gesellschaftliche Vielfalt bereichert Kultur und Wirtschaft'],
+    contra:['Kommunen sind bei Integration bereits stark überlastet','Ohne funktionierende Integration entstehen soziale Spannungen','Sicherheitsbedenken müssen ernst genommen und geprüft werden','Nachbarländer müssen stärker in die Verantwortung gezogen werden'],
+    starter:'„Ich sehe das etwas anders." / „Da muss ich widersprechen." / „Das ist eine gute Frage…"'
+  },
+  {
+    thema:'Sollte die Viertagewoche in Deutschland zur Norm werden?',
+    niveau:'B1/B2',
+    pro:['Studien aus Ländern wie Island und Japan zeigen: Produktivität bleibt gleich oder steigt','Mehr Zeit für Familie, Hobbys und psychische Gesundheit','Weniger Krankheitstage durch ausgeglichenere Mitarbeiter','Attraktiver Arbeitgeber – bessere Fachkräftegewinnung'],
+    contra:['In vielen Branchen (Pflege, Gastronomie) ist das kaum umsetzbar','Gleiche Arbeit in weniger Zeit – das kann zu mehr Stress führen','Wirtschaftliche Konsequenzen sind schwer abschätzbar','Nicht alle Mitarbeiter wollen kürzere Arbeitszeit gegen weniger Lohn'],
+    starter:'„Ich bin der Meinung, dass…" / „Das sehe ich genauso, weil…" / „Aber man muss auch bedenken…"'
+  },
+];
+
+function buildDebatten(){
+  const c=document.getElementById('debattenContainer');
+  debatten.forEach((d,i)=>{
+    const div=document.createElement('div');div.className='debatte-card';
+    const proItems=d.pro.map(p=>`<div class="punkt"><div class="punkt-dot pro">✓</div><span>${p}</span></div>`).join('');
+    const contraItems=d.contra.map(p=>`<div class="punkt"><div class="punkt-dot contra">✗</div><span>${p}</span></div>`).join('');
+    div.innerHTML=`
+      <div class="debatte-header">
+        <div class="debatte-thema">💬 ${d.thema}</div>
+        <div class="debatte-niveau">${d.niveau}</div>
+      </div>
+      <div class="pro-contra">
+        <div class="pro-col">
+          <div class="col-header pro">✓ Pro</div>
+          ${proItems}
+        </div>
+        <div class="contra-col">
+          <div class="col-header contra">✗ Contra</div>
+          ${contraItems}
+        </div>
+      </div>
+      <div class="debatte-starter">🗣️ <strong>Einstieg:</strong> ${d.starter}</div>
+    `;
+    c.appendChild(div);
+    if(i<debatten.length-1){
+      const hr=document.createElement('hr');hr.className='div';c.appendChild(hr);
+    }
+  });
+}
+
+// ROLLENSPIELE
+const rollenspiele=[
+  {
+    emoji:'🏥',title:'Beim Arzt',
+    situation:'Du hast seit 3 Tagen starke Rückenschmerzen. Du rufst beim Arzt an und möchtest einen dringenden Termin.',
+    rolleA:'Patient/in: Beschreib die Symptome, frag nach dem frühestmöglichen Termin, erkläre warum es dringend ist.',
+    rolleB:'Arztpraxis: Frag nach Symptomen, biete Termine an, erkläre was vorher zu tun ist.',
+  },
+  {
+    emoji:'🏠',title:'Wohnungsbesichtigung',
+    situation:'Du besichtigst eine Wohnung. Sie gefällt dir – aber es gibt einige Probleme, die du ansprechen möchtest.',
+    rolleA:'Interessent/in: Frag nach Nebenkosten, Renovierungen, Nachbarn. Verhandle über den Mietpreis.',
+    rolleB:'Vermieter/in: Beantworte Fragen, überzeuge den Interessenten, aber gib nicht zu viel nach.',
+  },
+  {
+    emoji:'✈️',title:'Am Flughafen',
+    situation:'Dein Flug wurde storniert. Du stehst am Schalter und musst eine Lösung finden.',
+    rolleA:'Passagier: Erkläre die Situation, fordere eine Alternative, bleib hartnäckig aber höflich.',
+    rolleB:'Airline-Mitarbeiter: Biete Alternativen an (Zug, nächster Flug), erkläre Entschädigungsregeln.',
+  },
+  {
+    emoji:'💼',title:'Im Bewerbungsgespräch',
+    situation:'Du bewirbst dich für eine Stelle als Projektmanager/in. Das Interview findet auf Deutsch statt.',
+    rolleA:'Bewerber/in: Stell dich vor, beantworte Fragen, stell eigene Fragen zum Job.',
+    rolleB:'HR-Manager/in: Frag nach Erfahrungen, Stärken/Schwächen, Gehaltsvorstellungen.',
+  },
+  {
+    emoji:'🛒',title:'Im Supermarkt – Beschwerde',
+    situation:'Du hast gestern verdorbene Ware gekauft. Du gehst zurück und möchtest dein Geld zurück.',
+    rolleA:'Kunde/in: Erkläre das Problem mit dem Produkt, zeige die Quittung, besteh auf Rückerstattung.',
+    rolleB:'Kassierer/in: Frag nach Details, biete Umtausch an, ruf ggf. den Marktleiter.',
+  },
+  {
+    emoji:'🍽️',title:'Im Restaurant',
+    situation:'Das Essen ist kalt und falsch – du hast etwas anderes bestellt. Du wartest schon seit 45 Minuten.',
+    rolleA:'Gast: Beschwer dich höflich aber bestimmt, frag nach Rabatt, überleg ob du gehst.',
+    rolleB:'Kellner/in: Entschuldige dich, biete Lösungen an (neues Essen, Rabatt), versuche den Gast zu halten.',
+  },
+];
+
+function buildRollenspiele(){
+  const grid=document.getElementById('rollenspielGrid');
+  rollenspiele.forEach(item=>{
+    const div=document.createElement('div');div.className='rsp-card';
+    div.innerHTML=`
+      <div class="rsp-top"><span class="rsp-emoji">${item.emoji}</span><span class="rsp-title">${item.title}</span></div>
+      <div class="rsp-body">
+        <div class="rsp-situation">${item.situation}</div>
+        <div class="rsp-back">
+          <div class="rsp-rolle"><strong>🔴 Person A:</strong> ${item.rolleA}</div>
+          <div class="rsp-rolle" style="margin-top:.5rem;"><strong>🔵 Person B:</strong> ${item.rolleB}</div>
+        </div>
+        <div class="rsp-hint">👆 klicken für Rollen</div>
+      </div>
+    `;
+    div.addEventListener('click',()=>div.classList.toggle('open'));
+    grid.appendChild(div);
+  });
+}
+
+// SPONTAN ZUFALLSFRAGEN
+const zufallsFragen=[
+  'Was wäre das erste, was du tätest, wenn du im Lotto gewinnen würdest?',
+  'Welche drei Dinge würdest du auf eine einsame Insel mitnehmen?',
+  'Was ist deiner Meinung nach das größte Problem der heutigen Gesellschaft?',
+  'Wenn du eine Sprache sofort perfekt sprechen könntest – welche wäre das und warum?',
+  'Was macht einen guten Freund / eine gute Freundin aus?',
+  'Glaubst du, dass Glück machbar ist oder einfach passiert?',
+  'Was würdest du anders machen, wenn du noch einmal 20 Jahre alt wärst?',
+  'Würdest du lieber in der Stadt oder auf dem Land leben – und warum?',
+  'Was ist das Mutigste, das du je getan hast?',
+  'Wenn du eine neue Regel für Deutschland einführen könntest – welche wäre das?',
+  'Was nervt dich an anderen Menschen am meisten?',
+  'Ist es wichtiger, beliebt oder respektiert zu werden?',
+  'Was bedeutet Erfolg für dich persönlich?',
+  'Würdest du dein Leben lieber in einem anderen Land verbringen? In welchem – und warum?',
+  'Was ist das Beste, was dir in letzter Zeit passiert ist?',
+  'Hast du eine Gewohnheit, die du gerne ändern würdest?',
+  'Was denkst du über Künstliche Intelligenz – Fluch oder Segen?',
+  'Wie viel Einfluss hat Social Media auf unser tägliches Leben?',
+];
+let usedQ=[];
+function nextRandom(){
+  if(usedQ.length===zufallsFragen.length) usedQ=[];
+  let idx;
+  do{idx=Math.floor(Math.random()*zufallsFragen.length);}while(usedQ.includes(idx));
+  usedQ.push(idx);
+  document.getElementById('randomQ').textContent=zufallsFragen[idx];
+  document.getElementById('randomCard').style.transform='scale(.97)';
+  setTimeout(()=>document.getElementById('randomCard').style.transform='scale(1)',150);
+}
+
+// INIT
+buildWarmup();buildDebatten();buildRollenspiele();updateTimerDisplay();
+nextRandom();
+</script>
+</body>
+</html>

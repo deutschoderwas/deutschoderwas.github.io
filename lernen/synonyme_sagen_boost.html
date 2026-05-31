@@ -1,0 +1,579 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="no-referrer">
+<title>Synonyme für „sagen" · deutschoderwas Wortschatzboost</title>
+<style>
+/* Self-contained fonts: system stack works offline, Google Fonts loads when online */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+:root {
+  --cream:#F7F3EE; --dark:#1A1410; --brown:#5C3D2E;
+  --rust:#C4622D; --rust-lt:#E8896A; --sand:#D9C4A8; --sand-lt:#EEE4D4;
+  --green:#3D6B4F; --green-lt:#D4E8DC; --red:#C0392B; --red-lt:#F5DDD9;
+  --pink:#E07060; --pink-lt:#F5C5BE;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}
+.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--pink),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.tbtn.start{background:var(--green);color:white;}
+.tbtn.reset{background:#555;color:white;}
+.timer-label{font-size:.7rem;color:#aaa;white-space:nowrap;}
+
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--pink);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--pink);color:var(--pink-lt);}
+.phase-btn.active{background:var(--pink);border-color:var(--pink);color:white;}
+.phase-time{font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;}
+
+main{max-width:900px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}
+.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;position:relative;overflow:hidden;}
+.card-header::after{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.04);}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--pink-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.35rem;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--pink) 0%,var(--rust) 60%,var(--rust-lt) 100%);}
+.card-body{padding:1.6rem 1.8rem;}
+
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.3rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--pink-lt);color:var(--red);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+
+/* VERB REVEAL CARDS */
+.verb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.verb-card{
+  background:white;border:1.5px solid var(--sand);border-radius:14px;
+  overflow:hidden;cursor:pointer;transition:all .2s;
+  border-top:4px solid var(--pink);
+}
+.verb-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(224,112,96,.15);}
+.verb-card.revealed{border-top-color:var(--green);}
+.verb-front{padding:1rem 1.2rem;}
+.verb-name{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:900;color:var(--dark);margin-bottom:.2rem;}
+.verb-hint{font-size:.75rem;color:#aaa;font-style:italic;}
+.verb-back{
+  background:var(--pink-lt);padding:.8rem 1.2rem;
+  display:none;border-top:1px solid var(--sand);
+}
+.verb-card.revealed .verb-back{display:block;}
+.verb-bedeutung{font-size:.85rem;font-weight:600;color:var(--dark);margin-bottom:.3rem;}
+.verb-beispiel{font-size:.83rem;color:var(--brown);line-height:1.5;}
+.verb-beispiel strong{color:var(--pink);}
+.verb-grammar{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:var(--dark);color:var(--pink-lt);padding:.12rem .6rem;border-radius:20px;margin-top:.4rem;}
+
+/* BEFORE/AFTER */
+.ba-wrap{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1.2rem;}
+@media(max-width:560px){.ba-wrap{grid-template-columns:1fr;}}
+.ba-col{border-radius:12px;overflow:hidden;}
+.ba-head{padding:.5rem 1rem;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
+.ba-head.before{background:#ddd;color:#666;}
+.ba-head.after{background:var(--pink);color:white;}
+.ba-row{background:white;border:1px solid var(--sand);padding:.65rem 1rem;font-size:.88rem;line-height:1.5;}
+.ba-row:not(:last-child){border-bottom:none;}
+.ba-row.after-row{font-family:'Fraunces',serif;font-weight:700;color:var(--dark);}
+.ba-row strong{color:var(--pink);}
+
+/* DRAG MATCH */
+.match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1rem;}
+@media(max-width:560px){.match-wrap{grid-template-columns:1fr;}}
+.match-col-label{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#999;margin-bottom:.55rem;}
+.m-item{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.65rem 1rem;margin-bottom:.45rem;font-size:.88rem;cursor:pointer;transition:all .2s;user-select:none;line-height:1.45;}
+.m-item.verb-item{font-family:'Fraunces',serif;font-weight:700;color:var(--dark);}
+.m-item:hover:not(.done){border-color:var(--pink);}
+.m-item.sel{border-color:var(--pink);background:#FFF0EA;}
+.m-item.done{border-color:var(--green);background:var(--green-lt);pointer-events:none;}
+.m-item.err{border-color:var(--red);background:var(--red-lt);}
+
+/* GAP */
+.gap-row{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.75rem 1.1rem;margin-bottom:.5rem;font-size:.92rem;line-height:1.9;display:flex;flex-wrap:wrap;align-items:center;gap:.3rem;transition:border-color .2s,background .2s;}
+.gap-row.correct{border-color:var(--green);background:var(--green-lt);}
+.gap-row.wrong{border-color:var(--red);background:var(--red-lt);}
+.blank{display:inline-block;min-width:130px;border-bottom:2.5px solid var(--pink);font-family:'Fraunces',serif;font-weight:700;color:var(--dark);font-size:.9rem;padding:0 .3rem;cursor:pointer;text-align:center;}
+.blank:empty::before{content:'___';color:#ccc;font-style:italic;font-size:.8rem;}
+.g-icon{font-size:.9rem;opacity:0;transition:opacity .3s;}
+.gap-row.correct .g-icon,.gap-row.wrong .g-icon{opacity:1;}
+.wbank{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem;}
+.chip{background:var(--dark);color:var(--cream);font-family:'Fraunces',serif;font-weight:700;font-size:.78rem;padding:.25rem .8rem;border-radius:20px;cursor:pointer;transition:background .15s,transform .1s;user-select:none;outline:2px solid transparent;}
+.chip:hover{background:var(--pink);transform:scale(1.04);}
+.chip.active{background:var(--pink);outline:2px solid var(--pink-lt);}
+
+/* RF */
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}
+.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.91rem;margin-bottom:.55rem;line-height:1.5;}
+.rf-btns{display:flex;gap:.4rem;}
+.rfbtn{padding:.25rem .78rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.77rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--pink);color:var(--pink);}
+.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}
+.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.79rem;margin-top:.5rem;font-weight:500;display:none;line-height:1.5;}
+.rf-fb.show{display:block;}
+.rf-fb.ok{color:var(--green);}
+.rf-fb.bad{color:var(--red);}
+
+/* SPEAK */
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--pink);}
+.speak-card:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(224,112,96,.12);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.93rem;color:var(--dark);}
+.speak-back{font-size:.82rem;color:var(--dark);line-height:1.5;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}
+.speak-hint{font-size:.68rem;color:#aaa;margin-top:.4rem;}
+
+.check-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--pink);color:white;border:none;border-radius:30px;padding:.52rem 1.3rem;font-family:'Fraunces',serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .15s;margin-top:.8rem;}
+.check-btn:hover{background:var(--brown);transform:scale(1.02);}
+.score{display:inline-block;background:var(--dark);color:var(--cream);font-family:'Fraunces',serif;font-weight:700;font-size:.82rem;padding:.2rem .85rem;border-radius:20px;margin-left:.7rem;opacity:0;transition:opacity .3s;}
+.score.show{opacity:1;}
+.reset-link{font-size:.72rem;color:#bbb;cursor:pointer;text-decoration:underline;margin-left:.7rem;}
+.reset-link:hover{color:var(--pink);}
+
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:.75rem;display:flex;align-items:flex-start;gap:.9rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:900;color:var(--pink-lt);flex-shrink:0;line-height:1;}
+.these-text{font-size:.92rem;line-height:1.6;}
+.these-starter{font-size:.76rem;color:#888;margin-top:.3rem;}
+
+.tipp{background:var(--dark);color:var(--cream);border-radius:14px;padding:1rem 1.3rem;margin-top:1.2rem;display:flex;gap:.8rem;align-items:flex-start;}
+.tipp-icon{font-size:1.2rem;flex-shrink:0;}
+.tipp-text{font-size:.86rem;line-height:1.7;}
+.tipp-text strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.4rem 0;}
+</style>
+</head>
+<body>
+
+<!-- TIMER -->
+<div class="timer-bar">
+  <div class="timer-display" id="timerDisplay">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="timerFill"></div></div>
+  <span class="timer-label">Unterrichtszeit</span>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">▶ Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">↺</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <button class="phase-btn active" onclick="showPhase('einstieg',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('verben',this)">② Die Verben</button>
+  <button class="phase-btn" onclick="showPhase('uebung',this)">③ Übungen</button>
+  <button class="phase-btn" onclick="showPhase('sprechen',this)">④ Sprechen</button>
+  <button class="phase-btn" onclick="showPhase('abschluss',this)">⑤ Abschluss</button>
+  <span class="phase-time">Wortschatzboost · ab B1 · 60 Min.</span>
+</div>
+
+<main>
+
+<!-- ① EINSTIEG -->
+<div id="phase-einstieg" class="phase active">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Wortschatzboost · ab B1 · Einstieg · 10 Min.</div>
+      <div class="card-title">Synonyme für <em>„sagen"</em></div>
+      <div class="card-sub">Präziser sprechen – wie echte Deutsche!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">Das Problem mit „sagen"</div>
+      <div class="tipp" style="margin-top:0;">
+        <div class="tipp-icon">🤔</div>
+        <div class="tipp-text">„Er sagte, dass er müde ist." „Sie sagte, dass sie das nicht will." „Ich sagte ihm, dass…" — klingt das natürlich? <strong>Nein!</strong> Deutsche benutzen viele verschiedene Verben, die zeigen <em>wie</em> und <em>mit welcher Absicht</em> jemand spricht.</div>
+      </div>
+
+      <div class="slabel">Vorher / Nachher – was klingt besser?</div>
+      <div class="ba-wrap">
+        <div class="ba-col">
+          <div class="ba-head before">❌ Nur „sagen"</div>
+          <div class="ba-row">Er sagte, dass er das nicht wusste.</div>
+          <div class="ba-row">Sie sagte, dass sie anderer Meinung ist.</div>
+          <div class="ba-row">Er sagte immer, dass es zu kalt ist.</div>
+          <div class="ba-row">Ich sagte, dass ich das unbedingt will.</div>
+        </div>
+        <div class="ba-col">
+          <div class="ba-head after">✓ Mit Synonymen</div>
+          <div class="ba-row after-row">Er <strong>gab zu</strong>, dass er das nicht wusste.</div>
+          <div class="ba-row after-row">Sie <strong>widersprach</strong> mir.</div>
+          <div class="ba-row after-row">Er <strong>jammerte</strong> immer über die Kälte.</div>
+          <div class="ba-row after-row">Ich <strong>bestand darauf</strong>, dass ich das will.</div>
+        </div>
+      </div>
+
+      <div class="tipp">
+        <div class="tipp-icon">💡</div>
+        <div class="tipp-text"><strong>Frage an die Gruppe:</strong> Welche deutschen Verben für „sagen" kennt ihr schon? Sammelt Ideen – einfach rufen!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② DIE VERBEN -->
+<div id="phase-verben" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Wortschatzboost · ab B1 · Die Verben · 15 Min.</div>
+      <div class="card-title">8 Verben, die <em>„sagen" ersetzen</em></div>
+      <div class="card-sub">Klick auf eine Karte um Bedeutung und Beispiel zu sehen!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 15 Minuten</div>
+
+      <div class="slabel">Klick auf die Karten – von oben nach unten!</div>
+      <div class="verb-grid" id="verbGrid"></div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🎯</div>
+        <div class="tipp-text"><strong>Merktrick:</strong> Lern jedes Verb mit einem Satz aus deinem eigenen Leben! „Ich <em>bestehe darauf</em>, pünktlich zu sein." klingt sofort echter als eine Vokabelliste.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ ÜBUNGEN -->
+<div id="phase-uebung" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Wortschatzboost · ab B1 · Übungen · 15 Min.</div>
+      <div class="card-title">Jetzt üben wir!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 15 Minuten</div>
+
+      <div class="slabel">Übung 1 – Verb zum Satz zuordnen</div>
+      <p style="font-size:.82rem;color:#777;margin-bottom:.8rem;">Klick auf ein Verb (links), dann auf die passende Bedeutung (rechts).</p>
+      <div class="match-wrap">
+        <div><div class="match-col-label">Verb</div><div id="mLeft"></div></div>
+        <div><div class="match-col-label">Bedeutung / Situation</div><div id="mRight"></div></div>
+      </div>
+      <button class="check-btn" onclick="checkMatch()">✓ Prüfen <span id="mScore" class="score"></span></button>
+      <span class="reset-link" onclick="resetMatch()">zurücksetzen</span>
+
+      <hr class="div">
+
+      <div class="slabel">Übung 2 – Lückentext</div>
+      <p style="font-size:.82rem;color:#777;margin-bottom:.8rem;">Klick auf ein Verb, dann auf die Lücke.</p>
+      <div class="wbank" id="wb1"></div>
+      <div id="gaps1"></div>
+      <button class="check-btn" onclick="checkGaps()">✓ Prüfen <span id="sc1" class="score"></span></button>
+      <span class="reset-link" onclick="resetGaps()">zurücksetzen</span>
+
+      <hr class="div">
+
+      <div class="slabel">Übung 3 – Richtig oder Falsch?</div>
+      <div id="rf1"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ SPRECHEN -->
+<div id="phase-sprechen" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Wortschatzboost · ab B1 · Sprechen · 15 Min.</div>
+      <div class="card-title">Die Verben im <em>echten Gespräch</em></div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 15 Minuten</div>
+
+      <div class="slabel">Sprechkarten – benutze das richtige Verb!</div>
+      <p style="font-size:.82rem;color:#777;margin-bottom:.8rem;">Klick für die Antwort-Hilfe. Benutze das passende Verb aus der Stunde!</p>
+      <div class="speak-grid" id="speakCards"></div>
+
+      <hr class="div">
+
+      <div class="slabel">Situationen spielen – zu zweit!</div>
+      <div class="these">
+        <div class="these-num">1</div>
+        <div class="these-text">
+          Person A sagt, dass alle Deutschen pünktlich sind. Person B ist anderer Meinung.
+          <div class="these-starter">Benutze: „Ich muss dir <strong>widersprechen</strong>…" / „Ich <strong>stelle fest</strong>, dass…"</div>
+        </div>
+      </div>
+      <div class="these">
+        <div class="these-num">2</div>
+        <div class="these-text">
+          Du hast etwas Falsches gemacht und gibst es zu. Dein Partner fragt nach.
+          <div class="these-starter">Benutze: „Ich muss <strong>zugeben</strong>, dass…" / „Ich <strong>gebe zu</strong>…"</div>
+        </div>
+      </div>
+      <div class="these">
+        <div class="these-num">3</div>
+        <div class="these-text">
+          Du hast ein defektes Produkt im Laden. Der Verkäufer sagt, er kann nichts machen.
+          <div class="these-starter">Benutze: „Ich <strong>bestehe darauf</strong>…" / „Ich <strong>weise darauf hin</strong>, dass…"</div>
+        </div>
+      </div>
+      <div class="these">
+        <div class="these-num">4</div>
+        <div class="these-text">
+          Du erzählst, was du in einer Situation bemerkt hast und wie du reagiert hast.
+          <div class="these-starter">Benutze: „Ich <strong>stelle fest</strong>, dass…" / „Ich <strong>weise darauf hin</strong>…"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ ABSCHLUSS -->
+<div id="phase-abschluss" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Wortschatzboost · ab B1 · Abschluss · 5 Min.</div>
+      <div class="card-title">Das nehmen wir mit!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 5 Minuten</div>
+
+      <div class="slabel">Die 8 Verben auf einen Blick</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.5rem;margin-bottom:1.4rem;" id="summaryGrid"></div>
+
+      <div class="slabel">Abschlussrunde – 1 Satz pro Person</div>
+      <div class="these" style="cursor:default;">
+        <div class="these-num">🎤</div>
+        <div class="these-text">
+          Bilde einen eigenen Satz mit einem der Verben aus der heutigen Stunde – aus deinem echten Leben!
+          <div class="these-starter">Z.B.: „Ich bestehe immer darauf, dass meine Kinder rechtzeitig ins Bett gehen." oder „Ich stelle fest, dass das Deutsche immer einfacher wird!"</div>
+        </div>
+      </div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🏠</div>
+        <div class="tipp-text"><strong>Hausaufgabe:</strong> Schreib heute Abend einen kurzen Text (5-8 Sätze) in dem du mindestens 4 der Verben aus dieser Stunde benutzt. Thema frei!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// TIMER
+const TOTAL=3600;let remaining=TOTAL,interval=null,running=false;
+function updateTimerDisplay(){
+  const m=Math.floor(remaining/60),s=remaining%60;
+  const d=document.getElementById('timerDisplay');
+  d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  document.getElementById('timerFill').style.width=(remaining/TOTAL*100)+'%';
+  d.className='timer-display';
+  if(remaining<=600)d.classList.add('warn');
+  if(remaining<=120)d.classList.add('urgent');
+}
+function toggleTimer(){
+  if(running){clearInterval(interval);running=false;document.querySelector('.tbtn.start').textContent='▶ Start';}
+  else{running=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';interval=setInterval(()=>{if(remaining>0){remaining--;updateTimerDisplay();}else{clearInterval(interval);running=false;}},1000);}
+}
+function resetTimer(){clearInterval(interval);running=false;remaining=TOTAL;updateTimerDisplay();document.querySelector('.tbtn.start').textContent='▶ Start';}
+
+function showPhase(id,btn){
+  document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('phase-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// VERB DATA
+const verbs=[
+  {name:'zugeben',hint:'etwas Unangenehmes bestätigen',bedeutung:'etwas Unangenehmes oder Falsches bestätigen',beispiel:'Ich muss <strong>zugeben</strong>, dass ich einen Fehler gemacht habe.',grammar:'+ dass-Satz'},
+  {name:'feststellen',hint:'eine Tatsache bemerken',bedeutung:'eine Tatsache aus eigener Erfahrung bemerken (die Feststellung = eine Tatsache)',beispiel:'Ich <strong>stelle fest</strong>, dass die Schweizer sehr höflich sind.',grammar:'+ dass-Satz · kein Dat.-Obj.'},
+  {name:'widersprechen',hint:'anderer Meinung sein',bedeutung:'eine andere Meinung äußern, dagegen sein',beispiel:'Ich muss dir <strong>widersprechen</strong> – das stimmt so nicht.',grammar:'+ Dativ'},
+  {name:'hinweisen auf',hint:'aufmerksam machen',bedeutung:'auf etwas aufmerksam machen, informieren',beispiel:'Ich <strong>weise darauf hin</strong>, dass morgen kein Unterricht ist.',grammar:'auf + Akk. · darauf hin, dass…'},
+  {name:'jammern',hint:'klagen, sich beschweren',bedeutung:'klagen, sich (übertrieben) beschweren',beispiel:'Er <strong>jammert</strong> immer über das Wetter.',grammar:'+ über + Akk.'},
+  {name:'bestehen auf',hint:'etwas unbedingt fordern',bedeutung:'etwas unbedingt verlangen / fordern',beispiel:'Ich <strong>bestehe auf</strong> meiner Rückerstattung.',grammar:'auf + Dat. · darauf, dass…'},
+  {name:'behaupten',hint:'etwas als wahr darstellen',bedeutung:'etwas als Tatsache darstellen (oft ohne Beweis)',beispiel:'Er <strong>behauptet</strong>, dass er das nicht wusste.',grammar:'+ dass-Satz'},
+  {name:'erklären',hint:'etwas verständlich machen',bedeutung:'etwas verständlich machen, detailliert sagen',beispiel:'Sie <strong>erklärte</strong> uns, wie das Programm funktioniert.',grammar:'+ dass-Satz / + Dativobjekt'},
+];
+
+function buildVerbGrid(){
+  const grid=document.getElementById('verbGrid');
+  verbs.forEach(v=>{
+    const div=document.createElement('div');div.className='verb-card';
+    div.innerHTML=`<div class="verb-front"><div class="verb-name">${v.name}</div><div class="verb-hint">${v.hint} – klick!</div></div><div class="verb-back"><div class="verb-bedeutung">= ${v.bedeutung}</div><div class="verb-beispiel">${v.beispiel}</div><span class="verb-grammar">${v.grammar}</span></div>`;
+    div.addEventListener('click',()=>div.classList.toggle('revealed'));
+    grid.appendChild(div);
+  });
+}
+
+function buildSummary(){
+  const grid=document.getElementById('summaryGrid');
+  verbs.forEach(v=>{
+    const div=document.createElement('div');
+    div.style.cssText='background:var(--dark);color:white;border-radius:10px;padding:.7rem 1rem;';
+    div.innerHTML=`<div style="font-family:\'Fraunces\',serif;font-weight:700;font-size:.95rem;color:var(--pink-lt);">${v.name}</div><div style="font-size:.75rem;color:#aaa;margin-top:.2rem;">${v.hint}</div>`;
+    grid.appendChild(div);
+  });
+}
+
+// MATCH
+const matchData=[
+  {id:'a',verb:'zugeben',def:'Du sagst, dass du einen Fehler gemacht hast.'},
+  {id:'b',verb:'feststellen',def:'Du bemerkst aus eigener Erfahrung etwas Interessantes.'},
+  {id:'c',verb:'widersprechen',def:'Du bist anderer Meinung und sagst das direkt.'},
+  {id:'d',verb:'hinweisen auf',def:'Du machst jemanden auf etwas Wichtiges aufmerksam.'},
+  {id:'e',verb:'jammern',def:'Du klagst übertrieben über ein Problem.'},
+  {id:'f',verb:'bestehen auf',def:'Du forderst etwas mit Nachdruck – du gibst nicht nach.'},
+];
+let mSel=null,mPairs={};
+const mShuffled=[...matchData].sort(()=>Math.random()-.5);
+
+function buildMatch(){
+  const ml=document.getElementById('mLeft'),mr=document.getElementById('mRight');
+  ml.innerHTML='';mr.innerHTML='';
+  matchData.forEach(item=>{
+    const l=document.createElement('div');l.className='m-item verb-item';l.textContent=item.verb;l.dataset.id=item.id;l.dataset.side='left';
+    l.addEventListener('click',()=>doMatch(l));ml.appendChild(l);
+  });
+  mShuffled.forEach(item=>{
+    const r=document.createElement('div');r.className='m-item';r.textContent=item.def;r.dataset.id=item.id;r.dataset.side='right';
+    r.addEventListener('click',()=>doMatch(r));mr.appendChild(r);
+  });
+}
+function doMatch(el){
+  if(el.classList.contains('done'))return;
+  if(!mSel){document.querySelectorAll('.m-item').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');mSel=el;return;}
+  if(el.dataset.side===mSel.dataset.side){document.querySelectorAll('.m-item').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');mSel=el;return;}
+  const leftEl=mSel.dataset.side==='left'?mSel:el;
+  const rightEl=mSel.dataset.side==='right'?mSel:el;
+  mPairs[leftEl.dataset.id]=rightEl.dataset.id;
+  document.querySelectorAll('.m-item').forEach(x=>x.classList.remove('sel'));mSel=null;
+}
+function checkMatch(){
+  let ok=0;
+  matchData.forEach(item=>{
+    const lEl=[...document.querySelectorAll('.m-item[data-side="left"]')].find(e=>e.dataset.id===item.id);
+    const rEl=[...document.querySelectorAll('.m-item[data-side="right"]')].find(e=>e.dataset.id===item.id);
+    if(mPairs[item.id]===item.id){ok++;lEl.classList.add('done');rEl.classList.add('done');}
+    else if(mPairs[item.id]){lEl.classList.add('err');rEl.classList.add('err');setTimeout(()=>{lEl.classList.remove('err');rEl.classList.remove('err');delete mPairs[item.id];},700);}
+  });
+  const sc=document.getElementById('mScore');sc.textContent=`${ok}/${matchData.length}`;sc.classList.add('show');
+}
+function resetMatch(){Object.keys(mPairs).forEach(k=>delete mPairs[k]);mSel=null;buildMatch();document.getElementById('mScore').classList.remove('show');}
+
+// GAP
+const gapData=[
+  {pre:'Ich muss ',blank:'zugeben',post:', dass ich gestern zu spät aufgestanden bin.'},
+  {pre:'Sie ',blank:'jammert',post:' immer über die langen Schlangen im Supermarkt.'},
+  {pre:'Ich ',blank:'bestehe darauf',post:', dass du mir das Geld zurückgibst!'},
+  {pre:'Ich muss dir ',blank:'widersprechen',post:' – die Schweizer sind wirklich freundlich.'},
+  {pre:'Ich ',blank:'stelle fest',post:', dass es in München kaum bezahlbare Wohnungen gibt.'},
+  {pre:'Die Lehrerin ',blank:'weist',post:' die Schüler darauf hin, dass morgen eine Prüfung ist.'},
+  {pre:'Er ',blank:'behauptet',post:', dass er krank war – aber ich glaube ihm nicht.'},
+];
+const bankWords=['zugeben','jammert','bestehe darauf','widersprechen','stelle fest','weist','behauptet'];
+let selChip=null;const fills={};
+
+function buildGaps(){
+  const wb=document.getElementById('wb1');wb.innerHTML='';
+  bankWords.forEach(w=>{
+    const c=document.createElement('span');c.className='chip';c.textContent=w;c.dataset.word=w;
+    c.addEventListener('click',()=>{document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));selChip=selChip===w?null:w;if(selChip)c.classList.add('active');});
+    wb.appendChild(c);
+  });
+  const gc=document.getElementById('gaps1');gc.innerHTML='';
+  gapData.forEach((s,i)=>{
+    const row=document.createElement('div');row.className='gap-row';row.id='gr'+i;
+    row.innerHTML=`<span>${s.pre}</span><span class="blank" id="gb${i}" onclick="fillBlank(${i})">${fills[i]||''}</span><span>${s.post}</span><span class="g-icon" id="gi${i}"></span>`;
+    gc.appendChild(row);
+  });
+}
+function fillBlank(i){if(!selChip)return;fills[i]=selChip;document.getElementById('gb'+i).textContent=selChip;document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));selChip=null;}
+function checkGaps(){
+  let ok=0;
+  gapData.forEach((s,i)=>{
+    const row=document.getElementById('gr'+i),icon=document.getElementById('gi'+i);
+    const correct=fills[i]&&fills[i].toLowerCase()===s.blank.toLowerCase();
+    row.classList.toggle('correct',correct);row.classList.toggle('wrong',!correct);
+    icon.textContent=correct?'✅':'❌';if(correct)ok++;
+  });
+  const sc=document.getElementById('sc1');sc.textContent=`${ok}/${gapData.length}`;sc.classList.add('show');
+}
+function resetGaps(){
+  gapData.forEach((s,i)=>{delete fills[i];document.getElementById('gr'+i).classList.remove('correct','wrong');document.getElementById('gi'+i).textContent='';document.getElementById('gb'+i).textContent='';});
+  selChip=null;document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));
+  document.getElementById('sc1').classList.remove('show');
+}
+
+// RF
+const rfData=[
+  {s:'„Ich bestehe auf meine Rückerstattung." – Das ist korrekt.',ok:false,fb:'✗ Falsch! „bestehen auf" verlangt den <strong>Dativ</strong> → „Ich bestehe auf <strong>meiner</strong> Rückerstattung."'},
+  {s:'„feststellen" benutzt man für eigene Erfahrungen und Beobachtungen – nicht für Meinungen.',ok:true,fb:'✓ Richtig! Die Feststellung = eine Tatsache aus eigener Erfahrung. Für Meinungen sagt man: „Meiner Meinung nach…"'},
+  {s:'„widersprechen" braucht den Akkusativ: „Ich widerspreche dich."',ok:false,fb:'✗ Falsch! „widersprechen" braucht den <strong>Dativ</strong> → „Ich widerspreche <strong>dir</strong>."'},
+  {s:'„Er jammert über das Wetter." – Das ist korrekt.',ok:true,fb:'✓ Richtig! jammern + über + Akkusativ ✓'},
+  {s:'„behaupten" und „feststellen" bedeuten dasselbe.',ok:false,fb:'✗ Falsch! „feststellen" = etwas selbst erfahren/beobachten. „behaupten" = etwas als Tatsache darstellen, oft ohne Beweis – kann auch skeptisch klingen!'},
+];
+function buildRF(){
+  const c=document.getElementById('rf1');
+  rfData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='rf';div.id='rfc'+i;
+    div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF(${i},true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF(${i},false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerRF(i,answer,btn){
+  const card=document.getElementById('rfc'+i);
+  card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));
+  btn.classList.add(answer?'sel-r':'sel-f');
+  const correct=answer===rfData[i].ok;
+  card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);
+  const fb=document.getElementById('rffb'+i);fb.classList.add('show');
+  fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);
+}
+
+// SPEAK CARDS
+const speakData=[
+  {front:'Jemand behauptet, du warst gestern nicht bei der Arbeit – aber das stimmt nicht!',back:'„Das muss ich <strong>widersprechen</strong> – ich war sehr wohl da!" / „Ich <strong>weise darauf hin</strong>, dass…"'},
+  {front:'Du hast etwas vergessen und dein Freund fragt dich danach.',back:'„Ich muss <strong>zugeben</strong>, dass ich das total vergessen habe."'},
+  {front:'Dein Kollege klagt schon den ganzen Tag über seine Arbeit.',back:'„Er <strong>jammert</strong> die ganze Zeit über…" / „Das ist Jammern auf hohem Niveau!"'},
+  {front:'Du hast im Supermarkt ein abgelaufenes Produkt gekauft und gehst zurück.',back:'„Ich <strong>bestehe darauf</strong>, dass Sie mir das Geld erstatten!" / „Ich <strong>weise darauf hin</strong>, dass das Produkt abgelaufen war."'},
+  {front:'Du merkst, dass in deiner Stadt immer mehr Cafés aufmachen.',back:'„Ich <strong>stelle fest</strong>, dass es hier immer mehr Cafés gibt."'},
+  {front:'Dein Chef sagt, das Meeting ist morgen. Du weißt, dass es heute ist.',back:'„Ich muss Ihnen <strong>widersprechen</strong> – das Meeting ist heute." / „Ich <strong>weise darauf hin</strong>, dass…"'},
+];
+function buildSpeakCards(){
+  const grid=document.getElementById('speakCards');
+  speakData.forEach(item=>{
+    const div=document.createElement('div');div.className='speak-card';
+    div.innerHTML=`<div class="speak-front">${item.front}</div><div class="speak-back">${item.back}</div><div class="speak-hint">👆 klicken für Hilfe</div>`;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+// INIT
+buildVerbGrid();buildSummary();buildMatch();buildGaps();buildRF();buildSpeakCards();updateTimerDisplay();
+</script>
+</body>
+</html>

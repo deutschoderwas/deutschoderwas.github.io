@@ -1,0 +1,696 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="no-referrer">
+<title>Sprachspiele · deutschoderwas</title>
+<style>
+/* Self-contained fonts: system stack works offline, Google Fonts loads when online */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+:root {
+  --cream:#F7F3EE; --dark:#1A1410; --brown:#5C3D2E;
+  --rust:#C4622D; --rust-lt:#E8896A; --sand:#D9C4A8; --sand-lt:#EEE4D4;
+  --green:#3D6B4F; --green-lt:#D4E8DC; --red:#C0392B; --red-lt:#F5DDD9;
+  --yellow:#D4A820; --yellow-lt:#F5E5B0;
+  --purple:#6B3D8A; --purple-lt:#E8D4F5;
+  --teal:#2D8A7A; --teal-lt:#B8DDD4;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+
+/* HEADER */
+header{
+  background:var(--dark);padding:1.2rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;
+  position:relative;overflow:hidden;
+}
+header::before{content:'🎮';position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);font-size:4rem;opacity:.08;}
+.header-left .eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--rust-lt);margin-bottom:.3rem;}
+.header-left h1{font-family:'Fraunces',serif;font-size:clamp(1.4rem,3.5vw,2rem);font-weight:900;color:white;line-height:1.1;}
+.header-left h1 em{color:var(--yellow-lt);font-style:italic;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.85rem;font-weight:700;color:var(--sand);}
+.brand-tag span{color:var(--rust-lt);}
+.accent-bar{height:5px;background:linear-gradient(90deg,var(--yellow),var(--rust),var(--purple));}
+
+/* SPIEL NAV */
+.game-nav{
+  background:var(--dark);border-bottom:3px solid var(--yellow);
+  padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;
+  position:sticky;top:0;z-index:100;
+}
+.gnav-btn{
+  font-size:.72rem;font-weight:700;padding:.32rem .9rem;
+  border-radius:20px;border:1.5px solid #444;color:#888;
+  cursor:pointer;background:transparent;white-space:nowrap;
+  transition:all .2s;font-family:'DM Sans',sans-serif;
+}
+.gnav-btn:hover{border-color:var(--yellow);color:var(--yellow-lt);}
+.gnav-btn.active{background:var(--yellow);border-color:var(--yellow);color:var(--dark);}
+.gnav-score{font-family:'Fraunces',serif;font-size:.82rem;font-weight:700;color:var(--yellow);margin-left:auto;white-space:nowrap;}
+
+main{max-width:900px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.game{display:none;}
+.game.active{display:block;animation:fadeUp .35s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.game-card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.game-header{background:var(--dark);padding:1.1rem 1.6rem;position:relative;overflow:hidden;}
+.game-header::after{content:'';position:absolute;right:-15px;top:-15px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.04);}
+.game-eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.3rem;}
+.game-title{font-family:'Fraunces',serif;font-size:clamp(1.2rem,2.5vw,1.7rem);font-weight:900;color:white;line-height:1.1;}
+.game-title em{font-style:italic;}
+.game-sub{font-size:.82rem;color:#aaa;margin-top:.3rem;}
+.game-accent{height:4px;}
+.game-body{padding:1.5rem 1.7rem;}
+
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.2rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+
+/* ═══ SPIEL 1: Was bedeutet das? ═══ */
+.wbd-card{background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.wbd-phrase{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;color:var(--dark);margin-bottom:.8rem;}
+.wbd-opts{display:flex;flex-direction:column;gap:.4rem;}
+.wbd-opt{
+  padding:.5rem 1rem;border-radius:10px;border:1.5px solid var(--sand);
+  background:var(--cream);font-size:.88rem;cursor:pointer;
+  text-align:left;transition:all .15s;
+}
+.wbd-opt:hover:not(:disabled){border-color:var(--yellow);background:var(--yellow-lt);}
+.wbd-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.wbd-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.wbd-opt:disabled{cursor:default;}
+.wbd-fb{font-size:.82rem;margin-top:.6rem;display:none;font-weight:500;line-height:1.5;}
+.wbd-fb.show{display:block;}
+.wbd-fb.ok{color:var(--green);}
+.wbd-fb.nope{color:var(--red);}
+
+/* ═══ SPIEL 2: Vervollständige den Satz ═══ */
+.vds-card{background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1.1rem 1.3rem;margin-bottom:.8rem;}
+.vds-prompt{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:.6rem;}
+.vds-input{
+  width:100%;border:2px solid var(--sand);border-radius:10px;
+  padding:.55rem .9rem;font-family:'DM Sans',sans-serif;font-size:.9rem;
+  outline:none;transition:border-color .2s;
+}
+.vds-input:focus{border-color:var(--teal);}
+.vds-input.ok{border-color:var(--green);background:var(--green-lt);}
+.vds-input.nope{border-color:var(--red);}
+.vds-btn{
+  margin-top:.5rem;padding:.38rem .9rem;border-radius:20px;
+  border:none;background:var(--teal);color:white;
+  font-size:.78rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:all .15s;
+}
+.vds-btn:hover{background:var(--brown);}
+.vds-fb{font-size:.82rem;margin-top:.5rem;display:none;line-height:1.5;}
+.vds-fb.show{display:block;}
+.vds-fb.ok{color:var(--green);}
+.vds-fb.nope{color:var(--red);}
+
+/* ═══ SPIEL 3: Tabu ═══ */
+.tabu-wrap{text-align:center;}
+.tabu-card-wrap{perspective:600px;margin-bottom:1.2rem;}
+.tabu-card{
+  background:var(--dark);border-radius:20px;
+  padding:2rem 1.5rem;text-align:center;
+  transition:transform .2s;
+}
+.tabu-word{font-family:'Fraunces',serif;font-size:2rem;font-weight:900;color:white;margin-bottom:1rem;}
+.tabu-verboten-label{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red-lt);margin-bottom:.6rem;}
+.tabu-verboten-grid{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;}
+.tabu-verb-chip{
+  background:var(--red);color:white;border-radius:20px;
+  padding:.22rem .8rem;font-size:.82rem;font-weight:600;
+  text-decoration:line-through;opacity:.8;
+}
+.tabu-btns{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-top:.8rem;}
+.tabu-btn{
+  padding:.5rem 1.4rem;border-radius:30px;border:none;
+  font-family:'Fraunces',serif;font-weight:700;font-size:.88rem;
+  cursor:pointer;transition:all .15s;
+}
+.tabu-btn.next{background:var(--green);color:white;}
+.tabu-btn.skip{background:#555;color:white;}
+.tabu-btn.next:hover{background:var(--teal);}
+.tabu-btn.skip:hover{background:#777;}
+.tabu-stats{font-size:.82rem;color:#aaa;margin-top:.6rem;}
+.tabu-timer-bar{height:6px;background:#eee;border-radius:3px;overflow:hidden;margin-bottom:1rem;}
+.tabu-timer-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--yellow));width:100%;transition:width .1s linear;}
+
+/* ═══ SPIEL 4: Stille Post ═══ */
+.sp-sentence{
+  background:var(--dark);color:white;border-radius:14px;
+  padding:1.2rem 1.5rem;text-align:center;
+  font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;
+  line-height:1.4;margin-bottom:1rem;cursor:pointer;
+  transition:all .2s;
+}
+.sp-sentence.hidden{filter:blur(8px);user-select:none;}
+.sp-sentence.revealed{filter:none;}
+.sp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.7rem;margin-bottom:1rem;}
+.sp-card{
+  background:white;border:1.5px solid var(--sand);border-radius:12px;
+  padding:1rem;font-size:.88rem;line-height:1.5;
+  border-left:4px solid var(--purple);
+}
+.sp-card strong{font-family:'Fraunces',serif;color:var(--purple);display:block;font-size:.82rem;margin-bottom:.3rem;}
+
+/* ═══ SPIEL 5: Wer bin ich? ═══ */
+.wbi-card{
+  background:var(--dark);color:white;border-radius:16px;
+  padding:1.5rem;text-align:center;margin-bottom:1rem;
+  cursor:pointer;transition:transform .2s;
+}
+.wbi-card:hover{transform:scale(1.01);}
+.wbi-card.revealed{background:var(--teal);}
+.wbi-label{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#aaa;margin-bottom:.5rem;}
+.wbi-word{font-family:'Fraunces',serif;font-size:2rem;font-weight:900;color:white;}
+.wbi-word.hidden{filter:blur(12px);}
+.wbi-hint{font-size:.78rem;color:#aaa;margin-top:.5rem;}
+.wbi-questions{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.5rem;margin-bottom:1rem;}
+.wbi-q{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.65rem .9rem;font-size:.85rem;line-height:1.4;}
+.wbi-q strong{color:var(--teal);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:.2rem;}
+
+/* ═══ SPIEL 6: Füllwörter-Bingo ═══ */
+.bingo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;margin-bottom:1.2rem;}
+.bingo-cell{
+  background:white;border:2px solid var(--sand);border-radius:8px;
+  padding:.6rem .3rem;text-align:center;cursor:pointer;
+  font-family:'Fraunces',serif;font-weight:700;font-size:.82rem;
+  transition:all .2s;line-height:1.3;
+}
+.bingo-cell:hover{border-color:var(--rust);}
+.bingo-cell.marked{background:var(--yellow-lt);border-color:var(--yellow);color:var(--brown);}
+.bingo-cell.bingo{background:var(--yellow);border-color:var(--yellow);color:var(--dark);}
+.bingo-cell.free{background:var(--rust);color:white;border-color:var(--rust);}
+.bingo-btn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:var(--rust);color:white;border:none;border-radius:30px;
+  padding:.5rem 1.3rem;font-family:'Fraunces',serif;font-weight:700;
+  font-size:.88rem;cursor:pointer;transition:all .15s;
+}
+.bingo-btn:hover{background:var(--brown);}
+.bingo-msg{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;color:var(--yellow);margin-top:.6rem;display:none;}
+
+/* ═══ BUTTONS ═══ */
+.play-btn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  border:none;border-radius:30px;padding:.55rem 1.4rem;
+  font-family:'Fraunces',serif;font-weight:700;font-size:.9rem;
+  cursor:pointer;transition:all .15s;margin-top:.8rem;
+}
+.play-btn.yellow{background:var(--yellow);color:var(--dark);}
+.play-btn.yellow:hover{background:var(--brown);color:white;}
+.play-btn.teal{background:var(--teal);color:white;}
+.play-btn.teal:hover{background:var(--brown);}
+.play-btn.rust{background:var(--rust);color:white;}
+.play-btn.rust:hover{background:var(--brown);}
+
+.score-badge{
+  display:inline-block;background:var(--dark);color:var(--cream);
+  font-family:'Fraunces',serif;font-weight:700;font-size:.82rem;
+  padding:.2rem .85rem;border-radius:20px;margin-left:.7rem;
+  opacity:0;transition:opacity .3s;
+}
+.score-badge.show{opacity:1;}
+
+.tipp{background:var(--dark);color:var(--cream);border-radius:14px;padding:1rem 1.3rem;margin-top:1rem;display:flex;gap:.8rem;align-items:flex-start;}
+.tipp-icon{font-size:1.2rem;flex-shrink:0;}
+.tipp-text{font-size:.86rem;line-height:1.7;}
+.tipp-text strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.3rem 0;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="eyebrow">Sprachspiele · ab B1</div>
+    <h1>Sprachspiele – <em>Deutsch spielend lernen!</em></h1>
+  </div>
+  <div class="brand-tag">deutsch<span>oder</span>was</div>
+</header>
+<div class="accent-bar"></div>
+
+<div class="game-nav">
+  <button class="gnav-btn active" onclick="showGame('wbd',this)">🤔 Was bedeutet das?</button>
+  <button class="gnav-btn" onclick="showGame('vds',this)">✍️ Vervollständige!</button>
+  <button class="gnav-btn" onclick="showGame('tabu',this)">🚫 Tabu</button>
+  <button class="gnav-btn" onclick="showGame('sp',this)">📞 Stille Post</button>
+  <button class="gnav-btn" onclick="showGame('wbi',this)">🏷️ Wer bin ich?</button>
+  <button class="gnav-btn" onclick="showGame('bingo',this)">🎱 Füllwörter-Bingo</button>
+  <span class="gnav-score">⭐ <span id="totalScore">0</span> Punkte</span>
+</div>
+
+<main>
+
+<!-- ═══ SPIEL 1: WAS BEDEUTET DAS? ═══ -->
+<div id="game-wbd" class="game active">
+  <div class="game-card">
+    <div class="game-header" style="border-bottom:3px solid var(--yellow);">
+      <div class="game-eyebrow" style="color:var(--yellow-lt);">Spiel 1 · Umgangssprache</div>
+      <div class="game-title" style="color:white;">🤔 Was bedeutet <em>das?</em></div>
+      <div class="game-sub">Echte deutsche Umgangssprache – kennst du sie alle?</div>
+    </div>
+    <div class="game-accent" style="background:var(--yellow);"></div>
+    <div class="game-body">
+      <div class="slabel">Klick auf die richtige Bedeutung – +1 Punkt für jede richtige Antwort!</div>
+      <div id="wbdContainer"></div>
+      <div style="margin-top:1rem;">
+        Punkte: <span class="score-badge show" id="wbdScore">0/0</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SPIEL 2: VERVOLLSTÄNDIGE ═══ -->
+<div id="game-vds" class="game">
+  <div class="game-card">
+    <div class="game-header" style="border-bottom:3px solid var(--teal);">
+      <div class="game-eyebrow" style="color:var(--teal-lt);">Spiel 2 · Redewendungen</div>
+      <div class="game-title" style="color:white;">✍️ <em>Vervollständige</em> den Satz!</div>
+      <div class="game-sub">Deutsche Redewendungen & Sprichwörter – weißt du wie sie enden?</div>
+    </div>
+    <div class="game-accent" style="background:var(--teal);"></div>
+    <div class="game-body">
+      <div class="slabel">Schreib das fehlende Wort oder die fehlenden Wörter!</div>
+      <div id="vdsContainer"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SPIEL 3: TABU ═══ -->
+<div id="game-tabu" class="game">
+  <div class="game-card">
+    <div class="game-header" style="border-bottom:3px solid var(--red);">
+      <div class="game-eyebrow" style="color:var(--red-lt);">Spiel 3 · Sprechen</div>
+      <div class="game-title" style="color:white;">🚫 <em>Tabu</em></div>
+      <div class="game-sub">Erkläre das Wort – ohne die verbotenen Wörter zu benutzen!</div>
+    </div>
+    <div class="game-accent" style="background:var(--red);"></div>
+    <div class="game-body">
+      <div class="slabel">Erkläre das Wort oben – die durchgestrichenen Wörter sind verboten!</div>
+
+      <div class="tabu-timer-bar"><div class="tabu-timer-fill" id="tabuTimerFill"></div></div>
+
+      <div class="tabu-wrap">
+        <div class="tabu-card" id="tabuCard">
+          <div class="tabu-word" id="tabuWord">–</div>
+          <div class="tabu-verboten-label">🚫 Verbotene Wörter</div>
+          <div class="tabu-verboten-grid" id="tabuVerboten"></div>
+        </div>
+        <div class="tabu-btns">
+          <button class="tabu-btn next" onclick="tabuNext(true)">✓ Richtig erklärt!</button>
+          <button class="tabu-btn skip" onclick="tabuNext(false)">⏭ Überspringen</button>
+        </div>
+        <div class="tabu-stats">✓ <span id="tabuRichtig">0</span> richtig · ✗ <span id="tabuSkip">0</span> übersprungen</div>
+      </div>
+
+      <button class="play-btn rust" onclick="startTabu()" style="margin-top:1rem;">▶ Spiel starten</button>
+
+      <div class="tipp">
+        <div class="tipp-icon">🎮</div>
+        <div class="tipp-text"><strong>So spielt man:</strong> Eine Person erklärt das Wort auf Deutsch, ohne die verbotenen Wörter zu benutzen. Die anderen raten. Wer richtig rät, bekommt einen Punkt!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SPIEL 4: STILLE POST ═══ -->
+<div id="game-sp" class="game">
+  <div class="game-card">
+    <div class="game-header" style="border-bottom:3px solid var(--purple);">
+      <div class="game-eyebrow" style="color:var(--purple-lt);">Spiel 4 · Sprechen & Hören</div>
+      <div class="game-title" style="color:white;">📞 <em>Stille Post</em> auf Deutsch</div>
+      <div class="game-sub">Ein Satz – vier Personen – was kommt raus?</div>
+    </div>
+    <div class="game-accent" style="background:var(--purple);"></div>
+    <div class="game-body">
+
+      <div class="slabel">So funktioniert's</div>
+      <div class="tipp" style="margin-top:0;">
+        <div class="tipp-icon">🎮</div>
+        <div class="tipp-text"><strong>Regeln:</strong> Person 1 liest den Satz – zeigt ihn niemandem. Sagt ihn Person 2 ins Ohr. Person 2 sagt ihn Person 3 ins Ohr. Person 4 sagt laut, was sie gehört hat. Dann wird der Originalsatz aufgedeckt!</div>
+      </div>
+
+      <div class="slabel">Satz aufdecken – klick zum Anzeigen!</div>
+      <div id="spContainer"></div>
+
+      <button class="play-btn yellow" onclick="nextSP()">🔀 Neuen Satz!</button>
+
+      <hr class="div">
+
+      <div class="slabel">Warum ist das lustig auf Deutsch?</div>
+      <div class="sp-grid">
+        <div class="sp-card"><strong>😅 Schwierige Laute</strong>ü, ö, ä, sch, ch – diese Laute klingen für viele ähnlich und werden leicht verwechselt.</div>
+        <div class="sp-card"><strong>🔄 Trennbare Verben</strong>„Ich rufe zurück" vs. „Ich rücke vor" – kleine Unterschiede, große Missverständnisse!</div>
+        <div class="sp-card"><strong>📝 Lange Wörter</strong>„Donaudampfschifffahrtsgesellschaft" – wer das fehlerfrei weitergibt, gewinnt!</div>
+        <div class="sp-card"><strong>🎭 Umgangssprache</strong>„Das ist mir schnuppe" – wenn man das nicht kennt, klingt es wie Kauderwelsch!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SPIEL 5: WER BIN ICH? ═══ -->
+<div id="game-wbi" class="game">
+  <div class="game-card">
+    <div class="game-header" style="border-bottom:3px solid var(--teal);">
+      <div class="game-eyebrow" style="color:var(--teal-lt);">Spiel 5 · Fragen stellen</div>
+      <div class="game-title" style="color:white;">🏷️ <em>Wer bin ich?</em></div>
+      <div class="game-sub">Stelle Ja/Nein-Fragen – rate, wer oder was auf deiner Stirn steht!</div>
+    </div>
+    <div class="game-accent" style="background:var(--teal);"></div>
+    <div class="game-body">
+
+      <div class="slabel">Deine Karte – anderen zeigen, nicht selbst anschauen!</div>
+      <div class="wbi-card" id="wbiCard" onclick="revealWBI()">
+        <div class="wbi-label">Deine Identität</div>
+        <div class="wbi-word hidden" id="wbiWord">???</div>
+        <div class="wbi-hint">klicken zum Aufdecken (nur wenn du dran bist!)</div>
+      </div>
+      <button class="play-btn teal" onclick="nextWBI()">🔀 Neue Karte!</button>
+
+      <hr class="div">
+
+      <div class="slabel">Erlaubte Fragen – nur Ja/Nein!</div>
+      <div class="wbi-questions" id="wbiQGrid"></div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🎮</div>
+        <div class="tipp-text"><strong>Regeln:</strong> Jeder bekommt eine Karte – zeigt sie allen außer sich selbst. Stelle Ja/Nein-Fragen auf Deutsch! Wer am wenigsten Fragen braucht, gewinnt.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SPIEL 6: BINGO ═══ -->
+<div id="game-bingo" class="game">
+  <div class="game-card">
+    <div class="game-header" style="border-bottom:3px solid var(--rust);">
+      <div class="game-eyebrow" style="color:var(--rust-lt);">Spiel 6 · Umgangssprache</div>
+      <div class="game-title" style="color:white;">🎱 Füllwörter-<em>Bingo!</em></div>
+      <div class="game-sub">Hör der Lehrerin zu – kreuze an, wenn du das Wort hörst!</div>
+    </div>
+    <div class="game-accent" style="background:var(--rust);"></div>
+    <div class="game-body">
+
+      <div class="slabel">Deine Bingo-Karte – klick wenn du das Wort hörst!</div>
+      <div class="bingo-grid" id="bingoGrid"></div>
+      <button class="bingo-btn" onclick="checkBingo()">🎱 BINGO prüfen!</button>
+      <button class="play-btn yellow" onclick="resetBingo()" style="margin-left:.6rem;">↺ Neue Karte</button>
+      <div class="bingo-msg" id="bingoMsg">🎉 BINGO! Gut gemacht!</div>
+
+      <hr class="div">
+
+      <div class="slabel">Was bedeuten diese Füllwörter?</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.55rem;" id="bingoErklaer"></div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🎮</div>
+        <div class="tipp-text"><strong>Wie spielt man:</strong> Julia (oder ein Schüler) redet frei über ein Thema. Alle hören zu und markieren Füllwörter, die sie hören. Wer zuerst eine Reihe voll hat, ruft „BINGO!"</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+let totalScore=0;
+function addScore(n){totalScore+=n;document.getElementById('totalScore').textContent=totalScore;}
+
+function showGame(id,btn){
+  document.querySelectorAll('.game').forEach(g=>g.classList.remove('active'));
+  document.querySelectorAll('.gnav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('game-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ═══ SPIEL 1: WAS BEDEUTET DAS? ═══
+const wbdData=[
+  {phrase:'„Das ist mir schnuppe."',opts:['Das ist mir wichtig.','Das ist mir egal / Das interessiert mich nicht.','Das ist mir zu teuer.'],correct:1,fb:'✓ „Schnuppe" = egal, völlig egal. „Das ist mir schnuppe!" – typisch umgangssprachlich!'},
+  {phrase:'„Du hast einen an der Klatsche!"',opts:['Du bist sehr lustig.','Du bist verrückt / nicht ganz normal.','Du bist sehr nett.'],correct:1,fb:'✓ „Einen an der Klatsche haben" = verrückt sein. Varianten: „Du hast einen Sprung in der Schüssel!" / „Du spinnst!"'},
+  {phrase:'„Ich drücke dir die Daumen!"',opts:['Ich zeige dir wie man rechnet.','Ich wünsche dir viel Erfolg / Glück!','Ich warte auf dich.'],correct:1,fb:'✓ „Die Daumen drücken" = Daumen halten = to keep one\'s fingers crossed. Super häufig vor Prüfungen oder wichtigen Ereignissen!'},
+  {phrase:'„Das geht mir auf den Keks!"',opts:['Das gefällt mir sehr gut.','Das nervt mich / Das ärgert mich sehr.','Das macht mich traurig.'],correct:1,fb:'✓ „Auf den Keks gehen" = nerven, ärgern. Ähnlich: „Das geht mir auf die Nerven!" Sehr umgangssprachlich!'},
+  {phrase:'„Ich bin total platt!"',opts:['Ich bin sehr dünn.','Ich bin erschöpft / kaputt.','Ich bin froh.'],correct:1,fb:'✓ „Platt sein" = völlig erschöpft sein. „Ich bin platt!" klingt umgangssprachlicher als „Ich bin erschöpft."'},
+  {phrase:'„Das ist nicht mein Bier!"',opts:['Ich trinke lieber Wein.','Das ist nicht mein Problem / meine Angelegenheit.','Das mag ich nicht.'],correct:1,fb:'✓ „Das ist nicht mein Bier" = Das geht mich nichts an / Das ist nicht meine Sache. Sehr typisch deutsches Idiom!'},
+  {phrase:'„Ich glaube, mein Schwein pfeift!"',opts:['Mein Schwein hat Hunger.','Ich bin sehr überrascht / fassungslos.','Das ist eine Lüge.'],correct:1,fb:'✓ „Ich glaube, mein Schwein pfeift!" = Ich bin total überrascht / Das kann ich kaum glauben. Schöner umgangssprachlicher Ausruf!'},
+  {phrase:'„Das kommt mir spanisch vor."',opts:['Das klingt nach Spanien.','Das kommt mir seltsam / verdächtig vor.','Das ist auf Spanisch.'],correct:1,fb:'✓ „Spanisch vorkommen" = seltsam / verdächtig erscheinen. Historisch: Die Deutschen fanden die Sitten der Spanier am Habsburger Hof seltsam!'},
+  {phrase:'„Ich verstehe nur Bahnhof."',opts:['Ich bin am Bahnhof.','Ich verstehe gar nichts.','Ich höre einen Zug.'],correct:1,fb:'✓ „Nur Bahnhof verstehen" = gar nichts verstehen. Sehr bekannte Redewendung – perfekt für Deutschlerner!'},
+  {phrase:'„Du hast Haare auf den Zähnen!"',opts:['Du bist sehr haarig.','Du bist sehr durchsetzungsstark / schlagfertig.','Du hast schlechte Zähne.'],correct:1,fb:'✓ „Haare auf den Zähnen haben" = sehr schlagfertig, selbstbewusst und durchsetzungsstark sein. Wird oft für starke Frauen verwendet!'},
+];
+let wbdCorrect=0,wbdTotal=0;
+function buildWBD(){
+  const c=document.getElementById('wbdContainer');
+  wbdData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='wbd-card';
+    const optsHtml=item.opts.map((o,j)=>`<button class="wbd-opt" onclick="answerWBD(this,${j},${item.correct},'wbdfb${i}')">${o}</button>`).join('');
+    div.innerHTML=`<div class="wbd-phrase">${item.phrase}</div><div class="wbd-opts">${optsHtml}</div><div class="wbd-fb" id="wbdfb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerWBD(btn,j,correct,fbId){
+  const opts=btn.closest('.wbd-opts');
+  opts.querySelectorAll('.wbd-opt').forEach(b=>b.disabled=true);
+  opts.querySelectorAll('.wbd-opt')[correct].classList.add('ok');
+  if(j!==correct)btn.classList.add('nope');
+  const fb=document.getElementById(fbId);fb.classList.add('show');
+  fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);
+  wbdTotal++;
+  if(j===correct){wbdCorrect++;addScore(1);}
+  document.getElementById('wbdScore').textContent=`${wbdCorrect}/${wbdTotal}`;
+}
+
+// ═══ SPIEL 2: VERVOLLSTÄNDIGE ═══
+const vdsData=[
+  {prompt:'„Aller guten Dinge sind…"',answer:'drei',hint:'Alle guten Dinge kommen in Dreien – sehr bekanntes Sprichwort!',alt:['3']},
+  {prompt:'„Morgenstund hat Gold…"',answer:'im Mund',hint:'= Wer früh aufsteht, ist produktiver. Englisch: „The early bird catches the worm."',alt:['im mund']},
+  {prompt:'„Wer zuletzt lacht, lacht…"',answer:'am besten',hint:'= He who laughs last, laughs longest. Immer beliebt nach einem Streit!',alt:[]},
+  {prompt:'„Jetzt mal Butter bei die…"',answer:'Fische',hint:'Norddeutscher Ausdruck für: Jetzt mal direkt reden / zur Sache kommen!',alt:['fische']},
+  {prompt:'„Das ist doch nicht dein Ernst,…"',answer:'oder?',hint:'= You\'re not serious, are you? Typischer Ausruf der Überraschung!',alt:['oder']},
+  {prompt:'„Das ist nicht mein…"',answer:'Bier',hint:'= That\'s not my problem / my business! Sehr typisch deutsches Idiom.',alt:['bier']},
+  {prompt:'„Ich drücke dir die…"',answer:'Daumen',hint:'= I\'ll keep my fingers crossed! Vor Prüfungen und wichtigen Ereignissen.',alt:['daumen']},
+  {prompt:'„Das Leben ist kein…"',answer:'Ponyhof',hint:'= Life is no picnic / not easy. Sehr umgangssprachlich!',alt:['ponyhof']},
+];
+function buildVDS(){
+  const c=document.getElementById('vdsContainer');
+  vdsData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='vds-card';
+    div.innerHTML=`
+      <div class="vds-prompt">${item.prompt}</div>
+      <input class="vds-input" id="vdsi${i}" placeholder="Deine Antwort…" onkeydown="if(event.key==='Enter')checkVDS(${i})">
+      <button class="vds-btn" onclick="checkVDS(${i})">✓ Prüfen</button>
+      <div class="vds-fb" id="vdsfb${i}"></div>
+    `;
+    c.appendChild(div);
+  });
+}
+function checkVDS(i){
+  const input=document.getElementById('vdsi'+i);
+  const fb=document.getElementById('vdsfb'+i);
+  const val=input.value.trim().toLowerCase();
+  const correct=val===vdsData[i].answer.toLowerCase()||vdsData[i].alt.includes(val);
+  input.className='vds-input '+(correct?'ok':'nope');
+  fb.textContent=correct?`✓ Richtig! ${vdsData[i].hint}`:`✗ Die Antwort ist: „${vdsData[i].answer}" – ${vdsData[i].hint}`;
+  fb.className='vds-fb show '+(correct?'ok':'nope');
+  if(correct)addScore(1);
+}
+
+// ═══ SPIEL 3: TABU ═══
+const tabuKarten=[
+  {word:'der Urlaub',verboten:['Reise','Ferien','Sommer','Strand','frei']},
+  {word:'das Handy',verboten:['Telefon','Smartphone','anrufen','schreiben','App']},
+  {word:'der Supermarkt',verboten:['einkaufen','Lebensmittel','Laden','Kasse','Regal']},
+  {word:'der Stau',verboten:['Auto','Straße','fahren','langsam','Autobahn']},
+  {word:'schlafen',verboten:['Bett','müde','Nacht','träumen','Kissen']},
+  {word:'kochen',verboten:['Essen','Küche','Herd','Rezept','Zutaten']},
+  {word:'der Arzt',verboten:['Krankenhaus','krank','Medizin','Praxis','Termin']},
+  {word:'die Wohnung',verboten:['Haus','Zimmer','wohnen','Miete','Schlüssel']},
+  {word:'der Chef',verboten:['Arbeit','Büro','Kollege','Boss','Firma']},
+  {word:'der Regen',verboten:['nass','Wolke','Wetter','Schirm','grau']},
+  {word:'das Frühstück',verboten:['morgens','Brot','Kaffee','Ei','Tisch']},
+  {word:'die Prüfung',verboten:['Schule','lernen','Note','Test','bestehen']},
+  {word:'eifersüchtig',verboten:['Liebe','eifern','Partner','Gefühl','Beziehung']},
+  {word:'die Deadline',verboten:['Zeit','Abgabe','Arbeit','fertig','spät']},
+  {word:'der Kater',verboten:['Alkohol','trinken','Kopfschmerzen','gestern','Party']},
+];
+let tabuIdx=0,tabuRichtig=0,tabuSkip=0,tabuTimer=null,tabuSec=30;
+function startTabu(){
+  tabuIdx=0;tabuRichtig=0;tabuSkip=0;
+  updateTabuStats();
+  const shuffled=[...tabuKarten].sort(()=>Math.random()-.5);
+  window._tabuDeck=shuffled;
+  showTabuCard();
+  startTabuTimer();
+}
+function showTabuCard(){
+  if(tabuIdx>=window._tabuDeck.length){document.getElementById('tabuWord').textContent='🎉 Alle Karten!';document.getElementById('tabuVerboten').innerHTML='';return;}
+  const card=window._tabuDeck[tabuIdx];
+  document.getElementById('tabuWord').textContent=card.word;
+  const vg=document.getElementById('tabuVerboten');
+  vg.innerHTML=card.verboten.map(v=>`<span class="tabu-verb-chip">${v}</span>`).join('');
+}
+function tabuNext(correct){
+  if(correct)tabuRichtig++;else tabuSkip++;
+  tabuIdx++;updateTabuStats();showTabuCard();
+  tabuSec=30;document.getElementById('tabuTimerFill').style.width='100%';
+}
+function updateTabuStats(){
+  document.getElementById('tabuRichtig').textContent=tabuRichtig;
+  document.getElementById('tabuSkip').textContent=tabuSkip;
+  if(tabuRichtig>0)addScore(0); // score tracked live
+}
+function startTabuTimer(){
+  clearInterval(tabuTimer);tabuSec=30;
+  tabuTimer=setInterval(()=>{
+    tabuSec--;
+    document.getElementById('tabuTimerFill').style.width=(tabuSec/30*100)+'%';
+    if(tabuSec<=0){tabuNext(false);}
+  },1000);
+}
+
+// ═══ SPIEL 4: STILLE POST ═══
+const spSaetze=[
+  'Ich hätte gerne ein Pfund Hackfleisch und zwei Brötchen, bitte.',
+  'Die Kehrwoche ist in meiner Wohnsiedlung immer am Montag.',
+  'Kannst du mir erklären, wie ich die Sicherung wieder einschalten kann?',
+  'Das Schlimmste am deutschen Herbst ist der frühe Sonnenuntergang.',
+  'Ich bin der Meinung, dass wir mehr Fahrradwege in der Innenstadt brauchen.',
+  'Sie hat beim Supermarkt ihre Einkaufstasche vergessen und musste nochmal zurück.',
+  'Der Zug hatte wieder mal zwanzig Minuten Verspätung – das ist doch kein Zustand!',
+  'Wir suchen eine Wohnung mit Balkon in einer ruhigen Lage, aber möglichst nah am Zentrum.',
+  'Ich glaube, mein Schwein pfeift – das kann ich mir überhaupt nicht vorstellen!',
+  'Wer zu spät kommt, den bestraft das Leben.',
+];
+let spIdx=0;
+const spShuffled=[...spSaetze].sort(()=>Math.random()-.5);
+function buildSP(){
+  const c=document.getElementById('spContainer');
+  const div=document.createElement('div');
+  div.className='sp-sentence hidden';div.id='spSentence';
+  div.textContent=spShuffled[0];
+  div.addEventListener('click',()=>div.classList.toggle('hidden'));
+  c.appendChild(div);
+}
+function nextSP(){
+  spIdx=(spIdx+1)%spShuffled.length;
+  const el=document.getElementById('spSentence');
+  el.textContent=spShuffled[spIdx];
+  el.classList.add('hidden');
+}
+
+// ═══ SPIEL 5: WER BIN ICH? ═══
+const wbiKarten=[
+  'Angela Merkel','Albert Einstein','der Weihnachtsmann','Beethoven',
+  'ein Bäcker','ein Fußballspieler','ein Astronaut','die Bundeskanzlerin',
+  'ein Hund','eine Katze','ein Elefant','ein Pinguin',
+  'der Eiffelturm','das Brandenburger Tor','die Mona Lisa','ein Smartphone',
+  'Döner Kebab','ein Apfelstrudel','Sauerkraut','Bratwurst',
+  'Netflix','ein Supermarkt','ein Kindergarten','ein Zahnarzt',
+];
+let wbiIdx=0;
+const wbiShuffled=[...wbiKarten].sort(()=>Math.random()-.5);
+function nextWBI(){
+  wbiIdx=(wbiIdx+1)%wbiShuffled.length;
+  document.getElementById('wbiWord').textContent=wbiShuffled[wbiIdx];
+  document.getElementById('wbiWord').classList.add('hidden');
+  document.getElementById('wbiCard').classList.remove('revealed');
+}
+function revealWBI(){
+  document.getElementById('wbiWord').classList.remove('hidden');
+  document.getElementById('wbiCard').classList.add('revealed');
+}
+const wbiQs=[
+  {cat:'Person?',qs:['Bin ich eine echte Person?','Bin ich bekannt in Deutschland?','Bin ich eine Frau?','Bin ich noch am Leben?']},
+  {cat:'Tier?',qs:['Bin ich ein Tier?','Lebe ich in der Wildnis?','Kann ich fliegen?','Bin ich größer als ein Hund?']},
+  {cat:'Ort/Ding?',qs:['Bin ich ein Ort?','Bin ich etwas Essbares?','Bin ich aus Technologie?','Gibt es mich in Deutschland?']},
+  {cat:'Eigenschaften',qs:['Bin ich berühmt?','Bin ich groß?','Bin ich schnell?','Bin ich teuer?']},
+];
+function buildWBIQ(){
+  const grid=document.getElementById('wbiQGrid');
+  wbiQs.forEach(group=>{
+    group.qs.forEach(q=>{
+      const div=document.createElement('div');div.className='wbi-q';
+      div.innerHTML=`<strong>${group.cat}</strong>${q}`;
+      grid.appendChild(div);
+    });
+  });
+}
+
+// ═══ SPIEL 6: BINGO ═══
+const bingoWoerter=['halt','also','eigentlich','irgendwie','sozusagen','quasi','nämlich','eben','ja','doch','mal','schon','ne','genau','okay','na','echt','total','wirklich','super','krass','geil','ehrlich','übrigens','jedenfalls'];
+const bingoErklaerungen=[
+  {word:'halt',bed:'= eben, nun mal. „Das ist halt so."'},
+  {word:'also',bed:'= so, well. Einleitend oder zusammenfassend.'},
+  {word:'eigentlich',bed:'= actually. „Das ist eigentlich nicht so."'},
+  {word:'irgendwie',bed:'= somehow. „Das fühlt sich irgendwie seltsam an."'},
+  {word:'sozusagen',bed:'= so to speak. „Das ist sozusagen das Beste."'},
+  {word:'nämlich',bed:'= namely / because. „Ich komme nicht, ich bin nämlich krank."'},
+  {word:'eben',bed:'= exactly / just. „Das meine ich eben!"'},
+  {word:'schon',bed:'= already / yes. „Das stimmt schon."'},
+  {word:'na',bed:'= well / hey. Universalbegrüßung!'},
+  {word:'ne',bed:'= nicht wahr / oder? „Das war gut, ne?"'},
+];
+let bingoSelected=[];
+let bingoCard=[];
+function buildBingo(){
+  const shuffled=[...bingoWoerter].sort(()=>Math.random()-.5).slice(0,24);
+  shuffled.splice(12,0,'FREI');
+  bingoCard=shuffled;bingoSelected=[];
+  const grid=document.getElementById('bingoGrid');grid.innerHTML='';
+  shuffled.forEach((w,i)=>{
+    const cell=document.createElement('div');
+    cell.className='bingo-cell'+(w==='FREI'?' free':'');
+    cell.textContent=w;
+    if(w==='FREI'){cell.style.fontSize='.7rem';bingoSelected.push(i);}
+    else cell.addEventListener('click',()=>{
+      cell.classList.toggle('marked');
+      if(cell.classList.contains('marked'))bingoSelected.push(i);
+      else bingoSelected=bingoSelected.filter(x=>x!==i);
+    });
+    grid.appendChild(cell);
+  });
+  document.getElementById('bingoMsg').style.display='none';
+
+  // Erklärungen
+  const er=document.getElementById('bingoErklaer');er.innerHTML='';
+  bingoErklaerungen.forEach(item=>{
+    const div=document.createElement('div');
+    div.style.cssText='background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.65rem .9rem;font-size:.85rem;line-height:1.5;';
+    div.innerHTML=`<strong style="font-family:\'Fraunces\',serif;color:var(--rust);">${item.word}</strong><br>${item.bed}`;
+    er.appendChild(div);
+  });
+}
+function checkBingo(){
+  const lines=[[0,1,2,3,4],[5,6,7,8,9],[10,11,12,13,14],[15,16,17,18,19],[20,21,22,23,24],[0,5,10,15,20],[1,6,11,16,21],[2,7,12,17,22],[3,8,13,18,23],[4,9,14,19,24],[0,6,12,18,24],[4,8,12,16,20]];
+  let hasBingo=false;
+  lines.forEach(line=>{
+    if(line.every(i=>bingoSelected.includes(i))){
+      hasBingo=true;
+      line.forEach(i=>document.querySelectorAll('.bingo-cell')[i].classList.add('bingo'));
+    }
+  });
+  const msg=document.getElementById('bingoMsg');
+  msg.style.display='block';
+  msg.textContent=hasBingo?'🎉 BINGO! Gut gemacht!':'Noch kein Bingo – weitermachen!';
+  if(hasBingo)addScore(5);
+}
+function resetBingo(){buildBingo();}
+
+// INIT
+buildWBD();buildVDS();buildSP();buildWBIQ();buildBingo();
+document.getElementById('wbiWord').textContent=wbiShuffled[0];
+</script>
+</body>
+</html>

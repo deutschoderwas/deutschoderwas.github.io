@@ -1,0 +1,240 @@
+<!DOCTYPE html><html lang="de"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Grammatik: Modalverben im Vergleich · deutschoderwas</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#C8A870;--acc-lt:#EEE4D4;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}.tbtn.reset{background:#555;color:white;}
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;scrollbar-width:none;}
+.phase-nav::-webkit-scrollbar{display:none;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;}.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.4rem;line-height:1.5;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.4rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--acc-lt);color:var(--acc);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.vok-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.vok-card.flipped{background:var(--acc-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);white-space:pre-line;}
+.vok-card.flipped .vok-back{display:block;}.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+.ex{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.85rem 1.2rem;margin-bottom:.55rem;border-left:4px solid var(--acc);font-size:.93rem;line-height:1.7;}
+.ex .de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);margin-bottom:.2rem;}
+.ex .en{font-size:.79rem;color:#888;font-style:italic;}.ex strong{color:var(--acc);}
+.dialog{background:var(--sand-lt);border-radius:16px;overflow:hidden;margin-bottom:1.1rem;border:1.5px solid var(--sand);}
+.dialog-hd{background:var(--dark);color:white;padding:.6rem 1.3rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
+.dialog-body{padding:1rem 1.3rem;}
+.dl{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start;}.dl:last-child{margin-bottom:0;}
+.dl-spk{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:60px;padding-top:.25rem;flex-shrink:0;color:var(--acc);line-height:1.3;}
+.dl-spk.b{color:var(--rust);}.dl-spk.c{color:#6B3D8A;}
+.dl-txt{font-size:.9rem;line-height:1.65;}.dl-txt strong{font-family:'Fraunces',serif;color:var(--brown);}
+.dl-ann{background:rgba(0,0,0,.04);border-left:3px solid var(--acc);font-size:.75rem;color:#555;padding:.3rem .7rem;margin-top:.2rem;border-radius:0 6px 6px 0;line-height:1.5;}
+.phrase-list{list-style:none;margin-bottom:1.1rem;}
+.phrase-list li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .9rem;border-radius:10px;margin-bottom:.4rem;background:white;border:1.5px solid var(--sand);font-size:.89rem;line-height:1.6;}
+.phrase-list li::before{content:'→';color:var(--acc);font-weight:700;flex-shrink:0;margin-top:.1rem;}
+.phrase-list li strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list li em{color:#888;font-size:.8rem;}
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.3rem;margin-bottom:.8rem;}
+.mc-q{font-size:.94rem;font-weight:600;margin-bottom:.75rem;line-height:1.55;}
+.mc-opts{display:flex;flex-direction:column;gap:.38rem;}
+.mc-opt{padding:.48rem 1rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.88rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--acc);background:var(--acc-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.81rem;margin-top:.6rem;display:none;font-weight:500;line-height:1.55;padding:.4rem .7rem;border-radius:8px;}
+.mc-fb.show{display:block;}.mc-fb.ok{color:var(--green);background:var(--green-lt);}.mc-fb.nope{color:var(--red);background:var(--red-lt);}
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.95rem 1.3rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.92rem;margin-bottom:.6rem;line-height:1.55;}
+.rf-btns{display:flex;gap:.45rem;}
+.rfbtn{padding:.28rem .85rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--acc);color:var(--acc);}.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.8rem;margin-top:.55rem;font-weight:500;display:none;line-height:1.55;padding:.35rem .6rem;border-radius:6px;}
+.rf-fb.show{display:block;}.rf-fb.ok{color:var(--green);background:var(--green-lt);}.rf-fb.bad{color:var(--red);background:var(--red-lt);}
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:13px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.speak-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.09);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);line-height:1.4;}
+.speak-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}.speak-hint{font-size:.68rem;color:#bbb;margin-top:.45rem;}
+.rsp-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;margin-bottom:.9rem;}
+.rsp-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.1);}.rsp-card.open .rsp-back{display:block;}.rsp-card.open .rsp-hint{display:none;}
+.rsp-top{background:var(--dark);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.75rem;}
+.rsp-emoji{font-size:1.4rem;flex-shrink:0;}.rsp-title{font-family:'Fraunces',serif;font-weight:700;color:white;font-size:1rem;}
+.rsp-body{padding:1rem 1.2rem;}.rsp-situation{font-size:.89rem;color:var(--dark);line-height:1.6;margin-bottom:.6rem;}
+.rsp-back{display:none;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--sand);}
+.rsp-rolle{font-size:.83rem;line-height:1.7;color:var(--dark);margin-bottom:.45rem;padding:.4rem .8rem;border-radius:8px;background:var(--cream);}
+.rsp-rolle strong{color:var(--acc);}.rsp-hint{font-size:.7rem;color:#bbb;}
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:.8rem;display:flex;align-items:flex-start;gap:1rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--acc-lt);flex-shrink:0;line-height:1;margin-top:.1rem;}
+.these-text{font-size:.93rem;line-height:1.65;}.these-starter{font-size:.77rem;color:#888;margin-top:.35rem;}
+.tipp{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-top:1.3rem;display:flex;gap:.9rem;align-items:flex-start;}
+.tipp-icon{font-size:1.3rem;flex-shrink:0;}.tipp-body{font-size:.87rem;line-height:1.75;}.tipp-body strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+.kultur{background:linear-gradient(135deg,var(--acc-lt),rgba(255,255,255,.5));border:1.5px solid var(--acc);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.kultur-title{font-family:'Fraunces',serif;font-weight:700;color:var(--acc);font-size:.9rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;}
+.kultur-body{font-size:.86rem;line-height:1.75;color:var(--dark);}
+</style></head><body>
+<div class="timer-bar">
+  <div class="timer-display" id="td">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="tf"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;flex-shrink:0;">Unterrichtszeit</span>
+  <div class="timer-btns"><button class="tbtn start" onclick="toggleTimer()">▶ Start</button><button class="tbtn reset" onclick="resetTimer()">↺</button></div>
+</div>
+<div class="phase-nav"><span class="brand-tag">deutsch<span>oder</span>was</span><button class="phase-btn active" onclick="showPhase('p1',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('p2',this)">② Wortschatz</button>
+  <button class="phase-btn" onclick="showPhase('p3',this)">③ Dialoge</button>
+  <button class="phase-btn" onclick="showPhase('p4',this)">④ Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('p5',this)">⑤ Rollenspiele</button>
+  <button class="phase-btn" onclick="showPhase('p6',this)">⑥ Übungen</button>
+  <button class="phase-btn" onclick="showPhase('p7',this)">⑦ Sprechen</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;flex-shrink:0;">Grammatik B1&#8211;C1 · 60 Min.</span>
+</div>
+<main>
+<div id="phase-p1" class="phase active"><div class="card">
+<div class="card-header"><div class="eyebrow">Grammatik B1&#8211;C1 · Einstieg · 8 Min.</div>
+<div class="card-title">Grammatik: Modalverben im Vergleich</div><div class="card-sub">m&#252;ssen, d&#252;rfen, sollen, wollen, k&#246;nnen, m&#246;gen &ndash; alle 6 im Vergleich</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div>
+<div class="kultur"><div class="kultur-title">🌍 Kulturnotiz</div><div class="kultur-body">Die gr&#246;&#223;te Verwechslungsfalle: <strong>m&#252;ssen nicht ≠ nicht d&#252;rfen</strong>. 'Du musst nicht kommen' = You don't have to come (keine Pflicht). 'Du darfst nicht kommen' = You must NOT come (Verbot!). Ein kleiner Unterschied &ndash; gro&#223;e Wirkung!</div></div>
+<div class="slabel">Warming-up – Sprecht zuerst!</div>
+<div class="speak-grid" id="warmup"></div>
+<div class="tipp"><div class="tipp-icon">🎯</div><div class="tipp-body"><strong>Heute lernen wir:</strong> M&#252;ssen, d&#252;rfen, sollen, wollen, k&#246;nnen, m&#246;gen &ndash; alle 6 Modalverben im Vergleich!</div></div>
+</div></div></div>
+
+<div id="phase-p2" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Grammatik B1&#8211;C1 · Wortschatz · 12 Min.</div>
+<div class="card-title">Wichtige Wörter &amp; <em>Ausdrücke</em></div>
+<div class="card-sub">Klickt auf die Karten – Deutsch vorne, Erklärung hinten!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div><div class="slabel">&#128218; Modalverben</div><div class="vok-grid" id="v1"></div>
+<div class="slabel">&#9888; Verwechslungspaare</div><div class="vok-grid" id="v2"></div>
+
+</div></div></div>
+
+<div id="phase-p3" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Grammatik B1&#8211;C1 · Dialoge · 12 Min.</div>
+<div class="card-title">Echte Gespräche – <em>so klingt das!</em></div>
+<div class="card-sub">Lest die Dialoge laut – wechselt die Rollen!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div><div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">&#128221;</span> M&#252;ssen nicht oder Darfst nicht?</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Kind</span><div><div class="dl-txt">Muss ich heute mein Zimmer aufr&#228;umen?</div></div></div>
+<div class="dl"><span class="dl-spk b">Mutter</span><div><div class="dl-txt">Du <strong>musst nicht</strong> heute &ndash; aber bis Sonntag.</div><div class="dl-ann">= keine Pflicht heute</div></div></div>
+<div class="dl"><span class="dl-spk ">Kind</span><div><div class="dl-txt">Super! Und darf ich bei Max &#252;bernachten?</div></div></div>
+<div class="dl"><span class="dl-spk b">Mutter</span><div><div class="dl-txt">Du <strong>darfst nicht</strong> &ndash; du hast morgen einen fr&#252;hen Termin.</div><div class="dl-ann">= Verbot</div></div></div>
+<div class="dl"><span class="dl-spk ">Kind</span><div><div class="dl-txt">Das ist unfair! Ich <strong>will</strong> aber!</div><div class="dl-ann">will = eigener Wunsch</div></div></div>
+<div class="dl"><span class="dl-spk b">Mutter</span><div><div class="dl-txt">Ich wei&#223;. Aber du <strong>sollst</strong> ausgeschlafen sein &ndash; das hat dein Arzt gesagt.</div><div class="dl-ann">sollen = Auftrag von au&#223;en</div></div></div>
+<div class="dl"><span class="dl-spk ">Kind</span><div><div class="dl-txt"><strong>K&#246;nnte</strong> ich wenigstens l&#228;nger aufbleiben?</div><div class="dl-ann">KII = h&#246;fliche Bitte</div></div></div>
+<div class="dl"><span class="dl-spk b">Mutter</span><div><div class="dl-txt">Bis 22 Uhr &ndash; das <strong>d&#252;rfen</strong> wir machen.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">&#128188;</span> B&#252;roregeln erkl&#228;ren</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Mia</span><div><div class="dl-txt">Hier sind die neuen Kollegen &ndash; ich erkl&#228;re kurz die Regeln.</div></div></div>
+<div class="dl"><span class="dl-spk b">Neue</span><div><div class="dl-txt">Sehr gerne!</div></div></div>
+<div class="dl"><span class="dl-spk ">Mia</span><div><div class="dl-txt">Sie <strong>m&#252;ssen</strong> um 9 Uhr da sein. P&#252;nktlichkeit ist uns wichtig.</div><div class="dl-ann">m&#252;ssen = Pflicht</div></div></div>
+<div class="dl"><span class="dl-spk b">Neue</span><div><div class="dl-txt">Verstanden. Und d&#252;rfen wir im B&#252;ro essen?</div></div></div>
+<div class="dl"><span class="dl-spk ">Mia</span><div><div class="dl-txt">Sie <strong>d&#252;rfen</strong> in der Kaffeeküche essen &ndash; aber nicht am Arbeitsplatz.</div><div class="dl-ann">d&#252;rfen = Erlaubnis</div></div></div>
+<div class="dl"><span class="dl-spk b">Neue</span><div><div class="dl-txt">Und Homeoffice?</div></div></div>
+<div class="dl"><span class="dl-spk ">Mia</span><div><div class="dl-txt">Sie <strong>k&#246;nnen</strong> bis zu 2 Tage pro Woche von zuhause arbeiten.</div><div class="dl-ann">k&#246;nnen = M&#246;glichkeit</div></div></div>
+<div class="dl"><span class="dl-spk b">Neue</span><div><div class="dl-txt">Und <strong>sollen</strong> wir Meetings immer mit Video?</div><div class="dl-ann">sollen = Erwartung</div></div></div>
+<div class="dl"><span class="dl-spk ">Mia</span><div><div class="dl-txt">Das ist keine Pflicht &ndash; Sie <strong>m&#252;ssen nicht</strong> Video anmachen.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">&#128172;</span> Er soll vs. er will</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Reporter</span><div><div class="dl-txt">Was sagt der Minister?</div></div></div>
+<div class="dl"><span class="dl-spk b">Journalist</span><div><div class="dl-txt">Er <strong>will</strong> die Steuer nicht erh&#246;hen.</div><div class="dl-ann">will = seine eigene Aussage</div></div></div>
+<div class="dl"><span class="dl-spk ">Reporter</span><div><div class="dl-txt">Und die Opposition?</div></div></div>
+<div class="dl"><span class="dl-spk b">Journalist</span><div><div class="dl-txt">Die Opposition <strong>will</strong>, dass er es tut.</div><div class="dl-ann">will = Opposition&#8217;s Wunsch</div></div></div>
+<div class="dl"><span class="dl-spk ">Reporter</span><div><div class="dl-txt">Und Br&#252;ssel?</div></div></div>
+<div class="dl"><span class="dl-spk b">Journalist</span><div><div class="dl-txt">Br&#252;ssel sagt, er <strong>soll</strong> die Zahlen korrigieren.</div><div class="dl-ann">sollen = Auftrag von au&#223;en</div></div></div>
+<div class="dl"><span class="dl-spk ">Reporter</span><div><div class="dl-txt">Und er <strong>muss</strong>?</div></div></div>
+<div class="dl"><span class="dl-spk b">Journalist</span><div><div class="dl-txt">Er <strong>muss</strong> laut Vertrag &ndash; ja.</div><div class="dl-ann">m&#252;ssen = Pflicht</div></div></div>
+</div></div>
+
+</div></div></div>
+
+<div id="phase-p4" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Grammatik B1&#8211;C1 · Redemittel · 8 Min.</div>
+<div class="card-title">So sagt man das <em>wirklich!</em></div>
+<div class="card-sub">Echte Sätze – kein Lehrbuchangeldeutsch!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div><div class="slabel">&#128221; Die 6 Modalverben</div>
+<ul class="phrase-list">
+<li><strong><strong>M&#252;ssen</strong> = Pflicht. <strong>D&#252;rfen</strong> = Erlaubnis/Verbot.</strong> <span style="color:#888;font-size:.82rem;">= Must = obligation. May = permission/prohibition.</span> <em>– </em></li>
+<li><strong><strong>K&#246;nnen</strong> = F&#228;higkeit/M&#246;glichkeit. <strong>Sollen</strong> = Auftrag von au&#223;en.</strong> <span style="color:#888;font-size:.82rem;">= Can = ability/possibility. Should = external instruction.</span> <em>– </em></li>
+<li><strong><strong>Wollen</strong> = eigener Wunsch. <strong>M&#246;chten</strong> = h&#246;flicher Wunsch.</strong> <span style="color:#888;font-size:.82rem;">= Want = own desire. Would like = polite desire.</span> <em>– </em></li>
+</ul>
+<div class="slabel">&#9888; Verwechslungsfallen</div>
+<ul class="phrase-list">
+<li><strong>Du <strong>musst nicht</strong> kommen. ≠ Du <strong>darfst nicht</strong> kommen.</strong> <span style="color:#888;font-size:.82rem;">= Don&#8217;t have to come ≠ Must NOT come.</span> <em>– RIESIG!</em></li>
+<li><strong><strong>Sollen</strong> = jemand anderes erwartet es. <strong>Wollen</strong> = ich selbst.</strong> <span style="color:#888;font-size:.82rem;">= Should (external) vs. want (internal).</span> <em>– </em></li>
+<li><strong>Im Alltag: '<strong>Kann</strong> ich?' oft statt '<strong>Darf</strong> ich?'</strong> <span style="color:#888;font-size:.82rem;">= In everyday speech: 'Can I?' often instead of 'May I?'</span> <em>– </em></li>
+</ul>
+
+</div></div></div>
+
+<div id="phase-p5" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Grammatik B1&#8211;C1 · Rollenspiele · 12 Min.</div>
+<div class="card-title">Euer Auftritt – <em>los geht's!</em></div>
+<div class="card-sub">Klickt auf die Karte für Rollen &amp; Tipps</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div><div id="rsp1"></div>
+</div></div></div>
+
+<div id="phase-p6" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Grammatik B1&#8211;C1 · Übungen · 8 Min.</div>
+<div class="card-title">Jetzt testen wir!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div>
+<div class="slabel">Multiple Choice</div><div id="mc1"></div>
+<hr class="div"><div class="slabel">Richtig oder Falsch?</div><div id="rf1"></div>
+</div></div></div>
+
+<div id="phase-p7" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Grammatik B1&#8211;C1 · Freies Sprechen · 10 Min.</div>
+<div class="card-title">Eure Meinung – <em>jetzt seid ihr dran!</em></div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 10 Minuten</div><div class="these"><div class="these-num">1</div><div class="these-text">Welches Modalverb findest du am schwersten?<div class="these-starter">'Ich vergesse immer... / Was ich nicht trennen kann... / Ein Beispiel wo es schwer ist...'</div></div></div>
+<div class="these"><div class="these-num">2</div><div class="these-text">Wie dr&#252;ckt man Pflicht und Erlaubnis in deiner Muttersprache aus?<div class="these-starter">'In meiner Sprache hat man... / Was im Deutschen anders ist... / Was einfacher ist...'</div></div></div>
+
+<div class="slabel">Sprechkarten</div><div class="speak-grid" id="speakCards"></div>
+</div></div></div>
+</main>
+<script>
+const TOTAL=3600;let rem=TOTAL,intv=null,run=false;
+function upd(){const m=Math.floor(rem/60),s=rem%60;const d=document.getElementById('td');d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('tf').style.width=(rem/TOTAL*100)+'%';d.className='timer-display';if(rem<=600)d.classList.add('warn');if(rem<=120)d.classList.add('urgent');}
+function toggleTimer(){if(run){clearInterval(intv);run=false;document.querySelector('.tbtn.start').textContent='▶ Start';}else{run=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';intv=setInterval(()=>{if(rem>0){rem--;upd();}else{clearInterval(intv);run=false;}},1000);}}
+function resetTimer(){clearInterval(intv);run=false;rem=TOTAL;upd();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));document.getElementById('phase-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function buildVokCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(v=>{const d=document.createElement('div');d.className='vok-card';d.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${(v.back||'').replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint||'👆 klicken!'}</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildSpeakCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(i=>{const d=document.createElement('div');d.className='speak-card';d.innerHTML=`<div class="speak-front">${i.front}</div><div class="speak-back">${i.back}</div><div class="speak-hint">👆 Tipp & Formulierungshilfe</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildRSP(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(item=>{const d=document.createElement('div');d.className='rsp-card';d.innerHTML=`<div class="rsp-top"><span class="rsp-emoji">${item.emoji}</span><span class="rsp-title">${item.title}</span></div><div class="rsp-body"><div class="rsp-situation">${item.situation}</div><div class="rsp-back"><div class="rsp-rolle"><strong>🔴 Person A:</strong> ${item.a}</div><div class="rsp-rolle"><strong>🔵 Person B:</strong> ${item.b}</div>${item.tipps?`<div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">💡 Tipps:</strong> ${item.tipps}</div>`:''}</div><div class="rsp-hint">👆 klicken für Rollen & Tipps</div></div>`;d.addEventListener('click',()=>d.classList.toggle('open'));g.appendChild(d);});}
+function buildMC(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='mc';const opts=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${id}${i}')">${o}</button>`).join('');div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${opts}</div><div class="mc-fb" id="mcfb${id}${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerMC(btn,j,correct,fbId){btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');if(j!==correct)btn.classList.add('nope');const fb=document.getElementById(fbId);if(fb){fb.classList.add('show');fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);}}
+function buildRF(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='rf';div.id=`rf_${id}_${i}`;div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('${id}',${i},true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF('${id}',${i},false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb_${id}_${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerRF(id,i,answer,btn){const rfData=window['rfData_'+id];const card=document.getElementById(`rf_${id}_${i}`);card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));btn.classList.add(answer?'sel-r':'sel-f');const correct=rfData&&answer===rfData[i].ok;card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);const fb=document.getElementById(`rffb_${id}_${i}`);if(fb){fb.classList.add('show');fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);}}
+buildVokCards([{"front": "m&#252;ssen", "back": "= must / have to (Pflicht)\n'Ich muss arbeiten.' (innere/&#228;u&#223;ere Pflicht)\nACHTUNG: 'musst nicht' = keine Pflicht\n\u2260 'darfst nicht' (= Verbot!)", "hint": "Pflicht!"}, {"front": "d&#252;rfen", "back": "= may / be allowed to\n'Darf ich rauchen?' (Erlaubnis)\n'Du darfst nicht!' (Verbot)\nd&#252;rfen = Erlaubnis/Verbot", "hint": "Erlaubnis/Verbot!"}, {"front": "sollen", "back": "= should / supposed to\n'Du sollst p&#252;nktlich sein.' (Auftrag)\n'Er soll krank sein.' (Ger&#252;cht!)\nsollen = von au&#223;en aufgetragen", "hint": "von au&#223;en!"}, {"front": "wollen", "back": "= want to (eigener Wunsch)\n'Ich will Deutsch lernen.' (Wille)\n'Er will das nicht gesehen haben.' (Behauptung!)", "hint": "eigener Wille!"}, {"front": "k&#246;nnen", "back": "= can / be able to\n'Ich kann Deutsch.' (F&#228;higkeit)\n'Kann ich rauchen?' (auch: Erlaubnis!)\n= F&#228;higkeit oder M&#246;glichkeit", "hint": "F&#228;higkeit + M&#246;glichkeit"}, {"front": "m&#246;gen / m&#246;chten", "back": "= like / would like\n'Ich mag Kaffee.' (m&#246;gen = Vorliebe)\n'Ich m&#246;chte Kaffee.' (m&#246;chten = h&#246;flicher Wunsch)\nm&#246;chten = KII von m&#246;gen", "hint": "m&#246;chten = h&#246;flicher!"}],'v1');
+buildVokCards([{"front": "musst nicht vs. darfst nicht", "back": "MUSST NICHT = keine Pflicht\n'Du musst nicht kommen.' = You don't have to come.\nDARFST NICHT = Verbot!\n'Du darfst nicht kommen.' = You must NOT come!", "hint": "RIESIGER Unterschied!"}, {"front": "sollen vs. wollen", "back": "SOLLEN = von jemandem anderem erwartet\n'Du sollst das machen.' (Auftrag)\nWOLLEN = eigene Absicht\n'Ich will das machen.' (Wille)", "hint": "Au&#223;en vs. innen"}, {"front": "k&#246;nnen vs. d&#252;rfen (Erlaubnis)", "back": "K&#214;NNEN = F&#228;higkeit: 'Kann ich das?'\nK&#214;NNEN = auch Erlaubnis (umg.): 'Kann ich rauchen?'\nD&#220;RFEN = formal korrekt f&#252;r Erlaubnis\nIm Alltag: 'Kann ich...' oft statt 'd&#252;rfe ich...'", "hint": "k&#246;nnen oft statt d&#252;rfen"}],'v2');
+buildMC([{"q": "Was bedeutet 'Du musst nicht kommen'?", "opts": ["Du darfst nicht kommen (Verbot)", "Du musst kommen (Pflicht)", "Es ist keine Pflicht zu kommen"], "correct": 2, "fb": "&#10003; Musst nicht = no obligation / kein Zwang. Du kannst kommen oder nicht. Darfst nicht = Verbot! Der Unterschied ist enorm!"}, {"q": "Welches Modalverb dr&#252;ckt einen Auftrag von au&#223;en aus?", "opts": ["wollen", "sollen", "m&#252;ssen"], "correct": 1, "fb": "&#10003; Sollen = von jemandem anderem aufgetragen. 'Du sollst das machen.' (= jemand sagt dir das). M&#252;ssen = Pflicht (kann auch innere sein)."}, {"q": "Was ist h&#246;flicher?", "opts": ["'Ich will einen Kaffee'", "'Ich mag einen Kaffee'", "'Ich m&#246;chte einen Kaffee'"], "correct": 2, "fb": "&#10003; M&#246;chten = KII von m&#246;gen = h&#246;flichster Wunsch. Im Restaurant immer 'Ich m&#246;chte...' oder 'Ich h&#228;tte gerne...' &ndash; nie 'Ich will'!"}],'mc1');
+window.rfData_rf1=[{"s": "'M&#252;ssen nicht' und 'Nicht d&#252;rfen' bedeuten dasselbe.", "ok": false, "fb": "&#10007; Falsches Paar! Musst nicht = You don&#8217;t have to. Darfst nicht = You must NOT. 'Du darfst nicht rauchen' = Verbot. 'Du musst nicht rauchen' = keine Pflicht."}, {"s": "'Sollen' kommt immer von au&#223;en &ndash; nie vom Sprecher selbst.", "ok": true, "fb": "&#10003; Richtig! Sollen = external expectation. 'Ich soll um 9 da sein' = jemand anderes erwartet das. \u2260 'Ich will' (eigene Absicht)."}, {"s": "Im Alltag sagt man oft 'Kann ich...' statt 'Darf ich...'.", "ok": true, "fb": "&#10003; Richtig! Formell: 'Darf ich das Fenster &#246;ffnen?' Umgangssprachlich: 'Kann ich das Fenster &#246;ffnen?' Beide korrekt &ndash; d&#252;rfen ist formeller."}];buildRF(window.rfData_rf1,'rf1');
+buildRSP([{"emoji": "&#128221;", "title": "Modalverb-Roulette", "situation": "Jede Person bekommt ein Modalverb &ndash; bilde einen nat&#252;rlichen Satz damit!", "a": "Person A: m&#252;ssen / d&#252;rfen / k&#246;nnen", "b": "Person B: sollen / wollen / m&#246;chten", "tipps": "Challenge: Einen Satz mit ZWEI Modalverben bauen! 'Ich muss das machen wollen.'"}, {"emoji": "&#128188;", "title": "Neue B&#252;roregeln", "situation": "Erkl&#228;re einem neuen Kollegen alle Regeln deines (echten oder erfundenen) B&#252;ros.", "a": "Du: Erkl&#228;re was Pflicht ist (m&#252;ssen), was erlaubt ist (d&#252;rfen/k&#246;nnen), was erwartet wird (sollen).", "b": "Neuer Kollege: Stell Fragen mit verschiedenen Modalverben.", "tipps": "Bonus: Nutze musst nicht und darfst nicht korrekt!"}],'rsp1');
+buildSpeakCards([{"front": "Bilde je einen Satz mit m&#252;ssen, d&#252;rfen und k&#246;nnen!", "back": "M&#252;ssen: Ich muss... / D&#252;rfen: Ich darf... / K&#246;nnen: Ich kann..."}, {"front": "Was ist der Unterschied: 'Er soll reich sein' vs. 'Er will reich sein'?", "back": "Sollen: Man sagt, er sei reich. (Ger&#252;cht) / Wollen: Er selbst sagt, er m&#246;chte reich sein."}, {"front": "Formuliere eine Bitte mit k&#246;nnte, d&#252;rfte und m&#246;chte!", "back": "'K&#246;nnten Sie...? / D&#252;rfte ich...? / Ich m&#246;chte...'"}],'speakCards');
+buildSpeakCards([{"front": "Welchen Satz h&#246;rst du im Deutschen am h&#228;ufigsten?", "back": "'Ich muss... / Ich will... / Das d&#252;rfen Sie nicht... / Das k&#246;nnen Sie schon...'"}],'warmup');
+upd();</script></body></html>

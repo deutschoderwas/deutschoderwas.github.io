@@ -1,0 +1,940 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="no-referrer">
+<title>Synonyme zu „sagen" · deutschoderwas</title>
+<style>
+/* Self-contained fonts: system stack works offline, Google Fonts loads when online */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+  :root {
+    --cream:   #F7F3EE;
+    --dark:    #1A1410;
+    --brown:   #5C3D2E;
+    --rust:    #C4622D;
+    --rust-lt: #E8896A;
+    --sand:    #D9C4A8;
+    --sand-lt: #EEE4D4;
+    --green:   #3D6B4F;
+    --green-lt:#D4E8DC;
+    --red-lt:  #F5DDD9;
+    --red:     #C0392B;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--dark);
+    color: var(--cream);
+    padding: 0 5vw;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    min-height: 110px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: var(--rust);
+    opacity: .15;
+  }
+  .header-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--rust-lt);
+    margin-bottom: .35rem;
+  }
+  header h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 900;
+    line-height: 1.1;
+  }
+  header h1 em { font-style: italic; color: var(--rust-lt); }
+  .brand-tag {
+    font-family: 'Fraunces', serif;
+    font-size: .85rem;
+    font-weight: 700;
+    color: var(--sand);
+    letter-spacing: .04em;
+    white-space: nowrap;
+  }
+  .brand-tag span { color: var(--rust-lt); }
+
+  /* ── ACCENT BAR ── */
+  .accent-bar {
+    height: 5px;
+    background: linear-gradient(90deg, var(--rust) 0%, var(--rust-lt) 50%, var(--sand) 100%);
+  }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 5vw 6rem;
+  }
+
+  /* ── VERB CARDS GRID ── */
+  .section-label {
+    font-size: .65rem;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--sand);
+  }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-weight: 700;
+    margin-bottom: 1.8rem;
+    color: var(--dark);
+  }
+
+  .verb-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .verb-card {
+    background: white;
+    border-radius: 14px;
+    padding: 1.25rem 1.4rem;
+    border: 1.5px solid var(--sand);
+    position: relative;
+    overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
+    cursor: default;
+  }
+  .verb-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(92,61,46,.12);
+  }
+  .verb-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--rust);
+    border-radius: 14px 0 0 14px;
+  }
+  .verb-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: .25rem;
+  }
+  .verb-meaning {
+    font-size: .78rem;
+    color: #888;
+    font-style: italic;
+    margin-bottom: .65rem;
+  }
+  .verb-example {
+    font-size: .88rem;
+    color: var(--dark);
+    line-height: 1.5;
+    background: var(--sand-lt);
+    border-radius: 8px;
+    padding: .5rem .75rem;
+  }
+  .verb-example strong { color: var(--rust); }
+
+  .grammar-chip {
+    display: inline-block;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: var(--green-lt);
+    color: var(--green);
+    padding: .15rem .6rem;
+    border-radius: 20px;
+    margin-top: .55rem;
+  }
+
+  /* ── EXERCISES ── */
+  .exercise-block {
+    margin-bottom: 3rem;
+  }
+
+  .exercise-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    background: var(--rust);
+    color: white;
+    border-radius: 50%;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: .95rem;
+    margin-right: .6rem;
+    flex-shrink: 0;
+  }
+
+  .exercise-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.2rem;
+  }
+
+  .exercise-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--dark);
+  }
+
+  .exercise-desc {
+    font-size: .85rem;
+    color: #777;
+    margin-bottom: 1.2rem;
+    margin-left: 2.6rem;
+  }
+
+  /* LÜCKENTEXT */
+  .gap-sentence {
+    background: white;
+    border: 1.5px solid var(--sand);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: .75rem;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    flex-wrap: wrap;
+    font-size: .95rem;
+    line-height: 1.8;
+    transition: border-color .2s;
+  }
+  .gap-sentence.correct { border-color: var(--green); background: var(--green-lt); }
+  .gap-sentence.wrong   { border-color: var(--red); background: var(--red-lt); }
+
+  .gap-input {
+    border: none;
+    border-bottom: 2px solid var(--rust);
+    background: transparent;
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--brown);
+    width: 160px;
+    outline: none;
+    padding: .1rem .3rem;
+    transition: border-color .2s;
+  }
+  .gap-input:focus { border-color: var(--dark); }
+  .gap-input.correct { border-color: var(--green); color: var(--green); }
+  .gap-input.wrong   { border-color: var(--red);   color: var(--red);   }
+
+  .check-icon {
+    font-size: 1.1rem;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .gap-sentence.correct .check-icon { opacity: 1; }
+  .gap-sentence.wrong   .check-icon { opacity: 1; }
+
+  .word-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-bottom: 1.2rem;
+  }
+  .word-chip {
+    background: var(--dark);
+    color: var(--cream);
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: .85rem;
+    padding: .3rem .9rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+    user-select: none;
+  }
+  .word-chip:hover { background: var(--rust); transform: scale(1.04); }
+  .word-chip.used  { opacity: .35; pointer-events: none; }
+
+  /* RICHTIG/FALSCH */
+  .rf-card {
+    background: white;
+    border: 1.5px solid var(--sand);
+    border-radius: 12px;
+    padding: 1.1rem 1.25rem;
+    margin-bottom: .75rem;
+    cursor: pointer;
+    transition: all .2s;
+    position: relative;
+  }
+  .rf-card:hover { border-color: var(--rust); }
+  .rf-card.correct { border-color: var(--green); background: var(--green-lt); }
+  .rf-card.wrong   { border-color: var(--red);   background: var(--red-lt); }
+
+  .rf-sentence {
+    font-size: .95rem;
+    margin-bottom: .7rem;
+  }
+  .rf-buttons {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+  }
+  .rf-btn {
+    padding: .3rem .9rem;
+    border-radius: 20px;
+    border: 1.5px solid var(--sand);
+    background: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .rf-btn:hover { border-color: var(--rust); color: var(--rust); }
+  .rf-btn.selected-richtig { background: var(--green); border-color: var(--green); color: white; }
+  .rf-btn.selected-falsch  { background: var(--red);   border-color: var(--red);   color: white; }
+
+  .rf-feedback {
+    margin-top: .7rem;
+    font-size: .82rem;
+    color: var(--green);
+    font-weight: 500;
+    display: none;
+  }
+  .rf-feedback.show { display: block; }
+  .rf-feedback.wrong { color: var(--red); }
+
+  /* ZUORDNUNG drag */
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 560px) { .match-grid { grid-template-columns: 1fr; } }
+
+  .match-col-label {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: .6rem;
+  }
+
+  .match-item {
+    background: white;
+    border: 1.5px solid var(--sand);
+    border-radius: 10px;
+    padding: .7rem 1rem;
+    margin-bottom: .5rem;
+    font-size: .9rem;
+    cursor: pointer;
+    transition: all .2s;
+    user-select: none;
+  }
+  .match-item.verb {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    color: var(--brown);
+  }
+  .match-item:hover { border-color: var(--rust); }
+  .match-item.selected { border-color: var(--rust); background: #FFF0EA; }
+  .match-item.matched-ok { border-color: var(--green); background: var(--green-lt); pointer-events: none; }
+  .match-item.matched-err { border-color: var(--red); background: var(--red-lt); }
+
+  /* SCORE / CHECK BTN */
+  .check-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--rust);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: .65rem 1.6rem;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+    margin-top: 1rem;
+  }
+  .check-btn:hover { background: var(--brown); transform: scale(1.02); }
+
+  .score-badge {
+    display: inline-block;
+    background: var(--dark);
+    color: var(--cream);
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: .9rem;
+    padding: .3rem 1rem;
+    border-radius: 20px;
+    margin-left: 1rem;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .score-badge.show { opacity: 1; }
+
+  hr.divider {
+    border: none;
+    border-top: 1.5px solid var(--sand);
+    margin: 3rem 0;
+  }
+
+  /* TIPP BOX */
+  .tipp-box {
+    background: var(--dark);
+    color: var(--cream);
+    border-radius: 16px;
+    padding: 1.4rem 1.8rem;
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .tipp-icon { font-size: 1.6rem; flex-shrink: 0; }
+  .tipp-text { font-size: .9rem; line-height: 1.7; }
+  .tipp-text strong { color: var(--rust-lt); font-family: 'Fraunces', serif; }
+
+  /* ANIMATIONS */
+  @keyframes pop { 0%{transform:scale(.9);opacity:0} 60%{transform:scale(1.06)} 100%{transform:scale(1);opacity:1} }
+  .pop { animation: pop .35s ease forwards; }
+
+  /* feedback inline */
+  .inline-answer {
+    font-size: .8rem;
+    color: var(--green);
+    font-weight: 600;
+    margin-top: .3rem;
+    display: none;
+  }
+  .inline-answer.show { display: block; }
+
+  /* RESET */
+  .reset-link {
+    font-size: .78rem;
+    color: #bbb;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-left: 1rem;
+  }
+  .reset-link:hover { color: var(--rust); }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="header-eyebrow">Wortschatzboost · 30. April</div>
+    <h1>Synonyme zu <em>„sagen"</em></h1>
+  </div>
+  <div class="brand-tag">deutsch<span>oder</span>was</div>
+</header>
+<div class="accent-bar"></div>
+
+<main>
+
+  <!-- ── VERB CARDS ── -->
+  <div class="section-label">Die Verben</div>
+  <h2 class="section-title">Was haben wir heute gelernt?</h2>
+
+  <div class="verb-grid">
+    <div class="verb-card">
+      <div class="verb-name">zugeben</div>
+      <div class="verb-meaning">etwas Unangenehmes bestätigen</div>
+      <div class="verb-example">
+        <strong>Ich muss zugeben,</strong> dass ich öfter kommen sollte.<br>
+        Nach dem Streit habe ich <strong>zugegeben,</strong> dass er Recht hatte.
+      </div>
+      <span class="grammar-chip">+ dass-Satz</span>
+    </div>
+
+    <div class="verb-card">
+      <div class="verb-name">feststellen</div>
+      <div class="verb-meaning">eine Tatsache aus eigener Erfahrung bemerken</div>
+      <div class="verb-example">
+        <strong>Ich stelle fest,</strong> dass die Schweizer sehr höflich sind.<br>
+        <em>die Feststellung = eine Tatsache (eigene Erfahrung)</em>
+      </div>
+      <span class="grammar-chip">+ dass-Satz · kein Dat.-Obj.</span>
+    </div>
+
+    <div class="verb-card">
+      <div class="verb-name">widersprechen</div>
+      <div class="verb-meaning">eine andere Meinung äußern</div>
+      <div class="verb-example">
+        <strong>Ich muss dir widersprechen.</strong><br>
+        Ne, ich widerspreche dir – die Schweizer sind sehr nett!
+      </div>
+      <span class="grammar-chip">+ Dativ</span>
+    </div>
+
+    <div class="verb-card">
+      <div class="verb-name">hinweisen auf</div>
+      <div class="verb-meaning">auf etwas aufmerksam machen</div>
+      <div class="verb-example">
+        <strong>Ich weise meine Kinder darauf hin,</strong> dass morgen kein Unterricht ist.
+      </div>
+      <span class="grammar-chip">auf + Akk. · darauf hin, dass…</span>
+    </div>
+
+    <div class="verb-card">
+      <div class="verb-name">jammern</div>
+      <div class="verb-meaning">klagen, sich beschweren</div>
+      <div class="verb-example">
+        <strong>Ich jammere immer über das Wetter.</strong><br>
+        Das ist Jammern auf hohem Niveau.
+      </div>
+      <span class="grammar-chip">+ über + Akk.</span>
+    </div>
+
+    <div class="verb-card">
+      <div class="verb-name">bestehen auf</div>
+      <div class="verb-meaning">etwas unbedingt fordern / verlangen</div>
+      <div class="verb-example">
+        <strong>Ich bestehe auf meiner Rückerstattung.</strong><br>
+        Ich bestehe darauf, dass du mir das Geld zurückgibst.
+      </div>
+      <span class="grammar-chip">auf + Dat. · darauf, dass…</span>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══ ÜBUNG 1: Lückentext ══ -->
+  <div class="exercise-block">
+    <div class="section-label">Übung 1</div>
+    <div class="exercise-header">
+      <span class="exercise-number">1</span>
+      <span class="exercise-title">Lückentext – klick auf ein Wort, dann auf die Lücke</span>
+    </div>
+    <p class="exercise-desc">Klick zuerst auf ein Wort im Kasten, dann auf die passende Lücke (___) im Satz.</p>
+
+    <div class="word-bank" id="wordBank">
+      <span class="word-chip" data-word="gebe zu">gebe zu</span>
+      <span class="word-chip" data-word="jammert">jammert</span>
+      <span class="word-chip" data-word="bestehe darauf">bestehe darauf</span>
+      <span class="word-chip" data-word="widerspreche">widerspreche</span>
+      <span class="word-chip" data-word="stelle fest">stelle fest</span>
+      <span class="word-chip" data-word="weist … hin">weist … hin</span>
+    </div>
+
+    <div id="gapExercise"></div>
+    <button class="check-btn" onclick="checkGaps()">✓ Prüfen <span id="gapScore" class="score-badge"></span></button>
+    <span class="reset-link" onclick="resetGaps()">zurücksetzen</span>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══ ÜBUNG 2: Richtig/Falsch ══ -->
+  <div class="exercise-block">
+    <div class="section-label">Übung 2</div>
+    <div class="exercise-header">
+      <span class="exercise-number">2</span>
+      <span class="exercise-title">Richtig oder falsch?</span>
+    </div>
+    <p class="exercise-desc">Sind die Sätze grammatisch korrekt? Wähle richtig oder falsch – und sieh die Erklärung.</p>
+
+    <div id="rfExercise"></div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══ ÜBUNG 3: Zuordnung ══ -->
+  <div class="exercise-block">
+    <div class="section-label">Übung 3</div>
+    <div class="exercise-header">
+      <span class="exercise-number">3</span>
+      <span class="exercise-title">Verb zum Satz zuordnen</span>
+    </div>
+    <p class="exercise-desc">Klick auf ein Verb (links), dann auf den passenden Satz (rechts).</p>
+
+    <div class="match-grid">
+      <div>
+        <div class="match-col-label">Verb</div>
+        <div id="matchVerbs"></div>
+      </div>
+      <div>
+        <div class="match-col-label">Bedeutung / Situation</div>
+        <div id="matchDefs"></div>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkMatch()">✓ Prüfen <span id="matchScore" class="score-badge"></span></button>
+    <span class="reset-link" onclick="resetMatch()">zurücksetzen</span>
+  </div>
+
+  <!-- TIPP -->
+  <div class="tipp-box">
+    <div class="tipp-icon">💡</div>
+    <div class="tipp-text">
+      <strong>Tipp von Julia:</strong> Lern diese Verben nie allein – immer mit einem echten Beispielsatz aus deinem Alltag. <em>„Ich jammere über den Regen"</em> bleibt viel besser im Kopf als eine Vokabelliste!
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ── DATA ────────────────────────────────────────────────────────────────────
+
+const gapData = [
+  {
+    parts: ['Ich muss ', '___', ', dass ich gestern zu spät aufgestanden bin.'],
+    answer: 'gebe zu',
+    display: 'gebe zu'
+  },
+  {
+    parts: ['Sie ', '___', ' immer über die langen Schlangen im Supermarkt.'],
+    answer: 'jammert',
+    display: 'jammert'
+  },
+  {
+    parts: ['Ich ', '___', ', dass du mir das Geld zurückgibst!'],
+    answer: 'bestehe darauf',
+    display: 'bestehe darauf'
+  },
+  {
+    parts: ['Ich ', '___', ' dir – die Schweizer sind wirklich sehr freundlich.'],
+    answer: 'widerspreche',
+    display: 'widerspreche'
+  },
+  {
+    parts: ['Ich ', '___', ', dass es in München kaum bezahlbare Wohnungen gibt.'],
+    answer: 'stelle fest',
+    display: 'stelle fest'
+  },
+  {
+    parts: ['Die Lehrerin ', '___', ' die Schüler darauf ', '___', ', dass morgen eine Prüfung ist.'],
+    answer: 'weist … hin',
+    display: 'weist … hin',
+    split: true
+  }
+];
+
+const rfData = [
+  {
+    sentence: 'Ich bestehe auf meine Rückerstattung.',
+    correct: false,
+    explanation: '✗ Falsch! „bestehen auf" verlangt den Dativ → Ich bestehe auf meiner Rückerstattung.'
+  },
+  {
+    sentence: 'Ich muss dir widersprechen – das stimmt nicht.',
+    correct: true,
+    explanation: '✓ Richtig! „widersprechen" + Dativ → dir ✓'
+  },
+  {
+    sentence: 'Ich weise ihnen darauf hin, dass morgen kein Unterricht ist.',
+    correct: false,
+    explanation: '✗ Falsch! „hinweisen auf" + Akkusativobjekt → Ich weise sie darauf hin…'
+  },
+  {
+    sentence: 'Ich stelle fest, dass ich eine andere Meinung habe als du.',
+    correct: false,
+    explanation: '✗ Aufpassen! „feststellen" = eigene Erfahrung / Tatsache, keine Meinung. Besser: „Meiner Meinung nach…" oder „Ich bin anderer Meinung."'
+  },
+  {
+    sentence: 'Sie jammert die ganze Zeit über das Wetter.',
+    correct: true,
+    explanation: '✓ Richtig! „jammern über" + Akkusativ ✓'
+  },
+  {
+    sentence: 'Ich gebe zu, dass er Recht hatte.',
+    correct: true,
+    explanation: '✓ Richtig! „zugeben" + dass-Satz ✓'
+  }
+];
+
+const matchData = [
+  { verb: 'zugeben',      def: 'Du sagst, dass du einen Fehler gemacht hast.' },
+  { verb: 'feststellen',  def: 'Du bemerkst aus eigener Erfahrung, dass etwas wahr ist.' },
+  { verb: 'widersprechen',def: 'Du bist anderer Meinung und sagst das auch.' },
+  { verb: 'hinweisen',    def: 'Du machst jemanden auf etwas Wichtiges aufmerksam.' },
+  { verb: 'jammern',      def: 'Du klagst und beschwerst dich über etwas.' },
+  { verb: 'bestehen auf', def: 'Du forderst etwas mit Nachdruck.' },
+];
+
+// ── ÜBUNG 1: Gap fill (click-to-fill) ──────────────────────────────────────
+
+let selectedWord = null;
+const gapValues = {};
+
+function buildGaps() {
+  const container = document.getElementById('gapExercise');
+  container.innerHTML = '';
+
+  gapData.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'gap-sentence';
+    div.id = `gap-${idx}`;
+
+    if (item.split) {
+      // "weist … hin" → two separate blanks
+      div.innerHTML = `
+        <span>${item.parts[0]}</span>
+        <span class="gap-blank" data-idx="${idx}" data-slot="a" onclick="fillGap(this)">[___]</span>
+        <span>${item.parts[2]}</span>
+        <span class="gap-blank" data-idx="${idx}" data-slot="b" onclick="fillGap(this)">[___]</span>
+        <span>${item.parts[4]}</span>
+        <span class="check-icon" id="icon-${idx}">⬜</span>
+      `;
+    } else {
+      div.innerHTML = `
+        <span>${item.parts[0]}</span>
+        <span class="gap-blank" data-idx="${idx}" data-slot="a" onclick="fillGap(this)">[___]</span>
+        <span>${item.parts[2]}</span>
+        <span class="check-icon" id="icon-${idx}">⬜</span>
+      `;
+    }
+
+    container.appendChild(div);
+  });
+
+  // word bank clicks
+  document.querySelectorAll('.word-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.word-chip').forEach(c => c.style.outline = 'none');
+      if (selectedWord === chip.dataset.word) {
+        selectedWord = null;
+      } else {
+        selectedWord = chip.dataset.word;
+        chip.style.outline = '2px solid #C4622D';
+      }
+    });
+  });
+}
+
+function fillGap(el) {
+  if (!selectedWord) return;
+  el.textContent = selectedWord;
+  el.style.color = '#C4622D';
+  el.style.fontFamily = 'Fraunces, serif';
+  el.style.fontWeight = '700';
+  el.style.cursor = 'pointer';
+  el.style.borderBottom = '2px solid #C4622D';
+
+  const idx = parseInt(el.dataset.idx);
+  const slot = el.dataset.slot;
+  if (!gapValues[idx]) gapValues[idx] = {};
+  gapValues[idx][slot] = selectedWord;
+
+  // deselect chip
+  document.querySelectorAll('.word-chip').forEach(c => c.style.outline = 'none');
+  selectedWord = null;
+}
+
+function checkGaps() {
+  let correct = 0;
+  gapData.forEach((item, idx) => {
+    const row = document.getElementById(`gap-${idx}`);
+    const icon = document.getElementById(`icon-${idx}`);
+    const val = gapValues[idx];
+    let ok = false;
+
+    if (item.split) {
+      // accept either slot having the word (it's the same word split)
+      const combined = [val?.a, val?.b].filter(Boolean).join(' … ');
+      ok = combined === item.answer || val?.a === 'weist' || val?.a === item.answer;
+      // simplified: just check the answer word stored
+      ok = val?.a === item.answer || val?.a === 'weist … hin';
+    } else {
+      ok = val?.a === item.answer;
+    }
+
+    if (ok) {
+      correct++;
+      row.classList.add('correct'); row.classList.remove('wrong');
+      icon.textContent = '✅';
+    } else {
+      row.classList.add('wrong'); row.classList.remove('correct');
+      icon.textContent = '❌';
+    }
+  });
+
+  const badge = document.getElementById('gapScore');
+  badge.textContent = `${correct}/${gapData.length}`;
+  badge.classList.add('show', 'pop');
+}
+
+function resetGaps() {
+  Object.keys(gapValues).forEach(k => delete gapValues[k]);
+  selectedWord = null;
+  document.querySelectorAll('.word-chip').forEach(c => { c.style.outline = 'none'; c.classList.remove('used'); });
+  buildGaps();
+  document.getElementById('gapScore').classList.remove('show');
+}
+
+// ── ÜBUNG 2: Richtig/Falsch ────────────────────────────────────────────────
+
+function buildRF() {
+  const container = document.getElementById('rfExercise');
+  rfData.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'rf-card';
+    div.innerHTML = `
+      <div class="rf-sentence">${item.sentence}</div>
+      <div class="rf-buttons">
+        <button class="rf-btn" onclick="answerRF(${idx}, true, this)">✓ Richtig</button>
+        <button class="rf-btn" onclick="answerRF(${idx}, false, this)">✗ Falsch</button>
+      </div>
+      <div class="rf-feedback" id="rf-fb-${idx}">${item.explanation}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function answerRF(idx, answer, btn) {
+  const card = btn.closest('.rf-card');
+  const fb = document.getElementById(`rf-fb-${idx}`);
+  const isCorrect = answer === rfData[idx].correct;
+
+  card.querySelectorAll('.rf-btn').forEach(b => {
+    b.classList.remove('selected-richtig', 'selected-falsch');
+  });
+
+  if (answer === true) btn.classList.add('selected-richtig');
+  else btn.classList.add('selected-falsch');
+
+  fb.classList.add('show');
+  fb.classList.toggle('wrong', !isCorrect);
+  card.classList.toggle('correct', isCorrect);
+  card.classList.toggle('wrong', !isCorrect);
+}
+
+// ── ÜBUNG 3: Zuordnung ─────────────────────────────────────────────────────
+
+let matchSelected = null;
+const matchPairs = {};
+// shuffle defs
+const shuffledDefs = [...matchData].sort(() => Math.random() - .5);
+
+function buildMatch() {
+  const verbContainer = document.getElementById('matchVerbs');
+  const defContainer  = document.getElementById('matchDefs');
+
+  matchData.forEach((item, idx) => {
+    const v = document.createElement('div');
+    v.className = 'match-item verb';
+    v.textContent = item.verb;
+    v.dataset.verb = item.verb;
+    v.dataset.type = 'verb';
+    v.addEventListener('click', () => selectMatch(v));
+    verbContainer.appendChild(v);
+  });
+
+  shuffledDefs.forEach((item, idx) => {
+    const d = document.createElement('div');
+    d.className = 'match-item';
+    d.textContent = item.def;
+    d.dataset.verb = item.verb;
+    d.dataset.type = 'def';
+    d.addEventListener('click', () => selectMatch(d));
+    defContainer.appendChild(d);
+  });
+}
+
+function selectMatch(el) {
+  if (el.classList.contains('matched-ok')) return;
+
+  if (!matchSelected) {
+    document.querySelectorAll('.match-item').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+    matchSelected = el;
+    return;
+  }
+
+  // same type — re-select
+  if (el.dataset.type === matchSelected.dataset.type) {
+    document.querySelectorAll('.match-item').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+    matchSelected = el;
+    return;
+  }
+
+  // pair found
+  const verbEl = matchSelected.dataset.type === 'verb' ? matchSelected : el;
+  const defEl  = matchSelected.dataset.type === 'def'  ? matchSelected : el;
+  matchPairs[verbEl.dataset.verb] = defEl.dataset.verb;
+
+  document.querySelectorAll('.match-item').forEach(i => i.classList.remove('selected'));
+  matchSelected = null;
+}
+
+function checkMatch() {
+  let correct = 0;
+  document.querySelectorAll('.match-item.verb').forEach(v => {
+    const paired = matchPairs[v.dataset.verb];
+    const defEl = [...document.querySelectorAll('.match-item:not(.verb)')].find(d => d.dataset.verb === v.dataset.verb);
+    if (!defEl) return;
+
+    if (paired === v.dataset.verb) {
+      correct++;
+      v.classList.add('matched-ok'); defEl.classList.add('matched-ok');
+    } else if (paired) {
+      v.classList.add('matched-err'); defEl.classList.add('matched-err');
+      setTimeout(() => {
+        v.classList.remove('matched-err'); defEl.classList.remove('matched-err');
+        delete matchPairs[v.dataset.verb];
+      }, 800);
+    }
+  });
+
+  const badge = document.getElementById('matchScore');
+  badge.textContent = `${correct}/${matchData.length}`;
+  badge.classList.add('show', 'pop');
+}
+
+function resetMatch() {
+  Object.keys(matchPairs).forEach(k => delete matchPairs[k]);
+  matchSelected = null;
+  document.querySelectorAll('.match-item').forEach(el => {
+    el.classList.remove('selected', 'matched-ok', 'matched-err');
+  });
+  document.getElementById('matchScore').classList.remove('show');
+}
+
+// ── INIT ───────────────────────────────────────────────────────────────────
+buildGaps();
+buildRF();
+buildMatch();
+</script>
+</body>
+</html>

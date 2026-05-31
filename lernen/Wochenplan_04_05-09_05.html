@@ -1,0 +1,752 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wochenplan 04.05–09.05 · deutschoderwas Sprechclub</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap');</style>
+<style>
+  :root {
+    --cream:   #FAFAF7;
+    --dark:    #1A1410;
+    --rust:    #C4622D;
+    --sand:    #D9C4A8;
+
+    /* Kursfarben — gleiche Logik wie im Kalender */
+    --col-grammatik:    #E8D5B0; /* sand/beige */
+    --col-b1b2:         #B8DDD4; /* türkis */
+    --col-boost:        #F5C5BE; /* lachs/rosa */
+    --col-b2c1:         #C5D9F5; /* blau */
+    --col-a2:           #C5D9B0; /* grün */
+    --col-spiele:       #F5C5BE; /* lachs */
+    --col-sprechen:     #B8DDD4; /* türkis */
+    --col-default:      #E8E0D8;
+
+    --border-radius: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--dark);
+    padding: 0 0 4rem;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    color: white;
+    padding: 1.2rem 2rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 110px;
+  }
+  .header-logo {
+    background: #00D4E8;
+    border-radius: 10px;
+    padding: .6rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .1rem;
+    min-width: 130px;
+  }
+  .logo-top {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--dark);
+    line-height: 1;
+  }
+  .logo-sub {
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #C4622D;
+    line-height: 1.2;
+    text-align: center;
+  }
+  .logo-level {
+    font-size: .58rem;
+    color: var(--dark);
+    letter-spacing: .04em;
+  }
+  .header-info { flex: 1; }
+  .header-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: .3rem;
+  }
+  .header-title span { color: var(--rust); }
+  .header-dates {
+    font-size: 1rem;
+    color: #aaa;
+    font-weight: 500;
+  }
+  .header-links {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+  .header-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: var(--rust);
+    color: white;
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: 600;
+    padding: .4rem 1rem;
+    border-radius: 20px;
+    transition: opacity .15s;
+    white-space: nowrap;
+  }
+  .header-link:hover { opacity: .85; }
+  .header-link.secondary {
+    background: transparent;
+    border: 1.5px solid #555;
+    color: #ccc;
+  }
+
+  .accent-bar {
+    height: 5px;
+    background: linear-gradient(90deg, var(--rust) 0%, #E8896A 50%, var(--sand) 100%);
+  }
+
+  /* ── LEGENDE ── */
+  .legende {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    padding: 1.2rem 2.5rem;
+    background: white;
+    border-bottom: 1px solid #eee;
+  }
+  .legende-label { font-size: .7rem; font-weight: 600; color: #999; align-self: center; margin-right: .3rem; letter-spacing: .08em; text-transform: uppercase; }
+  .leg-chip {
+    font-size: .7rem;
+    font-weight: 600;
+    padding: .2rem .7rem;
+    border-radius: 20px;
+  }
+
+  /* ── DAY SECTIONS ── */
+  .week-container {
+    padding: 1.5rem 2.5rem 0;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .day-section { margin-bottom: 2.2rem; }
+
+  .day-header {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--dark);
+    padding: .6rem 0 .5rem;
+    border-bottom: 2px solid var(--dark);
+    margin-bottom: .8rem;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+  }
+  .day-header .day-date {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .8rem;
+    font-weight: 500;
+    color: #888;
+  }
+
+  /* ── TABLE ── */
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 5px;
+  }
+  thead th {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #aaa;
+    padding: .3rem .9rem;
+    text-align: left;
+  }
+  tbody tr {
+    border-radius: var(--border-radius);
+  }
+  tbody td {
+    padding: .65rem .9rem;
+    font-size: .88rem;
+    vertical-align: middle;
+    background: white;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  tbody td:first-child {
+    border-left: 1px solid #f0f0f0;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    border-left: 4px solid transparent;
+    font-weight: 600;
+    white-space: nowrap;
+    font-size: .82rem;
+    color: #555;
+  }
+  tbody td:last-child {
+    border-right: 1px solid #f0f0f0;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  }
+
+  /* color left border by Kurstyp */
+  tr.kurs-grammatik td:first-child { border-left-color: #C8A870; }
+  tr.kurs-b1b2      td:first-child { border-left-color: #4DB8A8; }
+  tr.kurs-boost     td:first-child { border-left-color: #E07060; }
+  tr.kurs-b2c1      td:first-child { border-left-color: #2D6BB5; }
+  tr.kurs-a2        td:first-child { border-left-color: #80B060; }
+  tr.kurs-spiele    td:first-child { border-left-color: #E07060; }
+  tr.kurs-sprechen  td:first-child { border-left-color: #4DB8A8; }
+
+  .thema-cell { font-weight: 600; font-size: .92rem; }
+
+  .niveau-badge {
+    display: inline-block;
+    font-size: .67rem;
+    font-weight: 700;
+    padding: .18rem .6rem;
+    border-radius: 20px;
+    letter-spacing: .05em;
+  }
+  .niv-b1b2 { background: #B8DDD4; color: #1A5048; }
+  .niv-b2c1 { background: #C5D9F5; color: #1A3F7A; }
+  .niv-a2   { background: #C5D9B0; color: #2A5010; }
+  .niv-ab1  { background: #F5C5BE; color: #8A2010; }
+  .niv-b1c1 { background: var(--col-grammatik); color: var(--brown); }
+
+  .lehrer-cell { font-size: .85rem; font-weight: 500; color: #555; }
+  .lehrer-cell .lehrer-name { font-weight: 700; color: var(--dark); }
+
+  /* ── LINK CELLS ── */
+  .link-cell { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .kurs-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    font-size: .78rem;
+    font-weight: 600;
+    padding: .22rem .7rem;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: opacity .15s, transform .1s;
+    border: 1.5px solid transparent;
+  }
+  .kurs-link:hover { opacity: .8; transform: scale(1.03); }
+  .kurs-link.praes {
+    background: var(--dark);
+    color: white;
+  }
+  .kurs-link.uebung {
+    background: var(--rust);
+    color: white;
+  }
+  .kurs-link.placeholder {
+    background: #f0f0f0;
+    color: #bbb;
+    border-color: #e0e0e0;
+    cursor: default;
+    pointer-events: none;
+    font-style: italic;
+  }
+
+  /* HOW TO EDIT hint */
+  .edit-hint {
+    background: #FFF8F0;
+    border: 1.5px solid var(--sand);
+    border-radius: 10px;
+    padding: 1rem 1.4rem;
+    margin: 0 2.5rem 1.5rem;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .edit-hint-title {
+    font-weight: 700;
+    font-size: .82rem;
+    color: var(--rust);
+    margin-bottom: .35rem;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+  }
+  .edit-hint p {
+    font-size: .8rem;
+    color: #666;
+    line-height: 1.6;
+  }
+  .edit-hint code {
+    background: #F0EBE3;
+    border-radius: 4px;
+    padding: .05rem .35rem;
+    font-size: .78rem;
+    color: var(--rust);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    font-size: .75rem;
+    color: #bbb;
+    padding: 2rem 1rem 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 700px) {
+    .page-header { padding: 1.4rem 1.2rem; }
+    .week-container { padding: 1rem 1rem 0; }
+    .edit-hint { margin: 0 1rem 1.2rem; }
+    .legende { padding: 1rem 1.2rem; }
+    thead { display: none; }
+    tbody td { display: block; padding: .3rem .9rem; border: none !important; border-radius: 0 !important; }
+    tbody td:first-child { border-radius: var(--border-radius) var(--border-radius) 0 0 !important; border-left: 4px solid #ccc !important; }
+    tbody td:last-child  { border-radius: 0 0 var(--border-radius) var(--border-radius) !important; padding-bottom: .7rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="page-header">
+
+  <!-- Flaggenstreifen links als vertikaler Akzent -->
+  <div style="position:absolute;top:0;left:0;width:8px;height:100%;display:flex;flex-direction:column;z-index:2;">
+    <div style="flex:1;background:#1A1410;"></div>
+    <div style="flex:1;background:#CC0000;"></div>
+    <div style="flex:1;background:#FFCE00;"></div>
+  </div>
+
+  <!-- Türkiser Hintergrund -->
+  <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#00B4C8 0%,#008FA8 100%);z-index:0;"></div>
+
+  <!-- Dekorkreis -->
+  <div style="position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.08);z-index:1;"></div>
+  <div style="position:absolute;right:80px;bottom:-60px;width:150px;height:150px;border-radius:50%;background:rgba(0,0,0,.06);z-index:1;"></div>
+
+  <!-- Inhalt -->
+  <div style="position:relative;z-index:2;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;width:100%;padding-left:1.5rem;">
+
+    <!-- Flagge vertikal -->
+    <div style="display:flex;flex-direction:column;border-radius:8px;overflow:hidden;width:36px;height:54px;border:2px solid rgba(255,255,255,.6);box-shadow:0 4px 12px rgba(0,0,0,.2);flex-shrink:0;">
+      <div style="flex:1;background:#1A1410;"></div>
+      <div style="flex:1;background:#CC0000;"></div>
+      <div style="flex:1;background:#FFCE00;"></div>
+    </div>
+
+    <!-- Titel -->
+    <div style="flex:1;">
+      <div style="font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:.3rem;">deutschoderwas · Sprechclub für den Alltag · A2–C1</div>
+      <div style="font-family:'Fraunces',serif;font-size:clamp(1.7rem,4vw,2.5rem);font-weight:900;color:white;line-height:1;text-shadow:0 2px 8px rgba(0,0,0,.15);">
+        Wochenplan &nbsp;<span style="background:rgba(0,0,0,.18);border-radius:8px;padding:.05em .3em;font-size:.85em;">04.05 – 09.05</span>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div style="display:flex;flex-direction:column;gap:.5rem;flex-shrink:0;">
+      <a style="display:inline-flex;align-items:center;gap:.45rem;background:white;color:#008FA8;text-decoration:none;font-size:.8rem;font-weight:700;padding:.42rem 1.1rem;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,.12);white-space:nowrap;" href="/">👉 Buchung des Unterrichts</a>
+      <a style="display:inline-flex;align-items:center;gap:.45rem;background:rgba(255,255,255,.2);color:white;text-decoration:none;font-size:.8rem;font-weight:700;padding:.42rem 1.1rem;border-radius:20px;border:1.5px solid rgba(255,255,255,.5);white-space:nowrap;" href="https://meet.google.com/mfh-hbdp-awk">🔗 Unser Klassenraum</a>
+    </div>
+
+  </div>
+</div>
+<!-- Schwarzrotgold Linie -->
+<div style="height:6px;display:flex;">
+  <div style="flex:1;background:#1A1410;"></div>
+  <div style="flex:1;background:#CC0000;"></div>
+  <div style="flex:1;background:#FFCE00;"></div>
+</div>
+
+<!-- ── HOW TO EDIT ── -->
+
+
+<div class="week-container">
+
+  <!-- ═══════════════════════════════════════════
+       MONTAG 04.05
+  ════════════════════════════════════════════ -->
+  <div class="day-section">
+    <div class="day-header">Montag <span class="day-date">04.05.2026</span></div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:110px">Uhrzeit</th>
+          <th>Thema</th>
+          <th style="width:90px">Niveau</th>
+          <th style="width:100px">Lehrer</th>
+          <th style="width:180px">Links</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="kurs-grammatik">
+          <td>09:00–10:00</td>
+          <td class="thema-cell">Modalverben</td>
+          <td><span class="niveau-badge niv-b1c1">B1–C1</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/modalverben.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-b1b2">
+          <td>10:00–11:00</td>
+          <td class="thema-cell">Smalltalk auf der Straße</td>
+          <td><span class="niveau-badge niv-b1b2">B1/B2</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/smalltalk-strasse.html">📊 Präsentation</a>
+            <a class="kurs-link uebung" href="/sprechclub/woche-04-09-mai-2026/smalltalk-uebungen.html">✏️ Übungen</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-boost">
+          <td>17:00–18:00</td>
+          <td class="thema-cell">4 Verben – zig Bedeutungen</td>
+          <td><span class="niveau-badge niv-ab1">ab B1</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/4verben-wortschatzboost.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-b1b2">
+          <td>18:00–19:00</td>
+          <td class="thema-cell">Soziale Medien &amp; Einsamkeit Teil 2</td>
+          <td><span class="niveau-badge niv-b1b2">B1/B2</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/andere-kurse/sozialemedien.html#einstieg">📊 Präsentation</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-sprechen">
+          <td>19:05–20:05</td>
+          <td class="thema-cell">Freies Sprechen – Freie Dialoge</td>
+          <td><span class="niveau-badge niv-b1b2">B1/B2</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/freiedialoge.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       DIENSTAG 05.05
+  ════════════════════════════════════════════ -->
+  <div class="day-section">
+    <div class="day-header">Dienstag <span class="day-date">06.05.2026</span></div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:110px">Uhrzeit</th>
+          <th>Thema</th>
+          <th style="width:90px">Niveau</th>
+          <th style="width:100px">Lehrer</th>
+          <th style="width:180px">Links</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="kurs-a2">
+          <td>09:00–10:00</td>
+          <td class="thema-cell">Wohnungssuche Teil 1</td>
+          <td><span class="niveau-badge niv-a2">A2</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/wohnungssuche.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-b1b2">
+          <td>10:00–11:00</td>
+          <td class="thema-cell">Reklamationen</td>
+          <td><span class="niveau-badge niv-b1b2">B1/B2</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="https://drive.google.com/file/d/1HbMrIB7BKbZGq7cIpJ7vOHguPbNb-6Jk/view?usp=sharing">📊 Präsentation</a>
+            <a class="kurs-link uebung" href="/sprechclub/woche-04-09-mai-2026/reklamationen-handout.html">📄 Handout</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-b2c1">
+          <td>18:00–19:00</td>
+          <td class="thema-cell">Familientraditionen &amp; Beziehungen Teil 2</td>
+          <td><span class="niveau-badge niv-b2c1">B2/C1</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="https://claude.ai/public/artifacts/c2d05e89-8d7a-48cb-9a1b-ff96da3b2ae8">📊 Präsentation</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-a2">
+          <td>19:05–20:05</td>
+          <td class="thema-cell">Wohnungssuche Teil 1</td>
+          <td><span class="niveau-badge niv-a2">A2</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/wohnungssuche.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-grammatik">
+          <td>20:05–21:05</td>
+          <td class="thema-cell">Modalverben</td>
+          <td><span class="niveau-badge niv-b1c1">B1–C1</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/modalverben.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       MITTWOCH 07.05
+  ════════════════════════════════════════════ -->
+  <div class="day-section">
+    <div class="day-header">Mittwoch <span class="day-date">07.05.2026</span></div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:110px">Uhrzeit</th>
+          <th>Thema</th>
+          <th style="width:90px">Niveau</th>
+          <th style="width:100px">Lehrer</th>
+          <th style="width:180px">Links</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="kurs-boost">
+          <td>09:00–10:00</td>
+          <td class="thema-cell">4 Verben – zig Bedeutungen</td>
+          <td><span class="niveau-badge niv-ab1">ab B1</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/4verben-wortschatzboost.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-grammatik">
+          <td>10:00–11:00</td>
+          <td class="thema-cell">Modalverben</td>
+          <td><span class="niveau-badge niv-b1c1">B1–C1</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/modalverben.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-spiele">
+          <td>17:00–18:00</td>
+          <td class="thema-cell">Sprachspiele &amp; Zungenbrecher</td>
+          <td><span class="niveau-badge niv-ab1">ab B1</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <span class="kurs-link placeholder">– keine Links</span>
+          </div></td>
+        </tr>
+        <tr class="kurs-b1b2">
+          <td>18:00–19:00</td>
+          <td class="thema-cell">Was passiert da? Wir beschreiben Situationen</td>
+          <td><span class="niveau-badge niv-b1b2">B1/B2</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <span class="kurs-link placeholder">– keine Vorbereitung nötig</span>
+          </div></td>
+        </tr>
+        <tr class="kurs-b2c1">
+          <td>19:05–20:05</td>
+          <td class="thema-cell">Post-Redemittel, die du brauchst</td>
+          <td><span class="niveau-badge niv-b2c1">B2/C1</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/post-pakete.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       DONNERSTAG 08.05
+  ════════════════════════════════════════════ -->
+  <div class="day-section">
+    <div class="day-header">Donnerstag <span class="day-date">08.05.2026</span></div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:110px">Uhrzeit</th>
+          <th>Thema</th>
+          <th style="width:90px">Niveau</th>
+          <th style="width:100px">Lehrer</th>
+          <th style="width:180px">Links</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="kurs-boost">
+          <td>09:00–10:00</td>
+          <td class="thema-cell">4 Verben – zig Bedeutungen</td>
+          <td><span class="niveau-badge niv-ab1">ab B1</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/4verben-wortschatzboost.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-sprechen">
+          <td>10:00–11:00</td>
+          <td class="thema-cell">Freies Sprechen – Freie Dialoge</td>
+          <td><span class="niveau-badge niv-b1b2">B1/B2</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/freiedialoge.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-b1b2">
+          <td>17:00–18:00</td>
+          <td class="thema-cell">Smalltalk auf der Straße</td>
+          <td><span class="niveau-badge niv-b1b2">B1/B2</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/smalltalk-strasse.html">📊 Präsentation</a>
+            <a class="kurs-link uebung" href="/sprechclub/woche-04-09-mai-2026/smalltalk-uebungen.html">✏️ Übungen</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-b2c1">
+          <td>18:00–19:00</td>
+          <td class="thema-cell">Notfälle – Wie rufe ich an? Was sage ich?</td>
+          <td><span class="niveau-badge niv-b2c1">B2/C1</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/notfaelle.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-b1b2">
+          <td>19:05–20:05</td>
+          <td class="thema-cell">Notfälle – Wie rufe ich an? Was sage ich?</td>
+          <td><span class="niveau-badge niv-b1b2">B1/B2</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/notfaelle.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       FREITAG 09.05
+  ════════════════════════════════════════════ -->
+  <div class="day-section">
+    <div class="day-header">Freitag <span class="day-date">09.05.2026</span></div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:110px">Uhrzeit</th>
+          <th>Thema</th>
+          <th style="width:90px">Niveau</th>
+          <th style="width:100px">Lehrer</th>
+          <th style="width:180px">Links</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="kurs-b1b2">
+          <td>09:00–10:00</td>
+          <td class="thema-cell">Was passiert da? Wir beschreiben Situationen</td>
+          <td><span class="niveau-badge niv-b1b2">B1/B2</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <span class="kurs-link placeholder">– keine Vorbereitung nötig</span>
+          </div></td>
+        </tr>
+        <tr class="kurs-a2">
+          <td>10:00–11:00</td>
+          <td class="thema-cell">Wohnungssuche Teil 2</td>
+          <td><span class="niveau-badge niv-a2">A2</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/wohnungssuche.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-boost">
+          <td>17:00–18:00</td>
+          <td class="thema-cell">4 Verben – zig Bedeutungen</td>
+          <td><span class="niveau-badge niv-ab1">ab B1</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/4verben-wortschatzboost.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-a2">
+          <td>18:00–19:00</td>
+          <td class="thema-cell">Wohnungssuche Teil 2</td>
+          <td><span class="niveau-badge niv-a2">A2</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Mateo</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/wohnungssuche.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+        <tr class="kurs-sprechen">
+          <td>19:05–20:05</td>
+          <td class="thema-cell">Freies Sprechen – Freie Dialoge</td>
+          <td><span class="niveau-badge niv-b2c1">B2/C1</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Mateo</span></td>
+          <td><div class="link-cell">
+            <a class="kurs-link praes" href="/sprechclub/woche-04-09-mai-2026/freiedialoge.html">📊 Präsentation</a>
+          </div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SAMSTAG 10.05
+  ════════════════════════════════════════════ -->
+  <div class="day-section">
+    <div class="day-header">Samstag <span class="day-date">10.05.2026</span></div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:110px">Uhrzeit</th>
+          <th>Thema</th>
+          <th style="width:90px">Niveau</th>
+          <th style="width:100px">Lehrer</th>
+          <th style="width:180px">Links</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="kurs-spiele">
+          <td>10:00–11:00</td>
+          <td class="thema-cell">Sprachspiele</td>
+          <td><span class="niveau-badge niv-ab1">ab B1</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <span class="kurs-link placeholder">– keine Vorbereitung nötig</span>
+          </div></td>
+        </tr>
+        <tr class="kurs-spiele">
+          <td>11:00–12:00</td>
+          <td class="thema-cell">Sprachspiele</td>
+          <td><span class="niveau-badge niv-ab1">ab B1</span></td>
+          <td class="lehrer-cell"><span class="lehrer-name">Julia</span></td>
+          <td><div class="link-cell">
+            <span class="kurs-link placeholder">– keine Vorbereitung nötig</span>
+          </div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- end week-container -->
+
+<footer>
+  deutschoderwas Sprechclub · Wochenplan 04.05–09.05.2026 · Alle Rechte vorbehalten
+</footer>
+
+</body>
+</html>

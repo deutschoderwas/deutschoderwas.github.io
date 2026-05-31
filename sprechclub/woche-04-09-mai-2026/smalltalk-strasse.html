@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+        <html>
+          <head>
+            <title data-id="th-modified">Web Page</title>
+            
+          <meta property="og:title" content="Web Page" data-id="th-modified" ><meta name="description" content="code" data-id="th-modified" ><meta property="og:description" content="code" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="/sprechclub/woche-04-09-mai-2026/smalltalk-strasse.html" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="smalltalk-strasse.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+          <body>
+            <!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smalltalk auf der Straße – deutschoderwas | B1/B2</title>
+<style>
+  :root {
+    --teal: #2ABFBF;
+    --teal-dark: #1a9a9a;
+    --teal-light: #e6f9f9;
+    --black: #1a1a1a;
+    --red: #CC0000;
+    --gold: #FFCC00;
+    --gold-light: #fff9e0;
+    --bg: #f4f6f6;
+    --white: #ffffff;
+    --text: #1e1e1e;
+    --muted: #666;
+    --correct: #2e7d32;
+    --correct-bg: #e8f5e9;
+    --wrong: #c62828;
+    --wrong-bg: #ffebee;
+    --speaker-a: #2ABFBF;
+    --speaker-b: #1a1a1a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--black);
+    color: var(--white);
+    padding: 20px 20px 14px;
+    text-align: center;
+  }
+
+  header .brand {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  header h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  header .subtitle {
+    font-size: 14px;
+    color: #bbb;
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+
+  .level-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--black);
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 12px;
+    border-radius: 20px;
+    letter-spacing: 2px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--white);
+    border-bottom: 3px solid var(--teal);
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  nav a {
+    display: block;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    letter-spacing: 0.5px;
+  }
+
+  nav a:hover {
+    color: var(--teal-dark);
+    border-bottom-color: var(--teal);
+    background: var(--teal-light);
+  }
+
+  /* ── CONTAINER ── */
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 28px 16px 80px;
+  }
+
+  .flag-bar {
+    height: 5px;
+    background: linear-gradient(to right, var(--black) 33%, var(--red) 33% 66%, var(--gold) 66%);
+    margin-bottom: 24px;
+    border-radius: 3px;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    margin-bottom: 44px;
+    background: var(--white);
+    border-radius: 12px;
+    padding: 26px;
+    border: 1px solid #e2e2e2;
+  }
+
+  section h2 {
+    font-size: 19px;
+    color: var(--black);
+    margin-bottom: 6px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--teal);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-intro {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    font-style: italic;
+    border-left: 3px solid var(--gold);
+    padding-left: 12px;
+  }
+
+  /* ── SITUATION CARDS ── */
+  .situation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+
+  .situation-card {
+    border: 2px solid var(--teal);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: default;
+  }
+
+  .situation-card .sc-icon {
+    background: var(--teal);
+    text-align: center;
+    padding: 14px;
+    font-size: 32px;
+  }
+
+  .situation-card .sc-body {
+    padding: 12px 14px;
+  }
+
+  .situation-card .sc-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--black);
+    margin-bottom: 4px;
+    font-family: 'Courier New', monospace;
+  }
+
+  .situation-card .sc-desc {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* ── DIALOG BLOCKS ── */
+  .dialog-block {
+    margin-bottom: 32px;
+  }
+
+  .dialog-block .dialog-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .dialog-block .dialog-tag {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+
+  .dialog-block .dialog-situation {
+    font-size: 13px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* Chat-style bubbles */
+  .chat { display: flex; flex-direction: column; gap: 10px; }
+
+  .bubble-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .bubble-row.right { flex-direction: row-reverse; }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  .avatar.a { background: var(--teal); color: var(--white); }
+  .avatar.b { background: var(--black); color: var(--white); }
+
+  .bubble {
+    max-width: 78%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.55;
+    position: relative;
+  }
+
+  .bubble.a {
+    background: var(--teal-light);
+    border: 1.5px solid var(--teal);
+    border-top-left-radius: 4px;
+  }
+
+  .bubble.b {
+    background: #f0f0f0;
+    border: 1.5px solid #ccc;
+    border-top-right-radius: 4px;
+  }
+
+  .bubble .speaker-name {
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    opacity: 0.7;
+  }
+
+  .bubble.a .speaker-name { color: var(--teal-dark); }
+  .bubble.b .speaker-name { color: #555; }
+
+  .bubble .highlight {
+    background: rgba(255, 204, 0, 0.35);
+    border-radius: 3px;
+    padding: 0 2px;
+    font-weight: bold;
+  }
+
+  /* annotation below dialog */
+  .dialog-note {
+    margin-top: 10px;
+    background: var(--gold-light);
+    border-left: 4px solid var(--gold);
+    padding: 8px 12px;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+    color: #5a4000;
+  }
+
+  /* ── REDEMITTEL TABLES ── */
+  .redemittel-category {
+    margin-bottom: 20px;
+  }
+
+  .redemittel-category h3 {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--teal-dark);
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .phrase-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .phrase-de {
+    background: var(--teal-light);
+    border-left: 3px solid var(--teal);
+    padding: 8px 12px;
+    border-radius: 0 6px 6px 0;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--black);
+  }
+
+  .phrase-note {
+    background: #f7f7f7;
+    border-left: 3px solid #ccc;
+    padding: 8px 12px;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ── CULTURAL NOTES ── */
+  .kultur-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+
+  .kultur-card .k-head {
+    background: var(--red);
+    color: var(--white);
+    padding: 8px 16px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .kultur-card .k-body {
+    padding: 12px 16px;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .kultur-card .k-body strong { color: var(--teal-dark); }
+
+  /* ── EXERCISES ── */
+  .exercise { margin-bottom: 26px; }
+
+  .exercise h3 {
+    font-size: 15px;
+    color: var(--teal-dark);
+    margin-bottom: 12px;
+    font-family: 'Courier New', monospace;
+  }
+
+  .sticker {
+    display: inline-block;
+    background: var(--teal);
+    color: var(--white);
+    font-size: 10px;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .ex-item {
+    margin-bottom: 14px;
+    font-size: 14px;
+    line-height: 1.85;
+  }
+
+  .ex-num {
+    font-family: 'Courier New', monospace;
+    color: var(--teal);
+    font-weight: bold;
+    margin-right: 6px;
+  }
+
+  select {
+    border: 2px solid var(--teal);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 14px;
+    background: var(--white);
+    color: var(--black);
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    padding-right: 24px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232ABFBF' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+  }
+
+  select.correct { border-color: var(--correct); background-color: var(--correct-bg); }
+  select.wrong { border-color: var(--wrong); background-color: var(--wrong-bg); }
+
+  .mc-opt {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 14px;
+    margin-bottom: 7px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: var(--white);
+    font-size: 14px;
+    cursor: pointer;
+    font-family: Georgia, serif;
+    transition: all 0.15s;
+  }
+
+  .mc-opt:hover { border-color: var(--teal); background: var(--teal-light); }
+  .mc-opt.correct { border-color: var(--correct); background: var(--correct-bg); color: var(--correct); }
+  .mc-opt.wrong { border-color: var(--wrong); background: var(--wrong-bg); color: var(--wrong); }
+
+  details {
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  summary {
+    background: #f0f0f0;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--teal-dark);
+    font-family: 'Courier New', monospace;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "▶ "; font-size: 11px; }
+  details[open] summary::before { content: "▼ "; }
+
+  details .solution {
+    padding: 12px 14px;
+    font-size: 14px;
+    background: var(--white);
+  }
+
+  details .solution .sol-item {
+    padding: 5px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  details .solution .sol-item:last-child { border-bottom: none; }
+
+  textarea {
+    width: 100%;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: Georgia, serif;
+    resize: vertical;
+    min-height: 75px;
+    margin-top: 6px;
+    color: var(--text);
+  }
+
+  textarea:focus { border-color: var(--teal); outline: none; }
+
+  /* Rollenspiel-Karten */
+  .role-card {
+    border: 2px dashed var(--teal);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background: var(--teal-light);
+  }
+
+  .role-card .role-title {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    margin-bottom: 8px;
+  }
+
+  .role-card .role-scenario {
+    font-size: 14px;
+    color: var(--black);
+    margin-bottom: 8px;
+  }
+
+  .role-card .role-tip {
+    font-size: 13px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .tip-box {
+    background: var(--gold-light);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #5a4000;
+    margin-top: 12px;
+  }
+
+  .tip-box strong { color: #7a5900; }
+
+  /* ── DIALOG CHOOSER TABS ── */
+  .dialog-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .dialog-tab-label {
+    background: #f0f0f0;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-family: 'Courier New', monospace;
+    color: var(--muted);
+  }
+
+  .dialog-tab-label.active {
+    background: var(--teal-light);
+    border-color: var(--teal);
+    color: var(--teal-dark);
+  }
+
+  /* Section number badge */
+  .sec-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--teal);
+    color: var(--white);
+    border-radius: 50%;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    .situation-grid { grid-template-columns: 1fr 1fr; }
+    .phrase-row { grid-template-columns: 1fr; }
+    nav a { padding: 10px 11px; font-size: 11px; }
+    section { padding: 16px; }
+    .bubble { max-width: 88%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">deutschoderwas · Sprechclub</div>
+  <h1>Smalltalk auf der Straße</h1>
+  <div class="subtitle">Was sagen Deutsche wirklich? Wie kommt man ins Gespräch?</div>
+  <span class="level-badge">B1 · B2</span>
+</header>
+
+<nav>
+  <a href="#situationen">📍 Situationen</a>
+  <a href="#dialoge">💬 Dialoge</a>
+  <a href="#redemittel">🗣️ Redemittel</a>
+  <a href="#kulturelles">🇩🇪 Kulturelles</a>
+  <a href="#uebungen">🎯 Übungen</a>
+  <a href="#rollenspiel">🎭 Rollenspiel</a>
+</nav>
+
+<div class="container">
+  <div class="flag-bar"></div>
+
+  <!-- ── 1. SITUATIONEN ── -->
+  <section id="situationen">
+    <h2><span class="sec-num">1</span> Typische Situationen</h2>
+    <p class="section-intro">In diesen Momenten beginnt Smalltalk auf der Straße oder mit Nachbarn – oft unerwartet, immer kurz.</p>
+
+    <div class="situation-grid">
+      <div class="situation-card">
+        <div class="sc-icon">🐶</div>
+        <div class="sc-body">
+          <div class="sc-title">Mit dem Hund</div>
+          <div class="sc-desc">Der häufigste Gesprächsöffner in Deutschland. Hunde sind soziale Magnete.</div>
+        </div>
+      </div>
+      <div class="situation-card">
+        <div class="sc-icon">🌧️</div>
+        <div class="sc-body">
+          <div class="sc-title">Das Wetter</div>
+          <div class="sc-desc">Das klassischste Thema überhaupt. Regen, Sonne, Kälte – immer ein Aufhänger.</div>
+        </div>
+      </div>
+      <div class="situation-card">
+        <div class="sc-icon">🏗️</div>
+        <div class="sc-body">
+          <div class="sc-title">Baustelle / Lärm</div>
+          <div class="sc-desc">Lärm, Straßensperrungen, Baustellen: perfekter Anlass zum gemeinsamen Meckern.</div>
+        </div>
+      </div>
+      <div class="situation-card">
+        <div class="sc-icon">🛒</div>
+        <div class="sc-body">
+          <div class="sc-title">Supermarkt / Schlange</div>
+          <div class="sc-desc">Beim Warten in der Schlange oder vor dem Geschäft.</div>
+        </div>
+      </div>
+      <div class="situation-card">
+        <div class="sc-icon">🚪</div>
+        <div class="sc-body">
+          <div class="sc-title">Hausflur / Tür</div>
+          <div class="sc-desc">Der Klassiker: Man begegnet dem Nachbarn an der Haustür oder im Treppenhaus.</div>
+        </div>
+      </div>
+      <div class="situation-card">
+        <div class="sc-icon">🚌</div>
+        <div class="sc-body">
+          <div class="sc-title">Bushaltestelle</div>
+          <div class="sc-desc">Der Bus kommt nicht. Perfekt für ein kurzes Gespräch über Verspätungen.</div>
+        </div>
+      </div>
+      <div class="situation-card">
+        <div class="sc-icon">🌳</div>
+        <div class="sc-body">
+          <div class="sc-title">Park / Spielplatz</div>
+          <div class="sc-desc">Eltern, Spaziergänger, Sportler – viele Anlässe für ein kurzes Gespräch.</div>
+        </div>
+      </div>
+      <div class="situation-card">
+        <div class="sc-icon">🎉</div>
+        <div class="sc-body">
+          <div class="sc-title">Feste / Ereignisse</div>
+          <div class="sc-desc">Straßenfest, Weihnachtsmarkt, Stadtfest – entspannte Atmosphäre für Gespräche.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 2. DIALOGE ── -->
+  <section id="dialoge">
+    <h2><span class="sec-num">2</span> Echte Dialoge – Fallbeispiele</h2>
+    <p class="section-intro">So klingt es wirklich. Die gelb markierten Ausdrücke sind besonders nützlich – merkt sie euch!</p>
+
+    <!-- Dialog 1 -->
+    <div class="dialog-block">
+      <div class="dialog-header">
+        <span class="dialog-tag">Situation 1</span>
+        <span class="dialog-situation">🐶 Begegnung mit Hundebesitzer auf der Straße</span>
+      </div>
+      <div class="chat">
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">NACHBARIN</div>
+            Oh, der ist ja süß! <span class="highlight">Wie alt ist er denn?</span>
+          </div>
+        </div>
+        <div class="bubble-row right">
+          <div class="avatar b">B</div>
+          <div class="bubble b">
+            <div class="speaker-name">DU</div>
+            Drei Jahre. <span class="highlight">Ein bisschen wild noch,</span> aber er ist lieb.
+          </div>
+        </div>
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">NACHBARIN</div>
+            <span class="highlight">Haben Sie ihn hier aus der Gegend?</span> Ich sehe euch immer im Park.
+          </div>
+        </div>
+        <div class="bubble-row right">
+          <div class="avatar b">B</div>
+          <div class="bubble b">
+            <div class="speaker-name">DU</div>
+            Ja, wir wohnen gleich um die Ecke in der Bergstraße. <span class="highlight">Und Sie?</span>
+          </div>
+        </div>
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">NACHBARIN</div>
+            Ich auch! <span class="highlight">Wir sind fast Nachbarn dann.</span> Ich bin die Monika, übrigens.
+          </div>
+        </div>
+        <div class="bubble-row right">
+          <div class="avatar b">B</div>
+          <div class="bubble b">
+            <div class="speaker-name">DU</div>
+            Schön, Sie kennenzulernen! Ich bin Sara. <span class="highlight">Na dann bis bald!</span>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-note">
+        💡 <strong>Tipp:</strong> Hunde sind in Deutschland der beste Gesprächsöffner. Man spricht zuerst mit dem Hund, dann mit dem Besitzer – das ist völlig normal!
+      </div>
+    </div>
+
+    <!-- Dialog 2 -->
+    <div class="dialog-block">
+      <div class="dialog-header">
+        <span class="dialog-tag">Situation 2</span>
+        <span class="dialog-situation">🌧️ Das Wetter – der sichere Klassiker</span>
+      </div>
+      <div class="chat">
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">BEKANNTER</div>
+            <span class="highlight">Was ein Wetter heute, oder?</span> Ich dachte, es soll sonnig werden.
+          </div>
+        </div>
+        <div class="bubble-row right">
+          <div class="avatar b">B</div>
+          <div class="bubble b">
+            <div class="speaker-name">DU</div>
+            <span class="highlight">Ja, typisch – man kann sich auf die Wettervorhersage nicht verlassen!</span>
+          </div>
+        </div>
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">BEKANNTER</div>
+            <span class="highlight">Nächste Woche soll es besser werden</span>, hat meine Frau gesagt.
+          </div>
+        </div>
+        <div class="bubble-row right">
+          <div class="avatar b">B</div>
+          <div class="bubble b">
+            <div class="speaker-name">DU</div>
+            <span class="highlight">Na, da bin ich gespannt.</span> Ich hoffe, dass der Sommer noch kommt!
+          </div>
+        </div>
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">BEKANNTER</div>
+            <span class="highlight">Ja, das wär schön.</span> Na dann, machen Sie's gut!
+          </div>
+        </div>
+        <div class="bubble-row right">
+          <div class="avatar b">B</div>
+          <div class="bubble b">
+            <div class="speaker-name">DU</div>
+            Sie auch! <span class="highlight">Tschüss!</span>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-note">
+        💡 <strong>Wichtige Ausdrücke:</strong> „Was ein Wetter!" (Ausruf) · „Na, da bin ich gespannt." (= mal sehen, ich glaube es kaum) · „Machen Sie's gut!" (klassische Verabschiedung)
+      </div>
+    </div>
+
+    <!-- Dialog 3 -->
+    <div class="dialog-block">
+      <div class="dialog-header">
+        <span class="dialog-tag">Situation 3</span>
+        <span class="dialog-situation">🚪 Im Treppenhaus / an der Haustür</span>
+      </div>
+      <div class="chat">
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">NACHBAR</div>
+            Guten Morgen! <span class="highlight">Schon so früh unterwegs?</span>
+          </div>
+        </div>
+        <div class="bubble-row right">
+          <div class="avatar b">B</div>
+          <div class="bubble b">
+            <div class="speaker-name">DU</div>
+            Ja, ich muss früh zur Arbeit. <span class="highlight">Und Sie – haben Sie frei heute?</span>
+          </div>
+        </div>
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">NACHBAR</div>
+            Nein nein, ich fange erst um neun an. <span class="highlight">Da hab ich noch Zeit.</span>
+          </div>
+        </div>
+        <div class="bubble-row right">
+          <div class="avatar b">B</div>
+          <div class="bubble b">
+            <div class="speaker-name">DU</div>
+            <span class="highlight">Schön!</span> Ach, ich wollte kurz fragen – haben Sie zufällig die Pakete von gestern gesehen? Ich habe eine Benachrichtigung bekommen.
+          </div>
+        </div>
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">NACHBAR</div>
+            Ja! Das hab ich angenommen. <span class="highlight">Klingeln Sie einfach später bei mir.</span>
+          </div>
+        </div>
+        <div class="bubble-row right">
+          <div class="avatar b">B</div>
+          <div class="bubble b">
+            <div class="speaker-name">DU</div>
+            <span class="highlight">Oh, vielen Dank! Das ist sehr nett von Ihnen.</span> Bis dann!
+          </div>
+        </div>
+      </div>
+      <div class="dialog-note">
+        💡 <strong>Tipp:</strong> Das Treppenhaus-Gespräch ist kurz und praktisch. Man nutzt es auch, um kleine Anliegen zu klären – Pakete, Lärm, Müll. Immer höflich und nicht zu lang!
+      </div>
+    </div>
+
+    <!-- Dialog 4 -->
+    <div class="dialog-block">
+      <div class="dialog-header">
+        <span class="dialog-tag">Situation 4</span>
+        <span class="dialog-situation">🏗️ Über die Baustelle meckern – gemeinsam!</span>
+      </div>
+      <div class="chat">
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">NACHBARIN</div>
+            <span class="highlight">Dieser Lärm ist ja nicht mehr auszuhalten!</span> Schon seit sechs Uhr morgens!
+          </div>
+        </div>
+        <div class="bubble-row right">
+          <div class="avatar b">B</div>
+          <div class="bubble b">
+            <div class="speaker-name">DU</div>
+            <span class="highlight">Ich weiß, das nervt total.</span> Wissen Sie, wie lange das noch geht?
+          </div>
+        </div>
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">NACHBARIN</div>
+            <span class="highlight">Keine Ahnung.</span> Ich habe gehört, noch bis Ende des Monats. <span class="highlight">Unglaublich, oder?</span>
+          </div>
+        </div>
+        <div class="bubble-row right">
+          <div class="avatar b">B</div>
+          <div class="bubble b">
+            <div class="speaker-name">DU</div>
+            <span class="highlight">Das glaub ich nicht…</span> Naja, <span class="highlight">man kann ja nichts machen.</span>
+          </div>
+        </div>
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">NACHBARIN</div>
+            Genau. <span class="highlight">Irgendwann ist's vorbei.</span> Na dann, einen schönen Tag noch!
+          </div>
+        </div>
+      </div>
+      <div class="dialog-note">
+        💡 <strong>Kulturell wichtig:</strong> Gemeinsam meckern ist in Deutschland ein echter Bonding-Moment. Man beschwert sich zusammen – das schafft Gemeinschaft! „Nicht mehr auszuhalten" / „Das nervt total" / „Unglaublich, oder?" – echte Ausdrücke.
+      </div>
+    </div>
+
+    <!-- Dialog 5 -->
+    <div class="dialog-block">
+      <div class="dialog-header">
+        <span class="dialog-tag">Situation 5</span>
+        <span class="dialog-situation">🌳 Im Park / beim Spaziergang</span>
+      </div>
+      <div class="chat">
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">FREMDE PERSON</div>
+            <span class="highlight">Entschuldigung, wissen Sie zufällig, ob der Weg da vorne zum See führt?</span>
+          </div>
+        </div>
+        <div class="bubble-row right">
+          <div class="avatar b">B</div>
+          <div class="bubble b">
+            <div class="speaker-name">DU</div>
+            <span class="highlight">Ja, genau!</span> Immer geradeaus, dann links abbiegen. <span class="highlight">Etwa zehn Minuten zu Fuß.</span>
+          </div>
+        </div>
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">FREMDE PERSON</div>
+            <span class="highlight">Oh super, vielen Dank!</span> Sind Sie öfter hier?
+          </div>
+        </div>
+        <div class="bubble-row right">
+          <div class="avatar b">B</div>
+          <div class="bubble b">
+            <div class="speaker-name">DU</div>
+            Ja, fast jeden Tag. <span class="highlight">Es ist schön hier, nicht wahr?</span>
+          </div>
+        </div>
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">FREMDE PERSON</div>
+            <span class="highlight">Ja, wirklich!</span> Besonders wenn die Sonne scheint. <span class="highlight">Na dann, schönen Tag noch!</span>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-note">
+        💡 <strong>Tipp:</strong> Eine Frage nach dem Weg ist oft der natürlichste Einstieg in ein Gespräch mit Fremden. Man kann danach kurz plaudern – aber nicht zu lang, sonst wirkt es komisch!
+      </div>
+    </div>
+
+    <!-- Dialog 6 -->
+    <div class="dialog-block">
+      <div class="dialog-header">
+        <span class="dialog-tag">Situation 6</span>
+        <span class="dialog-situation">🚌 An der Bushaltestelle – der Bus ist zu spät</span>
+      </div>
+      <div class="chat">
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">MITWARTENДЕ</div>
+            <span class="highlight">Der Bus hat schon wieder Verspätung.</span> Typisch!
+          </div>
+        </div>
+        <div class="bubble-row right">
+          <div class="avatar b">B</div>
+          <div class="bubble b">
+            <div class="speaker-name">DU</div>
+            <span class="highlight">Ja, das kenne ich.</span> Wie lange warten Sie schon?
+          </div>
+        </div>
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">MITWARTENДЕ</div>
+            Schon 15 Minuten! <span class="highlight">Dabei steht da, er kommt alle zehn Minuten.</span>
+          </div>
+        </div>
+        <div class="bubble-row right">
+          <div class="avatar b">B</div>
+          <div class="bubble b">
+            <div class="speaker-name">DU</div>
+            <span class="highlight">Da kann man nichts machen.</span> Nehmen Sie auch die 42?
+          </div>
+        </div>
+        <div class="bubble-row">
+          <div class="avatar a">A</div>
+          <div class="bubble a">
+            <div class="speaker-name">MITWARTENДЕ</div>
+            Nein, ich nehme die 7. <span class="highlight">Ach, endlich!</span> Da kommt er.
+          </div>
+        </div>
+        <div class="bubble-row right">
+          <div class="avatar b">B</div>
+          <div class="bubble b">
+            <div class="speaker-name">DU</div>
+            <span class="highlight">Na also!</span> Gute Fahrt!
+          </div>
+        </div>
+      </div>
+      <div class="dialog-note">
+        💡 <strong>Echte Ausdrücke:</strong> „Na also!" = endlich! / „Typisch!" = wie immer! / „Da kann man nichts machen." = was soll man tun? – Diese Ausdrücke klingen sehr natürlich.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. REDEMITTEL ── -->
+  <section id="redemittel">
+    <h2><span class="sec-num">3</span> Redemittel – Was Deutsche wirklich sagen</h2>
+    <p class="section-intro">Diese Ausdrücke machen euren Smalltalk authentisch. Lernt sie auswendig!</p>
+
+    <div class="redemittel-category">
+      <h3>Gespräch eröffnen</h3>
+      <div class="phrase-row">
+        <div class="phrase-de">„Was ein Wetter heute, oder?"</div>
+        <div class="phrase-note">Universeller Einstieg – immer passend</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Oh, der ist ja süß!"</div>
+        <div class="phrase-note">Bei Hunden, Babys, kleinen Kindern</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Schon so früh unterwegs?"</div>
+        <div class="phrase-note">Morgens im Treppenhaus oder auf der Straße</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Entschuldigung, wissen Sie zufällig, ob …?"</div>
+        <div class="phrase-note">Höfliche Frage an Fremde – sehr natürlich</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Der Bus hat schon wieder Verspätung."</div>
+        <div class="phrase-note">Gemeinsames Meckern als Gesprächseinstieg</div>
+      </div>
+    </div>
+
+    <div class="redemittel-category">
+      <h3>Zustimmung & Reaktion</h3>
+      <div class="phrase-row">
+        <div class="phrase-de">„Ja, das kenne ich!"</div>
+        <div class="phrase-note">= Ich verstehe dich, mir geht's genauso</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Unglaublich, oder?"</div>
+        <div class="phrase-note">Bestätigung suchen – lädt zur Zustimmung ein</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Das nervt total."</div>
+        <div class="phrase-note">Informell, sehr echt – gemeinsames Meckern</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Ja, wirklich!" / „Ja, genau!"</div>
+        <div class="phrase-note">Kurze, natürliche Bestätigung</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Das glaub ich nicht…"</div>
+        <div class="phrase-note">Überraschung / Skepsis – eher ungläubig</div>
+      </div>
+    </div>
+
+    <div class="redemittel-category">
+      <h3>Gespräch am Laufen halten</h3>
+      <div class="phrase-row">
+        <div class="phrase-de">„Und Sie? / Und du?"</div>
+        <div class="phrase-note">Immer gut – zeigt Interesse am Gegenüber</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Wissen Sie zufällig, wie lange …?"</div>
+        <div class="phrase-note">Höfliche Informationsfrage</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Sind Sie öfter hier?"</div>
+        <div class="phrase-note">Frage nach Gewohnheiten – natürliche Weiterführung</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Es ist schön hier, nicht wahr?"</div>
+        <div class="phrase-note">Kommentar zur Umgebung – lädt zur Reaktion ein</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Nächste Woche soll es besser werden."</div>
+        <div class="phrase-note">Wetter-Prognose – Konjunktiv II für indirekte Info</div>
+      </div>
+    </div>
+
+    <div class="redemittel-category">
+      <h3>Fatalistisch reagieren (typisch deutsch!)</h3>
+      <div class="phrase-row">
+        <div class="phrase-de">„Man kann ja nichts machen."</div>
+        <div class="phrase-note">= Es ist wie es ist. Ich akzeptiere es. (resigniert)</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Da kann man nichts machen."</div>
+        <div class="phrase-note">= Gleiche Bedeutung, leicht anders formuliert</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Irgendwann ist's vorbei."</div>
+        <div class="phrase-note">= Das geht auch vorbei. Trost / Resignation.</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Na, da bin ich gespannt."</div>
+        <div class="phrase-note">= Mal sehen / ich glaube es kaum (ironisch möglich)</div>
+      </div>
+    </div>
+
+    <div class="redemittel-category">
+      <h3>Gespräch beenden – Verabschiedung</h3>
+      <div class="phrase-row">
+        <div class="phrase-de">„Na dann, machen Sie's gut!"</div>
+        <div class="phrase-note">Herzlicher Abschluss, sehr gebräuchlich</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Schönen Tag noch!"</div>
+        <div class="phrase-note">Standard-Verabschiedung, immer passend</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Na dann bis bald!"</div>
+        <div class="phrase-note">Wenn man sich kennt oder wahrscheinlich wiedersieht</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Na also!" + Tschüss</div>
+        <div class="phrase-note">„Na also!" = endlich! – dann schnell Tschüss sagen</div>
+      </div>
+      <div class="phrase-row">
+        <div class="phrase-de">„Klingeln Sie einfach bei mir."</div>
+        <div class="phrase-note">Praktisches Angebot unter Nachbarn</div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>🔑 Die goldene Smalltalk-Regel auf Deutsch:</strong><br>
+      Smalltalk in Deutschland ist <em>kurz, freundlich und unverbindlich</em>. Man geht nicht zu tief, man macht keine langen Gesprächseinladungen. Ein gutes Gespräch dauert 1–3 Minuten. Man verabschiedet sich freundlich – und das war's. Das ist <em>normal</em>, nicht unhöflich!
+    </div>
+  </section>
+
+  <!-- ── 4. KULTURELLES ── -->
+  <section id="kulturelles">
+    <h2><span class="sec-num">4</span> Kulturelle Hinweise</h2>
+    <p class="section-intro">Was man wissen muss, um Missverständnisse zu vermeiden.</p>
+
+    <div class="kultur-card">
+      <div class="k-head">🇩🇪 Sie oder du?</div>
+      <div class="k-body">
+        Mit Nachbarn und Fremden auf der Straße sagt man meistens <strong>„Sie"</strong> (formell). Erst wenn jemand sagt <em>„Wir können gerne du sagen"</em> oder <em>„Sag einfach du zu mir"</em>, wechselt man zum <strong>„du"</strong>. Diese Einladung kommt vom Älteren oder von dem, der schon länger da wohnt. Wechsle <em>niemals</em> von alleine zum „du" ohne Einladung – das kann unhöflich wirken.
+      </div>
+    </div>
+
+    <div class="kultur-card">
+      <div class="k-head">🤫 Ruhezeiten – wichtig für Nachbarn!</div>
+      <div class="k-body">
+        In Deutschland gibt es <strong>Ruhezeiten</strong>: <em>Mittagsruhe</em> (ca. 13–15 Uhr) und <em>Nachtruhe</em> (ab 22 Uhr). Lärm, laute Musik oder Bohren in diesen Zeiten ist ein häufiger Nachbarschaftskonflikt. Wenn du Lärm machen musst, <strong>kündige es vorher an</strong>: „Ich wollte nur kurz sagen, ich renoviere am Samstag – tut mir leid für den Lärm."
+      </div>
+    </div>
+
+    <div class="kultur-card">
+      <div class="k-head">😶 Warum reden Deutsche nicht mit Fremden?</div>
+      <div class="k-body">
+        Deutsche gelten als <strong>distanziert</strong> – aber das ist kulturell, nicht unfreundlich. Ein Gespräch mit einem Fremden beginnt in Deutschland oft mit einem <em>Anlass</em>: Wetter, Hund, Verspätung, Baustelle. Ohne Anlass einfach jemanden anzusprechen wirkt ungewöhnlich. <strong>Nutze den Anlass</strong> – er ist dein „Ticket" ins Gespräch!
+      </div>
+    </div>
+
+    <div class="kultur-card">
+      <div class="k-head">🗑️ Müll und Mülltrennung – Nachbarschaftsthema Nr. 1</div>
+      <div class="k-body">
+        Mülltrennung ist in Deutschland sehr ernst genommen. Wenn ein Nachbar etwas falsch in die Tonne wirft, kann das zu Konflikten führen. Typische Sätze: <strong>„Darf ich kurz fragen – gehört das in die gelbe Tonne?"</strong> oder <strong>„Ich glaube, die blaue Tonne ist für Papier."</strong> Immer höflich fragen, nie anklagen!
+      </div>
+    </div>
+
+    <div class="kultur-card">
+      <div class="k-head">🎁 Kleine Gesten unter Nachbarn</div>
+      <div class="k-body">
+        <strong>Paket annehmen</strong>, <strong>Blumen gießen</strong>, <strong>auf den Briefkasten achten</strong> – das sind typische kleine Nachbarschaftsgefälligkeiten. Man fragt höflich: <em>„Könnte ich Sie um einen Gefallen bitten?"</em> Und bedankt sich immer: <em>„Das ist sehr nett von Ihnen!"</em> oder <em>„Ich schulde Ihnen noch etwas!"</em>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. ÜBUNGEN ── -->
+  <section id="uebungen">
+    <h2><span class="sec-num">5</span> Übungen</h2>
+
+    <!-- Übung 1 -->
+    <div class="exercise">
+      <h3>Übung 1 – Was passt in diese Situation? <span class="sticker">Multiple Choice</span></h3>
+
+      <div class="ex-item">
+        <strong>1.</strong> Du siehst den Nachbarn im Treppenhaus. Er sieht müde aus. Was sagst du?<br>
+        <div class="mc-options" style="margin-top:8px;">
+          <button class="mc-opt" onclick="mcCheck(this, false)">a) „Was ist mit Ihnen los?"</button>
+          <button class="mc-opt" onclick="mcCheck(this, true)">b) „Morgen! Schon so früh unterwegs?"</button>
+          <button class="mc-opt" onclick="mcCheck(this, false)">c) „Sie sehen sehr müde aus, geht's Ihnen gut?"</button>
+        </div>
+        <div class="dialog-note" style="margin-top:6px;">💡 Option a) und c) sind zu direkt für Smalltalk. b) ist locker und unverbindlich – perfekt!</div>
+      </div>
+
+      <div class="ex-item" style="margin-top:16px;">
+        <strong>2.</strong> Es regnet und du stehst mit einem Fremden an der Bushaltestelle. Was sagst du zuerst?<br>
+        <div class="mc-options" style="margin-top:8px;">
+          <button class="mc-opt" onclick="mcCheck(this, false)">a) „Ich hasse Regen wirklich sehr."</button>
+          <button class="mc-opt" onclick="mcCheck(this, true)">b) „Was ein Wetter heute, oder?"</button>
+          <button class="mc-opt" onclick="mcCheck(this, false)">c) „Warum kommt der Bus nie pünktlich?"</button>
+        </div>
+      </div>
+
+      <div class="ex-item" style="margin-top:16px;">
+        <strong>3.</strong> Du möchtest das Gespräch freundlich beenden. Was sagst du?<br>
+        <div class="mc-options" style="margin-top:8px;">
+          <button class="mc-opt" onclick="mcCheck(this, false)">a) „Okay, ich gehe jetzt."</button>
+          <button class="mc-opt" onclick="mcCheck(this, false)">b) „Ich muss leider weg, tschüss."</button>
+          <button class="mc-opt" onclick="mcCheck(this, true)">c) „Na dann, machen Sie's gut! Schönen Tag noch!"</button>
+        </div>
+      </div>
+
+      <div class="ex-item" style="margin-top:16px;">
+        <strong>4.</strong> Dein Nachbar sagt: „Diese Baustelle ist ja nicht mehr auszuhalten!" Du stimmst zu. Was sagst du?<br>
+        <div class="mc-options" style="margin-top:8px;">
+          <button class="mc-opt" onclick="mcCheck(this, false)">a) „Ja, ich stimme zu, dass der Lärm ein Problem ist."</button>
+          <button class="mc-opt" onclick="mcCheck(this, true)">b) „Ich weiß, das nervt total. Wissen Sie, wie lange das noch geht?"</button>
+          <button class="mc-opt" onclick="mcCheck(this, false)">c) „Mir ist das egal."</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Übung 2 -->
+    <div class="exercise">
+      <h3>Übung 2 – Ergänze den Dialog <span class="sticker">Dropdown</span></h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Wähle die passende Antwort für jede Lücke.</p>
+
+      <div class="ex-item">
+        <span class="ex-num">A:</span> „Ach, der Bus hat schon wieder Verspätung!"<br>
+        <span class="ex-num">B:</span>
+        <select id="d1" onchange="checkSelect('d1','Ja, das kenne ich.')">
+          <option value="">– wählen –</option>
+          <option value="Ja, das kenne ich.">„Ja, das kenne ich."</option>
+          <option value="Das ist nicht mein Problem.">„Das ist nicht mein Problem."</option>
+          <option value="Ich finde Busse toll.">„Ich finde Busse toll."</option>
+        </select>
+        Wie lange warten Sie schon?
+      </div>
+
+      <div class="ex-item">
+        <span class="ex-num">A:</span> „Nächste Woche soll es wärmer werden!"<br>
+        <span class="ex-num">B:</span>
+        <select id="d2" onchange="checkSelect('d2','Na, da bin ich gespannt!')">
+          <option value="">– wählen –</option>
+          <option value="Na, da bin ich gespannt!">„Na, da bin ich gespannt!"</option>
+          <option value="Das ist uninteressant.">„Das ist uninteressant."</option>
+          <option value="Ich mag kein Wetter.">„Ich mag kein Wetter."</option>
+        </select>
+        Ich hoffe, der Sommer kommt noch!
+      </div>
+
+      <div class="ex-item">
+        <span class="ex-num">A:</span> „Oh, Ihr Hund ist ja süß! Wie alt ist er?"<br>
+        <span class="ex-num">B:</span>
+        <select id="d3" onchange="checkSelect('d3','Drei Jahre. Ein bisschen wild noch, aber er ist lieb.')">
+          <option value="">– wählen –</option>
+          <option value="Drei Jahre. Ein bisschen wild noch, aber er ist lieb.">„Drei Jahre. Ein bisschen wild noch, aber er ist lieb."</option>
+          <option value="Ich weiß nicht.">„Ich weiß nicht."</option>
+          <option value="Das sage ich nicht.">„Das sage ich nicht."</option>
+        </select>
+      </div>
+
+      <div class="ex-item">
+        <span class="ex-num">A:</span> „Ich habe Ihr Paket angenommen!"<br>
+        <span class="ex-num">B:</span>
+        <select id="d4" onchange="checkSelect('d4','Oh, vielen Dank! Das ist sehr nett von Ihnen.')">
+          <option value="">– wählen –</option>
+          <option value="Oh, vielen Dank! Das ist sehr nett von Ihnen.">„Oh, vielen Dank! Das ist sehr nett von Ihnen."</option>
+          <option value="Warum haben Sie das gemacht?">„Warum haben Sie das gemacht?"</option>
+          <option value="Ok.">„Ok."</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Übung 3 -->
+    <div class="exercise">
+      <h3>Übung 3 – Wie endet das Gespräch? <span class="sticker">Schreiben</span></h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Schreib eine natürliche Verabschiedung für diese Situationen.</p>
+
+      <div class="ex-item">
+        <span class="ex-num">1.</span> Du hast kurz mit dem Nachbarn im Treppenhaus gesprochen. Ihr seht euch regelmäßig.<br>
+        <textarea placeholder="Na dann ..."></textarea>
+        <details>
+          <summary>Mögliche Antworten</summary>
+          <div class="solution">
+            <div class="sol-item">✅ „Na dann bis bald! Schönen Tag noch!"</div>
+            <div class="sol-item">✅ „Na dann, machen Sie's gut!"</div>
+            <div class="sol-item">✅ „Tschüss! Bis dann!"</div>
+          </div>
+        </details>
+      </div>
+
+      <div class="ex-item">
+        <span class="ex-num">2.</span> Der Bus kommt endlich nach 15 Minuten Warten. Du warst kurz im Gespräch mit einem Fremden.<br>
+        <textarea placeholder="Na also! ..."></textarea>
+        <details>
+          <summary>Mögliche Antworten</summary>
+          <div class="solution">
+            <div class="sol-item">✅ „Na also! Gute Fahrt!"</div>
+            <div class="sol-item">✅ „Endlich! Schönen Tag noch!"</div>
+            <div class="sol-item">✅ „Da ist er ja! Tschüss und schönen Tag!"</div>
+          </div>
+        </details>
+      </div>
+
+      <div class="ex-item">
+        <span class="ex-num">3.</span> Du hast einer fremden Person den Weg erklärt. Sie bedankt sich.<br>
+        <textarea placeholder="Kein Problem! ..."></textarea>
+        <details>
+          <summary>Mögliche Antworten</summary>
+          <div class="solution">
+            <div class="sol-item">✅ „Kein Problem! Schönen Tag noch!"</div>
+            <div class="sol-item">✅ „Gern! Viel Spaß beim Spaziergang!"</div>
+            <div class="sol-item">✅ „Gerne! Tschüss!"</div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Übung 4 -->
+    <div class="exercise">
+      <h3>Übung 4 – Heikle Situationen – Was sagst du? <span class="sticker">Schreiben</span></h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Formuliere einen höflichen Satz für diese schwierigen Nachbarschafts-Momente.</p>
+
+      <div class="ex-item">
+        <span class="ex-num">1.</span> Dein Nachbar macht um 23 Uhr laute Musik. Du klingelst.<br>
+        <textarea placeholder="Guten Abend, entschuldigung, aber ..."></textarea>
+        <details>
+          <summary>Mögliche Antworten</summary>
+          <div class="solution">
+            <div class="sol-item">✅ „Guten Abend, entschuldigung, dass ich störe. Die Musik ist leider sehr laut. Könnten Sie die Musik vielleicht etwas leiser machen?"</div>
+            <div class="sol-item">✅ „Hallo, ich wollte kurz fragen – könnten Sie die Musik etwas leiser stellen? Es ist schon nach 22 Uhr."</div>
+          </div>
+        </details>
+      </div>
+
+      <div class="ex-item">
+        <span class="ex-num">2.</span> Du willst am Samstag renovieren (laut bohren). Du möchtest die Nachbarn vorher informieren.<br>
+        <textarea placeholder="Ich wollte kurz Bescheid geben ..."></textarea>
+        <details>
+          <summary>Mögliche Antworten</summary>
+          <div class="solution">
+            <div class="sol-item">✅ „Ich wollte kurz Bescheid geben: Ich renoviere am Samstag. Es wird leider etwas lärmen – tut mir leid dafür!"</div>
+            <div class="sol-item">✅ „Hallo, ich wollte Sie vorwarnen: Am Samstag werde ich in meiner Wohnung bohren. Ich hoffe, das stört nicht zu sehr."</div>
+          </div>
+        </details>
+      </div>
+
+      <div class="ex-item">
+        <span class="ex-num">3.</span> Jemand hat seinen Müll falsch in die Tonne geworfen. Du willst es höflich sagen.<br>
+        <textarea placeholder="Darf ich kurz fragen ..."></textarea>
+        <details>
+          <summary>Mögliche Antworten</summary>
+          <div class="solution">
+            <div class="sol-item">✅ „Darf ich kurz fragen – die gelbe Tonne ist eigentlich nur für Verpackungen. Papier kommt in die blaue Tonne."</div>
+            <div class="sol-item">✅ „Ich glaube, das gehört in die blaue Tonne. Die Mülltrennung ist hier manchmal etwas verwirrend!"</div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 6. ROLLENSPIEL ── -->
+  <section id="rollenspiel">
+    <h2><span class="sec-num">6</span> Rollenspiel-Karten</h2>
+    <p class="section-intro">Übt diese Situationen zu zweit. Eine Person nimmt Rolle A, die andere Rolle B. Sprecht mindestens 2 Minuten!</p>
+
+    <div class="role-card">
+      <div class="role-title">🎭 Rollenspiel 1 – Der neue Nachbar</div>
+      <div class="role-scenario">
+        <strong>Person A (Nachbarin):</strong> Du wohnst seit 5 Jahren im Haus. Du begegnest einem neuen Nachbarn im Treppenhaus. Du bist neugierig: Woher kommt er? Wie lange wohnt er schon hier? Hat er Familie?<br><br>
+        <strong>Person B (neuer Nachbar):</strong> Du bist vor einem Monat eingezogen. Du willst nett sein und einen guten ersten Eindruck machen. Du hast eine Frage: Wo ist die nächste Bushaltestelle?
+      </div>
+      <div class="role-tip">💬 Benutzt: „Sie sind neu hier, oder?" · „Ich bin schon … Jahre hier." · „Darf ich kurz fragen …?" · „Na dann, willkommen im Haus!"</div>
+    </div>
+
+    <div class="role-card">
+      <div class="role-title">🎭 Rollenspiel 2 – An der Bushaltestelle</div>
+      <div class="role-scenario">
+        <strong>Person A:</strong> Du wartest schon 20 Minuten. Du bist genervt. Du willst dich beschweren – aber höflich, auf Deutsch.<br><br>
+        <strong>Person B:</strong> Du kommst gerade an die Haltestelle. Du weißt, warum der Bus zu spät ist: Es gibt eine Baustelle auf der Strecke. Erkläre es Person A.
+      </div>
+      <div class="role-tip">💬 Benutzt: „Der Bus hat schon wieder Verspätung." · „Da kann man nichts machen." · „Ich habe gehört, dass …" · „Na also, da kommt er!"</div>
+    </div>
+
+    <div class="role-card">
+      <div class="role-title">🎭 Rollenspiel 3 – Im Park mit Hund</div>
+      <div class="role-scenario">
+        <strong>Person A (Hundebesitzerin):</strong> Du bist mit deinem Hund „Bello" (3 Jahre, Golden Retriever) im Park. Du bist offen für ein Gespräch.<br><br>
+        <strong>Person B:</strong> Du liebst Hunde. Fang das Gespräch an. Frage nach dem Hund, nach dem Besitzer, nach dem Viertel. Finde heraus: Wohnt sie in der Nähe?
+      </div>
+      <div class="role-tip">💬 Benutzt: „Oh, der ist ja süß!" · „Wie alt ist er denn?" · „Sind Sie öfter hier?" · „Wir sind fast Nachbarn dann!" · „Na dann bis bald!"</div>
+    </div>
+
+    <div class="role-card">
+      <div class="role-title">🎭 Rollenspiel 4 – Die Beschwerde (schwierig!)</div>
+      <div class="role-scenario">
+        <strong>Person A (Nachbar):</strong> Du hast gestern Nacht nicht schlafen können wegen lauter Musik aus der Wohnung unter dir. Du klingelst am nächsten Morgen.<br><br>
+        <strong>Person B (Verursacher):</strong> Du hattest gestern eine kleine Party. Du wusstest nicht, dass es zu laut war. Du entschuldigst dich und versprichst, es besser zu machen.
+      </div>
+      <div class="role-tip">💬 Benutzt: „Ich wollte kurz ansprechen, dass …" · „Es tut mir wirklich leid, ich wusste nicht, dass …" · „Das passiert nicht nochmal." · „Danke, dass Sie direkt kommen."</div>
+    </div>
+
+    <div class="tip-box">
+      <strong>🎯 Nach dem Rollenspiel – Reflexion:</strong><br>
+      Welche Ausdrücke habt ihr benutzt? Was war schwierig? Habt ihr „Sie" oder „du" gesagt? War die Verabschiedung natürlich? Besprecht es danach im Kurs!
+    </div>
+  </section>
+
+</div>
+
+<script>
+function checkSelect(id, correct) {
+  const el = document.getElementById(id);
+  el.classList.remove('correct', 'wrong');
+  if (el.value === '') return;
+  el.classList.add(el.value === correct ? 'correct' : 'wrong');
+}
+
+function mcCheck(btn, isCorrect) {
+  const group = btn.parentElement;
+  group.querySelectorAll('.mc-opt').forEach(b => b.classList.remove('correct', 'wrong'));
+  btn.classList.add(isCorrect ? 'correct' : 'wrong');
+}
+</script>
+
+</body>
+</html>
+          </body>
+        </html>

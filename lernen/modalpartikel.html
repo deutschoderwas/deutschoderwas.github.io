@@ -1,0 +1,507 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="no-referrer">
+<title>Modalpartikel – doch, halt, eben · deutschoderwas</title>
+<style>
+/* Self-contained fonts: system stack works offline, Google Fonts loads when online */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+:root {
+  --cream:#F7F3EE; --dark:#1A1410; --brown:#5C3D2E;
+  --rust:#C4622D; --rust-lt:#E8896A; --sand:#D9C4A8; --sand-lt:#EEE4D4;
+  --green:#3D6B4F; --green-lt:#D4E8DC; --red:#C0392B; --red-lt:#F5DDD9;
+  --teal:#2D8A7A; --teal-lt:#B8DDD4;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}
+.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.tbtn.start{background:var(--green);color:white;}
+.tbtn.reset{background:#555;color:white;}
+
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--teal);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--teal);color:var(--teal-lt);}
+.phase-btn.active{background:var(--teal);border-color:var(--teal);color:white;}
+
+main{max-width:900px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}
+.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;position:relative;overflow:hidden;}
+.card-header::after{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.04);}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.35rem;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--teal),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.3rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--teal-lt);color:var(--teal);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+
+/* PARTIKEL CARDS – groß und auffällig */
+.partikel-hero{
+  border-radius:16px;overflow:hidden;margin-bottom:1.5rem;
+}
+.partikel-top{
+  padding:1.3rem 1.6rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.partikel-word{
+  font-family:'Fraunces',serif;font-size:2.5rem;font-weight:900;
+  color:white;line-height:1;
+}
+.partikel-sub{font-size:.82rem;color:rgba(255,255,255,.7);margin-top:.3rem;line-height:1.5;}
+.partikel-body{background:white;padding:1.1rem 1.6rem;}
+.partikel-bedeutung{font-size:.9rem;line-height:1.7;margin-bottom:.8rem;}
+.partikel-bedeutung strong{color:var(--teal);}
+
+.ex{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.75rem 1.1rem;margin-bottom:.5rem;border-left:4px solid var(--teal);font-size:.92rem;line-height:1.6;}
+.ex .de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);}
+.ex .en{font-size:.78rem;color:#aaa;font-style:italic;}
+.ex .nuance{font-size:.78rem;color:var(--teal);font-weight:600;margin-top:.2rem;}
+.ex strong{color:var(--teal);}
+
+.dialog{background:var(--sand-lt);border-radius:14px;overflow:hidden;margin-bottom:1.2rem;}
+.dialog-hd{background:var(--dark);color:var(--cream);padding:.55rem 1.2rem;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.dialog-body{padding:.9rem 1.2rem;}
+.dl{display:flex;gap:.65rem;margin-bottom:.65rem;align-items:flex-start;}
+.dl-spk{font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:55px;padding-top:.2rem;flex-shrink:0;color:var(--teal);}
+.dl-spk.b{color:var(--rust);}
+.dl-txt{font-size:.89rem;line-height:1.55;}
+.dl-txt strong{color:var(--teal);font-family:'Fraunces',serif;}
+
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.2rem;margin-bottom:.75rem;}
+.mc-q{font-size:.93rem;font-weight:600;margin-bottom:.7rem;line-height:1.5;}
+.mc-opts{display:flex;flex-direction:column;gap:.35rem;}
+.mc-opt{padding:.45rem .9rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.87rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--teal);background:var(--teal-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.8rem;margin-top:.55rem;display:none;font-weight:500;line-height:1.5;}
+.mc-fb.show{display:block;}
+.mc-fb.ok{color:var(--green);}
+.mc-fb.nope{color:var(--red);}
+
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}
+.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.91rem;margin-bottom:.55rem;line-height:1.5;}
+.rf-btns{display:flex;gap:.4rem;}
+.rfbtn{padding:.25rem .78rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.77rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--teal);color:var(--teal);}
+.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}
+.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.79rem;margin-top:.5rem;font-weight:500;display:none;line-height:1.5;}
+.rf-fb.show{display:block;}
+.rf-fb.ok{color:var(--green);}
+.rf-fb.bad{color:var(--red);}
+
+/* NUANCE QUIZ */
+.nuance-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.3rem;margin-bottom:.8rem;}
+.nuance-satz{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:.6rem;line-height:1.4;}
+.nuance-opts{display:flex;flex-wrap:wrap;gap:.4rem;}
+.nuance-opt{padding:.3rem .85rem;border-radius:20px;border:1.5px solid var(--sand);background:var(--cream);font-size:.82rem;cursor:pointer;transition:all .15s;}
+.nuance-opt:hover:not(:disabled){border-color:var(--teal);background:var(--teal-lt);}
+.nuance-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.nuance-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.nuance-opt:disabled{cursor:default;}
+.nuance-fb{font-size:.82rem;margin-top:.55rem;display:none;line-height:1.5;font-weight:500;}
+.nuance-fb.show{display:block;}
+.nuance-fb.ok{color:var(--green);}
+.nuance-fb.nope{color:var(--red);}
+
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--teal);}
+.speak-card:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(45,138,122,.12);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.93rem;color:var(--dark);}
+.speak-back{font-size:.82rem;color:var(--dark);line-height:1.5;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}
+.speak-hint{font-size:.68rem;color:#aaa;margin-top:.4rem;}
+
+.tipp{background:var(--dark);color:var(--cream);border-radius:14px;padding:1rem 1.3rem;margin-top:1.2rem;display:flex;gap:.8rem;align-items:flex-start;}
+.tipp-icon{font-size:1.2rem;flex-shrink:0;}
+.tipp-text{font-size:.86rem;line-height:1.7;}
+.tipp-text strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.4rem 0;}
+</style>
+</head>
+<body>
+
+<div class="timer-bar">
+  <div class="timer-display" id="timerDisplay">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="timerFill"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;">Unterrichtszeit</span>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">▶ Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">↺</button>
+  </div>
+</div>
+
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <button class="phase-btn active" onclick="showPhase('einstieg',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('doch',this)">② doch</button>
+  <button class="phase-btn" onclick="showPhase('halt',this)">③ halt & eben</button>
+  <button class="phase-btn" onclick="showPhase('mehr',this)">④ mal & ja</button>
+  <button class="phase-btn" onclick="showPhase('uebung',this)">⑤ Übungen</button>
+  <button class="phase-btn" onclick="showPhase('sprechen',this)">⑥ Sprechen</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;">Alltag B1/B2 · 60 Min.</span>
+</div>
+
+<main>
+
+<!-- ① EINSTIEG -->
+<div id="phase-einstieg" class="phase active">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Einstieg · 10 Min.</div>
+      <div class="card-title">Modalpartikel – <em>doch, halt, eben…</em></div>
+      <div class="card-sub">Die kleinen Wörter mit der großen Wirkung!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">Was ist der Unterschied?</div>
+      <div class="ex"><div class="de">„Komm!"</div><div class="nuance">= Befehl. Direkt, vielleicht etwas harsch.</div></div>
+      <div class="ex"><div class="de">„Komm <strong>doch</strong>!"</div><div class="nuance">= Einladung / leichte Ungeduld. Viel freundlicher!</div></div>
+      <div class="ex"><div class="de">„Das ist so."</div><div class="nuance">= Neutrale Aussage.</div></div>
+      <div class="ex"><div class="de">„Das ist <strong>halt</strong> so."</div><div class="nuance">= Resignation / Akzeptanz. „Das kann man nicht ändern."</div></div>
+      <div class="ex"><div class="de">„Das weißt du."</div><div class="nuance">= Neutrale Information.</div></div>
+      <div class="ex"><div class="de">„Das weißt du <strong>doch</strong>!"</div><div class="nuance">= Vorwurf / Erinnerung. „Du solltest das eigentlich wissen!"</div></div>
+
+      <div class="tipp">
+        <div class="tipp-icon">💡</div>
+        <div class="tipp-text"><strong>Was sind Modalpartikel?</strong> Kleine Wörter, die den <em>Ton</em> und die <em>Einstellung</em> des Sprechers zeigen – nicht den Inhalt. Sie sind fast unübersetzbar, aber ohne sie klingt Deutsch steif und unnatürlich. Heute lernen wir die wichtigsten!</div>
+      </div>
+
+      <div class="slabel">Diese Partikel lernen wir heute</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem;margin-bottom:1rem;">
+        <div style="background:var(--dark);color:white;border-radius:12px;padding:.9rem;text-align:center;"><div style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;color:var(--teal-lt);">doch</div><div style="font-size:.72rem;color:#aaa;margin-top:.2rem;">Einladung · Widerspruch · Erinnerung</div></div>
+        <div style="background:var(--dark);color:white;border-radius:12px;padding:.9rem;text-align:center;"><div style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;color:var(--teal-lt);">halt</div><div style="font-size:.72rem;color:#aaa;margin-top:.2rem;">Resignation · Norddeutsch: eben</div></div>
+        <div style="background:var(--dark);color:white;border-radius:12px;padding:.9rem;text-align:center;"><div style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;color:var(--teal-lt);">eben</div><div style="font-size:.72rem;color:#aaa;margin-top:.2rem;">Logik · Zustimmung · Norddeutsch</div></div>
+        <div style="background:var(--dark);color:white;border-radius:12px;padding:.9rem;text-align:center;"><div style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;color:var(--teal-lt);">mal</div><div style="font-size:.72rem;color:#aaa;margin-top:.2rem;">Höflichkeit · Abschwächung</div></div>
+        <div style="background:var(--dark);color:white;border-radius:12px;padding:.9rem;text-align:center;"><div style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;color:var(--teal-lt);">ja</div><div style="font-size:.72rem;color:#aaa;margin-top:.2rem;">Überraschung · geteiltes Wissen</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② DOCH -->
+<div id="phase-doch" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Partikel · 12 Min.</div>
+      <div class="card-title"><em>doch</em> – das vielseitigste Wort der deutschen Sprache</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 12 Minuten</div>
+
+      <div class="slabel">Bedeutung 1 – Einladung / freundliche Aufforderung</div>
+      <div class="ex"><div class="de">„Komm <strong>doch</strong> rein!" </div><div class="en">Come on in! (friendly invitation)</div><div class="nuance">→ macht den Befehl weicher und freundlicher</div></div>
+      <div class="ex"><div class="de">„Setz dich <strong>doch</strong>!" </div><div class="en">Why don't you sit down!</div><div class="nuance">→ Einladung, keine Drohung</div></div>
+
+      <div class="slabel">Bedeutung 2 – Widerspruch / Korrektur</div>
+      <div class="ex"><div class="de">A: „Du bist nicht müde." B: „<strong>Doch</strong>, ich bin total erschöpft!"</div><div class="en">Yes I am! (contradicting a negative statement)</div><div class="nuance">→ Widerspruch zu einer Verneinung – „doch" statt „ja"!</div></div>
+      <div class="ex"><div class="de">„Das stimmt <strong>doch</strong> nicht!"</div><div class="en">That's not right!</div></div>
+
+      <div class="slabel">Bedeutung 3 – Erinnerung / leichter Vorwurf</div>
+      <div class="ex"><div class="de">„Das weißt du <strong>doch</strong>!"</div><div class="en">You know that! (You should know this already)</div><div class="nuance">→ leichter Vorwurf: Du hast das vergessen / nicht beachtet</div></div>
+      <div class="ex"><div class="de">„Ich habe dir das <strong>doch</strong> gesagt!"</div><div class="en">But I told you that!</div></div>
+
+      <div class="slabel">Bedeutung 4 – Überraschung / doch noch</div>
+      <div class="ex"><div class="de">„Er ist <strong>doch</strong> gekommen!" </div><div class="en">He actually came after all! (contrary to expectation)</div><div class="nuance">→ etwas ist passiert, obwohl man es nicht erwartet hat</div></div>
+
+      <div class="slabel">Musterdialog</div>
+      <div class="dialog">
+        <div class="dialog-hd">💬 doch im Gespräch</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk">Anna</span><span class="dl-txt">Komm <strong>doch</strong> rein, es ist kalt draußen!</span></div>
+          <div class="dl"><span class="dl-spk b">Ben</span><span class="dl-txt">Ich dachte, du wolltest heute nicht besucht werden?</span></div>
+          <div class="dl"><span class="dl-spk">Anna</span><span class="dl-txt">Das habe ich <strong>doch</strong> nie gesagt!</span></div>
+          <div class="dl"><span class="dl-spk b">Ben</span><span class="dl-txt"><strong>Doch</strong>! Gestern am Telefon!</span></div>
+          <div class="dl"><span class="dl-spk">Anna</span><span class="dl-txt">Na gut, dann bist du <strong>doch</strong> gekommen – ich freue mich!</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ HALT & EBEN -->
+<div id="phase-halt" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Partikel · 10 Min.</div>
+      <div class="card-title"><em>halt</em> & <em>eben</em> – Resignation und Logik</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">halt – Resignation / So ist das Leben</div>
+      <div class="ex"><div class="de">„Das ist <strong>halt</strong> so."</div><div class="en">That's just how it is. / That's life.</div><div class="nuance">→ Akzeptanz, man kann nichts daran ändern – typisch süddeutsch!</div></div>
+      <div class="ex"><div class="de">„Ich bin <strong>halt</strong> kein Morgenmensch."</div><div class="en">I'm just not a morning person.</div><div class="nuance">→ Erklärung für etwas Unveränderliches</div></div>
+      <div class="ex"><div class="de">„Mach es <strong>halt</strong> so, wenn du willst."</div><div class="en">Fine, do it that way if you want. (slight resignation)</div><div class="nuance">→ leichte Resignation / widerwillige Zustimmung</div></div>
+
+      <div class="slabel">eben – Logische Folge / Bestätigung</div>
+      <div class="ex"><div class="de">„Das ist <strong>eben</strong> das Problem."</div><div class="en">That's precisely the problem.</div><div class="nuance">→ betont die logische Konsequenz</div></div>
+      <div class="ex"><div class="de">„Genau! <strong>Eben</strong>!"</div><div class="en">Exactly! Precisely! That's the point!</div><div class="nuance">→ starke Zustimmung – das meinst du auch!</div></div>
+      <div class="ex"><div class="de">„Er hat nicht gelernt – <strong>eben</strong> deshalb hat er die Prüfung nicht bestanden."</div><div class="en">He didn't study – that's precisely why he failed.</div></div>
+
+      <div class="slabel">halt vs. eben – was ist der Unterschied?</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem;">
+        <div style="background:var(--teal-lt);border-radius:12px;padding:1rem 1.2rem;">
+          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;color:var(--teal);margin-bottom:.5rem;">halt</div>
+          <div style="font-size:.86rem;line-height:1.6;">Emotion: <strong>Resignation</strong><br>„Man kann nichts machen."<br>Eher Süddeutschland / Österreich<br><em>„Das Leben ist halt so."</em></div>
+        </div>
+        <div style="background:var(--sand-lt);border-radius:12px;padding:1rem 1.2rem;">
+          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;color:var(--brown);margin-bottom:.5rem;">eben</div>
+          <div style="font-size:.86rem;line-height:1.6;">Emotion: <strong>Logik / Bestätigung</strong><br>„Das ist die logische Folge."<br>Eher Norddeutschland<br><em>„Das ist eben das Problem."</em></div>
+        </div>
+      </div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🗺️</div>
+        <div class="tipp-text"><strong>Regional:</strong> In Süddeutschland sagt man eher <em>halt</em>, in Norddeutschland eher <em>eben</em>. Im Alltag werden beide oft synonym verwendet!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ MAL & JA -->
+<div id="phase-mehr" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Partikel · 8 Min.</div>
+      <div class="card-title"><em>mal</em> & <em>ja</em> – Höflichkeit und Überraschung</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+
+      <div class="slabel">mal – macht Bitten höflicher und lockerer</div>
+      <div class="ex"><div class="de">„Schau <strong>mal</strong>!"</div><div class="en">Have a look! / Check this out!</div><div class="nuance">→ lockere Aufmerksamkeit wecken</div></div>
+      <div class="ex"><div class="de">„Kannst du <strong>mal</strong> helfen?"</div><div class="en">Can you help (for a moment)?</div><div class="nuance">→ macht die Bitte weniger dringend / freundlicher</div></div>
+      <div class="ex"><div class="de">„Warte <strong>mal</strong> kurz."</div><div class="en">Wait a moment. / Just a sec.</div></div>
+      <div class="ex"><div class="de">„Ich probiere das <strong>mal</strong>."</div><div class="en">I'll give it a try.</div><div class="nuance">→ unverbindlich, ohne großen Druck</div></div>
+
+      <div class="slabel">ja – geteiltes Wissen / Überraschung</div>
+      <div class="ex"><div class="de">„Das ist <strong>ja</strong> toll!"</div><div class="en">That's great, isn't it! / Wow, that's really great!</div><div class="nuance">→ positiv überrascht, erfreut</div></div>
+      <div class="ex"><div class="de">„Das weißt du <strong>ja</strong>."</div><div class="en">You know that (of course).</div><div class="nuance">→ Wissen, das beide teilen</div></div>
+      <div class="ex"><div class="de">„Das ist <strong>ja</strong> unglaublich!"</div><div class="en">That's unbelievable!</div><div class="nuance">→ Überraschung / Staunen</div></div>
+      <div class="ex"><div class="de">„Mach das <strong>ja</strong> nicht!"</div><div class="en">Don't you dare do that!</div><div class="nuance">→ Warnung / Drohung (stark!)</div></div>
+
+      <div class="slabel">Alle zusammen – Übersicht</div>
+      <div style="background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:1rem;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6rem;font-size:.85rem;">
+          <div><strong style="color:var(--teal-lt);">doch</strong><br>Widerspruch, Einladung, Erinnerung</div>
+          <div><strong style="color:var(--teal-lt);">halt</strong><br>Resignation, Akzeptanz (süddeutsch)</div>
+          <div><strong style="color:var(--teal-lt);">eben</strong><br>Logik, Bestätigung (norddeutsch)</div>
+          <div><strong style="color:var(--teal-lt);">mal</strong><br>Höflichkeit, Abschwächung</div>
+          <div><strong style="color:var(--teal-lt);">ja</strong><br>Überraschung, geteiltes Wissen</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ ÜBUNGEN -->
+<div id="phase-uebung" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Übungen · 12 Min.</div>
+      <div class="card-title">Jetzt üben wir!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 12 Minuten</div>
+
+      <div class="slabel">Übung 1 – Welche Nuance hat der Satz?</div>
+      <p style="font-size:.82rem;color:#777;margin-bottom:.9rem;">Klick auf die richtige Bedeutung des Modalpartikels!</p>
+      <div id="nuanceContainer"></div>
+
+      <hr class="div">
+
+      <div class="slabel">Übung 2 – Was passt besser?</div>
+      <div id="mc1"></div>
+
+      <hr class="div">
+
+      <div class="slabel">Übung 3 – Richtig oder Falsch?</div>
+      <div id="rf1"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑥ SPRECHEN -->
+<div id="phase-sprechen" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Sprechen · 8 Min.</div>
+      <div class="card-title">Modalpartikel im <em>echten Gespräch</em></div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+
+      <div class="slabel">Sprechkarten – benutze mindestens einen Modalpartikel!</div>
+      <div class="speak-grid" id="speakCards"></div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🏠</div>
+        <div class="tipp-text"><strong>Hausaufgabe:</strong> Heute Abend: Schreib 3 Gespräche auf, die du dir vorstellst – mit mindestens je 2 Modalpartikeln. Zum Beispiel: Ein Streit, eine Einladung, eine Erklärung.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+const TOTAL=3600;let remaining=TOTAL,interval=null,running=false;
+function updateTimerDisplay(){
+  const m=Math.floor(remaining/60),s=remaining%60;
+  const d=document.getElementById('timerDisplay');
+  d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  document.getElementById('timerFill').style.width=(remaining/TOTAL*100)+'%';
+  d.className='timer-display';
+  if(remaining<=600)d.classList.add('warn');
+  if(remaining<=120)d.classList.add('urgent');
+}
+function toggleTimer(){
+  if(running){clearInterval(interval);running=false;document.querySelector('.tbtn.start').textContent='▶ Start';}
+  else{running=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';interval=setInterval(()=>{if(remaining>0){remaining--;updateTimerDisplay();}else{clearInterval(interval);running=false;}},1000);}
+}
+function resetTimer(){clearInterval(interval);running=false;remaining=TOTAL;updateTimerDisplay();document.querySelector('.tbtn.start').textContent='▶ Start';}
+
+function showPhase(id,btn){
+  document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('phase-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// NUANCE QUIZ
+const nuanceData=[
+  {satz:'"Komm doch mal rein!"',opts:['Befehl / Drohung','Freundliche Einladung','Widerspruch'],correct:1,fb:'✓ Richtig! doch + mal = besonders freundliche, lockere Einladung. Sehr typisch im Deutschen!'},
+  {satz:'"Das ist halt so."',opts:['Logische Erklärung','Überraschung','Resignation / Akzeptanz'],correct:2,fb:'✓ Richtig! halt = Man kann nichts daran ändern. Stoische Akzeptanz – typisch deutsch!'},
+  {satz:'"Das ist ja interessant!"',opts:['Langeweile','Positive Überraschung / Staunen','Logische Folge'],correct:1,fb:'✓ Richtig! ja = Überraschung, oft positiv. „Das ist ja interessant!" zeigt echtes Interesse.'},
+  {satz:'"Kannst du mal kurz helfen?"',opts:['Dringende Bitte','Lockere, höfliche Bitte','Vorwurf'],correct:1,fb:'✓ Richtig! mal macht die Bitte lockerer und weniger dringend – sehr höflich!'},
+  {satz:'"Das weißt du doch!"',opts:['Überraschung','Freundliche Erinnerung / leichter Vorwurf','Resignation'],correct:1,fb:'✓ Richtig! doch = leichter Vorwurf / Erinnerung. Du hast das vergessen, aber du solltest es wissen!'},
+  {satz:'"Genau, eben!"',opts:['Widerspruch','Starke Zustimmung / Bestätigung','Einladung'],correct:1,fb:'✓ Richtig! eben alleine = Genau! Das meine ich auch! Starke Zustimmung.'},
+];
+function buildNuance(){
+  const c=document.getElementById('nuanceContainer');
+  nuanceData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='nuance-card';
+    const optsHtml=item.opts.map((o,j)=>`<button class="nuance-opt" onclick="answerNuance(this,${j},${item.correct},'nfb${i}')">${o}</button>`).join('');
+    div.innerHTML=`<div class="nuance-satz">${item.satz}</div><div class="nuance-opts">${optsHtml}</div><div class="nuance-fb" id="nfb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerNuance(btn,j,correct,fbId){
+  btn.closest('.nuance-opts').querySelectorAll('.nuance-opt').forEach(b=>b.disabled=true);
+  btn.closest('.nuance-opts').querySelectorAll('.nuance-opt')[correct].classList.add('ok');
+  if(j!==correct)btn.classList.add('nope');
+  const fb=document.getElementById(fbId);fb.classList.add('show');
+  fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);
+}
+
+const mcData=[
+  {q:'Jemand sagt: „Du kommst nicht?" Du widersprichst. Was sagst du?',opts:['„Ja, ich komme nicht."','„Doch, ich komme!"','„Halt, ich komme."'],correct:1,fb:'✓ Richtig! Bei Widerspruch zu einer Verneinung sagt man „doch", nicht „ja"! Das ist ein klassischer Fehler.'},
+  {q:'Du willst eine Bitte lockerer und höflicher machen. Welche Partikel hilft?',opts:['doch','eben','mal'],correct:2,fb:'✓ Richtig! „mal" macht Bitten weicher: „Kannst du mal helfen?" klingt viel netter als „Kannst du helfen?"'},
+  {q:'Du erklärst, warum etwas logischerweise so ist. Welche Partikel passt?',opts:['doch','eben','ja'],correct:1,fb:'✓ Richtig! eben = logische Folge / Bestätigung: „Das ist eben das Problem." / „Genau, eben!"'},
+  {q:'Du bist positiv überrascht von etwas. Welche Partikel drückt das aus?',opts:['halt','mal','ja'],correct:2,fb:'✓ Richtig! ja + Adjektiv = Überraschung: „Das ist ja wunderschön!" / „Das ist ja toll!"'},
+];
+function buildMC(){
+  const c=document.getElementById('mc1');
+  mcData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='mc';
+    const optsHtml=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${i}')">${o}</button>`).join('');
+    div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${optsHtml}</div><div class="mc-fb" id="mcfb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerMC(btn,j,correct,fbId){
+  btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>{b.disabled=true;});
+  btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');
+  if(j!==correct)btn.classList.add('nope');
+  const fb=document.getElementById(fbId);fb.classList.add('show');
+  fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);
+}
+
+const rfData=[
+  {s:'"Doch" kann man benutzen, um einer Verneinung zu widersprechen.',ok:true,fb:'✓ Richtig! „Du kommst nicht?" – „Doch!" Das ist eine der wichtigsten Funktionen von doch.'},
+  {s:'"halt" und "eben" bedeuten genau dasselbe und sind immer austauschbar.',ok:false,fb:'✗ Nicht ganz! halt = Resignation (süddeutsch), eben = logische Folge/Zustimmung (norddeutsch). Sie überschneiden sich, aber haben unterschiedliche Hauptbedeutungen.'},
+  {s:'"Mach das ja nicht!" ist eine freundliche Bitte.',ok:false,fb:'✗ Falsch! ja in dieser Konstruktion = Warnung / Drohung. „Mach das ja nicht!" = Don\'t you dare do that! Sehr stark!'},
+  {s:'Modalpartikel verändern den Inhalt eines Satzes, nicht den Ton.',ok:false,fb:'✗ Falsch! Modalpartikel verändern den TON und die EINSTELLUNG – nicht den inhaltlichen Aussagekern. Das ist ihr Hauptmerkmal!'},
+  {s:'"Kannst du mal helfen?" klingt höflicher als "Kannst du helfen?"',ok:true,fb:'✓ Richtig! mal macht Bitten weicher und weniger direkt. Das ist eine der häufigsten Funktionen von mal im Alltag.'},
+];
+function buildRF(){
+  const c=document.getElementById('rf1');
+  rfData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='rf';div.id='rfc'+i;
+    div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF(${i},true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF(${i},false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerRF(i,answer,btn){
+  const card=document.getElementById('rfc'+i);
+  card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));
+  btn.classList.add(answer?'sel-r':'sel-f');
+  const correct=answer===rfData[i].ok;
+  card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);
+  const fb=document.getElementById('rffb'+i);fb.classList.add('show');
+  fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);
+}
+
+const speakData=[
+  {front:'Jemand sagt: „Du warst gestern nicht beim Treffen." Aber du warst da!',back:'„Doch, ich war dabei!" / „Doch, ich war die ganze Zeit da!"'},
+  {front:'Dein Freund fragt, warum du immer zu spät kommst.',back:'„Ich bin halt kein Morgenmensch." / „Das ist halt so – ich brauche einfach länger!"'},
+  {front:'Du siehst etwas Überraschendes. Drücke deine Reaktion aus!',back:'„Das ist ja unglaublich!" / „Das ist ja wunderschön!" / „Das ist ja verrückt!"'},
+  {front:'Bitte jemanden höflich, kurz zu warten.',back:'„Warte mal kurz!" / „Kannst du mal einen Moment warten?"'},
+  {front:'Erkläre, warum jemand die Prüfung nicht bestanden hat.',back:'„Er hat nicht gelernt – eben deshalb hat er nicht bestanden." / „Das ist eben das Problem."'},
+  {front:'Lad jemanden freundlich ein, hereinzukommen.',back:'„Komm doch rein!" / „Komm doch mal rein, es ist warm hier!"'},
+];
+function buildSpeakCards(){
+  const grid=document.getElementById('speakCards');
+  speakData.forEach(item=>{
+    const div=document.createElement('div');div.className='speak-card';
+    div.innerHTML=`<div class="speak-front">${item.front}</div><div class="speak-back">${item.back}</div><div class="speak-hint">👆 Antwortbeispiel</div>`;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+buildNuance();buildMC();buildRF();buildSpeakCards();updateTimerDisplay();
+</script>
+</body>
+</html>

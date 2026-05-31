@@ -1,0 +1,705 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="no-referrer">
+<title>Wie präsentiere ich auf Deutsch? · deutschoderwas</title>
+<style>
+/* Self-contained fonts: system stack works offline, Google Fonts loads when online */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+:root {
+  --cream:#F7F3EE; --dark:#1A1410; --brown:#5C3D2E;
+  --rust:#C4622D; --rust-lt:#E8896A; --sand:#D9C4A8; --sand-lt:#EEE4D4;
+  --green:#3D6B4F; --green-lt:#D4E8DC; --red:#C0392B; --red-lt:#F5DDD9;
+  --teal:#2D8A7A; --teal-lt:#B8DDD4;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}
+.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--rust));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.tbtn.start{background:var(--green);color:white;}
+.tbtn.reset{background:#555;color:white;}
+.timer-label{font-size:.7rem;color:#aaa;white-space:nowrap;}
+
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--teal);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--teal);color:var(--teal-lt);}
+.phase-btn.active{background:var(--teal);border-color:var(--teal);color:white;}
+.phase-time{font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;}
+
+main{max-width:900px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}
+.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;position:relative;overflow:hidden;}
+.card-header::after{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.04);}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.35rem;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--teal) 0%,var(--rust) 60%,var(--rust-lt) 100%);}
+.card-body{padding:1.6rem 1.8rem;}
+
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.3rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+
+.explain{background:var(--teal-lt);border-radius:12px;padding:1.1rem 1.4rem;margin-bottom:1.2rem;border-left:4px solid var(--teal);}
+.explain h3{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--teal);margin-bottom:.5rem;}
+.explain p{font-size:.9rem;line-height:1.7;}
+.explain strong{color:var(--teal);}
+
+.phrase-card{
+  background:white;border:1.5px solid var(--sand);border-radius:12px;
+  padding:.9rem 1.2rem;margin-bottom:.6rem;
+  border-left:4px solid var(--teal);
+  transition:transform .2s, box-shadow .2s;
+  cursor:default;
+}
+.phrase-card:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(45,138,122,.1);}
+.phrase-de{font-family:'Fraunces',serif;font-weight:700;color:var(--teal);font-size:.98rem;}
+.phrase-en{font-size:.78rem;color:#aaa;font-style:italic;margin-top:.2rem;}
+.phrase-use{font-size:.78rem;color:var(--brown);margin-top:.3rem;font-weight:600;}
+
+.phase-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--dark);color:var(--teal-lt);
+  font-size:.75rem;font-weight:700;padding:.3rem .9rem;
+  border-radius:20px;margin-bottom:1rem;
+}
+
+.struktur-step{
+  display:flex;gap:1rem;align-items:flex-start;
+  background:white;border:1.5px solid var(--sand);border-radius:12px;
+  padding:.9rem 1.2rem;margin-bottom:.6rem;
+}
+.step-num{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--teal);color:white;
+  font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.step-body{}
+.step-title{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);font-size:.95rem;margin-bottom:.2rem;}
+.step-desc{font-size:.85rem;color:#666;line-height:1.5;}
+.step-phrase{font-size:.82rem;color:var(--teal);font-style:italic;margin-top:.25rem;}
+
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:.75rem;display:flex;align-items:flex-start;gap:.9rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:900;color:var(--teal-lt);flex-shrink:0;line-height:1;}
+.these-text{font-size:.92rem;line-height:1.6;}
+.these-text strong{color:var(--rust-lt);}
+.these-starter{font-size:.76rem;color:#888;margin-top:.3rem;}
+
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--teal);}
+.speak-card:hover{border-color:var(--rust);transform:translateY(-2px);box-shadow:0 5px 18px rgba(45,138,122,.1);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.93rem;color:var(--teal);}
+.speak-back{font-size:.82rem;color:var(--dark);line-height:1.5;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}
+.speak-hint{font-size:.68rem;color:#aaa;margin-top:.4rem;}
+
+/* GAP */
+.gap-row{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.75rem 1.1rem;margin-bottom:.5rem;font-size:.92rem;line-height:1.9;display:flex;flex-wrap:wrap;align-items:center;gap:.3rem;transition:border-color .2s,background .2s;}
+.gap-row.correct{border-color:var(--green);background:var(--green-lt);}
+.gap-row.wrong{border-color:var(--red);background:var(--red-lt);}
+.blank{display:inline-block;min-width:140px;border-bottom:2.5px solid var(--teal);font-family:'Fraunces',serif;font-weight:700;color:var(--teal);font-size:.9rem;padding:0 .3rem;cursor:pointer;text-align:center;}
+.blank:empty::before{content:'___';color:#ccc;font-style:italic;font-size:.8rem;}
+.g-icon{font-size:.9rem;opacity:0;transition:opacity .3s;}
+.gap-row.correct .g-icon,.gap-row.wrong .g-icon{opacity:1;}
+.wbank{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem;}
+.chip{background:var(--dark);color:var(--cream);font-family:'Fraunces',serif;font-weight:700;font-size:.78rem;padding:.25rem .8rem;border-radius:20px;cursor:pointer;transition:background .15s,transform .1s;user-select:none;outline:2px solid transparent;}
+.chip:hover{background:var(--teal);transform:scale(1.04);}
+.chip.active{background:var(--teal);outline:2px solid var(--teal-lt);}
+
+/* MC */
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.2rem;margin-bottom:.75rem;}
+.mc-q{font-size:.93rem;font-weight:600;margin-bottom:.7rem;line-height:1.5;}
+.mc-opts{display:flex;flex-direction:column;gap:.35rem;}
+.mc-opt{padding:.45rem .9rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.87rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--teal);background:#EAF6F4;}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.8rem;margin-top:.55rem;display:none;font-weight:500;line-height:1.5;}
+.mc-fb.show{display:block;}
+.mc-fb.ok{color:var(--green);}
+.mc-fb.nope{color:var(--red);}
+
+/* RF */
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}
+.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.91rem;margin-bottom:.55rem;line-height:1.5;}
+.rf-btns{display:flex;gap:.4rem;}
+.rfbtn{padding:.25rem .78rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.77rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--teal);color:var(--teal);}
+.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}
+.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.79rem;margin-top:.5rem;font-weight:500;display:none;line-height:1.5;}
+.rf-fb.show{display:block;}
+.rf-fb.ok{color:var(--green);}
+.rf-fb.bad{color:var(--red);}
+
+.check-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--teal);color:white;border:none;border-radius:30px;padding:.52rem 1.3rem;font-family:'Fraunces',serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .15s;margin-top:.8rem;}
+.check-btn:hover{background:var(--brown);transform:scale(1.02);}
+.score{display:inline-block;background:var(--dark);color:var(--cream);font-family:'Fraunces',serif;font-weight:700;font-size:.82rem;padding:.2rem .85rem;border-radius:20px;margin-left:.7rem;opacity:0;transition:opacity .3s;}
+.score.show{opacity:1;}
+.reset-link{font-size:.72rem;color:#bbb;cursor:pointer;text-decoration:underline;margin-left:.7rem;}
+.reset-link:hover{color:var(--teal);}
+
+.dialog{background:var(--sand-lt);border-radius:14px;overflow:hidden;margin-bottom:1.2rem;}
+.dialog-hd{background:var(--dark);color:var(--cream);padding:.55rem 1.2rem;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.dialog-body{padding:.9rem 1.2rem;}
+.dl{display:flex;gap:.65rem;margin-bottom:.65rem;align-items:flex-start;}
+.dl-spk{font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:65px;padding-top:.2rem;flex-shrink:0;color:var(--teal);}
+.dl-txt{font-size:.89rem;line-height:1.55;}
+.dl-txt strong{color:var(--teal);font-family:'Fraunces',serif;}
+
+.tipp{background:var(--dark);color:var(--cream);border-radius:14px;padding:1rem 1.3rem;margin-top:1.2rem;display:flex;gap:.8rem;align-items:flex-start;}
+.tipp-icon{font-size:1.2rem;flex-shrink:0;}
+.tipp-text{font-size:.86rem;line-height:1.7;}
+.tipp-text strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--teal-lt);color:var(--teal);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+
+/* SORTIER SPIEL */
+.sort-container{margin-bottom:1.2rem;}
+.sort-item{
+  background:white;border:1.5px solid var(--sand);border-radius:10px;
+  padding:.7rem 1.1rem;margin-bottom:.45rem;
+  display:flex;align-items:center;gap:.8rem;
+  cursor:grab;transition:all .2s;font-size:.9rem;
+  user-select:none;
+}
+.sort-item:hover{border-color:var(--teal);background:#EAF6F4;}
+.sort-item.dragging{opacity:.5;transform:scale(.98);}
+.sort-item.correct-pos{border-color:var(--green);background:var(--green-lt);}
+.sort-item.wrong-pos{border-color:var(--red);background:var(--red-lt);}
+.sort-handle{color:#ccc;font-size:1.1rem;flex-shrink:0;}
+.sort-num{
+  width:26px;height:26px;border-radius:50%;
+  background:var(--teal);color:white;
+  font-family:'Fraunces',serif;font-weight:700;font-size:.8rem;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  opacity:0;transition:opacity .3s;
+}
+.sort-item.correct-pos .sort-num{opacity:1;background:var(--green);}
+.sort-item.wrong-pos .sort-num{opacity:1;background:var(--red);}
+
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.4rem 0;}
+</style>
+</head>
+<body>
+
+<!-- TIMER -->
+<div class="timer-bar">
+  <div class="timer-display" id="timerDisplay">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="timerFill"></div></div>
+  <span class="timer-label">Unterrichtszeit</span>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">▶ Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">↺</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <button class="phase-btn active" onclick="showPhase('einstieg',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('struktur',this)">② Struktur</button>
+  <button class="phase-btn" onclick="showPhase('redemittel',this)">③ Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('uebung',this)">④ Übungen</button>
+  <button class="phase-btn" onclick="showPhase('praesentieren',this)">⑤ Präsentieren!</button>
+  <span class="phase-time">B1/B2 · 60 Min.</span>
+</div>
+
+<main>
+
+<!-- ① EINSTIEG -->
+<div id="phase-einstieg" class="phase active">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Einstieg · 10 Min.</div>
+      <div class="card-title">Wie präsentiere ich <em>auf Deutsch?</em></div>
+      <div class="card-sub">Professionell, klar und überzeugend sprechen</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">Einstiegsfrage – diskutiert zu zweit!</div>
+      <div class="these" style="cursor:default;">
+        <div class="these-num">?</div>
+        <div class="these-text">
+          Habt ihr schon mal auf Deutsch etwas präsentiert oder erklärt? Vor der Arbeit, in der Schule, bei einem Treffen?
+          <div class="these-starter">Was war einfach? Was war schwierig? Erzählt kurz!</div>
+        </div>
+      </div>
+
+      <div class="slabel">Was ist eine Präsentation?</div>
+      <div class="explain">
+        <h3>Präsentieren = strukturiert sprechen</h3>
+        <p>
+          Eine Präsentation kann viele Formen haben: ein <strong>Referat</strong> bei der Arbeit, ein <strong>kurzer Bericht</strong> im Meeting, eine <strong>Produktvorstellung</strong>, oder sogar ein <strong>Reisebericht</strong> unter Freunden.<br><br>
+          Das Wichtigste: <strong>Struktur + Redemittel + Selbstsicherheit!</strong>
+        </p>
+      </div>
+
+      <div class="slabel">Schaut euch diese zwei Versionen an</div>
+      <div class="dialog">
+        <div class="dialog-hd">❌ Ohne Struktur</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk" style="color:var(--red);">Person</span><span class="dl-txt">„Also… ich möchte über… ähm… Homeoffice sprechen. Das ist gut, glaube ich. Manche Menschen mögen das. Aber auch nicht alle. Ja, das war's."</span></div>
+        </div>
+      </div>
+      <div class="dialog">
+        <div class="dialog-hd">✓ Mit Struktur und Redemitteln</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk">Person</span><span class="dl-txt"><strong>„Guten Tag! Heute möchte ich euch das Thema Homeoffice vorstellen.</strong> Ich werde zunächst die Vorteile nennen, dann auf die Herausforderungen eingehen und zum Schluss mein Fazit ziehen. <strong>Fangen wir an!"</strong></span></div>
+        </div>
+      </div>
+
+      <div class="tipp">
+        <div class="tipp-icon">💡</div>
+        <div class="tipp-text"><strong>Frage an die Gruppe:</strong> Was ist der Unterschied zwischen den beiden Versionen? Was wirkt professioneller – und warum?</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② STRUKTUR -->
+<div id="phase-struktur" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Struktur · 12 Min.</div>
+      <div class="card-title">Die <em>3-Teile-Struktur</em></div>
+      <div class="card-sub">So ist jede gute Präsentation aufgebaut</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 12 Minuten</div>
+
+      <div class="slabel">Der klassische Aufbau</div>
+
+      <div class="struktur-step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Einleitung – Einstieg &amp; Überblick</div>
+          <div class="step-desc">Begrüßung, Thema vorstellen, Struktur ankündigen, Aufmerksamkeit wecken</div>
+          <div class="step-phrase">„Heute möchte ich euch… vorstellen." / „Ich spreche heute über…"</div>
+        </div>
+      </div>
+      <div class="struktur-step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Hauptteil – Inhalt &amp; Argumente</div>
+          <div class="step-desc">Punkte strukturiert vorstellen, Beispiele geben, zwischen Punkten überleiten</div>
+          <div class="step-phrase">„Zunächst…", „Als nächstes…", „Ein weiterer Punkt ist…"</div>
+        </div>
+      </div>
+      <div class="struktur-step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Schluss – Fazit &amp; Abschluss</div>
+          <div class="step-desc">Zusammenfassung, eigene Meinung, Dank, Fragen einladen</div>
+          <div class="step-phrase">„Zusammenfassend lässt sich sagen…" / „Habt ihr Fragen?"</div>
+        </div>
+      </div>
+
+      <div class="slabel">Übergänge zwischen den Teilen</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.55rem;margin-bottom:1.2rem;">
+        <div class="phrase-card">
+          <div class="phrase-de">„Kommen wir nun zu…"</div>
+          <div class="phrase-en">Now let's move on to…</div>
+          <div class="phrase-use">📍 Übergang im Hauptteil</div>
+        </div>
+        <div class="phrase-card">
+          <div class="phrase-de">„Damit komme ich zum nächsten Punkt."</div>
+          <div class="phrase-en">This brings me to the next point.</div>
+          <div class="phrase-use">📍 Übergang im Hauptteil</div>
+        </div>
+        <div class="phrase-card">
+          <div class="phrase-de">„Ich möchte nun zum Schluss kommen."</div>
+          <div class="phrase-en">I'd like to wrap up now.</div>
+          <div class="phrase-use">📍 Einleitung zum Schluss</div>
+        </div>
+        <div class="phrase-card">
+          <div class="phrase-de">„Abschließend möchte ich sagen…"</div>
+          <div class="phrase-en">In conclusion, I'd like to say…</div>
+          <div class="phrase-use">📍 Schluss</div>
+        </div>
+      </div>
+
+      <div class="slabel">Sortier-Aufgabe – bring die Sätze in die richtige Reihenfolge!</div>
+      <p style="font-size:.82rem;color:#777;margin-bottom:.8rem;">Ziehe die Elemente in die richtige Reihenfolge einer Präsentation.</p>
+      <div class="sort-container" id="sortContainer"></div>
+      <button class="check-btn" onclick="checkSort()">✓ Prüfen <span id="sortScore" class="score"></span></button>
+      <span class="reset-link" onclick="resetSort()">zurücksetzen</span>
+    </div>
+  </div>
+</div>
+
+<!-- ③ REDEMITTEL -->
+<div id="phase-redemittel" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Redemittel · 13 Min.</div>
+      <div class="card-title">Die wichtigsten <em>Redemittel</em></div>
+      <div class="card-sub">Diese Phrasen brauchst du wirklich!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 13 Minuten</div>
+
+      <div class="slabel">① Einleitung</div>
+      <div class="phrase-card"><div class="phrase-de">„Guten Tag! Ich freue mich, heute hier zu sein."</div><div class="phrase-en">Good day! I'm happy to be here today.</div><div class="phrase-use">Begrüßung</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Heute möchte ich euch / Ihnen das Thema <em>X</em> vorstellen."</div><div class="phrase-en">Today I'd like to present the topic X to you.</div><div class="phrase-use">Thema ankündigen</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Meine Präsentation gliedert sich in drei Teile: erstens…, zweitens…, drittens…"</div><div class="phrase-en">My presentation is divided into three parts: first…, second…, third…</div><div class="phrase-use">Struktur ankündigen</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Falls ihr / Sie Fragen habt, könnt / können Sie sie gerne am Ende stellen."</div><div class="phrase-en">If you have questions, feel free to ask them at the end.</div><div class="phrase-use">Fragen ankündigen</div></div>
+
+      <div class="slabel">② Hauptteil</div>
+      <div class="phrase-card"><div class="phrase-de">„Zunächst möchte ich auf… eingehen."</div><div class="phrase-en">First, I'd like to address…</div><div class="phrase-use">Erster Punkt</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Ein weiterer wichtiger Punkt ist…"</div><div class="phrase-en">Another important point is…</div><div class="phrase-use">Weiterer Punkt</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Als Beispiel möchte ich… nennen."</div><div class="phrase-en">As an example, I'd like to mention…</div><div class="phrase-use">Beispiel geben</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Das bedeutet konkret: …"</div><div class="phrase-en">In concrete terms, this means: …</div><div class="phrase-use">Erklären</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Damit komme ich zu meinem nächsten Punkt."</div><div class="phrase-en">This brings me to my next point.</div><div class="phrase-use">Überleitung</div></div>
+
+      <div class="slabel">③ Schluss</div>
+      <div class="phrase-card"><div class="phrase-de">„Zusammenfassend lässt sich sagen, dass…"</div><div class="phrase-en">In summary, it can be said that…</div><div class="phrase-use">Fazit</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Mein persönliches Fazit ist: …"</div><div class="phrase-en">My personal conclusion is: …</div><div class="phrase-use">Eigene Meinung</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Ich danke euch / Ihnen für eure / Ihre Aufmerksamkeit."</div><div class="phrase-en">Thank you for your attention.</div><div class="phrase-use">Dankeschön</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Habt ihr / Haben Sie noch Fragen?"</div><div class="phrase-en">Do you have any questions?</div><div class="phrase-use">Fragen einladen</div></div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🎯</div>
+        <div class="tipp-text"><strong>Tipp:</strong> Lern nicht alle Phrasen auswendig – such dir <strong>2-3 pro Teil</strong> aus, die sich für dich natürlich anfühlen, und benutze immer dieselben. Das wirkt viel flüssiger!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ ÜBUNGEN -->
+<div id="phase-uebung" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Übungen · 10 Min.</div>
+      <div class="card-title">Jetzt üben wir!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">Übung 1 – Lückentext: Welche Phrase passt?</div>
+      <p style="font-size:.82rem;color:#777;margin-bottom:.8rem;">Klick auf ein Wort, dann auf die Lücke.</p>
+      <div class="wbank" id="wb1"></div>
+      <div id="gaps1"></div>
+      <button class="check-btn" onclick="checkGaps()">✓ Prüfen <span id="sc1" class="score"></span></button>
+      <span class="reset-link" onclick="resetGaps()">zurücksetzen</span>
+
+      <hr class="div">
+
+      <div class="slabel">Übung 2 – Richtig oder Falsch?</div>
+      <div id="rf1"></div>
+
+      <hr class="div">
+
+      <div class="slabel">Übung 3 – Was passt wo?</div>
+      <div id="mc1"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ PRÄSENTIEREN! -->
+<div id="phase-praesentieren" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Sprechen · 15 Min.</div>
+      <div class="card-title">Jetzt seid <em>ihr dran!</em></div>
+      <div class="card-sub">Kurze Präsentationen zu zweit oder alleine</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 15 Minuten</div>
+
+      <div class="slabel">Mini-Präsentation – 2 Minuten pro Person</div>
+      <div class="explain">
+        <h3>Aufgabe</h3>
+        <p>Jede Person wählt ein Thema aus den Karten und präsentiert es <strong>2 Minuten lang</strong> – mit Einleitung, Hauptteil (2 Punkte) und Schluss. Benutzt die Redemittel!</p>
+      </div>
+
+      <div class="speak-grid" id="speakCards"></div>
+
+      <hr class="div">
+
+      <div class="slabel">Feedback-Checkliste</div>
+      <p style="font-size:.82rem;color:#777;margin-bottom:.8rem;">Nach jeder Mini-Präsentation: Hat die Person diese Punkte erfüllt?</p>
+      <div id="checklistContainer"></div>
+
+      <hr class="div">
+
+      <div class="slabel">Musterpräsentation – Homeoffice</div>
+      <div class="dialog">
+        <div class="dialog-hd">🎤 Komplettes Beispiel (B1/B2)</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk">Einleit.</span><span class="dl-txt"><strong>„Guten Tag! Heute möchte ich euch das Thema Homeoffice vorstellen.</strong> Ich werde zunächst die Vorteile nennen und dann auf die Nachteile eingehen. Am Ende ziehe ich ein kurzes Fazit."</span></div>
+          <div class="dl"><span class="dl-spk">Hauptt.</span><span class="dl-txt"><strong>„Zunächst zu den Vorteilen:</strong> Man spart Zeit, weil man nicht pendeln muss. Als Beispiel: Ich spare jeden Tag eine Stunde. <strong>Ein weiterer Punkt ist</strong> die Flexibilität – man kann die Arbeitszeiten besser anpassen. <strong>Damit komme ich zu den Nachteilen:</strong> Manchmal fehlt der soziale Kontakt mit Kollegen."</span></div>
+          <div class="dl"><span class="dl-spk">Schluss</span><span class="dl-txt"><strong>„Zusammenfassend lässt sich sagen,</strong> dass Homeoffice viele Vorteile hat, aber auch Disziplin erfordert. <strong>Mein persönliches Fazit ist:</strong> Eine Mischung aus Homeoffice und Büro ist ideal. Ich danke euch für eure Aufmerksamkeit. Habt ihr Fragen?"</span></div>
+        </div>
+      </div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🏠</div>
+        <div class="tipp-text"><strong>Hausaufgabe:</strong> Bereite eine 3-minütige Präsentation zu einem Thema vor, das dich interessiert. Schreib die Struktur auf und benutze mindestens 5 Redemittel!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// TIMER
+const TOTAL=3600;let remaining=TOTAL,interval=null,running=false;
+function updateTimerDisplay(){
+  const m=Math.floor(remaining/60),s=remaining%60;
+  const d=document.getElementById('timerDisplay');
+  d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  document.getElementById('timerFill').style.width=(remaining/TOTAL*100)+'%';
+  d.className='timer-display';
+  if(remaining<=600)d.classList.add('warn');
+  if(remaining<=120)d.classList.add('urgent');
+}
+function toggleTimer(){
+  if(running){clearInterval(interval);running=false;document.querySelector('.tbtn.start').textContent='▶ Start';}
+  else{running=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';interval=setInterval(()=>{if(remaining>0){remaining--;updateTimerDisplay();}else{clearInterval(interval);running=false;}},1000);}
+}
+function resetTimer(){clearInterval(interval);running=false;remaining=TOTAL;updateTimerDisplay();document.querySelector('.tbtn.start').textContent='▶ Start';}
+
+// NAV
+function showPhase(id,btn){
+  document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('phase-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// SORT
+const sortItems=[
+  {text:'„Habt ihr noch Fragen?"',correct:5},
+  {text:'„Heute möchte ich euch das Thema Klimawandel vorstellen."',correct:1},
+  {text:'„Zusammenfassend lässt sich sagen, dass…"',correct:4},
+  {text:'„Zunächst möchte ich auf die Ursachen eingehen."',correct:2},
+  {text:'„Damit komme ich zu meinem nächsten Punkt: die Lösungen."',correct:3},
+  {text:'„Guten Tag! Ich freue mich, heute hier zu sein."',correct:0},
+];
+let sortOrder=[...sortItems].sort(()=>Math.random()-.5);
+let dragSrc=null;
+
+function buildSort(){
+  const c=document.getElementById('sortContainer');c.innerHTML='';
+  sortOrder.forEach((item,i)=>{
+    const div=document.createElement('div');
+    div.className='sort-item';div.draggable=true;div.dataset.idx=i;
+    div.innerHTML=`<span class="sort-handle">⠿</span><span class="sort-num">${item.correct+1}</span><span>${item.text}</span>`;
+    div.addEventListener('dragstart',e=>{dragSrc=div;div.classList.add('dragging');});
+    div.addEventListener('dragend',()=>div.classList.remove('dragging'));
+    div.addEventListener('dragover',e=>{e.preventDefault();});
+    div.addEventListener('drop',e=>{
+      e.preventDefault();
+      if(dragSrc===div)return;
+      const items=[...c.querySelectorAll('.sort-item')];
+      const srcIdx=items.indexOf(dragSrc);
+      const dstIdx=items.indexOf(div);
+      if(srcIdx<dstIdx)c.insertBefore(dragSrc,div.nextSibling);
+      else c.insertBefore(dragSrc,div);
+      const tmp=sortOrder[srcIdx];sortOrder[srcIdx]=sortOrder[dstIdx];sortOrder[dstIdx]=tmp;
+    });
+    c.appendChild(div);
+  });
+}
+
+function checkSort(){
+  let ok=0;
+  const items=document.querySelectorAll('.sort-item');
+  items.forEach((item,i)=>{
+    const idx=parseInt(item.dataset.idx);
+    // re-read order from DOM
+  });
+  // check by DOM order
+  const domItems=[...document.querySelectorAll('.sort-item')];
+  domItems.forEach((item,i)=>{
+    const text=item.querySelector('span:last-child').textContent;
+    const orig=sortItems.find(s=>s.text===text);
+    const correct=orig&&orig.correct===i;
+    item.classList.toggle('correct-pos',correct);
+    item.classList.toggle('wrong-pos',!correct);
+    if(correct)ok++;
+  });
+  const sc=document.getElementById('sortScore');
+  sc.textContent=`${ok}/${sortItems.length}`;sc.classList.add('show');
+}
+
+function resetSort(){
+  sortOrder=[...sortItems].sort(()=>Math.random()-.5);
+  document.getElementById('sortScore').classList.remove('show');
+  buildSort();
+}
+
+// GAP DATA
+const gapData=[
+  {pre:'',blank:'Zunächst',post:' möchte ich auf das Thema Homeoffice eingehen.'},
+  {pre:'',blank:'Zusammenfassend',post:' lässt sich sagen, dass Homeoffice viele Vorteile hat.'},
+  {pre:'Damit komme ich zu meinem ',blank:'nächsten',post:' Punkt.'},
+  {pre:'Als ',blank:'Beispiel',post:' möchte ich meinen Arbeitsalltag nennen.'},
+  {pre:'Ich danke Ihnen für Ihre ',blank:'Aufmerksamkeit',post:'.'},
+  {pre:'',blank:'Ein weiterer',post:' wichtiger Punkt ist die Flexibilität.'},
+];
+const bankWords=['Zunächst','Zusammenfassend','nächsten','Beispiel','Aufmerksamkeit','Ein weiterer'];
+let selChip=null;const fills={};
+
+function buildGaps(){
+  const wb=document.getElementById('wb1');wb.innerHTML='';
+  bankWords.forEach(w=>{
+    const c=document.createElement('span');c.className='chip';c.textContent=w;c.dataset.word=w;
+    c.addEventListener('click',()=>{
+      document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));
+      selChip=selChip===w?null:w;if(selChip)c.classList.add('active');
+    });
+    wb.appendChild(c);
+  });
+  const gc=document.getElementById('gaps1');gc.innerHTML='';
+  gapData.forEach((s,i)=>{
+    const row=document.createElement('div');row.className='gap-row';row.id='gr'+i;
+    row.innerHTML=`<span>${s.pre}</span><span class="blank" id="gb${i}" onclick="fillBlank(${i})">${fills[i]||''}</span><span>${s.post}</span><span class="g-icon" id="gi${i}"></span>`;
+    gc.appendChild(row);
+  });
+}
+function fillBlank(i){if(!selChip)return;fills[i]=selChip;document.getElementById('gb'+i).textContent=selChip;document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));selChip=null;}
+function checkGaps(){
+  let ok=0;
+  gapData.forEach((s,i)=>{
+    const row=document.getElementById('gr'+i),icon=document.getElementById('gi'+i);
+    const correct=fills[i]&&fills[i].toLowerCase()===s.blank.toLowerCase();
+    row.classList.toggle('correct',correct);row.classList.toggle('wrong',!correct);
+    icon.textContent=correct?'✅':'❌';if(correct)ok++;
+  });
+  const sc=document.getElementById('sc1');sc.textContent=`${ok}/${gapData.length}`;sc.classList.add('show');
+}
+function resetGaps(){
+  gapData.forEach((s,i)=>{delete fills[i];document.getElementById('gr'+i).classList.remove('correct','wrong');document.getElementById('gi'+i).textContent='';document.getElementById('gb'+i).textContent='';});
+  selChip=null;document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));
+  document.getElementById('sc1').classList.remove('show');
+}
+
+// RF
+const rfData=[
+  {s:'„Habt ihr Fragen?" – Das gehört in die Einleitung.',ok:false,fb:'✗ Falsch! Fragen einladen gehört an den <strong>Schluss</strong> der Präsentation.'},
+  {s:'„Zusammenfassend lässt sich sagen…" ist eine typische Schluss-Phrase.',ok:true,fb:'✓ Richtig! Diese Phrase leitet das Fazit ein – typischer Schluss.'},
+  {s:'„Ein weiterer wichtiger Punkt ist…" benutzt man, um einen neuen Punkt einzuführen.',ok:true,fb:'✓ Richtig! Diese Phrase ist perfekt für den Hauptteil, um Argumente zu strukturieren.'},
+  {s:'Es ist egal, ob man „Sie" oder „ihr" benutzt – das ist dasselbe.',ok:false,fb:'✗ Falsch! „Sie" = formell (Geschäftspräsentation), „ihr" = informell (Freunde, Kollegen). Das muss konsistent sein!'},
+  {s:'„Meine Präsentation gliedert sich in drei Teile" – Das gehört in die Einleitung.',ok:true,fb:'✓ Richtig! Die Struktur ankündigen ist ein wichtiger Teil der Einleitung.'},
+];
+function buildRF(){
+  const c=document.getElementById('rf1');
+  rfData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='rf';div.id='rfc'+i;
+    div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF(${i},true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF(${i},false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerRF(i,answer,btn){
+  const card=document.getElementById('rfc'+i);
+  card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));
+  btn.classList.add(answer?'sel-r':'sel-f');
+  const correct=answer===rfData[i].ok;
+  card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);
+  const fb=document.getElementById('rffb'+i);fb.classList.add('show');
+  fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);
+}
+
+// MC
+const mcData=[
+  {q:'Welche Phrase passt zur Einleitung?',opts:['„Zusammenfassend lässt sich sagen…"','„Heute möchte ich euch das Thema X vorstellen."','„Ein weiterer Punkt ist…"'],correct:1,fb:'✓ Thema vorstellen gehört in die Einleitung!'},
+  {q:'Was bedeutet „Die Präsentation gliedert sich in drei Teile"?',opts:['Die Präsentation ist sehr lang.','Ich erkläre die Struktur meiner Präsentation.','Ich habe drei Probleme.'],correct:1,fb:'✓ Richtig! Das ist die Ankündigung der Struktur – ein wichtiges Mittel der Einleitung.'},
+  {q:'Welche Phrase benutzt man, um vom Hauptteil zum Schluss zu wechseln?',opts:['„Als Beispiel möchte ich nennen…"','„Zunächst möchte ich auf… eingehen."','„Ich möchte nun zum Schluss kommen."'],correct:2,fb:'✓ Richtig! Das ist die typische Überleitung zum Schlussteil.'},
+  {q:'Was ist der Unterschied zwischen „ihr" und „Sie" in einer Präsentation?',opts:['"ihr" ist unhöflich, "Sie" ist korrekt','„ihr" = informell, „Sie" = formell – man wählt je nach Situation','Es gibt keinen Unterschied'],correct:1,fb:'✓ Richtig! Konsistent bleiben ist wichtig – entweder immer „ihr" oder immer „Sie".'},
+];
+function buildMC(){
+  const c=document.getElementById('mc1');
+  mcData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='mc';
+    const optsHtml=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${i}')">${o}</button>`).join('');
+    div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${optsHtml}</div><div class="mc-fb" id="mcfb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerMC(btn,j,correct,fbId){
+  const opts=btn.closest('.mc-opts');
+  opts.querySelectorAll('.mc-opt').forEach(b=>{b.disabled=true;});
+  opts.querySelectorAll('.mc-opt')[correct].classList.add('ok');
+  if(j!==correct)btn.classList.add('nope');
+  const fb=document.getElementById(fbId);fb.classList.add('show');
+  fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);
+}
+
+// SPEAK CARDS
+const speakData=[
+  {front:'Mein Lieblingsland / meine Lieblingsstadt',back:'Einleitung: „Heute möchte ich euch mein Lieblingsland vorstellen." Hauptteil: Warum? Was ist besonders? Schluss: Würde ich empfehlen?'},
+  {front:'Mein Job / mein Beruf',back:'Einleitung: „Ich möchte euch heute kurz meinen Beruf erklären." Hauptteil: Was mache ich? Was mag ich? Schluss: Was würde ich anders machen?'},
+  {front:'Ein Hobby, das ich liebe',back:'Einleitung: „Heute spreche ich über mein Hobby: …" Hauptteil: Was ist es? Warum liebe ich es? Schluss: Würde ich es empfehlen?'},
+  {front:'Ein Problem in meiner Stadt',back:'Einleitung: „Ich möchte über ein Problem sprechen, das mir wichtig ist." Hauptteil: Was ist das Problem? Welche Lösungen gibt es? Schluss: Meine Meinung'},
+  {front:'Social Media – Fluch oder Segen?',back:'Einleitung: Thema vorstellen. Hauptteil: Vorteile, Nachteile. Schluss: Persönliches Fazit'},
+  {front:'Ein Film / Buch, das ich empfehle',back:'Einleitung: „Ich möchte euch heute einen Film / ein Buch empfehlen." Hauptteil: Worum geht es? Warum gut? Schluss: Empfehlung'},
+];
+function buildSpeakCards(){
+  const grid=document.getElementById('speakCards');
+  speakData.forEach(item=>{
+    const div=document.createElement('div');div.className='speak-card';
+    div.innerHTML=`<div class="speak-front">${item.front}</div><div class="speak-back">${item.back}</div><div class="speak-hint">👆 klicken für Struktur-Hilfe</div>`;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+// CHECKLIST
+const checkItems=['Hat die Person das Thema in der Einleitung klar genannt?','Hat sie die Struktur angekündigt?','Hat sie Übergangsphrsen benutzt (zunächst, ein weiterer Punkt…)?','Hat sie ein Beispiel gegeben?','Hat sie ein Fazit gezogen?','Hat sie am Ende nach Fragen gefragt?'];
+function buildChecklist(){
+  const c=document.getElementById('checklistContainer');
+  checkItems.forEach((item,i)=>{
+    const div=document.createElement('div');
+    div.style.cssText='display:flex;align-items:center;gap:.7rem;background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.65rem 1rem;margin-bottom:.45rem;cursor:pointer;transition:all .2s;font-size:.88rem;';
+    div.innerHTML=`<span style="font-size:1.1rem;flex-shrink:0" id="chk${i}">⬜</span><span>${item}</span>`;
+    div.addEventListener('click',()=>{
+      const chk=document.getElementById('chk'+i);
+      if(chk.textContent==='⬜'){chk.textContent='✅';div.style.background='var(--green-lt)';div.style.borderColor='var(--green)';}
+      else{chk.textContent='⬜';div.style.background='white';div.style.borderColor='var(--sand)';}
+    });
+    c.appendChild(div);
+  });
+}
+
+// INIT
+buildSort();buildGaps();buildRF();buildMC();buildSpeakCards();buildChecklist();updateTimerDisplay();
+</script>
+</body>
+</html>

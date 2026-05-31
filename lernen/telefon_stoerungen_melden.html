@@ -1,0 +1,560 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="no-referrer">
+<title>Telefongespräche – Störungen melden · deutschoderwas</title>
+<style>
+/* Self-contained fonts: system stack works offline, Google Fonts loads when online */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+:root {
+  --cream:#F7F3EE; --dark:#1A1410; --brown:#5C3D2E;
+  --rust:#C4622D; --rust-lt:#E8896A; --sand:#D9C4A8; --sand-lt:#EEE4D4;
+  --green:#3D6B4F; --green-lt:#D4E8DC; --red:#C0392B; --red-lt:#F5DDD9;
+  --yellow:#D4A820; --yellow-lt:#F5E5B0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}
+.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--yellow),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.tbtn.start{background:var(--green);color:white;}
+.tbtn.reset{background:#555;color:white;}
+.timer-label{font-size:.7rem;color:#aaa;white-space:nowrap;}
+
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--yellow);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--yellow);color:var(--yellow-lt);}
+.phase-btn.active{background:var(--yellow);border-color:var(--yellow);color:var(--dark);}
+.phase-time{font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;}
+
+main{max-width:900px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}
+.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;position:relative;overflow:hidden;}
+.card-header::after{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.04);}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--yellow-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.35rem;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--yellow) 0%,var(--rust) 60%,var(--rust-lt) 100%);}
+.card-body{padding:1.6rem 1.8rem;}
+
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--yellow);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.3rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--yellow-lt);color:var(--yellow);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+
+.explain{background:var(--yellow-lt);border-radius:12px;padding:1.1rem 1.4rem;margin-bottom:1.2rem;border-left:4px solid var(--yellow);}
+.explain h3{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--brown);margin-bottom:.5rem;}
+.explain p{font-size:.9rem;line-height:1.7;}
+.explain strong{color:var(--rust);}
+
+.phrase-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:.6rem;border-left:4px solid var(--yellow);transition:transform .2s,box-shadow .2s;}
+.phrase-card:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(212,168,32,.15);}
+.phrase-de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);font-size:.98rem;}
+.phrase-en{font-size:.78rem;color:#aaa;font-style:italic;margin-top:.2rem;}
+.phrase-use{font-size:.76rem;color:var(--yellow);margin-top:.3rem;font-weight:700;}
+
+.dialog{background:var(--sand-lt);border-radius:14px;overflow:hidden;margin-bottom:1.2rem;}
+.dialog-hd{background:var(--dark);color:var(--cream);padding:.55rem 1.2rem;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.dialog-body{padding:.9rem 1.2rem;}
+.dl{display:flex;gap:.65rem;margin-bottom:.65rem;align-items:flex-start;}
+.dl-spk{font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:70px;padding-top:.2rem;flex-shrink:0;}
+.dl-spk.a{color:var(--yellow);}
+.dl-spk.b{color:var(--rust);}
+.dl-txt{font-size:.89rem;line-height:1.55;}
+.dl-txt strong{color:var(--brown);font-family:'Fraunces',serif;}
+
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.7rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.85rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--yellow);}
+.vok-card:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(212,168,32,.12);}
+.vok-card.flipped{background:var(--yellow-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.5;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);}
+.vok-card.flipped .vok-back{display:block;}
+.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:.75rem;display:flex;align-items:flex-start;gap:.9rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:900;color:var(--yellow-lt);flex-shrink:0;line-height:1;}
+.these-text{font-size:.92rem;line-height:1.6;}
+.these-starter{font-size:.76rem;color:#888;margin-top:.3rem;}
+
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--yellow);}
+.speak-card:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(212,168,32,.12);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.93rem;color:var(--dark);}
+.speak-back{font-size:.82rem;color:var(--dark);line-height:1.5;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}
+.speak-hint{font-size:.68rem;color:#aaa;margin-top:.4rem;}
+
+.gap-row{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.75rem 1.1rem;margin-bottom:.5rem;font-size:.92rem;line-height:1.9;display:flex;flex-wrap:wrap;align-items:center;gap:.3rem;transition:border-color .2s,background .2s;}
+.gap-row.correct{border-color:var(--green);background:var(--green-lt);}
+.gap-row.wrong{border-color:var(--red);background:var(--red-lt);}
+.blank{display:inline-block;min-width:130px;border-bottom:2.5px solid var(--yellow);font-family:'Fraunces',serif;font-weight:700;color:var(--brown);font-size:.9rem;padding:0 .3rem;cursor:pointer;text-align:center;}
+.blank:empty::before{content:'___';color:#ccc;font-style:italic;font-size:.8rem;}
+.g-icon{font-size:.9rem;opacity:0;transition:opacity .3s;}
+.gap-row.correct .g-icon,.gap-row.wrong .g-icon{opacity:1;}
+.wbank{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem;}
+.chip{background:var(--dark);color:var(--cream);font-family:'Fraunces',serif;font-weight:700;font-size:.78rem;padding:.25rem .8rem;border-radius:20px;cursor:pointer;transition:background .15s,transform .1s;user-select:none;outline:2px solid transparent;}
+.chip:hover{background:var(--yellow);color:var(--dark);transform:scale(1.04);}
+.chip.active{background:var(--yellow);color:var(--dark);outline:2px solid var(--yellow-lt);}
+
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}
+.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.91rem;margin-bottom:.55rem;line-height:1.5;}
+.rf-btns{display:flex;gap:.4rem;}
+.rfbtn{padding:.25rem .78rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.77rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--yellow);color:var(--brown);}
+.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}
+.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.79rem;margin-top:.5rem;font-weight:500;display:none;line-height:1.5;}
+.rf-fb.show{display:block;}
+.rf-fb.ok{color:var(--green);}
+.rf-fb.bad{color:var(--red);}
+
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.2rem;margin-bottom:.75rem;}
+.mc-q{font-size:.93rem;font-weight:600;margin-bottom:.7rem;line-height:1.5;}
+.mc-opts{display:flex;flex-direction:column;gap:.35rem;}
+.mc-opt{padding:.45rem .9rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.87rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--yellow);background:var(--yellow-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.8rem;margin-top:.55rem;display:none;font-weight:500;line-height:1.5;}
+.mc-fb.show{display:block;}
+.mc-fb.ok{color:var(--green);}
+.mc-fb.nope{color:var(--red);}
+
+.check-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--yellow);color:var(--dark);border:none;border-radius:30px;padding:.52rem 1.3rem;font-family:'Fraunces',serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .15s;margin-top:.8rem;}
+.check-btn:hover{background:var(--brown);color:white;transform:scale(1.02);}
+.score{display:inline-block;background:var(--dark);color:var(--cream);font-family:'Fraunces',serif;font-weight:700;font-size:.82rem;padding:.2rem .85rem;border-radius:20px;margin-left:.7rem;opacity:0;transition:opacity .3s;}
+.score.show{opacity:1;}
+.reset-link{font-size:.72rem;color:#bbb;cursor:pointer;text-decoration:underline;margin-left:.7rem;}
+.reset-link:hover{color:var(--yellow);}
+
+.tipp{background:var(--dark);color:var(--cream);border-radius:14px;padding:1rem 1.3rem;margin-top:1.2rem;display:flex;gap:.8rem;align-items:flex-start;}
+.tipp-icon{font-size:1.2rem;flex-shrink:0;}
+.tipp-text{font-size:.86rem;line-height:1.7;}
+.tipp-text strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.4rem 0;}
+</style>
+</head>
+<body>
+
+<div class="timer-bar">
+  <div class="timer-display" id="timerDisplay">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="timerFill"></div></div>
+  <span class="timer-label">Unterrichtszeit</span>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">▶ Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">↺</button>
+  </div>
+</div>
+
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <button class="phase-btn active" onclick="showPhase('einstieg',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('vokabeln',this)">② Vokabeln</button>
+  <button class="phase-btn" onclick="showPhase('redemittel',this)">③ Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('dialoge',this)">④ Dialoge</button>
+  <button class="phase-btn" onclick="showPhase('uebung',this)">⑤ Übungen</button>
+  <button class="phase-btn" onclick="showPhase('sprechen',this)">⑥ Sprechen</button>
+  <span class="phase-time">A2 · 60 Min.</span>
+</div>
+
+<main>
+
+<!-- ① EINSTIEG -->
+<div id="phase-einstieg" class="phase active">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">A2 Unterricht · Einstieg · 8 Min.</div>
+      <div class="card-title">Telefongespräche – <em>Störungen melden!</em></div>
+      <div class="card-sub">Wasserschaden, Internet kaputt, Heizung defekt – was machst du?</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+
+      <div class="slabel">Einstiegsfrage</div>
+      <div class="these" style="cursor:default;">
+        <div class="these-num">?</div>
+        <div class="these-text">
+          Hattet ihr schon mal ein Problem zu Hause – Wasser, Strom, Internet – das ihr melden musstet? Was habt ihr gemacht? Wie war das auf Deutsch?
+          <div class="these-starter">Jeder erzählt kurz!</div>
+        </div>
+      </div>
+
+      <div class="slabel">Diese Situationen kennt ihr vielleicht</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.6rem;margin-bottom:1.2rem;">
+        <div class="phrase-card" style="cursor:default;"><div class="phrase-de">💧 Wasserschaden</div><div class="phrase-use">Rohr kaputt, Wasser läuft, Keller überflutet</div></div>
+        <div class="phrase-card" style="cursor:default;"><div class="phrase-de">📶 Internetstörung</div><div class="phrase-use">Kein Internet, langsam, Verbindung fällt aus</div></div>
+        <div class="phrase-card" style="cursor:default;"><div class="phrase-de">🔥 Heizung defekt</div><div class="phrase-use">Keine Wärme, Heizkörper kalt, Thermostat kaputt</div></div>
+        <div class="phrase-card" style="cursor:default;"><div class="phrase-de">⚡ Stromausfall</div><div class="phrase-use">Kein Strom, Sicherung raus, Kurzschluss</div></div>
+      </div>
+
+      <div class="tipp">
+        <div class="tipp-icon">💡</div>
+        <div class="tipp-text"><strong>Heute lernen wir:</strong> Wie meldet man ein Problem am Telefon? Was sagt man dem Vermieter, dem Kundenservice oder dem Notdienst? Welche Wörter braucht man?</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② VOKABELN -->
+<div id="phase-vokabeln" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">A2 Unterricht · Vokabeln · 10 Min.</div>
+      <div class="card-title">Das wichtigste <em>Vokabular</em></div>
+      <div class="card-sub">Klick auf die Karten!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+      <div class="slabel">Klick zum Aufdecken</div>
+      <div class="vok-grid" id="vokGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ REDEMITTEL -->
+<div id="phase-redemittel" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">A2 Unterricht · Redemittel · 10 Min.</div>
+      <div class="card-title">Was sagst du <em>am Telefon?</em></div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">📞 Gespräch eröffnen</div>
+      <div class="phrase-card"><div class="phrase-de">„Guten Tag, mein Name ist [Name]. Ich möchte eine Störung melden."</div><div class="phrase-en">Good day, my name is [Name]. I'd like to report a fault.</div><div class="phrase-use">Immer so anfangen!</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Ich habe ein Problem in meiner Wohnung / in meinem Haus."</div><div class="phrase-en">I have a problem in my apartment / house.</div><div class="phrase-use">Direkt zum Punkt</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Ich bin Mieter in der [Straße, Hausnummer, Wohnungsnummer]."</div><div class="phrase-en">I am a tenant at [street, house number, apartment number].</div><div class="phrase-use">Adresse angeben</div></div>
+
+      <div class="slabel">💧 Wasserschaden melden</div>
+      <div class="phrase-card"><div class="phrase-de">„Bei mir tropft / läuft Wasser aus der Decke."</div><div class="phrase-en">Water is dripping / running from my ceiling.</div><div class="phrase-use">Dringend!</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Ein Rohr ist geplatzt / kaputt."</div><div class="phrase-en">A pipe has burst / broken.</div><div class="phrase-use">Notfall</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Der Keller steht unter Wasser."</div><div class="phrase-en">The basement is flooded.</div><div class="phrase-use">Dringend – Notdienst!</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Ich habe das Wasser schon abgestellt – aber bitte schicken Sie jemanden."</div><div class="phrase-en">I've already turned off the water – but please send someone.</div><div class="phrase-use">Was man schon getan hat</div></div>
+
+      <div class="slabel">📶 Internetstörung melden</div>
+      <div class="phrase-card"><div class="phrase-de">„Mein Internet funktioniert nicht. Seit gestern / seit heute Morgen."</div><div class="phrase-en">My internet isn't working. Since yesterday / since this morning.</div><div class="phrase-use">Seit wann? Immer angeben!</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Der Router zeigt kein Signal / leuchtet rot."</div><div class="phrase-en">The router shows no signal / is showing a red light.</div><div class="phrase-use">Technische Beschreibung</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Ich habe den Router schon neu gestartet – es hilft nicht."</div><div class="phrase-en">I've already restarted the router – it doesn't help.</div><div class="phrase-use">Was man schon versucht hat</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Gibt es eine Störung in meiner Region?"</div><div class="phrase-en">Is there an outage in my area?</div><div class="phrase-use">Nachfragen</div></div>
+
+      <div class="slabel">🔥 Heizung / Strom melden</div>
+      <div class="phrase-card"><div class="phrase-de">„Die Heizung funktioniert nicht – es ist sehr kalt in der Wohnung."</div><div class="phrase-en">The heating isn't working – it's very cold in the apartment.</div><div class="phrase-use">Heizungsproblem</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Wir haben keinen Strom. Die Sicherung ist rausgeflogen."</div><div class="phrase-en">We have no electricity. The fuse has blown.</div><div class="phrase-use">Stromausfall</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Es riecht nach Gas. Ich habe schon das Fenster geöffnet und den Haupthahn geschlossen."</div><div class="phrase-en">There's a smell of gas. I've already opened the window and closed the main valve.</div><div class="phrase-use">⚠️ Sofort die 112 anrufen!</div></div>
+
+      <div class="slabel">🔚 Gespräch abschließen</div>
+      <div class="phrase-card"><div class="phrase-de">„Wann kann ich mit einem Techniker rechnen?"</div><div class="phrase-en">When can I expect a technician?</div><div class="phrase-use">Zeitplan erfragen</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Können Sie mir eine Ticketnummer / Vorgangsnummer geben?"</div><div class="phrase-en">Can you give me a ticket number / reference number?</div><div class="phrase-use">Immer wichtig!</div></div>
+      <div class="phrase-card"><div class="phrase-de">„Unter welcher Nummer kann ich zurückrufen?"</div><div class="phrase-en">What number can I call back on?</div><div class="phrase-use">Für Rückfragen</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ DIALOGE -->
+<div id="phase-dialoge" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">A2 Unterricht · Musterdialoge · 10 Min.</div>
+      <div class="card-title">So klingt es <em>in der Praxis</em></div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">Dialog 1 – Wasserschaden beim Vermieter melden</div>
+      <div class="dialog">
+        <div class="dialog-hd">💧 Wasserschaden – Anruf beim Vermieter</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk b">Vermieter</span><span class="dl-txt">Müller, guten Tag.</span></div>
+          <div class="dl"><span class="dl-spk a">Mieter</span><span class="dl-txt">Guten Tag, hier ist Chen, aus der Wohnung 3B. <strong>Ich möchte eine Störung melden – ich habe ein dringendes Problem.</strong></span></div>
+          <div class="dl"><span class="dl-spk b">Vermieter</span><span class="dl-txt">Was ist passiert?</span></div>
+          <div class="dl"><span class="dl-spk a">Mieter</span><span class="dl-txt"><strong>Bei mir tropft Wasser aus der Decke im Badezimmer.</strong> Es ist schon seit heute Morgen – und es wird schlimmer.</span></div>
+          <div class="dl"><span class="dl-spk b">Vermieter</span><span class="dl-txt">Das klingt ernst. Haben Sie das Wasser schon abgestellt?</span></div>
+          <div class="dl"><span class="dl-spk a">Mieter</span><span class="dl-txt">Ja, ich habe den Haupthahn abgedreht. <strong>Aber bitte schicken Sie so schnell wie möglich jemanden.</strong></span></div>
+          <div class="dl"><span class="dl-spk b">Vermieter</span><span class="dl-txt">Ich schicke den Klempner heute noch. Er ruft Sie vorher an.</span></div>
+          <div class="dl"><span class="dl-spk a">Mieter</span><span class="dl-txt"><strong>Können Sie mir eine Vorgangsnummer geben?</strong> Und unter welcher Nummer kann ich zurückrufen?</span></div>
+        </div>
+      </div>
+
+      <div class="slabel">Dialog 2 – Internetstörung beim Anbieter melden</div>
+      <div class="dialog">
+        <div class="dialog-hd">📶 Internetstörung – Anruf beim Kundenservice</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk b">Hotline</span><span class="dl-txt">Telekom Kundenservice, guten Tag! Wie kann ich Ihnen helfen?</span></div>
+          <div class="dl"><span class="dl-spk a">Kunde</span><span class="dl-txt">Guten Tag! Mein Name ist Kowalski. <strong>Ich möchte eine Störung melden – mein Internet funktioniert seit gestern Abend nicht mehr.</strong></span></div>
+          <div class="dl"><span class="dl-spk b">Hotline</span><span class="dl-txt">Das tut mir leid! Können Sie mir Ihre Kundennummer geben?</span></div>
+          <div class="dl"><span class="dl-spk a">Kunde</span><span class="dl-txt">Ja, die Nummer ist 4578-1234. <strong>Der Router zeigt kein Signal – er leuchtet rot.</strong></span></div>
+          <div class="dl"><span class="dl-spk b">Hotline</span><span class="dl-txt">Haben Sie den Router schon neu gestartet?</span></div>
+          <div class="dl"><span class="dl-spk a">Kunde</span><span class="dl-txt"><strong>Ja, mehrmals – aber es hilft nicht.</strong> Gibt es eine Störung in meiner Region?</span></div>
+          <div class="dl"><span class="dl-spk b">Hotline</span><span class="dl-txt">Ich prüfe das… Ja, es gibt tatsächlich eine Störung in Ihrer Region. Wir arbeiten daran. In ca. 4 Stunden sollte alles wieder funktionieren.</span></div>
+          <div class="dl"><span class="dl-spk a">Kunde</span><span class="dl-txt"><strong>Können Sie mir eine Ticketnummer geben?</strong> Und wann kann ich mit einem Techniker rechnen, falls es nicht besser wird?</span></div>
+        </div>
+      </div>
+
+      <div class="slabel">Dialog 3 – Heizung defekt beim Hausmeister melden</div>
+      <div class="dialog">
+        <div class="dialog-hd">🔥 Heizung – Anruf beim Hausmeister</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk b">Hausm.</span><span class="dl-txt">Hausmeisterdienst Schmidt.</span></div>
+          <div class="dl"><span class="dl-spk a">Mieter</span><span class="dl-txt">Guten Tag, hier ist Petrov aus der Waldstraße 12, Wohnung 5. <strong>Meine Heizung funktioniert nicht.</strong> Es ist heute sehr kalt draußen und in der Wohnung sind nur 14 Grad.</span></div>
+          <div class="dl"><span class="dl-spk b">Hausm.</span><span class="dl-txt">Seit wann ist das so?</span></div>
+          <div class="dl"><span class="dl-spk a">Mieter</span><span class="dl-txt"><strong>Seit heute Morgen.</strong> Alle Heizkörper sind kalt. Ich habe das Thermostat schon auf Maximum gestellt – aber nichts passiert.</span></div>
+          <div class="dl"><span class="dl-spk b">Hausm.</span><span class="dl-txt">Ich komme heute Nachmittag vorbei, so gegen 15 Uhr. Ist das in Ordnung?</span></div>
+          <div class="dl"><span class="dl-spk a">Mieter</span><span class="dl-txt">Ja, das ist in Ordnung. <strong>Können Sie bitte vorher anrufen?</strong> Meine Handynummer ist 0176-1234567.</span></div>
+          <div class="dl"><span class="dl-spk b">Hausm.</span><span class="dl-txt">Natürlich. Bis heute Nachmittag!</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ ÜBUNGEN -->
+<div id="phase-uebung" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">A2 Unterricht · Übungen · 10 Min.</div>
+      <div class="card-title">Jetzt üben wir!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">Übung 1 – Lückentext</div>
+      <p style="font-size:.82rem;color:#777;margin-bottom:.8rem;">Klick auf ein Wort, dann auf die Lücke.</p>
+      <div class="wbank" id="wb1"></div>
+      <div id="gaps1"></div>
+      <button class="check-btn" onclick="checkGaps()">✓ Prüfen <span id="sc1" class="score"></span></button>
+      <span class="reset-link" onclick="resetGaps()">zurücksetzen</span>
+
+      <hr class="div">
+
+      <div class="slabel">Übung 2 – Was passt zur Situation?</div>
+      <div id="mc1"></div>
+
+      <hr class="div">
+
+      <div class="slabel">Übung 3 – Richtig oder Falsch?</div>
+      <div id="rf1"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑥ SPRECHEN -->
+<div id="phase-sprechen" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">A2 Unterricht · Rollenspiele · 12 Min.</div>
+      <div class="card-title">Jetzt seid <em>ihr dran!</em></div>
+      <div class="card-sub">Person A = Mieter/Kunde · Person B = Vermieter/Hotline</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 12 Minuten</div>
+
+      <div class="slabel">Rollenspiel-Karten – wählt eine Situation!</div>
+      <div class="speak-grid" id="speakCards"></div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🏠</div>
+        <div class="tipp-text"><strong>Hausaufgabe:</strong> Schreib auf, was du sagst, wenn dein Internet nicht funktioniert – auf Deutsch! Stell dir vor, du rufst bei der Hotline an. Benutze mindestens 5 Sätze aus der heutigen Stunde.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+const TOTAL=3600;let remaining=TOTAL,interval=null,running=false;
+function updateTimerDisplay(){
+  const m=Math.floor(remaining/60),s=remaining%60;
+  const d=document.getElementById('timerDisplay');
+  d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  document.getElementById('timerFill').style.width=(remaining/TOTAL*100)+'%';
+  d.className='timer-display';
+  if(remaining<=600)d.classList.add('warn');
+  if(remaining<=120)d.classList.add('urgent');
+}
+function toggleTimer(){
+  if(running){clearInterval(interval);running=false;document.querySelector('.tbtn.start').textContent='▶ Start';}
+  else{running=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';interval=setInterval(()=>{if(remaining>0){remaining--;updateTimerDisplay();}else{clearInterval(interval);running=false;}},1000);}
+}
+function resetTimer(){clearInterval(interval);running=false;remaining=TOTAL;updateTimerDisplay();document.querySelector('.tbtn.start').textContent='▶ Start';}
+
+function showPhase(id,btn){
+  document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('phase-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+const vokData=[
+  {front:'die Störung',back:'= the fault / outage / disruption\n„Ich möchte eine Störung melden."',hint:'Pl: Störungen'},
+  {front:'der Wasserschaden',back:'= water damage\n„Es gibt einen Wasserschaden in meiner Wohnung."',hint:'sehr häufig in Deutschland!'},
+  {front:'tropfen / laufen',back:'= to drip / to run (water)\n„Wasser tropft aus der Decke." / „Wasser läuft aus dem Rohr."',hint:'tropfen = langsam, laufen = schnell'},
+  {front:'das Rohr',back:'= the pipe\n„Ein Rohr ist geplatzt." / „Das Rohr ist kaputt."\nPl: die Rohre (nicht: die Rohren!)',hint:'Pl: die Rohre ✓'},
+  {front:'der Klempner',back:'= the plumber\n„Wir brauchen einen Klempner – das Rohr ist kaputt."',hint:'auch: der Installateur'},
+  {front:'neu starten',back:'= to restart\n„Haben Sie den Router schon neu gestartet?"',hint:'Computer, Router, Gerät'},
+  {front:'die Vorgangsnummer',back:'= reference / ticket number\n„Können Sie mir eine Vorgangsnummer geben?"',hint:'immer erfragen!'},
+  {front:'platzen',back:'= to burst\n„Das Rohr ist geplatzt!" – Notfall!',hint:'Perfekt: ist geplatzt'},
+  {front:'abstellen',back:'= to turn off / shut off\n„Ich habe das Wasser abgestellt."',hint:'trennbares Verb!'},
+  {front:'der Techniker',back:'= the technician\n„Wann kommt ein Techniker?"',hint:'Pl: Techniker'},
+  {front:'die Heizung',back:'= the heating\n„Die Heizung funktioniert nicht."',hint:'Pl: Heizungen'},
+  {front:'der Stromausfall',back:'= power outage\n„Wir haben einen Stromausfall – kein Strom in der Wohnung."',hint:'Notfall → 112'},
+];
+
+function buildVok(){
+  const grid=document.getElementById('vokGrid');
+  vokData.forEach(v=>{
+    const div=document.createElement('div');div.className='vok-card';
+    div.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${v.back.replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint} · klicken!</div>`;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+const gapData=[
+  {pre:'Guten Tag, ich möchte eine ',blank:'Störung',post:' melden.'},
+  {pre:'Bei mir ',blank:'tropft',post:' Wasser aus der Decke – seit heute Morgen.'},
+  {pre:'Ich habe den Router schon neu ',blank:'gestartet',post:' – aber es hilft nicht.'},
+  {pre:'Ein ',blank:'Rohr',post:' ist geplatzt. Bitte schicken Sie einen Klempner!'},
+  {pre:'Können Sie mir eine ',blank:'Vorgangsnummer',post:' geben?'},
+  {pre:'Ich habe das Wasser schon ',blank:'abgestellt',post:'.'},
+  {pre:'Wann kann ich mit einem ',blank:'Techniker',post:' rechnen?'},
+];
+const bankWords=['Störung','tropft','gestartet','Rohr','Vorgangsnummer','abgestellt','Techniker'];
+let selChip=null;const fills={};
+
+function buildGaps(){
+  const wb=document.getElementById('wb1');wb.innerHTML='';
+  bankWords.forEach(w=>{
+    const c=document.createElement('span');c.className='chip';c.textContent=w;c.dataset.word=w;
+    c.addEventListener('click',()=>{document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));selChip=selChip===w?null:w;if(selChip)c.classList.add('active');});
+    wb.appendChild(c);
+  });
+  const gc=document.getElementById('gaps1');gc.innerHTML='';
+  gapData.forEach((s,i)=>{
+    const row=document.createElement('div');row.className='gap-row';row.id='gr'+i;
+    row.innerHTML=`<span>${s.pre}</span><span class="blank" id="gb${i}" onclick="fillBlank(${i})">${fills[i]||''}</span><span>${s.post}</span><span class="g-icon" id="gi${i}"></span>`;
+    gc.appendChild(row);
+  });
+}
+function fillBlank(i){if(!selChip)return;fills[i]=selChip;document.getElementById('gb'+i).textContent=selChip;document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));selChip=null;}
+function checkGaps(){
+  let ok=0;
+  gapData.forEach((s,i)=>{
+    const row=document.getElementById('gr'+i),icon=document.getElementById('gi'+i);
+    const correct=fills[i]&&fills[i].toLowerCase()===s.blank.toLowerCase();
+    row.classList.toggle('correct',correct);row.classList.toggle('wrong',!correct);
+    icon.textContent=correct?'✅':'❌';if(correct)ok++;
+  });
+  const sc=document.getElementById('sc1');sc.textContent=`${ok}/${gapData.length}`;sc.classList.add('show');
+}
+function resetGaps(){
+  gapData.forEach((s,i)=>{delete fills[i];document.getElementById('gr'+i).classList.remove('correct','wrong');document.getElementById('gi'+i).textContent='';document.getElementById('gb'+i).textContent='';});
+  selChip=null;document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));
+  document.getElementById('sc1').classList.remove('show');
+}
+
+const mcData=[
+  {q:'Das Wasser tropft aus der Decke. Wen rufst du an?',opts:['Den Kundenservice der Telekom','Den Vermieter oder den Notdienst Klempner','Die Polizei'],correct:1,fb:'✓ Richtig! Bei Wasserschaden → sofort den Vermieter oder einen Notdienst anrufen!'},
+  {q:'Was sagst du, wenn dein Internet seit 2 Tagen nicht geht?',opts:['„Das Rohr ist geplatzt."','„Mein Internet funktioniert nicht. Seit zwei Tagen."','„Die Heizung ist kalt."'],correct:1,fb:'✓ Richtig! Immer sagen: was funktioniert nicht + seit wann.'},
+  {q:'Der Hotline-Mitarbeiter fragt: „Haben Sie den Router neu gestartet?" Was antwortest du?',opts:['„Nein, ich weiß nicht wie."','„Ja, mehrmals – aber es hilft nicht."','„Die Verbindung ist schlecht."'],correct:1,fb:'✓ Richtig! Immer sagen, was man schon versucht hat – das spart Zeit!'},
+  {q:'Was ist eine „Vorgangsnummer"?',opts:['Die Telefonnummer des Technikers','Eine Referenznummer für dein gemeldetes Problem','Die Adresse des Vermieters'],correct:1,fb:'✓ Richtig! Die Vorgangsnummer ist wichtig – damit kann man den Status prüfen und beim nächsten Anruf sofort identifiziert werden.'},
+];
+function buildMC(){
+  const c=document.getElementById('mc1');
+  mcData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='mc';
+    const optsHtml=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${i}')">${o}</button>`).join('');
+    div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${optsHtml}</div><div class="mc-fb" id="mcfb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerMC(btn,j,correct,fbId){
+  btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>{b.disabled=true;});
+  btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');
+  if(j!==correct)btn.classList.add('nope');
+  const fb=document.getElementById(fbId);fb.classList.add('show');
+  fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);
+}
+
+const rfData=[
+  {s:'„Die Rohren sind kaputt." – Das ist korrekt.',ok:false,fb:'✗ Falsch! Der korrekte Plural ist <strong>die Rohre</strong> – nicht „die Rohren". Das ist ein sehr häufiger Fehler!'},
+  {s:'Bei einem Gasgeruch sollte man sofort die 112 anrufen.',ok:true,fb:'✓ Richtig! Gasgeruch = Notfall → Fenster auf, Haupthahn zu, raus aus der Wohnung und sofort 112 anrufen!'},
+  {s:'Man muss immer sagen, seit wann das Problem besteht.',ok:true,fb:'✓ Richtig! „Seit wann?" ist eine der ersten Fragen der Hotline – immer vorbereiten!'},
+  {s:'„abstellen" ist ein regelmäßiges Verb: ich stelle ab.',ok:true,fb:'✓ Richtig! abstellen ist trennbar: ich stelle… ab. „Ich habe das Wasser abgestellt."'},
+  {s:'Es ist egal, ob man die Vorgangsnummer hat oder nicht.',ok:false,fb:'✗ Falsch! Die Vorgangsnummer ist sehr wichtig – damit kann man nachverfolgen, ob das Problem bearbeitet wird, und beim nächsten Anruf sofort identifiziert werden.'},
+];
+function buildRF(){
+  const c=document.getElementById('rf1');
+  rfData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='rf';div.id='rfc'+i;
+    div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF(${i},true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF(${i},false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerRF(i,answer,btn){
+  const card=document.getElementById('rfc'+i);
+  card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));
+  btn.classList.add(answer?'sel-r':'sel-f');
+  const correct=answer===rfData[i].ok;
+  card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);
+  const fb=document.getElementById('rffb'+i);fb.classList.add('show');
+  fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);
+}
+
+const speakData=[
+  {front:'💧 Wasserschaden\nWasser tropft aus deiner Decke.',back:'Person A: Mieter → ruft den Vermieter an\nPerson B: Vermieter → stellt Fragen, schickt Klempner\nBenutze: „tropft", „Rohr", „abgestellt", „Vorgangsnummer"'},
+  {front:'📶 Internetstörung\nSeit 2 Tagen kein Internet.',back:'Person A: Kunde → ruft die Hotline an\nPerson B: Hotline → fragt nach Kundennummer, Router-Status\nBenutze: „funktioniert nicht", „seit", „neu gestartet", „Ticketnummer"'},
+  {front:'🔥 Heizung defekt\nAlle Heizkörper sind kalt – 12 Grad in der Wohnung.',back:'Person A: Mieter → ruft den Hausmeister an\nPerson B: Hausmeister → kommt vorbei, fragt seit wann\nBenutze: „Heizung", „Thermostat", „seit", „vorher anrufen"'},
+  {front:'⚡ Stromausfall\nSeit heute Morgen kein Strom.',back:'Person A: Mieter → ruft den Vermieter an\nPerson B: Vermieter → fragt nach Details, gibt Rat\nBenutze: „Strom", „Sicherung", „seit", „Techniker"'},
+];
+function buildSpeakCards(){
+  const grid=document.getElementById('speakCards');
+  speakData.forEach(item=>{
+    const div=document.createElement('div');div.className='speak-card';
+    div.innerHTML=`<div class="speak-front">${item.front.replace(/\n/g,'<br>')}</div><div class="speak-back">${item.back.replace(/\n/g,'<br>')}</div><div class="speak-hint">👆 klicken für Hilfe</div>`;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+buildVok();buildGaps();buildMC();buildRF();buildSpeakCards();updateTimerDisplay();
+</script>
+</body>
+</html>

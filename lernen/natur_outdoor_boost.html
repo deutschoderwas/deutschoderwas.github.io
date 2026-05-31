@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="de"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Wortschatzboost: Natur &amp; Outdoor · deutschoderwas</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#C4622D;--acc-lt:#F5D5B0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}.tbtn.reset{background:#555;color:white;}
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;scrollbar-width:none;}
+.phase-nav::-webkit-scrollbar{display:none;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;}.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.4rem;line-height:1.5;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.4rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--acc-lt);color:var(--acc);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.vok-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.vok-card.flipped{background:var(--acc-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);white-space:pre-line;}
+.vok-card.flipped .vok-back{display:block;}.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+.ex{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.85rem 1.2rem;margin-bottom:.55rem;border-left:4px solid var(--acc);font-size:.93rem;line-height:1.7;}
+.ex .de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);margin-bottom:.2rem;}
+.ex .en{font-size:.79rem;color:#888;font-style:italic;}.ex strong{color:var(--acc);}
+.dialog{background:var(--sand-lt);border-radius:16px;overflow:hidden;margin-bottom:1.1rem;border:1.5px solid var(--sand);}
+.dialog-hd{background:var(--dark);color:white;padding:.6rem 1.3rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
+.dialog-body{padding:1rem 1.3rem;}
+.dl{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start;}.dl:last-child{margin-bottom:0;}
+.dl-spk{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:60px;padding-top:.25rem;flex-shrink:0;color:var(--acc);line-height:1.3;}
+.dl-spk.b{color:var(--rust);}.dl-spk.c{color:#6B3D8A;}
+.dl-txt{font-size:.9rem;line-height:1.65;}.dl-txt strong{font-family:'Fraunces',serif;color:var(--brown);}
+.dl-ann{background:rgba(0,0,0,.04);border-left:3px solid var(--acc);font-size:.75rem;color:#555;padding:.3rem .7rem;margin-top:.2rem;border-radius:0 6px 6px 0;line-height:1.5;}
+.phrase-list{list-style:none;margin-bottom:1.1rem;}
+.phrase-list li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .9rem;border-radius:10px;margin-bottom:.4rem;background:white;border:1.5px solid var(--sand);font-size:.89rem;line-height:1.6;}
+.phrase-list li::before{content:'→';color:var(--acc);font-weight:700;flex-shrink:0;margin-top:.1rem;}
+.phrase-list li strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list li em{color:#888;font-size:.8rem;}
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.3rem;margin-bottom:.8rem;}
+.mc-q{font-size:.94rem;font-weight:600;margin-bottom:.75rem;line-height:1.55;}
+.mc-opts{display:flex;flex-direction:column;gap:.38rem;}
+.mc-opt{padding:.48rem 1rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.88rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--acc);background:var(--acc-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.81rem;margin-top:.6rem;display:none;font-weight:500;line-height:1.55;padding:.4rem .7rem;border-radius:8px;}
+.mc-fb.show{display:block;}.mc-fb.ok{color:var(--green);background:var(--green-lt);}.mc-fb.nope{color:var(--red);background:var(--red-lt);}
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.95rem 1.3rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.92rem;margin-bottom:.6rem;line-height:1.55;}
+.rf-btns{display:flex;gap:.45rem;}
+.rfbtn{padding:.28rem .85rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--acc);color:var(--acc);}.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.8rem;margin-top:.55rem;font-weight:500;display:none;line-height:1.55;padding:.35rem .6rem;border-radius:6px;}
+.rf-fb.show{display:block;}.rf-fb.ok{color:var(--green);background:var(--green-lt);}.rf-fb.bad{color:var(--red);background:var(--red-lt);}
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:13px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.speak-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.09);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);line-height:1.4;}
+.speak-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}.speak-hint{font-size:.68rem;color:#bbb;margin-top:.45rem;}
+.rsp-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;margin-bottom:.9rem;}
+.rsp-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.1);}.rsp-card.open .rsp-back{display:block;}.rsp-card.open .rsp-hint{display:none;}
+.rsp-top{background:var(--dark);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.75rem;}
+.rsp-emoji{font-size:1.4rem;flex-shrink:0;}.rsp-title{font-family:'Fraunces',serif;font-weight:700;color:white;font-size:1rem;}
+.rsp-body{padding:1rem 1.2rem;}.rsp-situation{font-size:.89rem;color:var(--dark);line-height:1.6;margin-bottom:.6rem;}
+.rsp-back{display:none;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--sand);}
+.rsp-rolle{font-size:.83rem;line-height:1.7;color:var(--dark);margin-bottom:.45rem;padding:.4rem .8rem;border-radius:8px;background:var(--cream);}
+.rsp-rolle strong{color:var(--acc);}.rsp-hint{font-size:.7rem;color:#bbb;}
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:.8rem;display:flex;align-items:flex-start;gap:1rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--acc-lt);flex-shrink:0;line-height:1;margin-top:.1rem;}
+.these-text{font-size:.93rem;line-height:1.65;}.these-starter{font-size:.77rem;color:#888;margin-top:.35rem;}
+.tipp{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-top:1.3rem;display:flex;gap:.9rem;align-items:flex-start;}
+.tipp-icon{font-size:1.3rem;flex-shrink:0;}.tipp-body{font-size:.87rem;line-height:1.75;}.tipp-body strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+.kultur{background:linear-gradient(135deg,var(--acc-lt),rgba(255,255,255,.5));border:1.5px solid var(--acc);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.kultur-title{font-family:'Fraunces',serif;font-weight:700;color:var(--acc);font-size:.9rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;}
+.kultur-body{font-size:.86rem;line-height:1.75;color:var(--dark);}
+</style></head><body>
+<div class="timer-bar">
+  <div class="timer-display" id="td">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="tf"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;flex-shrink:0;">Unterrichtszeit</span>
+  <div class="timer-btns"><button class="tbtn start" onclick="toggleTimer()">▶ Start</button><button class="tbtn reset" onclick="resetTimer()">↺</button></div>
+</div>
+<div class="phase-nav"><span class="brand-tag">deutsch<span>oder</span>was</span><button class="phase-btn active" onclick="showPhase('p1',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('p2',this)">② Wortschatz</button>
+  <button class="phase-btn" onclick="showPhase('p3',this)">③ Dialoge</button>
+  <button class="phase-btn" onclick="showPhase('p4',this)">④ Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('p5',this)">⑤ Rollenspiele</button>
+  <button class="phase-btn" onclick="showPhase('p6',this)">⑥ Übungen</button>
+  <button class="phase-btn" onclick="showPhase('p7',this)">⑦ Sprechen</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;flex-shrink:0;">Wortschatzboost ab B1 · 60 Min.</span>
+</div>
+<main>
+<div id="phase-p1" class="phase active"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 · Einstieg · 8 Min.</div>
+<div class="card-title">Wortschatzboost: Natur &amp; Outdoor</div><div class="card-sub">Waldeinsamkeit, wandern, zelten &ndash; die deutsche Naturliebe</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div>
+<div class="kultur"><div class="kultur-title">🌍 Kulturnotiz</div><div class="kultur-body">'<strong>Waldeinsamkeit</strong>' ist ein typisch deutsches Konzept: die Stille und Einsamkeit im Wald genie&#223;en. Das Wort existiert kaum in anderen Sprachen. Auch 'Waldbaden' (shinrin-yoku aus Japan) ist in Deutschland h&#246;chst beliebt &ndash; wissenschaftlich als Stressreduktion belegt.</div></div>
+<div class="slabel">Warming-up – Sprecht zuerst!</div>
+<div class="speak-grid" id="warmup"></div>
+<div class="tipp"><div class="tipp-icon">🎯</div><div class="tipp-body"><strong>Heute lernen wir:</strong> Waldeinsamkeit, Waldbaden, Gipfel, Naturschutzgebiet &ndash; das deutsche Natur-Vokabular!</div></div>
+</div></div></div>
+
+<div id="phase-p2" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 · Wortschatz · 12 Min.</div>
+<div class="card-title">Wichtige Wörter &amp; <em>Ausdrücke</em></div>
+<div class="card-sub">Klickt auf die Karten – Deutsch vorne, Erklärung hinten!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div><div class="slabel">&#127795; Natur-Vokabular</div><div class="vok-grid" id="v1"></div>
+<div class="slabel">&#127860; Natur-Aktivit&#228;ten</div><div class="vok-grid" id="v2"></div>
+
+</div></div></div>
+
+<div id="phase-p3" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 · Dialoge · 12 Min.</div>
+<div class="card-title">Echte Gespräche – <em>so klingt das!</em></div>
+<div class="card-sub">Lest die Dialoge laut – wechselt die Rollen!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div><div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">&#127795;</span> Waldeinsamkeit genie&#223;en</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Mia</span><div><div class="dl-txt">Ich war gestern einfach im Wald &ndash; ohne Ziel, ohne Handy. Es war <strong>wunderbar</strong>.</div></div></div>
+<div class="dl"><span class="dl-spk b">Tom</span><div><div class="dl-txt">Das nennt man <strong>Waldbaden</strong>. Wissenschaftlich belegt: reduziert Cortisol!</div></div></div>
+<div class="dl"><span class="dl-spk ">Mia</span><div><div class="dl-txt">Die Stille ist das Sch&#246;nste. Man h&#246;rt nur V&#246;gel und Wind.</div></div></div>
+<div class="dl"><span class="dl-spk b">Tom</span><div><div class="dl-txt">Genau das ist <strong>Waldeinsamkeit</strong>. Dieses Wort gibt es nur auf Deutsch!</div></div></div>
+<div class="dl"><span class="dl-spk ">Mia</span><div><div class="dl-txt">Ich habe auch einen Specht geh&#246;rt.</div><div class="dl-ann">Specht = woodpecker</div></div></div>
+<div class="dl"><span class="dl-spk b">Tom</span><div><div class="dl-txt">Merlin-App runterladen &ndash; die h&#246;rt V&#246;gel und identifiziert sie sofort!</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">&#127919;</span> Wandertipps f&#252;r Einsteiger</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Silvia</span><div><div class="dl-txt">Ich m&#246;chte wandern anfangen. Wie?</div></div></div>
+<div class="dl"><span class="dl-spk b">Klaus</span><div><div class="dl-txt">Zuerst: gute <strong>Wanderschuhe</strong>. Das ist das Wichtigste!</div></div></div>
+<div class="dl"><span class="dl-spk ">Silvia</span><div><div class="dl-txt">Und wohin f&#252;r Einsteiger?</div></div></div>
+<div class="dl"><span class="dl-spk b">Klaus</span><div><div class="dl-txt">Flache Wege, max. 10 km. Taunus, Eifel haben tolle markierte Wege.</div></div></div>
+<div class="dl"><span class="dl-spk ">Silvia</span><div><div class="dl-txt">Welche App?</div></div></div>
+<div class="dl"><span class="dl-spk b">Klaus</span><div><div class="dl-txt"><strong>Komoot</strong> &ndash; zeigt Wege, H&#246;henprofil, Bewertungen. Super!</div></div></div>
+<div class="dl"><span class="dl-spk ">Silvia</span><div><div class="dl-txt">Darf ich &#252;berall zelten?</div></div></div>
+<div class="dl"><span class="dl-spk b">Klaus</span><div><div class="dl-txt">Nein! Nur auf Campingpl&#228;tzen oder mit Genehmigung. Im Wald &ndash; <strong>verboten</strong>.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">&#127981;</span> Naturverbundenheit</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Ana</span><div><div class="dl-txt">Was liebst du an der deutschen Natur?</div></div></div>
+<div class="dl"><span class="dl-spk b">Max</span><div><div class="dl-txt">Die <strong>Vielfalt</strong>: Nordsee, Alpen, Mittelgebirge &ndash; alles in einem Land.</div></div></div>
+<div class="dl"><span class="dl-spk ">Ana</span><div><div class="dl-txt">Und was fehlt dir?</div></div></div>
+<div class="dl"><span class="dl-spk b">Max</span><div><div class="dl-txt">Etwas mehr <strong>Wildnis</strong>. Deutschland ist sehr geordnet &ndash; auch die Natur.</div></div></div>
+<div class="dl"><span class="dl-spk ">Ana</span><div><div class="dl-txt">'Deutsch ist die Sprache des Waldes' &ndash; stimmst du zu?</div></div></div>
+<div class="dl"><span class="dl-spk b">Max</span><div><div class="dl-txt">Ja! Waldeinsamkeit, Waldsterben, Waldeingang &ndash; der Wald ist tief verwurzelt.</div></div></div>
+</div></div>
+
+</div></div></div>
+
+<div id="phase-p4" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 · Redemittel · 8 Min.</div>
+<div class="card-title">So sagt man das <em>wirklich!</em></div>
+<div class="card-sub">Echte Sätze – kein Lehrbuchangeldeutsch!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div><div class="slabel">&#127795; Natur-Aktivit&#228;ten</div>
+<ul class="phrase-list">
+<li><strong>Ich gehe gerne <strong>wandern</strong> &ndash; besonders im Herbst.</strong> <span style="color:#888;font-size:.82rem;">= I like hiking &ndash; especially in autumn.</span> <em>– </em></li>
+<li><strong><strong>Waldbaden</strong> ist als Stressreduktion wissenschaftlich belegt.</strong> <span style="color:#888;font-size:.82rem;">= Forest bathing is scientifically proven to reduce stress.</span> <em>– </em></li>
+<li><strong>In einem <strong>Naturschutzgebiet</strong> darf man kein Lagerfeuer machen.</strong> <span style="color:#888;font-size:.82rem;">= In a nature reserve you can't make fires.</span> <em>– </em></li>
+</ul>
+<div class="slabel">&#127860; Beschreiben</div>
+<ul class="phrase-list">
+<li><strong>Ich liebe die <strong>Stille</strong> im Wald &ndash; das erdet mich.</strong> <span style="color:#888;font-size:.82rem;">= I love the silence in the forest &ndash; it grounds me.</span> <em>– </em></li>
+<li><strong>Vom <strong>Gipfel</strong> aus hat man eine unglaubliche Aussicht.</strong> <span style="color:#888;font-size:.82rem;">= From the summit the view is incredible.</span> <em>– </em></li>
+</ul>
+
+</div></div></div>
+
+<div id="phase-p5" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 · Rollenspiele · 12 Min.</div>
+<div class="card-title">Euer Auftritt – <em>los geht's!</em></div>
+<div class="card-sub">Klickt auf die Karte für Rollen &amp; Tipps</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div><div id="rsp1"></div>
+</div></div></div>
+
+<div id="phase-p6" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 · Übungen · 8 Min.</div>
+<div class="card-title">Jetzt testen wir!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div>
+<div class="slabel">Multiple Choice</div><div id="mc1"></div>
+<hr class="div"><div class="slabel">Richtig oder Falsch?</div><div id="rf1"></div>
+</div></div></div>
+
+<div id="phase-p7" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 · Freies Sprechen · 10 Min.</div>
+<div class="card-title">Eure Meinung – <em>jetzt seid ihr dran!</em></div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 10 Minuten</div><div class="these"><div class="these-num">1</div><div class="these-text">Ist Natur wichtig f&#252;r mentale Gesundheit?<div class="these-starter">'Studien zeigen... / Ich erlebe... / Was mir fehlt...'</div></div></div>
+<div class="these"><div class="these-num">2</div><div class="these-text">Hat Deutschland genug Naturschutz?<div class="these-starter">'Im Vergleich zu... / Was positiv ist... / Was verbessert werden k&#246;nnte...'</div></div></div>
+
+<div class="slabel">Sprechkarten</div><div class="speak-grid" id="speakCards"></div>
+</div></div></div>
+</main>
+<script>
+const TOTAL=3600;let rem=TOTAL,intv=null,run=false;
+function upd(){const m=Math.floor(rem/60),s=rem%60;const d=document.getElementById('td');d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('tf').style.width=(rem/TOTAL*100)+'%';d.className='timer-display';if(rem<=600)d.classList.add('warn');if(rem<=120)d.classList.add('urgent');}
+function toggleTimer(){if(run){clearInterval(intv);run=false;document.querySelector('.tbtn.start').textContent='▶ Start';}else{run=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';intv=setInterval(()=>{if(rem>0){rem--;upd();}else{clearInterval(intv);run=false;}},1000);}}
+function resetTimer(){clearInterval(intv);run=false;rem=TOTAL;upd();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));document.getElementById('phase-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function buildVokCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(v=>{const d=document.createElement('div');d.className='vok-card';d.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${(v.back||'').replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint||'👆 klicken!'}</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildSpeakCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(i=>{const d=document.createElement('div');d.className='speak-card';d.innerHTML=`<div class="speak-front">${i.front}</div><div class="speak-back">${i.back}</div><div class="speak-hint">👆 Tipp & Formulierungshilfe</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildRSP(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(item=>{const d=document.createElement('div');d.className='rsp-card';d.innerHTML=`<div class="rsp-top"><span class="rsp-emoji">${item.emoji}</span><span class="rsp-title">${item.title}</span></div><div class="rsp-body"><div class="rsp-situation">${item.situation}</div><div class="rsp-back"><div class="rsp-rolle"><strong>🔴 Person A:</strong> ${item.a}</div><div class="rsp-rolle"><strong>🔵 Person B:</strong> ${item.b}</div>${item.tipps?`<div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">💡 Tipps:</strong> ${item.tipps}</div>`:''}</div><div class="rsp-hint">👆 klicken für Rollen & Tipps</div></div>`;d.addEventListener('click',()=>d.classList.toggle('open'));g.appendChild(d);});}
+function buildMC(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='mc';const opts=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${id}${i}')">${o}</button>`).join('');div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${opts}</div><div class="mc-fb" id="mcfb${id}${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerMC(btn,j,correct,fbId){btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');if(j!==correct)btn.classList.add('nope');const fb=document.getElementById(fbId);if(fb){fb.classList.add('show');fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);}}
+function buildRF(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='rf';div.id=`rf_${id}_${i}`;div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('${id}',${i},true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF('${id}',${i},false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb_${id}_${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerRF(id,i,answer,btn){const rfData=window['rfData_'+id];const card=document.getElementById(`rf_${id}_${i}`);card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));btn.classList.add(answer?'sel-r':'sel-f');const correct=rfData&&answer===rfData[i].ok;card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);const fb=document.getElementById(`rffb_${id}_${i}`);if(fb){fb.classList.add('show');fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);}}
+buildVokCards([{"front": "die Waldeinsamkeit", "back": "= the solitude of the forest\n'Ich genie&#223;e die Waldeinsamkeit.'\nEinzigartiges deutsches Konzept\nKaum &#252;bersetzbar!", "hint": "kein englisches Wort!"}, {"front": "das Waldbaden", "back": "= forest bathing\n'Waldbaden reduziert Stress.'\nWissenschaftlich belegt!\nShinrin-yoku aus Japan", "hint": "wissenschaftlich!"}, {"front": "der Gipfel", "back": "= summit / peak\n'Wir haben den Gipfel erreicht!'\nGipfelgef&#252;hl = summit feeling", "hint": "Gipfelgef&#252;hl!"}, {"front": "das Naturschutzgebiet", "back": "= nature reserve\n'Hier ist Naturschutzgebiet!'\nGesetzlich gesch&#252;tzt\nkein Lagerfeuer!", "hint": "gesetzlich!"}, {"front": "das Lagerfeuer", "back": "= campfire\n'Wir machen ein Lagerfeuer.'\nNur auf Campingpl&#228;tzen\nIm Wald: Genehmigung!", "hint": "Genehmigung!"}, {"front": "zelten", "back": "= to camp\n'Wir zelten am See.'\nIn Naturschutzgebieten verboten!\nCampingplatz = sicher", "hint": "verboten oft!"}, {"front": "der Wanderweg", "back": "= hiking trail\n'Dieser Wanderweg ist gut markiert.'\nBeschildert + kartiert\nKomoot App", "hint": "Komoot App!"}, {"front": "klettern", "back": "= to climb\n'Sie klettert in den Alpen.'\nSportklettern vs. Bergklettern", "hint": "Alpen!"}],'v1');
+buildVokCards([{"front": "das Vogelbeobachten", "back": "= birdwatching\n'Vogelbeobachten ist sehr beliebt.'\nMerlin App!\nViele Arten in DE", "hint": "Merlin App!"}, {"front": "der Naturpark", "back": "= nature park\n'Taunus-Naturpark'\n&#8804; Nationalpark (strenger)\nFreizeit OK!", "hint": "&#8801; Nationalpark!"}, {"front": "grillen", "back": "= to barbecue\n'Wir grillen am Sonntag!'\nDeutsches Ritual\nNur auf erlaubten Pl&#228;tzen", "hint": "erlaubte Pl&#228;tze!"}, {"front": "die Almwiese", "back": "= alpine meadow\n'Wir wandern auf die Alm.'\nBesonders Bayern\nAlpen-Typisch", "hint": "Bayern!"}],'v2');
+buildMC([{"q": "Was bedeutet 'Waldeinsamkeit'?", "opts": ["Angst vor W&#228;ldern", "Die sch&#246;ne Einsamkeit im Wald genie&#223;en", "Ein Wald ohne Tiere"], "correct": 1, "fb": "&#10003; Waldeinsamkeit = friedliche Einsamkeit im Wald. Typisch deutsches Konzept ohne direktes &#220;bersetzungswort."}, {"q": "Was ist 'Waldbaden'?", "opts": ["Baden in einem Waldsee", "Bewusst Zeit im Wald zur Stressreduktion", "Baumklettern"], "correct": 1, "fb": "&#10003; Waldbaden = forest bathing. Wissenschaftlich: senkt Cortisol, st&#228;rkt Immunsystem."}, {"q": "Was darf man in einem Naturschutzgebiet nicht?", "opts": ["Wandern", "Lagerfeuer machen", "Fotografieren"], "correct": 1, "fb": "&#10003; Lagerfeuer verboten! Auch: abseits der Wege gehen, Pflanzen pfl\u00fccken, l&#228;rmen."}],'mc1');
+window.rfData_rf1=[{"s": "'Waldeinsamkeit' hat ein englisches &#196;quivalent.", "ok": false, "fb": "&#10007; Falsch! Kaum &#252;bersetzbar. 'Forest solitude' trifft es nicht ganz."}, {"s": "Waldbaden ist wissenschaftlich als stressreduzierend nachgewiesen.", "ok": true, "fb": "&#10003; Richtig! 2 Stunden Wald senken Cortisol messbar."}, {"s": "In deutschen W&#228;ldern darf man &#252;berall zelten.", "ok": false, "fb": "&#10007; Falsch! Nur auf Campingpl&#228;tzen oder mit Genehmigung. In Naturschutzgebieten generell verboten."}];buildRF(window.rfData_rf1,'rf1');
+buildRSP([{"emoji": "&#127795;", "title": "Naturexpedition planen", "situation": "Plant eine Tagesexpedition in die Natur.", "a": "Schlagt Ziel vor: Naturpark, Gipfel, See.", "b": "Stellt Fragen: Schutzgebiet? Lagerfeuer? Schwierigkeit?", "tipps": "Apps: Komoot (Wandern), Seek (Pflanzen), Merlin (V&#246;gel)"}, {"emoji": "&#127981;", "title": "Waldeinsamkeit erkl&#228;ren", "situation": "Erkl&#228;re einem Nicht-Deutschen was Waldeinsamkeit bedeutet.", "a": "Erkl&#228;re das Konzept, warum es deutsch ist.", "b": "Stelle Fragen: 'Gibt es das in deiner Heimat?'", "tipps": "Waldeinsamkeit wurde 2016 als sch&#246;nstes deutsches Wort gew&#228;hlt!"}],'rsp1');
+buildSpeakCards([{"front": "Was ist dein sch&#246;nstes Naturerlebnis in Deutschland?", "back": "'Das war in... / Was mich beeindruckt hat...'"}, {"front": "Hast du Waldbaden ausprobiert?", "back": "'Ja, in... / Nein, aber... / Ich finde die Idee...'"}, {"front": "Welches deutsche Naturwort findest du am sch&#246;nsten?", "back": "'Ich finde... sch&#246;n weil.../ Ein Wort ohne &#220;bersetzung..."}],'speakCards');
+buildSpeakCards([{"front": "Was vermisst du aus der Natur deiner Heimat?", "back": "'Was ich vermisse... / Das gibt es hier nicht... / Was &#228;hnlich aber anders ist...'"}],'warmup');
+upd();</script></body></html>

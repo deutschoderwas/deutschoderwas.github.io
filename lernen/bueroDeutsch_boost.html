@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+<meta charset="UTF-8"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Wortschatzboost: B&#252;ro-Deutsch &middot; deutschoderwas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#C4622D;--acc-lt:#F5D5B0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}.tbtn.reset{background:#555;color:white;}
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;scrollbar-width:none;}
+.phase-nav::-webkit-scrollbar{display:none;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}
+.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.4rem;line-height:1.5;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.4rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--acc-lt);color:var(--acc);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+/* VOCAB */
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.vok-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.vok-card.flipped{background:var(--acc-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);white-space:pre-line;}
+.vok-card.flipped .vok-back{display:block;}
+.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+/* EXAMPLES */
+.ex{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.85rem 1.2rem;margin-bottom:.55rem;border-left:4px solid var(--acc);font-size:.93rem;line-height:1.7;}
+.ex .de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);margin-bottom:.2rem;}
+.ex .en{font-size:.79rem;color:#888;font-style:italic;}
+.ex .note{font-size:.78rem;color:var(--acc);margin-top:.2rem;font-weight:600;}
+.ex strong{color:var(--acc);}
+/* DIALOGS */
+.dialog{background:var(--sand-lt);border-radius:16px;overflow:hidden;margin-bottom:1.1rem;border:1.5px solid var(--sand);}
+.dialog-hd{background:var(--dark);color:white;padding:.6rem 1.3rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
+.dialog-hd-icon{font-size:1rem;}
+.dialog-body{padding:1rem 1.3rem;}
+.dl{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start;}
+.dl:last-child{margin-bottom:0;}
+.dl-spk{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:60px;padding-top:.25rem;flex-shrink:0;color:var(--acc);line-height:1.3;}
+.dl-spk.b{color:var(--rust);}
+.dl-spk.c{color:#6B3D8A;}
+.dl-txt{font-size:.9rem;line-height:1.65;}
+.dl-txt strong{font-family:'Fraunces',serif;color:var(--brown);}
+.dl-note{font-size:.75rem;color:#888;font-style:italic;}
+/* ANNOTATIONS on dialog */
+.dl-ann{background:rgba(0,0,0,.04);border-left:3px solid var(--acc);font-size:.75rem;color:#555;padding:.3rem .7rem;margin-top:.2rem;border-radius:0 6px 6px 0;line-height:1.5;}
+/* HIGHLIGHT BOX */
+.hbox{border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.hbox.blue{background:var(--acc-lt);border:1.5px solid var(--acc);}
+.hbox.dark{background:var(--dark);color:white;}
+.hbox.warn{background:#FFF8E0;border:1.5px solid #C8A870;}
+.hbox-title{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;margin-bottom:.5rem;}
+.hbox.dark .hbox-title{color:var(--acc-lt);}
+.hbox.blue .hbox-title{color:var(--acc);}
+.hbox.warn .hbox-title{color:#5C3D2E;}
+.hbox-body{font-size:.87rem;line-height:1.8;}
+.hbox.dark .hbox-body{color:#ddd;}
+/* PHRASE LIST */
+.phrase-list{list-style:none;margin-bottom:1.1rem;}
+.phrase-list li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .9rem;border-radius:10px;margin-bottom:.4rem;background:white;border:1.5px solid var(--sand);font-size:.89rem;line-height:1.6;}
+.phrase-list li::before{content:'→';color:var(--acc);font-weight:700;flex-shrink:0;margin-top:.1rem;}
+.phrase-list li strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list li em{color:#888;font-size:.8rem;}
+/* QUIZ */
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.3rem;margin-bottom:.8rem;}
+.mc-q{font-size:.94rem;font-weight:600;margin-bottom:.75rem;line-height:1.55;}
+.mc-opts{display:flex;flex-direction:column;gap:.38rem;}
+.mc-opt{padding:.48rem 1rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.88rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--acc);background:var(--acc-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.81rem;margin-top:.6rem;display:none;font-weight:500;line-height:1.55;padding:.4rem .7rem;border-radius:8px;}
+.mc-fb.show{display:block;}
+.mc-fb.ok{color:var(--green);background:var(--green-lt);}.mc-fb.nope{color:var(--red);background:var(--red-lt);}
+/* RF */
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.95rem 1.3rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}
+.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.92rem;margin-bottom:.6rem;line-height:1.55;}
+.rf-btns{display:flex;gap:.45rem;}
+.rfbtn{padding:.28rem .85rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--acc);color:var(--acc);}
+.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}
+.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.8rem;margin-top:.55rem;font-weight:500;display:none;line-height:1.55;padding:.35rem .6rem;border-radius:6px;}
+.rf-fb.show{display:block;}
+.rf-fb.ok{color:var(--green);background:var(--green-lt);}.rf-fb.bad{color:var(--red);background:var(--red-lt);}
+/* SPEAK CARDS */
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:13px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.speak-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.09);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);line-height:1.4;}
+.speak-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}
+.speak-hint{font-size:.68rem;color:#bbb;margin-top:.45rem;}
+/* RSP */
+.rsp-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;margin-bottom:.9rem;}
+.rsp-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.1);}
+.rsp-card.open .rsp-back{display:block;}
+.rsp-card.open .rsp-hint{display:none;}
+.rsp-top{background:var(--dark);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.75rem;}
+.rsp-emoji{font-size:1.4rem;flex-shrink:0;}
+.rsp-title{font-family:'Fraunces',serif;font-weight:700;color:white;font-size:1rem;}
+.rsp-body{padding:1rem 1.2rem;}
+.rsp-situation{font-size:.89rem;color:var(--dark);line-height:1.6;margin-bottom:.6rem;}
+.rsp-back{display:none;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--sand);}
+.rsp-rolle{font-size:.83rem;line-height:1.7;color:var(--dark);margin-bottom:.45rem;padding:.4rem .8rem;border-radius:8px;background:var(--cream);}
+.rsp-rolle strong{color:var(--acc);}
+.rsp-hint{font-size:.7rem;color:#bbb;}
+/* THESEN */
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:.8rem;display:flex;align-items:flex-start;gap:1rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--acc-lt);flex-shrink:0;line-height:1;margin-top:.1rem;}
+.these-text{font-size:.93rem;line-height:1.65;}
+.these-starter{font-size:.77rem;color:#888;margin-top:.35rem;}
+/* TIPP */
+.tipp{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-top:1.3rem;display:flex;gap:.9rem;align-items:flex-start;}
+.tipp-icon{font-size:1.3rem;flex-shrink:0;}
+.tipp-body{font-size:.87rem;line-height:1.75;}
+.tipp-body strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+/* CULTURAL NOTE */
+.kultur{background:linear-gradient(135deg,var(--acc-lt),rgba(255,255,255,.5));border:1.5px solid var(--acc);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.kultur-title{font-family:'Fraunces',serif;font-weight:700;color:var(--acc);font-size:.9rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;}
+.kultur-body{font-size:.86rem;line-height:1.75;color:var(--dark);}
+</style></head><body>
+<div class="timer-bar">
+  <div class="timer-display" id="td">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="tf"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;flex-shrink:0;">Unterrichtszeit</span>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">&#9654; Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">&#8635;</button>
+  </div>
+</div>
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <button class="phase-btn active" onclick="showPhase('p1',this)">&#9312; Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('p2',this)">&#9313; Wortschatz</button>
+  <button class="phase-btn" onclick="showPhase('p3',this)">&#9314; Dialoge</button>
+  <button class="phase-btn" onclick="showPhase('p4',this)">&#9315; Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('p5',this)">&#9316; Rollenspiele</button>
+  <button class="phase-btn" onclick="showPhase('p6',this)">&#9317; &#220;bungen</button>
+  <button class="phase-btn" onclick="showPhase('p7',this)">&#9318; Sprechen</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;flex-shrink:0;">Wortschatzboost ab B1 &middot; 60 Min.</span>
+</div>
+<main>
+<div id="phase-p1" class="phase active"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 &middot; Einstieg &middot; 8 Min.</div>
+<div class="card-title">Wortschatzboost: B&#252;ro-Deutsch</div>
+<div class="card-sub">Meetings, E-Mails, Kaffeeküche &ndash; das echte Deutsch im deutschen B&#252;ro</div></div><div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="kultur"><div class="kultur-title">&#127987; Kulturnotiz</div><div class="kultur-body">In Deutschland ist die <strong>Siez-Kultur</strong> im Büro oft noch stark – viele Unternehmen duzen sich zwar heute, aber vor allem traditionelle Firmen und ältere Kollegen erwarten das Sie. Im Zweifel: warten bis der andere das Du anbietet!</div></div>
+
+<div class="slabel">Warming-up &ndash; Sprecht zuerst!</div>
+<div class="speak-grid" id="warmup"></div>
+<div class="tipp"><div class="tipp-icon">&#127919;</div><div class="tipp-body"><strong>Heute lernen wir:</strong> Meetings, Absprachen, Krankmeldung, Überstunden &ndash; das echte Deutsch des deutschen B&#252;roalltags!</div></div>
+</div></div></div>
+
+<div id="phase-p2" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 &middot; Wortschatz &middot; 12 Min.</div>
+<div class="card-title">Wichtige W&#246;rter &amp; <em>Ausdr&#252;cke</em></div>
+<div class="card-sub">Klickt auf die Karten &ndash; Deutsch vorne, Erkl&#228;rung hinten!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div class="slabel">&#128221; Meeting &amp; Absprache</div><div class="vok-grid" id="vok1"></div>
+<div class="slabel">&#9200; Arbeitszeit &amp; Struktur</div><div class="vok-grid" id="vok2"></div>
+<div class="slabel">&#128172; Redewendungen im B&#252;ro</div><div class="vok-grid" id="vok3"></div>
+
+</div></div></div>
+
+<div id="phase-p3" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 &middot; Dialoge &middot; 12 Min.</div>
+<div class="card-title">Echte Gespr&#228;che &ndash; <em>so klingt das!</em></div>
+<div class="card-sub">Lest die Dialoge laut &ndash; wechselt die Rollen!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#9749;</span> In der Kaffeeküche &ndash; Montag morgen</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Leo</span><div><div class="dl-txt">Na, gutes Wochenende gehabt?</div></div></div>
+<div class="dl"><span class="dl-spk b">Mia</span><div><div class="dl-txt">Joa, war okay... du, ich <strong>h&#228;nge gerade total</strong> mit dem Q3-Report.</div><div class="dl-ann">häng = bin hintendran</div></div></div>
+<div class="dl"><span class="dl-spk ">Leo</span><div><div class="dl-txt">Oh nein. Kannst du das nicht an jemanden <strong>delegieren</strong>?</div></div></div>
+<div class="dl"><span class="dl-spk b">Mia</span><div><div class="dl-txt">Ich bins selbst schuld – hab's zu lange liegen lassen. Jetzt <strong>brennt's</strong>.</div><div class="dl-ann">es brennt = it's urgent/on fire</div></div></div>
+<div class="dl"><span class="dl-spk ">Leo</span><div><div class="dl-txt">Sag's in der Runde – vielleicht kann jemand helfen. Wir sind doch ein Team.</div></div></div>
+<div class="dl"><span class="dl-spk b">Mia</span><div><div class="dl-txt">Du hast recht. Ich bring's im <strong>Stand-up</strong> an. Und ich halte euch dann auf dem <strong>Laufenden</strong>.</div></div></div>
+<div class="dl"><span class="dl-spk ">Leo</span><div><div class="dl-txt">Gut. Soll ich das <strong>Protokoll</strong> heute &#252;bernehmen damit du dich konzentrieren kannst?</div></div></div>
+<div class="dl"><span class="dl-spk b">Mia</span><div><div class="dl-txt">Das w&#228;re <strong>mega nett</strong>. Danke Leo, du rettest mir den Tag!</div><div class="dl-ann">mega = sehr (informell)</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#128222;</span> Krankmeldung beim Chef</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Chef</span><div><div class="dl-txt">Schmidt.</div></div></div>
+<div class="dl"><span class="dl-spk b">Mia</span><div><div class="dl-txt">Guten Morgen Herr Schmidt, hier ist Mia Meier. Ich muss mich leider <strong>krankmelden</strong>. Ich habe seit gestern Abend hohes Fieber.</div></div></div>
+<div class="dl"><span class="dl-spk ">Chef</span><div><div class="dl-txt">Das tut mir leid, Frau Meier. Wie lange sch&#228;tzen Sie?</div></div></div>
+<div class="dl"><span class="dl-spk b">Mia</span><div><div class="dl-txt">Ich hoffte morgen wieder fit zu sein – aber ich kann das nat&#252;rlich noch nicht sicher sagen.</div></div></div>
+<div class="dl"><span class="dl-spk ">Chef</span><div><div class="dl-txt">Verstanden. Schicken Sie mir bitte eine kurze Nachricht wenn Sie wissen wie's weitergeht. Und die <strong>Krankmeldung</strong> bis Dienstag, ja?</div></div></div>
+<div class="dl"><span class="dl-spk b">Mia</span><div><div class="dl-txt">Selbstverst&#228;ndlich. Den <strong>Krankenschein</strong> bringe ich sobald ich wieder da bin.</div></div></div>
+<div class="dl"><span class="dl-spk ">Chef</span><div><div class="dl-txt">Gut. Gute Besserung!</div></div></div>
+<div class="dl"><span class="dl-spk b">Mia</span><div><div class="dl-txt">Danke sehr. Auf Wiederhören.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#128202;</span> Überstunden-Gespräch mit Vorgesetzter</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Anna</span><div><div class="dl-txt">Frau Bauer, darf ich kurz st&#246;ren? Ich m&#246;chte &#252;ber meine Situation sprechen.</div></div></div>
+<div class="dl"><span class="dl-spk b">Chefin</span><div><div class="dl-txt">Nat&#252;rlich, kommen Sie rein. Was liegt an?</div></div></div>
+<div class="dl"><span class="dl-spk ">Anna</span><div><div class="dl-txt">Ich mache seit drei Wochen regelm&#228;ßig zwei bis drei <strong>Überstunden</strong> pro Tag. Ich finde das auf Dauer nicht tragbar.</div></div></div>
+<div class="dl"><span class="dl-spk b">Chefin</span><div><div class="dl-txt">Das verstehe ich. Es war wirklich ein intensives Quartal. Wie m&#246;chten Sie das l&#246;sen?</div></div></div>
+<div class="dl"><span class="dl-spk ">Anna</span><div><div class="dl-txt">Ich h&#228;tte gerne entweder <strong>Freizeitausgleich</strong> in ruhigeren Wochen oder eine Regelung dass die Stunden <strong>bezahlt</strong> werden.</div></div></div>
+<div class="dl"><span class="dl-spk b">Chefin</span><div><div class="dl-txt">Freizeitausgleich ist definitiv m&#246;glich. Ich schlage vor: Sie tragen alles im <strong>Stundenkonto</strong> ein und wir schauen nächsten Monat.</div></div></div>
+<div class="dl"><span class="dl-spk ">Anna</span><div><div class="dl-txt">Das klingt fair. Danke f&#252;r das offene Gespr&#228;ch.</div></div></div>
+</div></div>
+
+</div></div></div>
+
+<div id="phase-p4" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 &middot; Redemittel &middot; 8 Min.</div>
+<div class="card-title">So sagt man das <em>wirklich!</em></div>
+<div class="card-sub">Echte S&#228;tze &ndash; kein Lehrbuchangeldeutsch!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="slabel">&#9749; Kaffeeküche & Smalltalk</div>
+<ul class="phrase-list">
+<li><strong>Na, wie war dein Wochenende?</strong> <span style="color:#888;font-size:.82rem;">= How was your weekend?</span> <em>– klassischer Einstieg</em></li>
+<li><strong>Ich <strong>h&#228;nge gerade</strong> mit... / Ich bin <strong>voll im Stress</strong>.</strong> <span style="color:#888;font-size:.82rem;">= I'm behind with... / I'm really stressed.</span></li>
+<li><strong>Es <strong>brennt</strong> gerade &ndash; kannst du kurz helfen?</strong> <span style="color:#888;font-size:.82rem;">= Things are urgent right now – can you help briefly?</span></li>
+</ul>
+<div class="slabel">&#128221; Meeting &amp; Abstimmung</div>
+<ul class="phrase-list">
+<li><strong>K&#246;nnen wir das kurz <strong>abstimmen</strong>?</strong> <span style="color:#888;font-size:.82rem;">= Can we quickly align on that?</span></li>
+<li><strong>Das kommt auf die <strong>Agenda</strong> f&#252;rs n&#228;chste Meeting.</strong> <span style="color:#888;font-size:.82rem;">= That goes on the agenda for the next meeting.</span></li>
+<li><strong>Ich halte euch auf dem <strong>Laufenden</strong>.</strong> <span style="color:#888;font-size:.82rem;">= I'll keep you updated.</span></li>
+<li><strong>Das nehmen wir <strong>mit</strong> f&#252;r sp&#228;ter.</strong> <span style="color:#888;font-size:.82rem;">= We'll note that for later.</span> <em>– kein physisches Mitnehmen!</em></li>
+</ul>
+<div class="slabel">&#128197; Allgemeine Bürosprache</div>
+<ul class="phrase-list">
+<li><strong>Ich muss mich kurz <strong>r&#252;ckmelden</strong> wenn ich's wei&#223;.</strong> <span style="color:#888;font-size:.82rem;">= I'll get back to you when I know.</span></li>
+<li><strong>Das <strong>liegt bei mir auf dem Tisch</strong>.</strong> <span style="color:#888;font-size:.82rem;">= That's on my to-do list / I'm dealing with it.</span></li>
+<li><strong>K&#246;nnten wir das <strong>per Mail festhalten</strong>?</strong> <span style="color:#888;font-size:.82rem;">= Could we document that by email?</span> <em>– Schriftlichkeit = wichtig!</em></li>
+</ul>
+
+</div></div></div>
+
+<div id="phase-p5" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 &middot; Rollenspiele &middot; 12 Min.</div>
+<div class="card-title">Euer Auftritt &ndash; <em>los geht&apos;s!</em></div>
+<div class="card-sub">Klickt auf die Karte f&#252;r Rollen &amp; Tipps</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div id="rsp1"></div>
+</div></div></div>
+
+<div id="phase-p6" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 &middot; &#220;bungen &middot; 8 Min.</div>
+<div class="card-title">Jetzt testen wir!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="slabel">Multiple Choice</div><div id="mc1"></div>
+<hr class="div">
+<div class="slabel">Richtig oder Falsch?</div><div id="rf1"></div>
+</div></div></div>
+
+<div id="phase-p7" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 &middot; Freies Sprechen &middot; 10 Min.</div>
+<div class="card-title">Eure Meinung &ndash; <em>jetzt seid ihr dran!</em></div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 10 Minuten</div>
+<div class="these"><div class="these-num">1</div><div class="these-text">Duzen oder Siezen &ndash; wie navigiert ihr das im deutschen B&#252;ro?<div class="these-starter">&#8222;In meiner Firma...&#8220; / &#8222;Ich warte immer bis...&#8220;</div></div></div>
+<div class="these"><div class="these-num">2</div><div class="these-text">Work-Life-Balance: Überstunden als Norm &ndash; gesund oder selbstverständlich?<div class="these-starter">&#8222;In meiner Branche...&#8220; / &#8222;Ich finde es problematisch wenn...&#8220;</div></div></div>
+
+<div class="slabel">Sprechkarten</div>
+<div class="speak-grid" id="speakCards"></div>
+</div></div></div>
+</main>
+<script>
+const TOTAL=3600;let rem=TOTAL,intv=null,run=false;
+function upd(){const m=Math.floor(rem/60),s=rem%60;const d=document.getElementById('td');d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('tf').style.width=(rem/TOTAL*100)+'%';d.className='timer-display';if(rem<=600)d.classList.add('warn');if(rem<=120)d.classList.add('urgent');}
+function toggleTimer(){if(run){clearInterval(intv);run=false;document.querySelector('.tbtn.start').textContent='▶ Start';}else{run=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';intv=setInterval(()=>{if(rem>0){rem--;upd();}else{clearInterval(intv);run=false;}},1000);}}
+function resetTimer(){clearInterval(intv);run=false;rem=TOTAL;upd();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));document.getElementById('phase-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function buildVokCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(v=>{const d=document.createElement('div');d.className='vok-card';d.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${(v.back||'').replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint||'&#128070; klicken!'}</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildSpeakCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(i=>{const d=document.createElement('div');d.className='speak-card';d.innerHTML=`<div class="speak-front">${i.front}</div><div class="speak-back">${i.back}</div><div class="speak-hint">&#128070; Tipp &amp; Formulierungshilfe</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildRSP(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(item=>{const d=document.createElement('div');d.className='rsp-card';d.innerHTML=`<div class="rsp-top"><span class="rsp-emoji">${item.emoji}</span><span class="rsp-title">${item.title}</span></div><div class="rsp-body"><div class="rsp-situation">${item.situation}</div><div class="rsp-back"><div class="rsp-rolle"><strong>&#128308; Person A:</strong> ${item.a}</div><div class="rsp-rolle"><strong>&#128309; Person B:</strong> ${item.b}</div>${item.tipps?`<div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">&#128161; Tipps:</strong> ${item.tipps}</div>`:''}</div><div class="rsp-hint">&#128070; klicken f&#252;r Rollen &amp; Tipps</div></div>`;d.addEventListener('click',()=>d.classList.toggle('open'));g.appendChild(d);});}
+function buildMC(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='mc';const opts=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${id}${i}')">${o}</button>`).join('');div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${opts}</div><div class="mc-fb" id="mcfb${id}${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerMC(btn,j,correct,fbId){btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');if(j!==correct)btn.classList.add('nope');const fb=document.getElementById(fbId);if(fb){fb.classList.add('show');fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);}}
+function buildRF(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='rf';div.id=`rf_${id}_${i}`;div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('${id}',${i},true,this)">&#10003; Richtig</button><button class="rfbtn" onclick="answerRF('${id}',${i},false,this)">&#10007; Falsch</button></div><div class="rf-fb" id="rffb_${id}_${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerRF(id,i,answer,btn){const rfData=window['rfData_'+id];const card=document.getElementById(`rf_${id}_${i}`);card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));btn.classList.add(answer?'sel-r':'sel-f');const correct=rfData&&answer===rfData[i].ok;card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);const fb=document.getElementById(`rffb_${id}_${i}`);if(fb){fb.classList.add('show');fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);}}
+buildVokCards([{"front": "das Meeting", "back": "= meeting (sehr h\u00e4ufig!)\n'Ich bin gerade im Meeting.'\n'Das Meeting ist um 10 Uhr.'\nAuch: die Besprechung (formeller)", "hint": "auch: Jour fixe"}, {"front": "abstimmen", "back": "= to align / coordinate\n'K\u00f6nnen wir das kurz abstimmen?'\n\u26a0 NICHT 'abstimmen' = to vote!\n= intern koordinieren", "hint": "\u2260 abstimmen (w\u00e4hlen)!"}, {"front": "die Agenda", "back": "= agenda / schedule\n'Steht das auf der Agenda?'\n'Ich schicke euch die Agenda vorher.'\nAuch: Tagesordnung (formeller)", "hint": "vorher schicken!"}, {"front": "delegieren", "back": "= to delegate\n'Ich delegiere das an Sarah.'\n'Kannst du das delegieren?'", "hint": "Aufgaben verteilen"}, {"front": "der Handlungsbedarf", "back": "= need for action\n'Hier sehe ich Handlungsbedarf!'\nTypisches deutsches B\u00fcrowort", "hint": "typisches B\u00fcrowort!"}, {"front": "das Protokoll", "back": "= minutes / protocol\n'Wer schreibt das Protokoll?'\n'Ich schicke das Protokoll nach dem Meeting.'", "hint": "immer jemand n\u00f6tig!"}],'vok1');
+buildVokCards([{"front": "die \u00dcberstunden", "back": "= overtime (always plural!)\n'Ich mache heute \u00dcberstunden.'\n'Die \u00dcberstunden werden abgebaut / bezahlt.'", "hint": "abbauen = take time off"}, {"front": "krankmelden", "back": "= to call in sick\n'Ich muss mich krankmelden.'\n'Sie hat sich krankgemeldet.'\nImmer VOR Arbeitsbeginn anrufen!", "hint": "morgens anrufen!"}, {"front": "die Probezeit", "back": "= probationary period\n'Ich bin noch in der Probezeit.'\nMeist 3-6 Monate\nIn der Probezeit: 2 Wochen K\u00fcndigungsfrist!", "hint": "meist 6 Monate"}, {"front": "Homeoffice", "back": "= working from home\n'Ich arbeite heute im Homeoffice.'\n'Wir haben 2 Homeoffice-Tage pro Woche.'", "hint": "auch: remote arbeiten"}],'vok2');
+buildVokCards([{"front": "Das nehmen wir mit.", "back": "= We'll note that / take it on board\n'Das nehmen wir f\u00fcr das n\u00e4chste Meeting mit.'\n\u26a0 NICHT physisch mitnehmen!", "hint": "kein physisches Mitnehmen!"}, {"front": "Ich bin am Limit.", "back": "= I'm at my limit / maxed out\n'Ich bin gerade wirklich am Limit \u2013 kannst du helfen?'", "hint": "ehrlich aber riskant!"}, {"front": "Das ziehe ich durch.", "back": "= I'll see it through / get it done\n'Keine Sorge, ich ziehe das durch!'", "hint": "entschlossen!"}, {"front": "auf dem Laufenden halten", "back": "= to keep someone updated\n'Bitte halte mich auf dem Laufenden.'\n'Ich halte euch auf dem Laufenden.'", "hint": "sehr h\u00e4ufig!"}],'vok3');
+buildMC([{"q": "Was bedeutet 'Das nehmen wir mit'?", "opts": ["Wir nehmen das physisch mit", "Wir notieren das f\u00fcr sp\u00e4ter", "Wir lehnen das ab"], "correct": 1, "fb": "&#10003; Richtig! 'Das nehmen wir mit' = we'll note/take that on board. Kein physisches Mitnehmen!"}, {"q": "Was macht man 'auf dem Laufenden halten'?", "opts": ["Jemanden beim Laufen begleiten", "Jemanden regelm\u00e4\u00dfig informieren / updaten", "Jemanden antreiben"], "correct": 1, "fb": "&#10003; Richtig! Auf dem Laufenden halten = to keep someone updated. 'Ich halte dich auf dem Laufenden.'"}, {"q": "Was ist 'Freizeitausgleich'?", "opts": ["Ein Freizeitpark", "\u00dcberstunden durch freie Zeit ausgleichen statt Geld", "Ein Sportprogramm der Firma"], "correct": 1, "fb": "&#10003; Richtig! Freizeitausgleich = time off in lieu. Statt Geld f\u00fcr \u00dcberstunden nimmt man freie Tage."}],'mc1');
+window.rfData_rf1=[{"s": "'Abstimmen' bedeutet immer w\u00e4hlen (to vote).", "ok": false, "fb": "&#10007; Falsch! Im B\u00fcrokontext: 'abstimmen' = to coordinate/align. 'Wir m\u00fcssen das intern abstimmen.' Nur im politischen Kontext = to vote."}, {"s": "In der Probezeit betr\u00e4gt die K\u00fcndigungsfrist nur 2 Wochen.", "ok": true, "fb": "&#10003; Richtig! Probezeit (max. 6 Monate): 2 Wochen K\u00fcndigungsfrist f\u00fcr BEIDE Seiten. Danach: normale Frist."}, {"s": "Krankmeldung = man ruft an UND braucht ab dem 4. Tag einen Arztschein.", "ok": true, "fb": "&#10003; Richtig! Anrufen immer am 1. Tag vor Arbeitsbeginn. Der \u00e4rztliche Krankenschein (AU) muss ab Tag 4 vorliegen (viele Arbeitgeber fordern ihn fr\u00fcher!)."}];
+buildRF(window.rfData_rf1,'rf1');
+buildRSP([{"emoji": "&#128221;", "title": "Gehaltsverhandlung", "situation": "Du bist seit 2 Jahren im Unternehmen, hast gute Leistungen \u2013 aber noch keine Gehaltserh\u00f6hung.", "a": "Mitarbeiter: Bereite Argumente vor (Leistungen, Marktvergleich, Loyalit\u00e4t). Nenn eine konkrete Zahl.", "b": "Chefin: Zeige Wertsch\u00e4tzung, verhandle, mach ein konkretes Angebot.", "tipps": "Tipp: Immer einen konkreten Betrag nennen! 'Ich stelle mir ca. 5% Erh\u00f6hung vor.' Nicht sagen: 'Was meinen Sie w\u00e4re fair?'"}, {"emoji": "&#128100;", "title": "Konflikt zwischen Kollegen", "situation": "Dein Kollege beansprucht immer alle Meriten eines Projekts f\u00fcr sich \u2013 auch deiner.", "a": "Du: Sprich ihn direkt und sachlich an, erkl\u00e4re wie du dich f\u00fchlst, schlage L\u00f6sung vor.", "b": "Kollege: Reagiere zun\u00e4chst defensiv, zeige dann Verst\u00e4ndnis.", "tipps": "Ich-Botschaften helfen: 'Ich habe das Gef\u00fchl dass...' statt 'Du machst immer...'"}],'rsp1');
+buildSpeakCards([{"front": "Was war deine lustigste oder peinlichste B\u00fcro-Situation auf Deutsch?", "back": "'Einmal... / Ich habe 'abstimmen' falsch verstanden und... / Der Kollege hat...'"}, {"front": "Wie l&#228;uft ein typisches Meeting bei dir ab?", "back": "'Bei uns beginnt das Meeting mit... / Jemand schreibt... / Am Ende...'"}, {"front": "Was findest du am deutschen B\u00fcroalltag anders als in deiner Heimat?", "back": "'In Deutschland ist es \u00fcblich... / Was mich \u00fcberrascht hat... / Die Hierarchie ist...'"}],'speakCards');
+buildSpeakCards([{"front": "Erkl\u00e4re einem Nicht-Deutschen: Was ist eine 'Kaffeek\u00fcche'?", "back": "'Die Kaffeek\u00fcche ist... / Dort... / Man redet \u00fcber... / Es ist der Ort wo...'"}],'warmup');
+upd();</script></body></html>

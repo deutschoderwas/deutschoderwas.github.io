@@ -1,0 +1,535 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="no-referrer">
+<title>Ernährung & Essgewohnheiten · deutschoderwas</title>
+<style>
+/* Self-contained fonts: system stack works offline, Google Fonts loads when online */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+:root {
+  --cream:#F7F3EE; --dark:#1A1410; --brown:#5C3D2E;
+  --rust:#C4622D; --rust-lt:#E8896A; --sand:#D9C4A8; --sand-lt:#EEE4D4;
+  --green:#3D6B4F; --green-lt:#D4E8DC; --red:#C0392B; --red-lt:#F5DDD9;
+  --orange:#D4722D; --orange-lt:#F5D5B0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}
+.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}
+.tbtn.reset{background:#555;color:white;}
+
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--orange);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--orange);color:var(--orange-lt);}
+.phase-btn.active{background:var(--orange);border-color:var(--orange);color:white;}
+
+main{max-width:900px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}
+.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;position:relative;overflow:hidden;}
+.card-header::after{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.04);}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.35rem;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--orange),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.3rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--orange-lt);color:var(--orange);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+
+.ex{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.75rem 1.1rem;margin-bottom:.5rem;border-left:4px solid var(--orange);font-size:.92rem;line-height:1.6;}
+.ex .de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);}
+.ex .en{font-size:.78rem;color:#aaa;font-style:italic;}
+.ex strong{color:var(--orange);}
+
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:.7rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.85rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--orange);}
+.vok-card:hover{transform:translateY(-2px);}
+.vok-card.flipped{background:var(--orange-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.5;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);}
+.vok-card.flipped .vok-back{display:block;}
+.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+
+.dialog{background:var(--sand-lt);border-radius:14px;overflow:hidden;margin-bottom:1.2rem;}
+.dialog-hd{background:var(--dark);color:var(--cream);padding:.55rem 1.2rem;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.dialog-body{padding:.9rem 1.2rem;}
+.dl{display:flex;gap:.65rem;margin-bottom:.65rem;align-items:flex-start;}
+.dl-spk{font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:55px;padding-top:.2rem;flex-shrink:0;color:var(--orange);}
+.dl-spk.b{color:var(--green);}
+.dl-txt{font-size:.89rem;line-height:1.55;}
+.dl-txt strong{color:var(--brown);font-family:'Fraunces',serif;}
+
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:.75rem;display:flex;align-items:flex-start;gap:.9rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:900;color:var(--orange-lt);flex-shrink:0;line-height:1;}
+.these-text{font-size:.92rem;line-height:1.6;}
+.these-starter{font-size:.76rem;color:#888;margin-top:.3rem;}
+
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--orange);}
+.speak-card:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(212,114,45,.12);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.93rem;color:var(--dark);}
+.speak-back{font-size:.82rem;color:var(--dark);line-height:1.5;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}
+.speak-hint{font-size:.68rem;color:#aaa;margin-top:.4rem;}
+
+.gap-row{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.75rem 1.1rem;margin-bottom:.5rem;font-size:.92rem;line-height:1.9;display:flex;flex-wrap:wrap;align-items:center;gap:.3rem;transition:border-color .2s,background .2s;}
+.gap-row.correct{border-color:var(--green);background:var(--green-lt);}
+.gap-row.wrong{border-color:var(--red);background:var(--red-lt);}
+.blank{display:inline-block;min-width:130px;border-bottom:2.5px solid var(--orange);font-family:'Fraunces',serif;font-weight:700;color:var(--brown);font-size:.9rem;padding:0 .3rem;cursor:pointer;text-align:center;}
+.blank:empty::before{content:'___';color:#ccc;font-style:italic;font-size:.8rem;}
+.g-icon{font-size:.9rem;opacity:0;transition:opacity .3s;}
+.gap-row.correct .g-icon,.gap-row.wrong .g-icon{opacity:1;}
+.wbank{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem;}
+.chip{background:var(--dark);color:var(--cream);font-family:'Fraunces',serif;font-weight:700;font-size:.78rem;padding:.25rem .8rem;border-radius:20px;cursor:pointer;transition:background .15s,transform .1s;user-select:none;outline:2px solid transparent;}
+.chip:hover{background:var(--orange);transform:scale(1.04);}
+.chip.active{background:var(--orange);outline:2px solid var(--orange-lt);}
+
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}
+.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.91rem;margin-bottom:.55rem;line-height:1.5;}
+.rf-btns{display:flex;gap:.4rem;}
+.rfbtn{padding:.25rem .78rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.77rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--orange);color:var(--orange);}
+.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}
+.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.79rem;margin-top:.5rem;font-weight:500;display:none;line-height:1.5;}
+.rf-fb.show{display:block;}
+.rf-fb.ok{color:var(--green);}
+.rf-fb.bad{color:var(--red);}
+
+.check-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--orange);color:white;border:none;border-radius:30px;padding:.52rem 1.3rem;font-family:'Fraunces',serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .15s;margin-top:.8rem;}
+.check-btn:hover{background:var(--brown);transform:scale(1.02);}
+.score{display:inline-block;background:var(--dark);color:var(--cream);font-family:'Fraunces',serif;font-weight:700;font-size:.82rem;padding:.2rem .85rem;border-radius:20px;margin-left:.7rem;opacity:0;transition:opacity .3s;}
+.score.show{opacity:1;}
+.reset-link{font-size:.72rem;color:#bbb;cursor:pointer;text-decoration:underline;margin-left:.7rem;}
+.reset-link:hover{color:var(--orange);}
+
+.tipp{background:var(--dark);color:var(--cream);border-radius:14px;padding:1rem 1.3rem;margin-top:1.2rem;display:flex;gap:.8rem;align-items:flex-start;}
+.tipp-icon{font-size:1.2rem;flex-shrink:0;}
+.tipp-text{font-size:.86rem;line-height:1.7;}
+.tipp-text strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.4rem 0;}
+</style>
+</head>
+<body>
+
+<div class="timer-bar">
+  <div class="timer-display" id="timerDisplay">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="timerFill"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;">Unterrichtszeit</span>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">▶ Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">↺</button>
+  </div>
+</div>
+
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <button class="phase-btn active" onclick="showPhase('einstieg',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('vokabeln',this)">② Vokabeln</button>
+  <button class="phase-btn" onclick="showPhase('redemittel',this)">③ Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('dialoge',this)">④ Dialoge</button>
+  <button class="phase-btn" onclick="showPhase('uebung',this)">⑤ Übungen</button>
+  <button class="phase-btn" onclick="showPhase('sprechen',this)">⑥ Sprechen</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;">Alltag B1/B2 · 60 Min.</span>
+</div>
+
+<main>
+
+<!-- ① EINSTIEG -->
+<div id="phase-einstieg" class="phase active">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Einstieg · 10 Min.</div>
+      <div class="card-title">Ernährung &amp; <em>Essgewohnheiten</em></div>
+      <div class="card-sub">Was, wann und wie essen wir – und wie reden wir darüber?</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">Warming-up – jeder antwortet!</div>
+      <div class="speak-grid" id="warmupCards"></div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🍽️</div>
+        <div class="tipp-text"><strong>Heute lernen wir:</strong> Wie man über Ernährung, Essgewohnheiten und Ernährungsstile spricht – mit echten Redemitteln und typisch deutschem Vokabular rund ums Essen!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② VOKABELN -->
+<div id="phase-vokabeln" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Vokabeln · 12 Min.</div>
+      <div class="card-title">Rund ums <em>Essen</em></div>
+      <div class="card-sub">Klick zum Aufdecken!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 12 Minuten</div>
+
+      <div class="slabel">🥗 Ernährungsstile</div>
+      <div class="vok-grid" id="stilGrid"></div>
+
+      <div class="slabel">🍳 Verben rund ums Kochen & Essen</div>
+      <div class="vok-grid" id="verbGrid"></div>
+
+      <div class="slabel">🛒 Wichtige Begriffe</div>
+      <div class="vok-grid" id="begriffGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ REDEMITTEL -->
+<div id="phase-redemittel" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Redemittel · 10 Min.</div>
+      <div class="card-title">So spricht man über <em>Essen auf Deutsch</em></div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">🍽️ Über Essgewohnheiten sprechen</div>
+      <div class="ex"><div class="de">„Ich ernähre mich <strong>überwiegend</strong> pflanzlich."</div><div class="en">I eat mainly plant-based food.</div></div>
+      <div class="ex"><div class="de">„Ich achte sehr auf eine <strong>ausgewogene Ernährung</strong>."</div><div class="en">I pay close attention to a balanced diet.</div></div>
+      <div class="ex"><div class="de">„Ich kann auf Fleisch nicht verzichten."</div><div class="en">I can't do without meat.</div></div>
+      <div class="ex"><div class="de">„Ich versuche, weniger Zucker zu <strong>konsumieren</strong>."</div><div class="en">I'm trying to consume less sugar.</div></div>
+      <div class="ex"><div class="de">„Ich bin <strong>Genussmensch</strong> – Essen ist für mich mehr als Nahrungsaufnahme."</div><div class="en">I'm a pleasure-seeker – food is more than nutrition for me.</div></div>
+
+      <div class="slabel">❤️ Mögen & nicht mögen</div>
+      <div class="ex"><div class="de">„Das ist <strong>nicht mein Geschmack</strong>."</div><div class="en">That's not to my taste.</div></div>
+      <div class="ex"><div class="de">„Das geht <strong>so lala</strong>." / „Es geht so."</div><div class="en">It's so-so. / It's okay.</div></div>
+      <div class="ex"><div class="de">„Das ist <strong>meine Leibspeise</strong>!"</div><div class="en">That's my favourite dish!</div></div>
+      <div class="ex"><div class="de">„Davon kriege ich nicht genug!" </div><div class="en">I can't get enough of it!</div></div>
+      <div class="ex"><div class="de">„Das ist <strong>ein Gedicht</strong>!" </div><div class="en">That's divine! (lit. "a poem") – typisch deutsch!</div></div>
+
+      <div class="slabel">🛒 Einkaufen & Kochen</div>
+      <div class="ex"><div class="de">„Ich kaufe <strong>saisonal und regional</strong> ein."</div><div class="en">I buy seasonal and regional produce.</div></div>
+      <div class="ex"><div class="de">„Ich koche <strong>auf Vorrat</strong> – meal prep!"</div><div class="en">I cook in advance / meal prep.</div></div>
+      <div class="ex"><div class="de">„Das Rezept ist <strong>kinderleicht</strong> – auch für Anfänger!"</div><div class="en">The recipe is super easy – even for beginners!</div></div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🎯</div>
+        <div class="tipp-text"><strong>Tipp:</strong> „Das ist ein Gedicht!" ist eine wunderbare umgangssprachliche Aussage für etwas sehr Leckeres. Lern diesen Ausdruck – er klingt sofort wie ein Muttersprachler!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ DIALOGE -->
+<div id="phase-dialoge" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Dialoge · 8 Min.</div>
+      <div class="card-title">Echte Gespräche über <em>Essen</em></div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+
+      <div class="slabel">Dialog 1 – Über Ernährung diskutieren</div>
+      <div class="dialog">
+        <div class="dialog-hd">🥦 Veganer & Fleischesser</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk">Lea</span><span class="dl-txt">Ich ernähre mich seit zwei Jahren vegan. <strong>Ich achte sehr auf eine ausgewogene Ernährung.</strong></span></div>
+          <div class="dl"><span class="dl-spk b">Max</span><span class="dl-txt">Respekt! Ich könnte das nicht – <strong>ich kann auf Fleisch einfach nicht verzichten.</strong></span></div>
+          <div class="dl"><span class="dl-spk">Lea</span><span class="dl-txt">Das denken viele. Aber es gibt so viele leckere pflanzliche Alternativen! <strong>Das ist ein Gedicht</strong>, was man damit kochen kann.</span></div>
+          <div class="dl"><span class="dl-spk b">Max</span><span class="dl-txt">Na ja… <strong>das geht so lala</strong> für mich. Ich bin halt ein <strong>Genussmensch</strong> – und Grillen gehört dazu!</span></div>
+          <div class="dl"><span class="dl-spk">Lea</span><span class="dl-txt">Klar, jeder wie er mag! Ich verurteile das nicht. <strong>Hauptsache, man isst bewusst.</strong></span></div>
+        </div>
+      </div>
+
+      <div class="slabel">Dialog 2 – Beim Einkaufen</div>
+      <div class="dialog">
+        <div class="dialog-hd">🛒 Im Supermarkt</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk">Anna</span><span class="dl-txt">Kaufst du eigentlich immer Bio?</span></div>
+          <div class="dl"><span class="dl-spk b">Tom</span><span class="dl-txt">Nicht immer. <strong>Ich versuche, saisonal und regional einzukaufen</strong> – das ist oft günstiger als Bio und trotzdem gut.</span></div>
+          <div class="dl"><span class="dl-spk">Anna</span><span class="dl-txt">Clever! Ich kaufe immer zu viel und dann <strong>verkommt</strong> die Hälfte.</span></div>
+          <div class="dl"><span class="dl-spk b">Tom</span><span class="dl-txt">Ich koche <strong>auf Vorrat</strong> – jeden Sonntag mache ich Meal Prep. Spart Zeit und Geld.</span></div>
+          <div class="dl"><span class="dl-spk">Anna</span><span class="dl-txt">Das klingt super! <strong>Hast du ein einfaches Rezept</strong> für mich?</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ ÜBUNGEN -->
+<div id="phase-uebung" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Übungen · 10 Min.</div>
+      <div class="card-title">Jetzt üben wir!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">Übung 1 – Lückentext</div>
+      <p style="font-size:.82rem;color:#777;margin-bottom:.8rem;">Klick auf ein Wort, dann auf die Lücke.</p>
+      <div class="wbank" id="wb1"></div>
+      <div id="gaps1"></div>
+      <button class="check-btn" onclick="checkGaps()">✓ Prüfen <span id="sc1" class="score"></span></button>
+      <span class="reset-link" onclick="resetGaps()">zurücksetzen</span>
+
+      <hr class="div">
+
+      <div class="slabel">Übung 2 – Richtig oder Falsch?</div>
+      <div id="rf1"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑥ SPRECHEN -->
+<div id="phase-sprechen" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Sprechen · 10 Min.</div>
+      <div class="card-title">Jetzt <em>sprechen</em> wir!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">Sprechkarten – klick für Hilfe!</div>
+      <div class="speak-grid" id="speakCards"></div>
+
+      <hr class="div">
+
+      <div class="slabel">Debatten</div>
+      <div class="these">
+        <div class="these-num">1</div>
+        <div class="these-text">
+          Vegane Ernährung ist die einzige ethisch vertretbare Ernährungsweise in der heutigen Zeit.
+          <div class="these-starter">„Ich sehe das differenzierter…" / „Es stimmt, dass… aber andererseits…" / „Das halte ich für zu pauschal."</div>
+        </div>
+      </div>
+      <div class="these">
+        <div class="these-num">2</div>
+        <div class="these-text">
+          Fast Food sollte in Deutschland stärker besteuert werden.
+          <div class="these-starter">„Ich bin der Meinung, dass…" / „Das würde bedeuten, dass…" / „Ich sehe das Problem eher darin, dass…"</div>
+        </div>
+      </div>
+      <div class="these">
+        <div class="these-num">3</div>
+        <div class="these-text">
+          Gemeinsam essen ist wichtiger als was man isst.
+          <div class="these-starter">„In meiner Kultur ist es so, dass…" / „Essen verbindet, weil…" / „Das stimmt, aber…"</div>
+        </div>
+      </div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🏠</div>
+        <div class="tipp-text"><strong>Hausaufgabe:</strong> Beschreibe deine typische Woche: Was isst du morgens, mittags, abends? Kochst du selbst? Was kaufst du ein? Schreib 8–10 Sätze – mit Redemitteln aus der Stunde!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+const TOTAL=3600;let remaining=TOTAL,interval=null,running=false;
+function updateTimerDisplay(){
+  const m=Math.floor(remaining/60),s=remaining%60;
+  const d=document.getElementById('timerDisplay');
+  d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  document.getElementById('timerFill').style.width=(remaining/TOTAL*100)+'%';
+  d.className='timer-display';
+  if(remaining<=600)d.classList.add('warn');
+  if(remaining<=120)d.classList.add('urgent');
+}
+function toggleTimer(){
+  if(running){clearInterval(interval);running=false;document.querySelector('.tbtn.start').textContent='▶ Start';}
+  else{running=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';interval=setInterval(()=>{if(remaining>0){remaining--;updateTimerDisplay();}else{clearInterval(interval);running=false;}},1000);}
+}
+function resetTimer(){clearInterval(interval);running=false;remaining=TOTAL;updateTimerDisplay();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){
+  document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('phase-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+const warmupData=[
+  {front:'Bist du eher Frühstücks- oder Abendessens-Mensch?',back:'Tipp: „Ich frühstücke nie / immer ausgiebig." / „Abends esse ich lieber warm."'},
+  {front:'Was isst du, wenn du gestresst bist?',back:'Tipp: „Wenn ich gestresst bin, greife ich zu…" / „Ich esse dann lieber nichts / mehr als sonst."'},
+  {front:'Gibt es etwas, das du absolut nicht essen kannst?',back:'Tipp: „Ich kann… nicht ausstehen." / „Das ist überhaupt nicht mein Geschmack."'},
+  {front:'Kochst du gerne? Wie oft pro Woche kochst du?',back:'Tipp: „Ich koche etwa… Mal pro Woche." / „Ich bin kein großer Koch, aber…"'},
+];
+
+const stilData=[
+  {front:'vegan',back:'= komplett pflanzlich – kein Fleisch, Fisch, Milch, Eier\n„Ich lebe seit Jahren vegan."',hint:'der Veganer / die Veganerin'},
+  {front:'vegetarisch',back:'= kein Fleisch, kein Fisch – aber Milchprodukte & Eier\n„Ich bin Vegetarierin."',hint:'der Vegetarier'},
+  {front:'flexitarisch',back:'= überwiegend pflanzlich, gelegentlich Fleisch\n„Ich esse flexitarisch – nur selten Fleisch."',hint:'der Flexitarier – Kompromiss!'},
+  {front:'Bio-Produkte',back:'= ökologisch angebaut, ohne Pestizide\n„Ich kaufe wenn möglich Bio."',hint:'das Bio-Siegel · Biomarkt'},
+  {front:'regional & saisonal',back:'= aus der Umgebung, zur richtigen Jahreszeit\n„Ich kaufe nur regionale Produkte."',hint:'Nachhaltigkeit!'},
+  {front:'ausgewogene Ernährung',back:'= balanced diet – viel Gemüse, wenig Zucker, gute Fette\n„Ich achte auf eine ausgewogene Ernährung."',hint:'das Ziel der meisten!'},
+];
+
+const verbData=[
+  {front:'auf etwas verzichten',back:'= to do without / to give up\n„Ich verzichte auf Zucker."\nAchtung: verzichten auf + Akkusativ',hint:'auf + Akkusativ'},
+  {front:'etw. vertragen / nicht vertragen',back:'= to tolerate / not tolerate (food)\n„Ich vertrage keine Laktose."',hint:'Laktoseintoleranz, Glutenunverträglichkeit'},
+  {front:'verderben / verkommt',back:'= to go off / to spoil\n„Das Gemüse verkommt, wenn ich es nicht schnell esse."',hint:'unregelmäßig: verdirbt – verdarb'},
+  {front:'auf Vorrat kochen',back:'= to meal prep / cook in advance\n„Ich koche sonntags auf Vorrat für die ganze Woche."',hint:'Meal Prep auf Deutsch'},
+  {front:'naschen',back:'= to snack / to nibble on sweets\n„Ich nasche gerne abends vor dem Fernseher."',hint:'der Naschkatze = someone with a sweet tooth'},
+  {front:'satt sein / werden',back:'= to be / get full\n„Ich bin so satt – das war riesig!" / „Davon werde ich nicht satt."',hint:'Gegenteil: hungrig'},
+];
+
+const begriffData=[
+  {front:'das Leibgericht',back:'= favourite dish\n„Mein Leibgericht ist Spaghetti Bolognese."',hint:'auch: Leibspeise'},
+  {front:'die Mahlzeit',back:'= meal\n„Wir essen drei Mahlzeiten pro Tag." / Auch: Guten Appetit!',hint:'drei Mahlzeiten: Frühstück, Mittagessen, Abendessen'},
+  {front:'der Genussmensch',back:'= someone who enjoys pleasures (esp. food)\n„Ich bin ein totaler Genussmensch."',hint:'typisch deutsches Wort!'},
+  {front:'die Unverträglichkeit',back:'= intolerance / allergy\n„Ich habe eine Laktoseunverträglichkeit."',hint:'Laktose · Gluten · Nüsse'},
+  {front:'das Rezept',back:'= recipe\n„Hast du ein gutes Rezept für Linsensuppe?"',hint:'Zutaten + Zubereitung'},
+  {front:'die Portionsgröße',back:'= portion size\n„In den USA sind die Portionsgrößen viel größer als in Deutschland."',hint:'Vergleich Kulturen!'},
+];
+
+function buildGrid(data, gridId) {
+  const grid=document.getElementById(gridId);
+  data.forEach(v=>{
+    const div=document.createElement('div');div.className='vok-card';
+    div.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${v.back.replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint} · klicken!</div>`;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+function buildWarmup(){
+  const grid=document.getElementById('warmupCards');
+  warmupData.forEach(item=>{
+    const div=document.createElement('div');div.className='speak-card';
+    div.innerHTML=`<div class="speak-front">${item.front}</div><div class="speak-back">${item.back}</div><div class="speak-hint">👆 Tipp anzeigen</div>`;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+const gapData=[
+  {pre:'Ich ',blank:'verzichte',post:' auf Fleisch – ich lebe seit einem Jahr vegetarisch.'},
+  {pre:'Das Rezept ist ',blank:'kinderleicht',post:' – auch du kannst das kochen!'},
+  {pre:'',blank:'Davon kriege ich nicht genug',post:' – das ist so lecker!'},
+  {pre:'Ich ',blank:'vertrage',post:' keine Laktose – Milchprodukte sind ein Problem.'},
+  {pre:'Das Gemüse ',blank:'verkommt',post:' – ich muss es heute noch kochen.'},
+  {pre:'Ich ernähre mich ',blank:'überwiegend',post:' pflanzlich, aber manchmal esse ich Fisch.'},
+  {pre:'Das ist mein ',blank:'Leibgericht',post:' – Spaghetti mit Tomatensoße!'},
+];
+const bankWords=['verzichte','kinderleicht','Davon kriege ich nicht genug','vertrage','verkommt','überwiegend','Leibgericht'];
+let selChip=null;const fills={};
+
+function buildGaps(){
+  const wb=document.getElementById('wb1');wb.innerHTML='';
+  bankWords.forEach(w=>{
+    const c=document.createElement('span');c.className='chip';c.textContent=w;c.dataset.word=w;
+    c.addEventListener('click',()=>{document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));selChip=selChip===w?null:w;if(selChip)c.classList.add('active');});
+    wb.appendChild(c);
+  });
+  const gc=document.getElementById('gaps1');gc.innerHTML='';
+  gapData.forEach((s,i)=>{
+    const row=document.createElement('div');row.className='gap-row';row.id='gr'+i;
+    row.innerHTML=`<span>${s.pre}</span><span class="blank" id="gb${i}" onclick="fillBlank(${i})">${fills[i]||''}</span><span>${s.post}</span><span class="g-icon" id="gi${i}"></span>`;
+    gc.appendChild(row);
+  });
+}
+function fillBlank(i){if(!selChip)return;fills[i]=selChip;document.getElementById('gb'+i).textContent=selChip;document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));selChip=null;}
+function checkGaps(){
+  let ok=0;
+  gapData.forEach((s,i)=>{
+    const row=document.getElementById('gr'+i),icon=document.getElementById('gi'+i);
+    const correct=fills[i]&&fills[i].toLowerCase()===s.blank.toLowerCase();
+    row.classList.toggle('correct',correct);row.classList.toggle('wrong',!correct);
+    icon.textContent=correct?'✅':'❌';if(correct)ok++;
+  });
+  const sc=document.getElementById('sc1');sc.textContent=`${ok}/${gapData.length}`;sc.classList.add('show');
+}
+function resetGaps(){
+  gapData.forEach((s,i)=>{delete fills[i];document.getElementById('gr'+i).classList.remove('correct','wrong');document.getElementById('gi'+i).textContent='';document.getElementById('gb'+i).textContent='';});
+  selChip=null;document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));
+  document.getElementById('sc1').classList.remove('show');
+}
+
+const rfData=[
+  {s:'"Das ist ein Gedicht!" bedeutet: Das Essen ist langweilig.',ok:false,fb:'✗ Falsch! „Das ist ein Gedicht!" ist ein typisch deutsches Lob für sehr leckeres Essen. = That\'s divine / absolutely delicious!'},
+  {s:'„verzichten auf" wird mit dem Akkusativ verwendet.',ok:true,fb:'✓ Richtig! „Ich verzichte auf Fleisch / auf Zucker." – auf + Akkusativ.'},
+  {s:'„flexitarisch" bedeutet: Man isst nur pflanzlich, nie Fleisch.',ok:false,fb:'✗ Falsch! Flexitarier essen überwiegend pflanzlich, aber gelegentlich auch Fleisch oder Fisch – der Kompromiss zwischen vegan/vegetarisch und Allesessern.'},
+  {s:'„satt" und „hungrig" sind Gegenteile.',ok:true,fb:'✓ Richtig! satt = full / satisfied. hungrig = hungry. „Ich bin so satt!" vs. „Ich habe Hunger!"'},
+  {s:'"Ich vertrage keine Laktose" bedeutet: Ich mag keine Milch.',ok:false,fb:'✗ Falsch! „nicht vertragen" = intolerance – körperliche Unverträglichkeit, nicht Geschmackspräferenz. „Ich mag keine Milch" = Geschmack. „Ich vertrage keine Milch" = körperliches Problem.'},
+];
+function buildRF(){
+  const c=document.getElementById('rf1');
+  rfData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='rf';div.id='rfc'+i;
+    div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF(${i},true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF(${i},false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerRF(i,answer,btn){
+  const card=document.getElementById('rfc'+i);
+  card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));
+  btn.classList.add(answer?'sel-r':'sel-f');
+  const correct=answer===rfData[i].ok;
+  card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);
+  const fb=document.getElementById('rffb'+i);fb.classList.add('show');
+  fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);
+}
+
+const speakData=[
+  {front:'Beschreibe deinen typischen Ernährungsstil.',back:'„Ich ernähre mich überwiegend… / Ich bin Vegetarier/in / Ich esse alles, aber achte auf…"'},
+  {front:'Was ist dein absolutes Lieblingsgericht – und warum?',back:'„Mein Leibgericht ist… – das ist wirklich ein Gedicht! / Davon kriege ich nicht genug!"'},
+  {front:'Kochst du lieber selbst oder gehst du essen? Warum?',back:'„Ich koche lieber selbst, weil… / Ich gehe gerne essen, weil…"'},
+  {front:'Hast du eine Lebensmittelunverträglichkeit oder isst du alles?',back:'„Ich vertrage keine… / Ich bin allergisch auf… / Ich esse alles – ich bin ein echter Genussmensch!"'},
+  {front:'Was isst du in deiner Heimat, das es hier nicht gibt?',back:'„In meiner Heimat gibt es… Das vermisse ich sehr! / Das bekommt man hier leider nicht."'},
+];
+function buildSpeakCards(){
+  const grid=document.getElementById('speakCards');
+  speakData.forEach(item=>{
+    const div=document.createElement('div');div.className='speak-card';
+    div.innerHTML=`<div class="speak-front">${item.front}</div><div class="speak-back">${item.back}</div><div class="speak-hint">👆 Antwortbeispiel</div>`;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+buildWarmup();
+buildGrid(stilData,'stilGrid');
+buildGrid(verbData,'verbGrid');
+buildGrid(begriffData,'begriffGrid');
+buildGaps();buildRF();buildSpeakCards();updateTimerDisplay();
+</script>
+</body>
+</html>

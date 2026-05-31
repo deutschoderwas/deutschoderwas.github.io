@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+<meta charset="UTF-8"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Gesundheit &amp; beim Arzt &middot; deutschoderwas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#2D8A7A;--acc-lt:#B8DDD4;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}.tbtn.reset{background:#555;color:white;}
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;scrollbar-width:none;}
+.phase-nav::-webkit-scrollbar{display:none;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}
+.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.4rem;line-height:1.5;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.4rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--acc-lt);color:var(--acc);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+/* VOCAB */
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.vok-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.vok-card.flipped{background:var(--acc-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);white-space:pre-line;}
+.vok-card.flipped .vok-back{display:block;}
+.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+/* EXAMPLES */
+.ex{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.85rem 1.2rem;margin-bottom:.55rem;border-left:4px solid var(--acc);font-size:.93rem;line-height:1.7;}
+.ex .de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);margin-bottom:.2rem;}
+.ex .en{font-size:.79rem;color:#888;font-style:italic;}
+.ex .note{font-size:.78rem;color:var(--acc);margin-top:.2rem;font-weight:600;}
+.ex strong{color:var(--acc);}
+/* DIALOGS */
+.dialog{background:var(--sand-lt);border-radius:16px;overflow:hidden;margin-bottom:1.1rem;border:1.5px solid var(--sand);}
+.dialog-hd{background:var(--dark);color:white;padding:.6rem 1.3rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
+.dialog-hd-icon{font-size:1rem;}
+.dialog-body{padding:1rem 1.3rem;}
+.dl{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start;}
+.dl:last-child{margin-bottom:0;}
+.dl-spk{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:60px;padding-top:.25rem;flex-shrink:0;color:var(--acc);line-height:1.3;}
+.dl-spk.b{color:var(--rust);}
+.dl-spk.c{color:#6B3D8A;}
+.dl-txt{font-size:.9rem;line-height:1.65;}
+.dl-txt strong{font-family:'Fraunces',serif;color:var(--brown);}
+.dl-note{font-size:.75rem;color:#888;font-style:italic;}
+/* ANNOTATIONS on dialog */
+.dl-ann{background:rgba(0,0,0,.04);border-left:3px solid var(--acc);font-size:.75rem;color:#555;padding:.3rem .7rem;margin-top:.2rem;border-radius:0 6px 6px 0;line-height:1.5;}
+/* HIGHLIGHT BOX */
+.hbox{border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.hbox.blue{background:var(--acc-lt);border:1.5px solid var(--acc);}
+.hbox.dark{background:var(--dark);color:white;}
+.hbox.warn{background:#FFF8E0;border:1.5px solid #C8A870;}
+.hbox-title{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;margin-bottom:.5rem;}
+.hbox.dark .hbox-title{color:var(--acc-lt);}
+.hbox.blue .hbox-title{color:var(--acc);}
+.hbox.warn .hbox-title{color:#5C3D2E;}
+.hbox-body{font-size:.87rem;line-height:1.8;}
+.hbox.dark .hbox-body{color:#ddd;}
+/* PHRASE LIST */
+.phrase-list{list-style:none;margin-bottom:1.1rem;}
+.phrase-list li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .9rem;border-radius:10px;margin-bottom:.4rem;background:white;border:1.5px solid var(--sand);font-size:.89rem;line-height:1.6;}
+.phrase-list li::before{content:'→';color:var(--acc);font-weight:700;flex-shrink:0;margin-top:.1rem;}
+.phrase-list li strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list li em{color:#888;font-size:.8rem;}
+/* QUIZ */
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.3rem;margin-bottom:.8rem;}
+.mc-q{font-size:.94rem;font-weight:600;margin-bottom:.75rem;line-height:1.55;}
+.mc-opts{display:flex;flex-direction:column;gap:.38rem;}
+.mc-opt{padding:.48rem 1rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.88rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--acc);background:var(--acc-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.81rem;margin-top:.6rem;display:none;font-weight:500;line-height:1.55;padding:.4rem .7rem;border-radius:8px;}
+.mc-fb.show{display:block;}
+.mc-fb.ok{color:var(--green);background:var(--green-lt);}.mc-fb.nope{color:var(--red);background:var(--red-lt);}
+/* RF */
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.95rem 1.3rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}
+.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.92rem;margin-bottom:.6rem;line-height:1.55;}
+.rf-btns{display:flex;gap:.45rem;}
+.rfbtn{padding:.28rem .85rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--acc);color:var(--acc);}
+.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}
+.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.8rem;margin-top:.55rem;font-weight:500;display:none;line-height:1.55;padding:.35rem .6rem;border-radius:6px;}
+.rf-fb.show{display:block;}
+.rf-fb.ok{color:var(--green);background:var(--green-lt);}.rf-fb.bad{color:var(--red);background:var(--red-lt);}
+/* SPEAK CARDS */
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:13px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.speak-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.09);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);line-height:1.4;}
+.speak-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}
+.speak-hint{font-size:.68rem;color:#bbb;margin-top:.45rem;}
+/* RSP */
+.rsp-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;margin-bottom:.9rem;}
+.rsp-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.1);}
+.rsp-card.open .rsp-back{display:block;}
+.rsp-card.open .rsp-hint{display:none;}
+.rsp-top{background:var(--dark);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.75rem;}
+.rsp-emoji{font-size:1.4rem;flex-shrink:0;}
+.rsp-title{font-family:'Fraunces',serif;font-weight:700;color:white;font-size:1rem;}
+.rsp-body{padding:1rem 1.2rem;}
+.rsp-situation{font-size:.89rem;color:var(--dark);line-height:1.6;margin-bottom:.6rem;}
+.rsp-back{display:none;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--sand);}
+.rsp-rolle{font-size:.83rem;line-height:1.7;color:var(--dark);margin-bottom:.45rem;padding:.4rem .8rem;border-radius:8px;background:var(--cream);}
+.rsp-rolle strong{color:var(--acc);}
+.rsp-hint{font-size:.7rem;color:#bbb;}
+/* THESEN */
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:.8rem;display:flex;align-items:flex-start;gap:1rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--acc-lt);flex-shrink:0;line-height:1;margin-top:.1rem;}
+.these-text{font-size:.93rem;line-height:1.65;}
+.these-starter{font-size:.77rem;color:#888;margin-top:.35rem;}
+/* TIPP */
+.tipp{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-top:1.3rem;display:flex;gap:.9rem;align-items:flex-start;}
+.tipp-icon{font-size:1.3rem;flex-shrink:0;}
+.tipp-body{font-size:.87rem;line-height:1.75;}
+.tipp-body strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+/* CULTURAL NOTE */
+.kultur{background:linear-gradient(135deg,var(--acc-lt),rgba(255,255,255,.5));border:1.5px solid var(--acc);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.kultur-title{font-family:'Fraunces',serif;font-weight:700;color:var(--acc);font-size:.9rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;}
+.kultur-body{font-size:.86rem;line-height:1.75;color:var(--dark);}
+</style></head><body>
+<div class="timer-bar">
+  <div class="timer-display" id="td">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="tf"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;flex-shrink:0;">Unterrichtszeit</span>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">&#9654; Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">&#8635;</button>
+  </div>
+</div>
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <button class="phase-btn active" onclick="showPhase('p1',this)">&#9312; Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('p2',this)">&#9313; Wortschatz</button>
+  <button class="phase-btn" onclick="showPhase('p3',this)">&#9314; Dialoge</button>
+  <button class="phase-btn" onclick="showPhase('p4',this)">&#9315; Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('p5',this)">&#9316; Rollenspiele</button>
+  <button class="phase-btn" onclick="showPhase('p6',this)">&#9317; &#220;bungen</button>
+  <button class="phase-btn" onclick="showPhase('p7',this)">&#9318; Sprechen</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;flex-shrink:0;">Alltag B1/B2 &middot; 60 Min.</span>
+</div>
+<main>
+<div id="phase-p1" class="phase active"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Einstieg &middot; 8 Min.</div>
+<div class="card-title">Gesundheit &amp; beim Arzt</div>
+<div class="card-sub">Symptome beschreiben, Termin vereinbaren, Krankmeldung &ndash; das deutsche Gesundheitssystem</div></div><div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="kultur"><div class="kultur-title">&#127987; Kulturnotiz</div><div class="kultur-body">In Deutschland hat jeder eine <strong>Krankenversicherungspflicht</strong>. Die gesetzliche KV (AOK, Barmer, TK...) übernimmt die meisten Kosten. Wichtig: Die <strong>Krankmeldung</strong> (AU) muss spätestens am 4. Fehltag beim Arzt geholt und dem Arbeitgeber geschickt werden.</div></div>
+
+<div class="slabel">Warming-up &ndash; Sprecht zuerst!</div>
+<div class="speak-grid" id="warmup"></div>
+<div class="tipp"><div class="tipp-icon">&#127919;</div><div class="tipp-body"><strong>Heute lernen wir:</strong> Symptome pr&#228;zise beschreiben, Termine vereinbaren, Krankmeldung &ndash; echtes Deutsch beim Arzt!</div></div>
+</div></div></div>
+
+<div id="phase-p2" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Wortschatz &middot; 12 Min.</div>
+<div class="card-title">Wichtige W&#246;rter &amp; <em>Ausdr&#252;cke</em></div>
+<div class="card-sub">Klickt auf die Karten &ndash; Deutsch vorne, Erkl&#228;rung hinten!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div class="slabel">&#129352; Symptome</div><div class="vok-grid" id="vok1"></div>
+<div class="slabel">&#128138; Beim Arzt</div><div class="vok-grid" id="vok2"></div>
+
+</div></div></div>
+
+<div id="phase-p3" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Dialoge &middot; 12 Min.</div>
+<div class="card-title">Echte Gespr&#228;che &ndash; <em>so klingt das!</em></div>
+<div class="card-sub">Lest die Dialoge laut &ndash; wechselt die Rollen!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#127973;</span> Beim Hausarzt &ndash; Erkältung mit Krankmeldung</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Arzt</span><div><div class="dl-txt">Guten Tag! Was f&#252;hrt Sie zu mir?</div></div></div>
+<div class="dl"><span class="dl-spk b">Patient</span><div><div class="dl-txt">Guten Tag. Ich <strong>fühle mich seit vier Tagen nicht gut</strong>. Ich habe Fieber, Halsschmerzen und bin sehr m&#252;de.</div></div></div>
+<div class="dl"><span class="dl-spk ">Arzt</span><div><div class="dl-txt">Wie hoch ist das Fieber?</div></div></div>
+<div class="dl"><span class="dl-spk b">Patient</span><div><div class="dl-txt">Gestern Abend hatte ich <strong>38,7 Grad</strong>. Heute morgen noch 38,2.</div></div></div>
+<div class="dl"><span class="dl-spk ">Arzt</span><div><div class="dl-txt">Haben Sie Husten oder Schnupfen dazu? Und k&#246;nnen Sie schlucken?</div></div></div>
+<div class="dl"><span class="dl-spk b">Patient</span><div><div class="dl-txt">Ja, leichten Husten. Das Schlucken ist <strong>unangenehm</strong>, aber noch möglich.</div></div></div>
+<div class="dl"><span class="dl-spk ">Arzt</span><div><div class="dl-txt">Ich schaue mir kurz den Rachen an... <em>(untersucht)</em> Der ist gerötet. Das ist eine <strong>virale Erkältung</strong>. Ich verschreibe Ihnen ein Mittel gegen die Symptome.</div></div></div>
+<div class="dl"><span class="dl-spk b">Patient</span><div><div class="dl-txt">Und ich br&#228;uchte auch eine <strong>Krankmeldung</strong> – ich kann so nicht arbeiten.</div></div></div>
+<div class="dl"><span class="dl-spk ">Arzt</span><div><div class="dl-txt">Natürlich. Ich schreibe Sie für <strong>drei Tage krank</strong>. Wenn Sie nach Donnerstag noch Fieber haben, kommen Sie wieder.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#128222;</span> Arzttermin telefonisch vereinbaren</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Praxis</span><div><div class="dl-txt">Praxis Dr. Bergmann, guten Morgen!</div></div></div>
+<div class="dl"><span class="dl-spk b">Patient</span><div><div class="dl-txt">Guten Morgen, hier ist Kenji Nakamura. Ich m&#246;chte gerne <strong>einen Termin vereinbaren</strong>. Ich habe seit einer Woche starke R&#252;ckenschmerzen.</div></div></div>
+<div class="dl"><span class="dl-spk ">Praxis</span><div><div class="dl-txt">Sind Sie <strong>bei uns in der Kartei</strong>?</div><div class="dl-ann">in der Kartei = already a patient</div></div></div>
+<div class="dl"><span class="dl-spk b">Patient</span><div><div class="dl-txt">Ja, ich bin Patient bei Dr. Bergmann. Ich war zuletzt vor etwa sechs Monaten da.</div></div></div>
+<div class="dl"><span class="dl-spk ">Praxis</span><div><div class="dl-txt">Gut. W&#228;re <strong>Mittwoch um 11:15 Uhr</strong> m&#246;glich?</div></div></div>
+<div class="dl"><span class="dl-spk b">Patient</span><div><div class="dl-txt">Mittwoch... ja, das passt. Soll ich noch etwas <strong>mitbringen</strong>?</div></div></div>
+<div class="dl"><span class="dl-spk ">Praxis</span><div><div class="dl-txt">Ihren <strong>Versicherungsausweis</strong> bitte, und falls Sie Vorbefunde haben, nehmen Sie die auch mit.</div><div class="dl-ann">Vorbefunde = previous medical records</div></div></div>
+<div class="dl"><span class="dl-spk b">Patient</span><div><div class="dl-txt">Verstanden. Bis Mittwoch, auf Wiederhören!</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#128137;</span> Symptome pr&#228;zise beschreiben &ndash; Übung</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Arzt</span><div><div class="dl-txt">Wo genau haben Sie Schmerzen? K&#246;nnen Sie das beschreiben?</div></div></div>
+<div class="dl"><span class="dl-spk b">Patient</span><div><div class="dl-txt">Der Schmerz ist <strong>hier im Lendenbereich</strong> – er <strong>strahlt manchmal ins Bein aus</strong>.</div><div class="dl-ann">Lendenbereich = lower back</div></div></div>
+<div class="dl"><span class="dl-spk ">Arzt</span><div><div class="dl-txt">Ist der Schmerz <strong>stechend, drückend oder brennend</strong>?</div><div class="dl-ann">präzise Schmerztypen!</div></div></div>
+<div class="dl"><span class="dl-spk b">Patient</span><div><div class="dl-txt">Eher <strong>stechend</strong>, besonders wenn ich aufstehe oder mich vorbeuge.</div></div></div>
+<div class="dl"><span class="dl-spk ">Arzt</span><div><div class="dl-txt">Und seit wann genau? Gab es einen <strong>auslösenden Moment</strong>?</div><div class="dl-ann">auslösend = triggering</div></div></div>
+<div class="dl"><span class="dl-spk b">Patient</span><div><div class="dl-txt">Seit letztem Dienstag. Ich habe einen <strong>schweren Karton</strong> gehoben – dann hat's geschnappt.</div></div></div>
+</div></div>
+
+</div></div></div>
+
+<div id="phase-p4" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Redemittel &middot; 8 Min.</div>
+<div class="card-title">So sagt man das <em>wirklich!</em></div>
+<div class="card-sub">Echte S&#228;tze &ndash; kein Lehrbuchangeldeutsch!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="slabel">&#129352; Symptome beschreiben</div>
+<ul class="phrase-list">
+<li><strong>Ich habe seit <strong>___ Tagen</strong> Schmerzen / Fieber / Husten.</strong> <span style="color:#888;font-size:.82rem;">= I've had ___ for ___ days.</span></li>
+<li><strong>Mir ist <strong>schwindelig / &#252;bel / kalt / warm</strong>.</strong> <span style="color:#888;font-size:.82rem;">= I feel dizzy / nauseous / cold / warm.</span> <em>– 'Mir ist' = unpersönlich!</em></li>
+<li><strong>Der Schmerz ist <strong>stechend / dumpf / brennend</strong>.</strong> <span style="color:#888;font-size:.82rem;">= The pain is stabbing / dull / burning.</span></li>
+<li><strong>Ich f&#252;hle mich <strong>schlapp / ersch&#246;pft / fiebrig</strong>.</strong> <span style="color:#888;font-size:.82rem;">= I feel run-down / exhausted / feverish.</span></li>
+</ul>
+<div class="slabel">&#128138; Beim Arzt h&#246;flich fragen</div>
+<ul class="phrase-list">
+<li><strong>Ich w&#252;rde gerne <strong>einen Termin vereinbaren</strong>.</strong> <span style="color:#888;font-size:.82rem;">= I would like to make an appointment.</span></li>
+<li><strong>K&#246;nnten Sie mir eine <strong>Krankmeldung</strong> ausstellen?</strong> <span style="color:#888;font-size:.82rem;">= Could you write me a sick note?</span> <em>– höflich!</em></li>
+<li><strong>Was nehme ich am besten gegen <strong>___</strong>?</strong> <span style="color:#888;font-size:.82rem;">= What's best to take for ___?</span></li>
+<li><strong>M&#252;ssen Sie mich zum <strong>Spezialisten &#252;berweisen</strong>?</strong> <span style="color:#888;font-size:.82rem;">= Do you need to refer me to a specialist?</span></li>
+</ul>
+<div class="slabel">&#128197; Die Krankmeldung</div>
+<ul class="phrase-list">
+<li><strong>Die AU muss <strong>sp&#228;testens am 4. Krankheitstag</strong> vorliegen.</strong> <span style="color:#888;font-size:.82rem;">= The sick note is due by the 4th sick day.</span> <em>– Viele: ab Tag 1!</em></li>
+<li><strong>Ich schicke die <strong>Krankmeldung</strong> per Post / digital.</strong> <span style="color:#888;font-size:.82rem;">= I'll send the sick note by post / digitally.</span> <em>– eAU seit 2023!</em></li>
+</ul>
+
+</div></div></div>
+
+<div id="phase-p5" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Rollenspiele &middot; 12 Min.</div>
+<div class="card-title">Euer Auftritt &ndash; <em>los geht&apos;s!</em></div>
+<div class="card-sub">Klickt auf die Karte f&#252;r Rollen &amp; Tipps</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div id="rsp1"></div>
+</div></div></div>
+
+<div id="phase-p6" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; &#220;bungen &middot; 8 Min.</div>
+<div class="card-title">Jetzt testen wir!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="slabel">Multiple Choice</div><div id="mc1"></div>
+<hr class="div">
+<div class="slabel">Richtig oder Falsch?</div><div id="rf1"></div>
+</div></div></div>
+
+<div id="phase-p7" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Freies Sprechen &middot; 10 Min.</div>
+<div class="card-title">Eure Meinung &ndash; <em>jetzt seid ihr dran!</em></div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 10 Minuten</div>
+<div class="these"><div class="these-num">1</div><div class="these-text">Wartest du bei Erkältung lieber zuhause ab &ndash; oder gehst du sofort zum Arzt?<div class="these-starter">&#8222;Ich gehe nur zum Arzt wenn...&#8220; / &#8222;In meiner Heimat macht man...&#8220;</div></div></div>
+<div class="these"><div class="these-num">2</div><div class="these-text">Ist das deutsche Gesundheitssystem gut?<div class="these-starter">&#8222;Was gut ist: ...&#8220; / &#8222;Was ich verbessern würde: ...&#8220; / &#8222;Im Vergleich zu meiner Heimat...&#8220;</div></div></div>
+
+<div class="slabel">Sprechkarten</div>
+<div class="speak-grid" id="speakCards"></div>
+</div></div></div>
+</main>
+<script>
+const TOTAL=3600;let rem=TOTAL,intv=null,run=false;
+function upd(){const m=Math.floor(rem/60),s=rem%60;const d=document.getElementById('td');d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('tf').style.width=(rem/TOTAL*100)+'%';d.className='timer-display';if(rem<=600)d.classList.add('warn');if(rem<=120)d.classList.add('urgent');}
+function toggleTimer(){if(run){clearInterval(intv);run=false;document.querySelector('.tbtn.start').textContent='▶ Start';}else{run=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';intv=setInterval(()=>{if(rem>0){rem--;upd();}else{clearInterval(intv);run=false;}},1000);}}
+function resetTimer(){clearInterval(intv);run=false;rem=TOTAL;upd();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));document.getElementById('phase-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function buildVokCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(v=>{const d=document.createElement('div');d.className='vok-card';d.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${(v.back||'').replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint||'&#128070; klicken!'}</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildSpeakCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(i=>{const d=document.createElement('div');d.className='speak-card';d.innerHTML=`<div class="speak-front">${i.front}</div><div class="speak-back">${i.back}</div><div class="speak-hint">&#128070; Tipp &amp; Formulierungshilfe</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildRSP(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(item=>{const d=document.createElement('div');d.className='rsp-card';d.innerHTML=`<div class="rsp-top"><span class="rsp-emoji">${item.emoji}</span><span class="rsp-title">${item.title}</span></div><div class="rsp-body"><div class="rsp-situation">${item.situation}</div><div class="rsp-back"><div class="rsp-rolle"><strong>&#128308; Person A:</strong> ${item.a}</div><div class="rsp-rolle"><strong>&#128309; Person B:</strong> ${item.b}</div>${item.tipps?`<div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">&#128161; Tipps:</strong> ${item.tipps}</div>`:''}</div><div class="rsp-hint">&#128070; klicken f&#252;r Rollen &amp; Tipps</div></div>`;d.addEventListener('click',()=>d.classList.toggle('open'));g.appendChild(d);});}
+function buildMC(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='mc';const opts=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${id}${i}')">${o}</button>`).join('');div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${opts}</div><div class="mc-fb" id="mcfb${id}${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerMC(btn,j,correct,fbId){btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');if(j!==correct)btn.classList.add('nope');const fb=document.getElementById(fbId);if(fb){fb.classList.add('show');fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);}}
+function buildRF(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='rf';div.id=`rf_${id}_${i}`;div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('${id}',${i},true,this)">&#10003; Richtig</button><button class="rfbtn" onclick="answerRF('${id}',${i},false,this)">&#10007; Falsch</button></div><div class="rf-fb" id="rffb_${id}_${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerRF(id,i,answer,btn){const rfData=window['rfData_'+id];const card=document.getElementById(`rf_${id}_${i}`);card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));btn.classList.add(answer?'sel-r':'sel-f');const correct=rfData&&answer===rfData[i].ok;card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);const fb=document.getElementById(`rffb_${id}_${i}`);if(fb){fb.classList.add('show');fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);}}
+buildVokCards([{"front": "die Erk\u00e4ltung", "back": "= cold\n'Ich habe eine Erk\u00e4ltung.'\n\u2192 sich erk\u00e4lten = to catch a cold\nSymptome: Schnupfen, Husten, Halsschmerzen", "hint": "sehr h\u00e4ufig!"}, {"front": "das Fieber", "back": "= fever / temperature\n'Ich habe 38,5 Fieber.'\n\u2192 Fieber messen = to take temperature\nab 38\u00b0C = Fieber", "hint": "ab 38\u00b0C = Fieber"}, {"front": "die Schmerzen (pl.)", "back": "= pain\n'Ich habe starke R\u00fcckenschmerzen.'\nKopf-, Bauch-, Hals-, R\u00fccken-, Zahnschmerzen", "hint": "immer Plural!"}, {"front": "sich unwohl f\u00fchlen", "back": "= to feel unwell\n'Ich f\u00fchle mich heute nicht wohl.'\n'Mir geht es gar nicht gut.'", "hint": "reflexiv!"}, {"front": "schwindelig", "back": "= dizzy\n'Mir ist schwindelig.'\n'Ich bin schwindelig.' \u2190 auch m\u00f6glich", "hint": "'Mir ist...' = I feel..."}, {"front": "sich \u00fcbergeben", "back": "= to vomit\n'Ich musste mich \u00fcbergeben.'\n= \u00fcbergeben (reflexiv)\nUmgangssprachlich: brechen", "hint": "reflexiv!"}, {"front": "die Allergie", "back": "= allergy\n'Ich bin allergisch auf N\u00fcsse.'\n\u2192 allergisch auf + Akkusativ\ndie Allergie, pl. Allergien", "hint": "auf + Akkusativ!"}, {"front": "chronisch", "back": "= chronic\n'Ich habe einen chronischen R\u00fccken.'\n= andauernde Erkrankung", "hint": "\u2260 akut"}],'vok1');
+buildVokCards([{"front": "das Rezept", "back": "= prescription\n'Der Arzt hat mir ein Rezept ausgestellt.'\n\u26a0 \u2260 Kochrezept (cooking recipe)!", "hint": "zwei Bedeutungen!"}, {"front": "die Krankmeldung", "back": "= sick note / sick certificate\n'Ich brauche eine Krankmeldung f\u00fcr die Arbeit.'\nauch: AU, Krankschreibung", "hint": "ab 3. Tag Pflicht!"}, {"front": "\u00fcberweisen", "back": "= to refer (to a specialist)\n'Ich \u00fcberweise Sie zum Orthop\u00e4den.'\ndie \u00dcberweisung = referral slip", "hint": "zum Spezialisten!"}, {"front": "die Kasse / GKV", "back": "= health insurance\n'Ich bin bei der TK versichert.'\nGKV = gesetzlich, PKV = privat", "hint": "KVK = Versicherungskarte"}],'vok2');
+buildMC([{"q": "Was bedeutet 'Mir ist schwindelig'?", "opts": ["Ich bin sehr m\u00fcde", "Ich f\u00fchle mich schwindelig / dizzy", "Ich habe Schmerzen"], "correct": 1, "fb": "&#10003; Richtig! 'Mir ist...' = unpers\u00f6nliche Konstruktion f\u00fcr k\u00f6rperliche Zust\u00e4nde. Auch: 'Mir ist kalt / warm / \u00fcbel.'"}, {"q": "Bis zu welchem Tag muss die Krankmeldung beim Arbeitgeber sein?", "opts": ["Am 1. Tag", "Ab dem 4. Krankheitstag (gesetzlich)", "Nach einer Woche"], "correct": 1, "fb": "&#10003; Gesetzlich: AU ab dem 4. Tag. Aber viele Arbeitgeber verlangen sie schon ab Tag 1 \u2013 im Vertrag pr\u00fcfen!"}, {"q": "Was ist der Unterschied zwischen GKV und PKV?", "opts": ["Kein Unterschied", "GKV = gesetzlich (Pflicht f\u00fcr die meisten), PKV = privat (f\u00fcr Selbstst\u00e4ndige/Gutverdiener)", "PKV ist g\u00fcnstiger"], "correct": 1, "fb": "&#10003; Richtig! GKV = Pflichtversicherung f\u00fcr Angestellte bis ~69.000\u20ac. PKV = freiwillig, anders finanziert."}],'mc1');
+window.rfData_rf1=[{"s": "Das Arztrezept und das Kochrezept schreibt man auf Deutsch gleich.", "ok": true, "fb": "&#10003; Richtig! Beide hei\u00dfen 'das Rezept' \u2013 der Kontext zeigt welches gemeint ist. Englisch: prescription vs. recipe."}, {"s": "Die eAU (elektronische Krankmeldung) ist seit 2023 Standard in Deutschland.", "ok": true, "fb": "&#10003; Richtig! Seit 2023 schicken \u00c4rzte die AU direkt digital an die Krankenkasse und den Arbeitgeber \u2013 kein Papierschein mehr!"}, {"s": "'\u00dcberweisen' bedeutet immer eine Bank\u00fcberweisung.", "ok": false, "fb": "&#10007; Falsch! Im medizinischen Kontext: \u00fcberweisen = to refer to a specialist. 'Der Arzt \u00fcberweist mich zum Orthop\u00e4den.'"}];
+buildRF(window.rfData_rf1,'rf1');
+buildRSP([{"emoji": "&#127973;", "title": "Krankmeldung holen", "situation": "Du bist krank und gehst zum Arzt. Du brauchst unbedingt eine Krankmeldung \u2013 dein Chef hat schon angerufen.", "a": "Patient: Beschreibe Symptome pr\u00e4zise, bitte um AU, erw\u00e4hne den Druck vom Chef.", "b": "Arzt: Stell Fragen, untersuche (verbal), entscheide ob Krankmeldung gerechtfertigt.", "tipps": "Tipp: Den Arzt nicht unter Druck setzen \u2013 er entscheidet allein ob eine AU ausgestellt wird."}, {"emoji": "&#128222;", "title": "Notaufnahme nach Sturz", "situation": "Du bist hingefallen und hast starke Schmerzen im Handgelenk. Du rufst in der Notaufnahme an.", "a": "Patient: Schildere was passiert ist, wie stark die Schmerzen sind, ob es geschwollen ist.", "b": "Notaufnahme: Beurteile ob Notfall (sofort kommen) oder Hausarzt reicht.", "tipps": "Wichtig: 112 = Notarzt (Lebensgefahr) / 116 117 = \u00e4rztlicher Bereitschaftsdienst / Notaufnahme = alles dazwischen"}],'rsp1');
+buildSpeakCards([{"front": "Beschreib mir deine aktuelle Gesundheit \u2013 auf Deutsch!", "back": "'Mir geht es... / Ich f\u00fchle mich... / Ich habe manchmal... / Was mich nervt ist...'"}, {"front": "Hast du schon einen deutschen Arzt besucht? Wie war das?", "back": "'Ich war bei... / Der Arzt hat... / Ich musste... / Ich fand es anders als...'"}, {"front": "Was machst du wenn du erk\u00e4ltet bist?", "back": "'Wenn ich erk\u00e4ltet bin... / Ich schw\u00f6re auf... / Meine Oma hat immer...'"}],'speakCards');
+buildSpeakCards([{"front": "Was war deine bisher lustigste oder merkw\u00fcrdigste Arztgeschichte?", "back": "'Einmal... / Der Arzt sagte... / Ich verstand nicht..."}],'warmup');
+upd();</script></body></html>

@@ -1,0 +1,604 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="no-referrer">
+<title>Konjunktiv 2 · deutschoderwas Sprechclub</title>
+<style>
+/* Self-contained fonts: system stack works offline, Google Fonts loads when online */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+:root {
+  --cream:#F7F3EE; --dark:#1A1410; --brown:#5C3D2E;
+  --rust:#C4622D; --rust-lt:#E8896A; --sand:#D9C4A8; --sand-lt:#EEE4D4;
+  --green:#3D6B4F; --green-lt:#D4E8DC; --red:#C0392B; --red-lt:#F5DDD9;
+  --beige:#E8D5B0; --beige-dk:#C8A870;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}
+.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--beige-dk),var(--rust));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.tbtn.start{background:var(--green);color:white;}
+.tbtn.reset{background:#555;color:white;}
+.timer-label{font-size:.7rem;color:#aaa;white-space:nowrap;}
+
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--beige-dk);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--beige-dk);color:var(--beige);}
+.phase-btn.active{background:var(--beige-dk);border-color:var(--beige-dk);color:var(--dark);}
+.phase-time{font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;}
+
+main{max-width:900px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}
+.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;position:relative;overflow:hidden;}
+.card-header::after{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.04);}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--beige-dk);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.35rem;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--beige-dk) 0%,var(--rust) 60%,var(--rust-lt) 100%);}
+.card-body{padding:1.6rem 1.8rem;}
+
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--rust);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.3rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+
+.explain{background:var(--sand-lt);border-radius:12px;padding:1.1rem 1.4rem;margin-bottom:1.2rem;border-left:4px solid var(--beige-dk);}
+.explain h3{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--brown);margin-bottom:.5rem;}
+.explain p{font-size:.9rem;line-height:1.7;}
+.explain strong{color:var(--rust);}
+
+.formula{background:var(--dark);color:white;border-radius:12px;padding:1rem 1.5rem;margin-bottom:1.2rem;font-family:'Fraunces',serif;font-size:1rem;font-weight:700;text-align:center;line-height:1.8;}
+.formula span{color:var(--rust-lt);}
+.formula small{display:block;font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:400;color:#aaa;margin-top:.3rem;}
+
+.ex{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.75rem 1.1rem;margin-bottom:.5rem;border-left:4px solid var(--rust);font-size:.92rem;line-height:1.6;}
+.ex .de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);}
+.ex .en{font-size:.78rem;color:#aaa;font-style:italic;}
+.ex strong{color:var(--rust);}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem;}
+@media(max-width:560px){.compare{grid-template-columns:1fr;}}
+.compare-col{border-radius:10px;overflow:hidden;}
+.compare-head{padding:.5rem 1rem;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
+.compare-head.ind{background:var(--beige-dk);color:var(--dark);}
+.compare-head.knj{background:var(--rust);color:white;}
+.compare-row{background:white;border:1px solid var(--sand);padding:.6rem 1rem;font-size:.88rem;line-height:1.5;}
+.compare-row:not(:last-child){border-bottom:none;}
+
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:.75rem;display:flex;align-items:flex-start;gap:.9rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:900;color:var(--beige-dk);flex-shrink:0;line-height:1;}
+.these-text{font-size:.92rem;line-height:1.6;}
+.these-text strong{color:var(--rust-lt);}
+.these-starter{font-size:.76rem;color:#888;margin-top:.3rem;}
+
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--beige-dk);}
+.speak-card:hover{border-color:var(--rust);transform:translateY(-2px);box-shadow:0 5px 18px rgba(92,61,46,.1);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.93rem;color:var(--brown);}
+.speak-back{font-size:.82rem;color:var(--dark);line-height:1.5;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}
+.speak-hint{font-size:.68rem;color:#aaa;margin-top:.4rem;}
+
+.gap-row{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.75rem 1.1rem;margin-bottom:.5rem;font-size:.92rem;line-height:1.9;display:flex;flex-wrap:wrap;align-items:center;gap:.3rem;transition:border-color .2s,background .2s;}
+.gap-row.correct{border-color:var(--green);background:var(--green-lt);}
+.gap-row.wrong{border-color:var(--red);background:var(--red-lt);}
+.blank{display:inline-block;min-width:110px;border-bottom:2.5px solid var(--rust);font-family:'Fraunces',serif;font-weight:700;color:var(--brown);font-size:.9rem;padding:0 .3rem;cursor:pointer;text-align:center;}
+.blank:empty::before{content:'___';color:#ccc;font-style:italic;font-size:.8rem;}
+.g-icon{font-size:.9rem;opacity:0;transition:opacity .3s;}
+.gap-row.correct .g-icon,.gap-row.wrong .g-icon{opacity:1;}
+.wbank{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem;}
+.chip{background:var(--dark);color:var(--cream);font-family:'Fraunces',serif;font-weight:700;font-size:.8rem;padding:.25rem .8rem;border-radius:20px;cursor:pointer;transition:background .15s,transform .1s;user-select:none;outline:2px solid transparent;}
+.chip:hover{background:var(--rust);transform:scale(1.04);}
+.chip.active{background:var(--rust);outline:2px solid var(--rust-lt);}
+
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.2rem;margin-bottom:.75rem;}
+.mc-q{font-size:.93rem;font-weight:600;margin-bottom:.7rem;line-height:1.5;}
+.mc-opts{display:flex;flex-direction:column;gap:.35rem;}
+.mc-opt{padding:.45rem .9rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.87rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--rust);background:#FFF0EA;}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.8rem;margin-top:.55rem;display:none;font-weight:500;line-height:1.5;}
+.mc-fb.show{display:block;}
+.mc-fb.ok{color:var(--green);}
+.mc-fb.nope{color:var(--red);}
+
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}
+.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.91rem;margin-bottom:.55rem;line-height:1.5;}
+.rf-btns{display:flex;gap:.4rem;}
+.rfbtn{padding:.25rem .78rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.77rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--rust);color:var(--rust);}
+.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}
+.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.79rem;margin-top:.5rem;font-weight:500;display:none;line-height:1.5;}
+.rf-fb.show{display:block;}
+.rf-fb.ok{color:var(--green);}
+.rf-fb.bad{color:var(--red);}
+
+.check-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--rust);color:white;border:none;border-radius:30px;padding:.52rem 1.3rem;font-family:'Fraunces',serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .15s;margin-top:.8rem;}
+.check-btn:hover{background:var(--brown);transform:scale(1.02);}
+.score{display:inline-block;background:var(--dark);color:var(--cream);font-family:'Fraunces',serif;font-weight:700;font-size:.82rem;padding:.2rem .85rem;border-radius:20px;margin-left:.7rem;opacity:0;transition:opacity .3s;}
+.score.show{opacity:1;}
+.reset-link{font-size:.72rem;color:#bbb;cursor:pointer;text-decoration:underline;margin-left:.7rem;}
+.reset-link:hover{color:var(--rust);}
+
+.dialog{background:var(--sand-lt);border-radius:14px;overflow:hidden;margin-bottom:1.2rem;}
+.dialog-hd{background:var(--dark);color:var(--cream);padding:.55rem 1.2rem;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.dialog-body{padding:.9rem 1.2rem;}
+.dl{display:flex;gap:.65rem;margin-bottom:.65rem;align-items:flex-start;}
+.dl-spk{font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:52px;padding-top:.2rem;flex-shrink:0;}
+.dl-spk.a{color:var(--rust);}
+.dl-spk.b{color:var(--green);}
+.dl-txt{font-size:.89rem;line-height:1.55;}
+.dl-txt strong{color:var(--brown);font-family:'Fraunces',serif;}
+
+.tipp{background:var(--dark);color:var(--cream);border-radius:14px;padding:1rem 1.3rem;margin-top:1.2rem;display:flex;gap:.8rem;align-items:flex-start;}
+.tipp-icon{font-size:1.2rem;flex-shrink:0;}
+.tipp-text{font-size:.86rem;line-height:1.7;}
+.tipp-text strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--beige);color:var(--brown);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.4rem 0;}
+</style>
+</head>
+<body>
+
+<!-- TIMER -->
+<div class="timer-bar">
+  <div class="timer-display" id="timerDisplay">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="timerFill"></div></div>
+  <span class="timer-label">Unterrichtszeit</span>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">▶ Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">↺</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <button class="phase-btn active" onclick="showPhase('einstieg',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('erklaerung',this)">② Erklärung</button>
+  <button class="phase-btn" onclick="showPhase('uebung',this)">③ Übungen</button>
+  <button class="phase-btn" onclick="showPhase('sprechen',this)">④ Sprechen</button>
+  <button class="phase-btn" onclick="showPhase('abschluss',this)">⑤ Abschluss</button>
+  <span class="phase-time">Grammatik · B1–C1 · 60 Min.</span>
+</div>
+
+<main>
+
+<!-- ① EINSTIEG -->
+<div id="phase-einstieg" class="phase active">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Grammatik B1–C1 · Einstieg · 10 Min.</div>
+      <div class="card-title">Konjunktiv 2 – <em>Wäre das nicht schön?</em></div>
+      <div class="card-sub">Was würdest du tun, wenn du könntest?</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">Warming-up – Jeder sagt einen Satz!</div>
+      <div class="these" style="cursor:default;">
+        <div class="these-num">?</div>
+        <div class="these-text">
+          Wenn du morgen frei hättest – was würdest du tun?
+          <div class="these-starter">Jede Person sagt einen Satz. Kein perfektes Deutsch nötig – einfach sprechen!</div>
+        </div>
+      </div>
+
+      <div class="slabel">Schaut euch diese Sätze an – was fällt euch auf?</div>
+      <div class="ex"><div class="de">Ich <strong>würde</strong> gerne nach Japan reisen.</div><div class="en">I would love to travel to Japan.</div></div>
+      <div class="ex"><div class="de">Wenn ich Zeit <strong>hätte</strong>, <strong>würde</strong> ich jeden Tag Sport machen.</div><div class="en">If I had time, I would exercise every day.</div></div>
+      <div class="ex"><div class="de"><strong>Könntest</strong> du mir bitte helfen?</div><div class="en">Could you please help me?</div></div>
+      <div class="ex"><div class="de">Das <strong>wäre</strong> wirklich toll!</div><div class="en">That would be really great!</div></div>
+
+      <div class="tipp">
+        <div class="tipp-icon">💡</div>
+        <div class="tipp-text"><strong>Frage an die Gruppe:</strong> Was haben diese Sätze gemeinsam? Wann benutzen wir diese Formen? Sammelt Ideen!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② ERKLÄRUNG -->
+<div id="phase-erklaerung" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Grammatik B1–C1 · Erklärung · 15 Min.</div>
+      <div class="card-title"><em>Konjunktiv 2</em> – So funktioniert's!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 15 Minuten</div>
+
+      <div class="explain">
+        <h3>Wofür brauchen wir den Konjunktiv 2?</h3>
+        <p>
+          <strong>1. Wünsche &amp; Träume</strong> → Dinge, die (noch) nicht Realität sind<br>
+          <strong>2. Höfliche Bitten</strong> → Könnten Sie…? Würden Sie…?<br>
+          <strong>3. Hypothesen / Wenn-dann</strong> → Was wäre, wenn…?<br>
+          <strong>4. Ratschläge geben</strong> → An deiner Stelle würde ich…
+        </p>
+      </div>
+
+      <div class="slabel">Indikativ vs. Konjunktiv 2</div>
+      <div class="compare">
+        <div class="compare-col">
+          <div class="compare-head ind">Indikativ = Realität</div>
+          <div class="compare-row">Ich <b>habe</b> keine Zeit.</div>
+          <div class="compare-row">Er <b>ist</b> nicht hier.</div>
+          <div class="compare-row"><b>Kannst</b> du mir helfen?</div>
+          <div class="compare-row">Ich <b>gehe</b> nach Hause.</div>
+        </div>
+        <div class="compare-col">
+          <div class="compare-head knj">Konjunktiv 2 = Wunsch / Hypothese</div>
+          <div class="compare-row">Wenn ich Zeit <strong>hätte</strong>…</div>
+          <div class="compare-row">Wenn er hier <strong>wäre</strong>…</div>
+          <div class="compare-row"><strong>Könntest</strong> du mir helfen?</div>
+          <div class="compare-row">Ich <strong>würde</strong> nach Hause gehen.</div>
+        </div>
+      </div>
+
+      <div class="slabel">Bildung: würde + Infinitiv (Standardform)</div>
+      <div class="formula">
+        ich <span>würde</span> · du <span>würdest</span> · er/sie/es <span>würde</span><br>
+        wir <span>würden</span> · ihr <span>würdet</span> · sie/Sie <span>würden</span>
+        <small>Für fast alle Verben im Alltag: würde + Infinitiv ✓</small>
+      </div>
+
+      <div class="slabel">Die 6 wichtigsten Sonderformen – diese auswendig lernen!</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.55rem;margin-bottom:1.2rem;">
+        <div class="ex"><div class="de"><strong>haben → hätte</strong></div><div class="en">Ich hätte gerne mehr Zeit.</div></div>
+        <div class="ex"><div class="de"><strong>sein → wäre</strong></div><div class="en">Das wäre super!</div></div>
+        <div class="ex"><div class="de"><strong>können → könnte</strong></div><div class="en">Könntest du mir helfen?</div></div>
+        <div class="ex"><div class="de"><strong>müssen → müsste</strong></div><div class="en">Ich müsste mehr lernen.</div></div>
+        <div class="ex"><div class="de"><strong>sollen → sollte</strong></div><div class="en">Du solltest früher schlafen.</div></div>
+        <div class="ex"><div class="de"><strong>dürfen → dürfte</strong></div><div class="en">Das dürfte nicht passieren.</div></div>
+      </div>
+
+      <div class="slabel">Wenn-Satz Struktur</div>
+      <div class="formula">
+        Wenn ich mehr Zeit <span>hätte</span>, <span>würde</span> ich mehr reisen.
+        <small>Wenn + Konjunktiv 2 → , → Konjunktiv 2 + Infinitiv</small>
+      </div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🎯</div>
+        <div class="tipp-text"><strong>Merktrick:</strong> Für Träume → <em>würde + Infinitiv</em>. Für hätte / wäre / könnte → einfach die Sonderform nutzen. Das reicht für 95% des Alltags!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ ÜBUNGEN -->
+<div id="phase-uebung" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Grammatik B1–C1 · Übungen · 15 Min.</div>
+      <div class="card-title">Jetzt üben wir!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 15 Minuten</div>
+
+      <div class="slabel">Übung 1 – Lückentext</div>
+      <p style="font-size:.82rem;color:#777;margin-bottom:.8rem;">Klick auf ein Wort, dann auf die Lücke im Satz.</p>
+      <div class="wbank" id="wb1"></div>
+      <div id="gaps1"></div>
+      <button class="check-btn" onclick="checkGaps()">✓ Prüfen <span id="sc1" class="score"></span></button>
+      <span class="reset-link" onclick="resetGaps()">zurücksetzen</span>
+
+      <hr class="div">
+
+      <div class="slabel">Übung 2 – Richtig oder Falsch?</div>
+      <div id="rf1"></div>
+
+      <hr class="div">
+
+      <div class="slabel">Übung 3 – Was passt?</div>
+      <div id="mc1"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ SPRECHEN -->
+<div id="phase-sprechen" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Grammatik B1–C1 · Sprechen · 15 Min.</div>
+      <div class="card-title">Konjunktiv 2 im <em>echten Gespräch</em></div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 15 Minuten</div>
+
+      <div class="slabel">Sprechkarten – klick für Antworthilfe</div>
+      <p style="font-size:.82rem;color:#777;margin-bottom:.8rem;">Beantworte die Frage mit Konjunktiv 2!</p>
+      <div class="speak-grid" id="speakCards"></div>
+
+      <hr class="div">
+
+      <div class="slabel">Musterdialog – Höfliche Bitte im Büro</div>
+      <div class="dialog">
+        <div class="dialog-hd">💬 Im Büro</div>
+        <div class="dialog-body">
+          <div class="dl"><span class="dl-spk a">Anna</span><span class="dl-txt"><strong>Könntest</strong> du mir kurz helfen? Ich <strong>hätte</strong> eine Frage.</span></div>
+          <div class="dl"><span class="dl-spk b">Ben</span><span class="dl-txt">Natürlich! Was <strong>wäre</strong> deine Frage?</span></div>
+          <div class="dl"><span class="dl-spk a">Anna</span><span class="dl-txt"><strong>Würdest</strong> du dir das mal ansehen? Ich bin nicht sicher, ob das passt.</span></div>
+          <div class="dl"><span class="dl-spk b">Ben</span><span class="dl-txt">Klar! Ich <strong>würde</strong> sagen, du <strong>solltest</strong> den zweiten Absatz kürzen. Das <strong>wäre</strong> besser.</span></div>
+        </div>
+      </div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🗣️</div>
+        <div class="tipp-text"><strong>Aufgabe:</strong> Baut zu zweit einen ähnlichen Dialog – z.B. im Restaurant, beim Arzt oder zwischen Freunden. Mindestens 3 Konjunktiv-2-Formen!</div>
+      </div>
+
+      <hr class="div">
+
+      <div class="slabel">Thesen zum Diskutieren</div>
+      <p style="font-size:.82rem;color:#777;margin-bottom:.8rem;">Dafür oder dagegen? Benutzt Konjunktiv 2!</p>
+
+      <div class="these">
+        <div class="these-num">1</div>
+        <div class="these-text">
+          Wenn alle Menschen weniger arbeiten würden, wäre die Welt glücklicher.
+          <div class="these-starter">Starter: „Ich glaube, das wäre… / Das würde bedeuten, dass… / Einerseits… andererseits…"</div>
+        </div>
+      </div>
+      <div class="these">
+        <div class="these-num">2</div>
+        <div class="these-text">
+          Wenn Bildung komplett kostenfrei wäre, würden alle die gleichen Chancen haben.
+          <div class="these-starter">Starter: „Das würde ich so nicht sagen… / Ich würde dem zustimmen, weil…"</div>
+        </div>
+      </div>
+      <div class="these">
+        <div class="these-num">3</div>
+        <div class="these-text">
+          Wenn ich Politiker/in wäre, würde ich als erstes… <em>[jeder ergänzt!]</em>
+          <div class="these-starter">Jeder in der Runde ergänzt den Satz auf seine/ihre Art.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ ABSCHLUSS -->
+<div id="phase-abschluss" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Grammatik B1–C1 · Abschluss · 5 Min.</div>
+      <div class="card-title">Das nehmen wir mit!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 5 Minuten</div>
+
+      <div class="slabel">Die 3 Kernsätze – auswendig lernen!</div>
+      <div style="display:grid;gap:.7rem;margin-bottom:1.4rem;">
+        <div style="background:var(--dark);color:white;border-radius:12px;padding:.95rem 1.3rem;">
+          <div style="font-family:'Fraunces',serif;font-size:1.05rem;font-weight:700;color:var(--rust-lt);">„Das wäre toll!"</div>
+          <div style="font-size:.76rem;color:#aaa;margin-top:.25rem;">= That would be great! · wäre = Konjunktiv von sein</div>
+        </div>
+        <div style="background:var(--dark);color:white;border-radius:12px;padding:.95rem 1.3rem;">
+          <div style="font-family:'Fraunces',serif;font-size:1.05rem;font-weight:700;color:var(--rust-lt);">„Könntest du mir helfen?"</div>
+          <div style="font-size:.76rem;color:#aaa;margin-top:.25rem;">= Could you help me? · viel höflicher als „Kannst du…?"</div>
+        </div>
+        <div style="background:var(--dark);color:white;border-radius:12px;padding:.95rem 1.3rem;">
+          <div style="font-family:'Fraunces',serif;font-size:1.05rem;font-weight:700;color:var(--rust-lt);">„Wenn ich Zeit hätte, würde ich…"</div>
+          <div style="font-size:.76rem;color:#aaa;margin-top:.25rem;">= If I had time, I would… · das klassische wenn…würde-Muster</div>
+        </div>
+      </div>
+
+      <div class="slabel">Abschlussrunde</div>
+      <div class="these" style="cursor:default;">
+        <div class="these-num">🎤</div>
+        <div class="these-text">
+          Vervollständige: <strong>„Wenn ich heute Abend nichts zu tun hätte, würde ich…"</strong>
+          <div class="these-starter">Jeder in der Runde – auf Deutsch, mit Konjunktiv 2!</div>
+        </div>
+      </div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🏠</div>
+        <div class="tipp-text"><strong>Hausaufgabe (optional):</strong> Schreib 5 Sätze mit Konjunktiv 2 über dein Leben. Was würdest du ändern, wenn du könntest?</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// TIMER
+const TOTAL = 3600;
+let remaining = TOTAL, interval = null, running = false;
+function updateTimerDisplay() {
+  const m = Math.floor(remaining/60), s = remaining%60;
+  const d = document.getElementById('timerDisplay');
+  d.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  document.getElementById('timerFill').style.width = (remaining/TOTAL*100)+'%';
+  d.className = 'timer-display';
+  if(remaining<=600) d.classList.add('warn');
+  if(remaining<=120) d.classList.add('urgent');
+}
+function toggleTimer() {
+  if(running){clearInterval(interval);running=false;document.querySelector('.tbtn.start').textContent='▶ Start';}
+  else{running=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';interval=setInterval(()=>{if(remaining>0){remaining--;updateTimerDisplay();}else{clearInterval(interval);running=false;}},1000);}
+}
+function resetTimer(){clearInterval(interval);running=false;remaining=TOTAL;updateTimerDisplay();document.querySelector('.tbtn.start').textContent='▶ Start';}
+
+// NAV
+function showPhase(id,btn){
+  document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('phase-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// GAP DATA
+const gapData = [
+  {pre:'Wenn ich mehr Geld ',blank:'hätte',post:', würde ich eine Weltreise machen.'},
+  {pre:'Das ',blank:'wäre',post:' wirklich eine tolle Idee!'},
+  {pre:'Ich ',blank:'würde',post:' gerne Spanisch lernen.'},
+  {pre:'',blank:'Könntest',post:' du mir bitte das Salz geben?'},
+  {pre:'An deiner Stelle ',blank:'würde',post:' ich früher aufstehen.'},
+  {pre:'Wenn er hier ',blank:'wäre',post:', könnten wir zusammen feiern.'},
+  {pre:'Sie ',blank:'müsste',post:' eigentlich mehr schlafen.'},
+  {pre:'Wenn wir Zeit ',blank:'hätten',post:', würden wir euch besuchen.'},
+];
+const bankWords = ['hätte','hätten','wäre','würde','Könntest','müsste'];
+let selChip=null;
+const fills={};
+
+function buildGaps(){
+  const wb=document.getElementById('wb1');
+  wb.innerHTML='';
+  bankWords.forEach(w=>{
+    const c=document.createElement('span');
+    c.className='chip';c.textContent=w;c.dataset.word=w;
+    c.addEventListener('click',()=>{
+      document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));
+      selChip=selChip===w?null:w;
+      if(selChip)c.classList.add('active');
+    });
+    wb.appendChild(c);
+  });
+  const gc=document.getElementById('gaps1');
+  gc.innerHTML='';
+  gapData.forEach((s,i)=>{
+    const row=document.createElement('div');
+    row.className='gap-row';row.id='gr'+i;
+    row.innerHTML=`<span>${s.pre}</span><span class="blank" id="gb${i}" onclick="fillBlank(${i})">${fills[i]||''}</span><span>${s.post}</span><span class="g-icon" id="gi${i}"></span>`;
+    gc.appendChild(row);
+  });
+}
+function fillBlank(i){
+  if(!selChip)return;
+  fills[i]=selChip;
+  document.getElementById('gb'+i).textContent=selChip;
+  document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));
+  selChip=null;
+}
+function checkGaps(){
+  let ok=0;
+  gapData.forEach((s,i)=>{
+    const row=document.getElementById('gr'+i);
+    const icon=document.getElementById('gi'+i);
+    const correct=fills[i]&&fills[i].toLowerCase()===s.blank.toLowerCase();
+    row.classList.toggle('correct',correct);row.classList.toggle('wrong',!correct);
+    icon.textContent=correct?'✅':'❌';
+    if(correct)ok++;
+  });
+  const sc=document.getElementById('sc1');
+  sc.textContent=`${ok}/${gapData.length}`;sc.classList.add('show');
+}
+function resetGaps(){
+  gapData.forEach((s,i)=>{delete fills[i];document.getElementById('gr'+i).classList.remove('correct','wrong');document.getElementById('gi'+i).textContent='';document.getElementById('gb'+i).textContent='';});
+  selChip=null;document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));
+  document.getElementById('sc1').classList.remove('show');
+}
+
+// RF
+const rfData=[
+  {s:'„Wenn ich Zeit hätte, ich würde mehr Sport machen." – Das ist korrekt.',ok:false,fb:'✗ Falsch! Im Hauptsatz nach einem wenn-Satz steht das Verb an zweiter Stelle: „…<strong>würde ich</strong> mehr Sport machen."'},
+  {s:'„Könntest du mir helfen?" ist höflicher als „Kannst du mir helfen?"',ok:true,fb:'✓ Richtig! Konjunktiv 2 macht Bitten deutlich höflicher.'},
+  {s:'„Ich würde gerne nach Berlin fahren." – Das ist korrekt.',ok:true,fb:'✓ Richtig! würde + Infinitiv – perfekte Standardform!'},
+  {s:'„Das wäre" bedeutet dasselbe wie „Das war" (Vergangenheit).',ok:false,fb:'✗ Falsch! „wäre" = Konjunktiv 2 von sein (Wunsch/Hypothese). „Das war" = Vergangenheit (Indikativ).'},
+  {s:'„An deiner Stelle würde ich früher schlafen." – Das ist ein typischer Ratschlag.',ok:true,fb:'✓ Richtig! „An deiner Stelle würde ich…" ist die klassische Ratschlag-Formel.'},
+];
+function buildRF(){
+  const c=document.getElementById('rf1');
+  rfData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='rf';div.id='rfc'+i;
+    div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF(${i},true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF(${i},false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerRF(i,answer,btn){
+  const card=document.getElementById('rfc'+i);
+  card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));
+  btn.classList.add(answer?'sel-r':'sel-f');
+  const correct=answer===rfData[i].ok;
+  card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);
+  const fb=document.getElementById('rffb'+i);fb.classList.add('show');
+  fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);
+}
+
+// MC
+const mcData=[
+  {q:'Welcher Satz benutzt Konjunktiv 2 für eine höfliche Bitte?',opts:['Kannst du mir helfen?','Könntest du mir helfen?','Du kannst mir helfen.'],correct:1,fb:'✓ „Könntest du…?" = höfliche Konjunktiv-2-Form von können.'},
+  {q:'Wenn er mehr Geld ___, würde er eine große Wohnung mieten.',opts:['hat','hatte','hätte'],correct:2,fb:'✓ „hätte" = Konjunktiv 2 von haben. Im wenn-Satz brauchen wir Konjunktiv 2.'},
+  {q:'Was bedeutet: „Das wäre nicht schlecht!"?',opts:['Das ist nicht schlecht (Realität)','Das war nicht schlecht (Vergangenheit)','Das fände ich gut / Das würde passen (Hypothese/Bewertung)'],correct:2,fb:'✓ „wäre" = hypothetische Bewertung, kein realer Fakt.'},
+  {q:'Welcher Satz ist ein typischer Ratschlag mit Konjunktiv 2?',opts:['Du sollst früher schlafen.','An deiner Stelle würde ich früher schlafen.','Geh früher schlafen!'],correct:1,fb:'✓ „An deiner Stelle würde ich…" = die klassische Ratschlag-Formel!'},
+];
+function buildMC(){
+  const c=document.getElementById('mc1');
+  mcData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='mc';
+    const optsHtml=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${i}')">${o}</button>`).join('');
+    div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${optsHtml}</div><div class="mc-fb" id="mcfb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerMC(btn,j,correct,fbId){
+  const opts=btn.closest('.mc-opts');
+  opts.querySelectorAll('.mc-opt').forEach(b=>{b.disabled=true;});
+  opts.querySelectorAll('.mc-opt')[correct].classList.add('ok');
+  if(j!==correct)btn.classList.add('nope');
+  const fb=document.getElementById(fbId);fb.classList.add('show');
+  fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);
+}
+
+// SPEAK CARDS
+const speakData=[
+  {front:'Was würdest du tun, wenn du eine Woche frei hättest?',back:'Wenn ich eine Woche frei hätte, würde ich… / Ich würde wahrscheinlich…'},
+  {front:'Wie würdest du jemandem höflich um Hilfe bitten?',back:'Könntest du mir bitte helfen? / Würdest du mir einen Gefallen tun?'},
+  {front:'Was wäre für dich das perfekte Wochenende?',back:'Das wäre… / Ich würde gerne… / Am liebsten würde ich…'},
+  {front:'Wenn du eine Superkraft hättest – welche wäre das?',back:'Wenn ich eine Superkraft hätte, würde ich… / Ich würde mir wünschen, dass ich…'},
+  {front:'Was würdest du ändern, wenn du Bürgermeister/in wärst?',back:'Wenn ich Bürgermeister/in wäre, würde ich… / Ich würde dafür sorgen, dass…'},
+  {front:'Wie würdest du einem Freund raten, der sehr gestresst ist?',back:'An deiner Stelle würde ich… / Du solltest vielleicht… / Ich würde dir empfehlen…'},
+];
+function buildSpeakCards(){
+  const grid=document.getElementById('speakCards');
+  speakData.forEach(item=>{
+    const div=document.createElement('div');div.className='speak-card';
+    div.innerHTML=`<div class="speak-front">${item.front}</div><div class="speak-back">${item.back}</div><div class="speak-hint">👆 klicken für Antworthilfe</div>`;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+// INIT
+buildGaps();buildRF();buildMC();buildSpeakCards();updateTimerDisplay();
+</script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html><html lang="de"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title data-id="th-modified">B1: Sprachspiele – Wochen-Wortschatz spielerisch festigen · deutschoderwas</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#9B59B6;--acc-lt:#E8D0F5;--violet:#7B3C9C;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}.tbtn.reset{background:#555;color:white;}
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;scrollbar-width:none;}
+.phase-nav::-webkit-scrollbar{display:none;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;}.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.4rem;line-height:1.5;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.4rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--acc-lt);color:var(--acc);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.7rem .9rem;cursor:pointer;transition:all .2s;border-top:3px solid var(--acc);font-size:.85rem;}
+.vok-card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.08);}
+.vok-card.flipped{background:var(--acc-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:.92rem;color:var(--dark);}
+.vok-back{font-size:.78rem;color:var(--dark);line-height:1.55;display:none;margin-top:.4rem;padding-top:.4rem;border-top:1px solid var(--sand);}
+.vok-card.flipped .vok-back{display:block;}.vok-hint{font-size:.65rem;color:#aaa;margin-top:.25rem;font-style:italic;}
+.theme-chip{display:inline-block;font-size:.62rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;background:var(--sand-lt);color:var(--brown);margin-bottom:.3rem;letter-spacing:.05em;text-transform:uppercase;}
+.tipp{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-top:1.3rem;display:flex;gap:.9rem;align-items:flex-start;}
+.tipp-icon{font-size:1.3rem;flex-shrink:0;}.tipp-body{font-size:.87rem;line-height:1.75;}.tipp-body strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+.kultur{background:linear-gradient(135deg,var(--acc-lt),rgba(255,255,255,.5));border:1.5px solid var(--acc);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.kultur-title{font-family:'Fraunces',serif;font-weight:700;color:var(--violet);font-size:.95rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;}
+.kultur-body{font-size:.87rem;line-height:1.75;color:var(--dark);}
+.spiel-intro{background:white;border:2px solid var(--acc);border-radius:18px;padding:1.4rem 1.6rem;margin-bottom:1.2rem;display:grid;grid-template-columns:60px 1fr;gap:1.1rem;align-items:start;}
+.spiel-intro-icon{font-size:2.4rem;line-height:1;}
+.spiel-intro-title{font-family:'Fraunces',serif;font-weight:900;font-size:1.3rem;color:var(--violet);margin-bottom:.4rem;}
+.spiel-intro-rules{font-size:.88rem;line-height:1.7;color:var(--dark);}
+.spiel-intro-rules strong{color:var(--violet);font-family:'Fraunces',serif;}
+.tabu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8rem;}
+.tabu-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;}
+.tabu-card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.09);}
+.tabu-hd{background:var(--violet);color:white;padding:.7rem 1rem;text-align:center;}
+.tabu-hd-label{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--acc-lt);}
+.tabu-word{font-family:'Fraunces',serif;font-weight:900;font-size:1.25rem;line-height:1.1;margin-top:.15rem;}
+.tabu-bd{padding:.8rem 1rem;}
+.tabu-bd-label{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:.4rem;}
+.tabu-list{list-style:none;}
+.tabu-list li{font-size:.83rem;color:#444;padding:.2rem 0;display:flex;align-items:center;gap:.4rem;border-bottom:1px dashed #eee;}
+.tabu-list li:last-child{border-bottom:none;}
+.tabu-list li::before{content:'✗';color:var(--red);font-weight:700;}
+.satz-table{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:1rem;}
+.satz-col{background:white;border:1.5px solid var(--sand);border-radius:12px;overflow:hidden;}
+.satz-col-hd{background:var(--violet);color:white;padding:.55rem .8rem;text-align:center;font-family:'Fraunces',serif;font-weight:700;font-size:.85rem;letter-spacing:.04em;}
+.satz-col-hd.b{background:var(--rust);}
+.satz-col-hd.c{background:var(--green);}
+.satz-cell{padding:.5rem .9rem;font-size:.86rem;border-top:1px solid #f0f0f0;color:#444;}
+.satz-cell:first-of-type{border-top:none;}
+.satz-cell strong{font-family:'Fraunces',serif;color:var(--brown);}
+.satz-example{background:var(--acc-lt);border-radius:10px;padding:.7rem 1rem;font-size:.85rem;font-style:italic;color:var(--violet);margin-top:.8rem;line-height:1.6;}
+.satz-example strong{font-family:'Fraunces',serif;font-style:normal;}
+.wenn-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;margin-bottom:.85rem;display:grid;grid-template-columns:1fr;}
+.wenn-situation{background:linear-gradient(135deg,var(--acc-lt),rgba(255,255,255,.7));padding:.9rem 1.2rem;border-bottom:1.5px solid var(--sand);}
+.wenn-situation-label{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--violet);margin-bottom:.3rem;}
+.wenn-situation-text{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--dark);line-height:1.4;}
+.wenn-must{padding:.85rem 1.2rem;}
+.wenn-must-label{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rust);margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;}
+.wenn-must-words{display:flex;flex-wrap:wrap;gap:.4rem;}
+.wenn-word{background:var(--rust);color:white;font-family:'Fraunces',serif;font-weight:700;font-size:.85rem;padding:.25rem .7rem;border-radius:14px;}
+.wenn-tipp{font-size:.78rem;color:#888;font-style:italic;margin-top:.5rem;line-height:1.5;}
+</style><meta property="og:title" content="B1: Sprachspiele – Wochen-Wortschatz spielerisch festigen · deutschoderwas" data-id="th-modified" ><meta name="description" content="sprachspiele" data-id="th-modified" ><meta property="og:description" content="sprachspiele" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="/sprechclub/woche-01-06-juni-2026/sprachspiele.html" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="sprachspiele.deutschoderwas-lernen.de" src="https://analytics.tiiny.site/js/plausible.js"></script></head><body>
+<div class="timer-bar">
+  <div class="timer-display" id="td">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="tf"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;flex-shrink:0;">Spielzeit</span>
+  <div class="timer-btns"><button class="tbtn start" onclick="toggleTimer()">▶ Start</button><button class="tbtn reset" onclick="resetTimer()">↺</button></div>
+</div>
+<div class="phase-nav"><span class="brand-tag">deutsch<span>oder</span>was</span><button class="phase-btn active" onclick="showPhase('p1',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('p2',this)">② Wochen-Wortschatz</button>
+  <button class="phase-btn" onclick="showPhase('p3',this)">③ Spiel 1: TABU</button>
+  <button class="phase-btn" onclick="showPhase('p4',this)">④ Spiel 2: Satz-Schmiede</button>
+  <button class="phase-btn" onclick="showPhase('p5',this)">⑤ Spiel 3: Was wäre wenn …</button>
+  <button class="phase-btn" onclick="showPhase('p6',this)">⑥ Abschluss</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;flex-shrink:0;">B1 · 60 Min.</span>
+</div>
+<main>
+<div id="phase-p1" class="phase active"><div class="card">
+<div class="card-header"><div class="eyebrow">B1 · Einstieg · 5 Min.</div>
+<div class="card-title">Sprachspiele – <em>die ganze Woche</em> im Spiel festigen!</div><div class="card-sub">Heute holen wir uns die wichtigsten Wörter aus allen Stunden dieser Woche zurück – diesmal nicht durch Lernen, sondern durch Spielen.</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 5 Minuten</div>
+<div class="kultur"><div class="kultur-title">🎲 Warum Spiele?</div><div class="kultur-body">Wer ein Wort einmal hört, vergisst es oft. Wer es <strong>spielerisch benutzt</strong>, behält es. Heute machen wir drei Spiele mit dem Wortschatz dieser Woche: Apotheke, Stadtorientierung, Vorstellungsgespräch, Trends, KI-Agenten, Verb STELLEN, Grammatik-Fälle, Komparativ, Imperativ und Diskussion. Du hast die Wörter schon gehört – jetzt aktivieren wir sie.</div></div>
+<div class="slabel">🎯 Ablauf heute</div>
+<div class="spiel-intro"><div class="spiel-intro-icon">📚</div><div><div class="spiel-intro-title">Phase 2 – Wochen-Wortschatz (10 Min.)</div><div class="spiel-intro-rules">30 wichtige Wörter aus der ganzen Woche als Klick-Karten – kurze Auffrischung vor den Spielen.</div></div></div>
+<div class="spiel-intro"><div class="spiel-intro-icon">🤐</div><div><div class="spiel-intro-title">Spiel 1 – TABU (15 Min.)</div><div class="spiel-intro-rules">Du musst ein Wort erklären, OHNE die verbotenen Wörter zu sagen. Deine Mitspieler raten!</div></div></div>
+<div class="spiel-intro"><div class="spiel-intro-icon">🔀</div><div><div class="spiel-intro-title">Spiel 2 – Satz-Schmiede (15 Min.)</div><div class="spiel-intro-rules">Würfle aus drei Spalten – Person + Ort + Verb – und bilde einen kreativen Satz oder eine Mini-Geschichte.</div></div></div>
+<div class="spiel-intro"><div class="spiel-intro-icon">💭</div><div><div class="spiel-intro-title">Spiel 3 – Was wäre wenn … (15 Min.)</div><div class="spiel-intro-rules">Eine hypothetische Situation, in deiner Antwort MUSST du bestimmte Wörter benutzen. Kreativ &amp; lustig!</div></div></div>
+<div class="tipp"><div class="tipp-icon">💡</div><div class="tipp-body"><strong>Goldene Spielregel:</strong> Es geht nicht darum, perfekt zu sprechen. Es geht darum, die Wörter aktiv zu benutzen. Fehler sind Teil des Spiels – wer am meisten lacht, lernt am meisten!</div></div>
+</div></div></div>
+
+<div id="phase-p2" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1 · Wochen-Wortschatz · 10 Min.</div>
+<div class="card-title">Die 30 wichtigsten Wörter <em>dieser Woche</em></div>
+<div class="card-sub">Klick eine Karte um die Bedeutung zu sehen. Pro Karte: Thema-Tag (woher kommt das Wort).</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 10 Minuten</div>
+<div class="vok-grid" id="vWoche"></div>
+</div></div></div>
+
+<div id="phase-p3" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1 · Spiel 1 · 15 Min.</div>
+<div class="card-title">🤐 TABU – <em>ohne die verbotenen Wörter erklären!</em></div>
+<div class="card-sub">Wer es errät, ist als nächstes dran. 30–60 Sekunden pro Wort.</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 15 Minuten</div>
+<div class="spiel-intro"><div class="spiel-intro-icon">📖</div><div><div class="spiel-intro-title">Spielregeln</div><div class="spiel-intro-rules">1. Eine Person wählt eine Karte und sieht das Wort + die verbotenen Wörter.<br>2. Sie erklärt das Wort den anderen – aber OHNE die roten Wörter zu sagen!<br>3. Die anderen raten. Wer es errät, ist als nächstes dran.<br>4. Wer ein verbotenes Wort sagt: Karte zurück, nächste Person.<br><strong>Tipp:</strong> Synonyme, Beispiele, Gegenteile, Situationen – alles erlaubt!</div></div></div>
+<div class="slabel">15 Tabu-Karten</div>
+<div class="tabu-grid" id="tabuCards"></div>
+</div></div></div>
+
+<div id="phase-p4" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1 · Spiel 2 · 15 Min.</div>
+<div class="card-title">🔀 Satz-Schmiede – <em>würfeln &amp; sprechen!</em></div>
+<div class="card-sub">Drei Karten ziehen (eine pro Spalte) – einen Satz oder eine Mini-Geschichte daraus bauen.</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 15 Minuten</div>
+<div class="spiel-intro"><div class="spiel-intro-icon">📖</div><div><div class="spiel-intro-title">Spielregeln</div><div class="spiel-intro-rules">1. Würfle (oder zähle) eine Zahl 1–10 für jede Spalte – also drei Zahlen.<br>2. Nimm das Wort dieser Zeile aus jeder Spalte: <strong>Person + Ort + Verb/Aktion</strong>.<br>3. Baue daraus EINEN Satz – grammatisch korrekt, Sinn macht er irgendwie immer.<br>4. <strong>Pro-Modus:</strong> Bilde stattdessen eine Mini-Geschichte mit 3 Sätzen.<br>Beispiel: <em>5 (Chefin) + 3 (Apotheke) + 7 (sich vorstellen)</em> → „Meine Chefin musste sich in der Apotheke vorstellen, weil sie ihren Ausweis vergessen hatte."</div></div></div>
+<div class="slabel">Würfel-Tabelle: ziehe eine Zahl 1–10 pro Spalte</div>
+<div class="satz-table">
+<div class="satz-col"><div class="satz-col-hd">🧑 PERSON</div>
+<div class="satz-cell"><strong>1.</strong> ein Bewerber</div>
+<div class="satz-cell"><strong>2.</strong> die Apothekerin</div>
+<div class="satz-cell"><strong>3.</strong> ein Tourist</div>
+<div class="satz-cell"><strong>4.</strong> mein Chef</div>
+<div class="satz-cell"><strong>5.</strong> meine Chefin</div>
+<div class="satz-cell"><strong>6.</strong> die Nachbarin</div>
+<div class="satz-cell"><strong>7.</strong> der KI-Assistent</div>
+<div class="satz-cell"><strong>8.</strong> ein älterer Mann</div>
+<div class="satz-cell"><strong>9.</strong> ein junges Paar</div>
+<div class="satz-cell"><strong>10.</strong> der Polizist</div>
+</div>
+<div class="satz-col"><div class="satz-col-hd b">📍 ORT</div>
+<div class="satz-cell"><strong>1.</strong> an der Ampel</div>
+<div class="satz-cell"><strong>2.</strong> im Vorstellungsgespräch</div>
+<div class="satz-cell"><strong>3.</strong> in der Apotheke</div>
+<div class="satz-cell"><strong>4.</strong> an der nächsten Kreuzung</div>
+<div class="satz-cell"><strong>5.</strong> im Büro</div>
+<div class="satz-cell"><strong>6.</strong> auf dem Bahnhof</div>
+<div class="satz-cell"><strong>7.</strong> bei einem Trend-Event</div>
+<div class="satz-cell"><strong>8.</strong> in der Innenstadt</div>
+<div class="satz-cell"><strong>9.</strong> bei einer KI-Demo</div>
+<div class="satz-cell"><strong>10.</strong> in der Kantine</div>
+</div>
+<div class="satz-col"><div class="satz-col-hd c">⚡ AKTION</div>
+<div class="satz-cell"><strong>1.</strong> sich vorstellen</div>
+<div class="satz-cell"><strong>2.</strong> abbiegen</div>
+<div class="satz-cell"><strong>3.</strong> nachhaltiger werden</div>
+<div class="satz-cell"><strong>4.</strong> Nebenwirkungen erklären</div>
+<div class="satz-cell"><strong>5.</strong> Gehalt verhandeln</div>
+<div class="satz-cell"><strong>6.</strong> eine Frage hinterfragen</div>
+<div class="satz-cell"><strong>7.</strong> einen Trend ausstellen</div>
+<div class="satz-cell"><strong>8.</strong> Befehle erteilen</div>
+<div class="satz-cell"><strong>9.</strong> einen Antrag einreichen</div>
+<div class="satz-cell"><strong>10.</strong> jemanden überzeugen</div>
+</div>
+</div>
+<div class="satz-example"><strong>Beispiel:</strong> 7 + 9 + 10 → Der KI-Assistent musste bei einer KI-Demo das skeptische Publikum davon überzeugen, dass er wirklich nützlich ist – das war gar nicht so leicht!</div>
+<div class="tipp"><div class="tipp-icon">🎲</div><div class="tipp-body"><strong>Kein Würfel zur Hand?</strong> Letzte Ziffer der Uhrzeit nehmen, Zahlen zwischen Schüler:innen reihum sagen, oder die Lehrerin „rät" eine Zahl. Hauptsache: zufällig &amp; lustig!</div></div>
+</div></div></div>
+
+<div id="phase-p5" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1 · Spiel 3 · 15 Min.</div>
+<div class="card-title">💭 Was wäre wenn … – <em>mit Pflicht-Wörtern!</em></div>
+<div class="card-sub">Hypothetische Situation + 3 Wörter, die in deiner Antwort vorkommen MÜSSEN.</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 15 Minuten</div>
+<div class="spiel-intro"><div class="spiel-intro-icon">📖</div><div><div class="spiel-intro-title">Spielregeln</div><div class="spiel-intro-rules">1. Lies eine Karte: <strong>Situation + 3 Pflicht-Wörter</strong>.<br>2. Du hast 60 Sekunden, eine Antwort zu formulieren, in der ALLE 3 Wörter sinnvoll vorkommen.<br>3. Die Gruppe entscheidet: Hat es funktioniert? War es kreativ? Punkt? 😄<br><strong>Tipp:</strong> Grammatik darf hinken – wichtig ist, dass die Wörter im Kontext stehen.</div></div></div>
+<div class="slabel">10 Was-wäre-wenn-Karten</div>
+<div id="wennCards"></div>
+</div></div></div>
+
+<div id="phase-p6" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1 · Abschluss · 5 Min.</div>
+<div class="card-title">Was bleibt – <em>von dieser Woche?</em></div>
+<div class="card-sub">Eine letzte Runde Reflexion – gemeinsam, ehrlich, kurz.</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 5 Minuten</div>
+<div class="kultur"><div class="kultur-title">🌟 Reflexionsfragen für die Runde</div><div class="kultur-body">
+<strong>1. Welche 3 Wörter aus dieser Woche möchtest du behalten?</strong> – Schreib sie auf, sag sie laut, nimm sie mit.<br><br>
+<strong>2. Welche Stunde dieser Woche hat dich am meisten überrascht?</strong> – Warum?<br><br>
+<strong>3. Welches Spiel hat dir heute am meisten Spaß gemacht?</strong> – Tabu, Satz-Schmiede oder Was-wäre-wenn?<br><br>
+<strong>4. Was ist ein Wort oder eine Situation, die du jetzt im Alltag ausprobieren willst?</strong> – Heute Nachmittag, morgen, diese Woche?<br><br>
+<strong>5. Wer im Sprechclub hat heute etwas gesagt, was du dir merken willst?</strong> – Lob ist erlaubt &amp; willkommen!
+</div></div>
+<div class="tipp"><div class="tipp-icon">🎉</div><div class="tipp-body"><strong>Vergiss nicht:</strong> Sprache lernen ist kein Sprint – es ist eine Sammlung kleiner Augenblicke. Diese Woche hat dir 100+ neue Wörter gegeben, 30 Diskussionsthesen, 4 Grammatik-Themen und unzählige Situationen. <em>Davon bleibt etwas. Garantiert.</em></div></div>
+</div></div></div>
+</main>
+<script>
+const TOTAL=3600;let rem=TOTAL,intv=null,run=false;
+function upd(){const m=Math.floor(rem/60),s=rem%60;const d=document.getElementById('td');d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('tf').style.width=(rem/TOTAL*100)+'%';d.className='timer-display';if(rem<=600)d.classList.add('warn');if(rem<=120)d.classList.add('urgent');}
+function toggleTimer(){if(run){clearInterval(intv);run=false;document.querySelector('.tbtn.start').textContent='▶ Start';}else{run=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';intv=setInterval(()=>{if(rem>0){rem--;upd();}else{clearInterval(intv);run=false;}},1000);}}
+function resetTimer(){clearInterval(intv);run=false;rem=TOTAL;upd();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));document.getElementById('phase-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+
+function buildVok(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(v=>{const d=document.createElement('div');d.className='vok-card';d.innerHTML=`<div class="theme-chip">${v.thema}</div><div class="vok-front">${v.front}</div><div class="vok-back">${v.back}</div><div class="vok-hint">klick!</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+
+function buildTabu(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(t=>{const d=document.createElement('div');d.className='tabu-card';const forbidden=t.verboten.map(w=>`<li>${w}</li>`).join('');d.innerHTML=`<div class="tabu-hd"><div class="tabu-hd-label">Erkläre das Wort</div><div class="tabu-word">${t.wort}</div></div><div class="tabu-bd"><div class="tabu-bd-label">Verboten:</div><ul class="tabu-list">${forbidden}</ul></div>`;g.appendChild(d);});}
+
+function buildWenn(data,id){const g=document.getElementById(id);if(!g)return;data.forEach((w,i)=>{const d=document.createElement('div');d.className='wenn-card';const words=w.woerter.map(x=>`<span class="wenn-word">${x}</span>`).join('');d.innerHTML=`<div class="wenn-situation"><div class="wenn-situation-label">Karte ${i+1} · Situation</div><div class="wenn-situation-text">${w.situation}</div></div><div class="wenn-must"><div class="wenn-must-label">⚡ Diese 3 Wörter MÜSSEN vorkommen:</div><div class="wenn-must-words">${words}</div>${w.tipp?`<div class="wenn-tipp">💡 ${w.tipp}</div>`:''}</div>`;g.appendChild(d);});}
+
+buildVok([
+{"thema":"Apotheke","front":"das Rezept","back":"= ein Zettel vom Arzt für Medikamente. „Ich löse das Rezept in der Apotheke ein."},
+{"thema":"Apotheke","front":"die Nebenwirkung","back":"= unerwünschte Wirkung eines Medikaments. „Welche Nebenwirkungen hat die Tablette?"},
+{"thema":"Apotheke","front":"die Beratung","back":"= ein Gespräch, in dem dir jemand hilft / dich informiert. „Ich brauche eine Beratung von der Apothekerin."},
+{"thema":"Wegbeschreibung","front":"abbiegen","back":"= die Richtung wechseln (z. B. links/rechts fahren). „Bieg an der nächsten Kreuzung links ab!“"},
+{"thema":"Wegbeschreibung","front":"die Kreuzung","back":"= wo zwei Straßen sich treffen. „Geh bis zur nächsten Kreuzung."},
+{"thema":"Wegbeschreibung","front":"die Sehenswürdigkeit","back":"= etwas, das man als Tourist gerne anschaut (z. B. ein Museum, ein Dom). „Köln hat viele Sehenswürdigkeiten."},
+{"thema":"Vorstellungsgespräch","front":"der Lebenslauf","back":"= eine Liste mit deiner Ausbildung und Arbeit. „Bitte schick mir deinen Lebenslauf per E-Mail."},
+{"thema":"Vorstellungsgespräch","front":"die Stärke","back":"= was du besonders gut kannst. „Was sind deine größten Stärken?“ (Gegenteil: die Schwäche)"},
+{"thema":"Vorstellungsgespräch","front":"die Gehaltsverhandlung","back":"= das Gespräch über dein Gehalt. „In der Gehaltsverhandlung muss man selbstbewusst sein."},
+{"thema":"Verb STELLEN","front":"sich vorstellen","back":"= sich präsentieren (Name, Beruf, Hintergrund) ODER sich etwas im Kopf ausmalen. „Darf ich mich vorstellen?“ / „Stell dir vor, du wärst reich."},
+{"thema":"Verb STELLEN","front":"einstellen","back":"= 1) jemanden als Mitarbeiter:in nehmen, 2) etwas regulieren (Lautstärke, Temperatur). „Die Firma stellt 5 neue Leute ein."},
+{"thema":"Verb STELLEN","front":"ausstellen","back":"= 1) zeigen (im Museum), 2) ein Dokument schreiben. „Das Museum stellt neue Bilder aus.“ / „Der Arzt hat eine Krankschreibung ausgestellt."},
+{"thema":"Verb STELLEN","front":"herstellen","back":"= produzieren, machen. „Diese Firma stellt Schokolade her."},
+{"thema":"Trends","front":"nachhaltig","back":"= so, dass es die Umwelt und Zukunft schützt. „Ist Fast Fashion nachhaltig? – Nein, gar nicht."},
+{"thema":"Trends","front":"angesagt","back":"= gerade modern, beliebt, „in“. „Diese Schuhe sind gerade total angesagt."},
+{"thema":"Trends","front":"altmodisch","back":"= alt, nicht mehr modern. „Brille tragen ist nicht altmodisch – es ist Style."},
+{"thema":"KI / Agenten","front":"die Künstliche Intelligenz","back":"= Computer, die „denken“ können (Abk: KI). „Die KI hat meinen Text korrigiert."},
+{"thema":"KI / Agenten","front":"abgehängt werden","back":"= zurückgelassen werden, nicht mehr mitkommen. „Wer KI nicht versteht, wird abgehängt."},
+{"thema":"KI / Agenten","front":"die Beschleunigung","back":"= alles wird immer schneller. „Die digitale Beschleunigung macht vielen Menschen Angst."},
+{"thema":"Grammatik Fälle","front":"der Nominativ","back":"= der Fall für das Subjekt. Frage: WER macht? „DER Mann arbeitet.“ (im Wörterbuch immer Nominativ-Form)"},
+{"thema":"Grammatik Fälle","front":"der Dativ","back":"= der Fall für das indirekte Objekt. Frage: WEM? „Ich helfe DEM Mann.“ (immer mit „mit/nach/von/zu/bei/aus/seit“)"},
+{"thema":"Komparativ","front":"vergleichen","back":"= sehen, was gleich oder anders ist. „Vergleich mal den Preis: A ist günstiger als B."},
+{"thema":"Komparativ","front":"besser / am besten","back":"= Steigerung von „gut“ (unregelmäßig!). „Heute geht es mir besser als gestern. Am besten geht es mir am Wochenende."},
+{"thema":"Imperativ","front":"jemandem etwas befehlen","back":"= sagen, dass jemand etwas TUN MUSS (oft mit Imperativ). „Räum dein Zimmer auf!“ – ein klassischer Befehl."},
+{"thema":"Freies Sprechen","front":"die These","back":"= eine Behauptung, die man begründen muss. „Meine These ist: Homeoffice ist die Zukunft."},
+{"thema":"Freies Sprechen","front":"abwägen","back":"= Argumente vergleichen, bevor man entscheidet. „Man muss Pro und Contra abwägen."},
+{"thema":"Freies Sprechen","front":"überzeugen","back":"= jemanden mit Argumenten gewinnen. „Du hast mich überzeugt – ich mache mit!“"},
+{"thema":"Freies Sprechen","front":"der Kompromiss","back":"= eine Einigung, bei der beide etwas nachgeben. „Wir haben einen guten Kompromiss gefunden."},
+{"thema":"Allgemein","front":"hinterfragen","back":"= kritisch prüfen, nicht einfach glauben. „Du solltest alles, was du liest, hinterfragen."},
+{"thema":"Allgemein","front":"die Folge / die Konsequenz","back":"= was passiert WEGEN einer Sache. „Welche Folgen hat diese Entscheidung?“"}
+],'vWoche');
+
+buildTabu([
+{"wort":"Apotheke","verboten":["Medikament","Tabletten","Krankheit","Geschäft"]},
+{"wort":"Rezept","verboten":["Arzt","Apotheke","Medikament","Papier"]},
+{"wort":"Nebenwirkung","verboten":["Medikament","Tablette","Effekt","schlecht"]},
+{"wort":"Kreuzung","verboten":["Straße","Auto","Ampel","abbiegen"]},
+{"wort":"Sehenswürdigkeit","verboten":["Tourist","Stadt","sehen","schön"]},
+{"wort":"Vorstellungsgespräch","verboten":["Job","Arbeit","Bewerbung","Firma"]},
+{"wort":"Gehaltsverhandlung","verboten":["Geld","Lohn","sprechen","Chef"]},
+{"wort":"Lebenslauf","verboten":["Bewerbung","Job","schreiben","Beruf"]},
+{"wort":"Künstliche Intelligenz","verboten":["Computer","ChatGPT","Roboter","denken"]},
+{"wort":"nachhaltig","verboten":["Umwelt","Natur","grün","gut"]},
+{"wort":"angesagt","verboten":["modern","Trend","cool","Mode"]},
+{"wort":"vorstellen","verboten":["Name","sagen","sprechen","Person"]},
+{"wort":"abwägen","verboten":["Pro","Contra","denken","entscheiden"]},
+{"wort":"überzeugen","verboten":["Meinung","Argument","gewinnen","sagen"]},
+{"wort":"Kompromiss","verboten":["Einigung","Diskussion","beide","Lösung"]}
+],'tabuCards');
+
+buildWenn([
+{"situation":"Du wirst für EINEN TAG Chef:in eines großen Unternehmens. Was änderst du?","woerter":["einstellen","die Stärke","überzeugen"],"tipp":"Tipp: Wen stellst du ein und warum? Welche Stärken sind dir wichtig? Wie überzeugst du die Mitarbeiter:innen?"},
+{"situation":"Du verirrst dich nachts in einer fremden Stadt. Erzähle, was passiert.","woerter":["die Kreuzung","abbiegen","die Sehenswürdigkeit"],"tipp":"Tipp: Wo bist du? Wen fragst du? Wie findest du den Weg zurück?"},
+{"situation":"Du hast eine Erkältung. Du gehst in die Apotheke und brauchst eine ausführliche Beratung.","woerter":["das Rezept","die Nebenwirkung","die Beratung"],"tipp":"Tipp: Was hast du? Was empfiehlt die Apothekerin? Worauf musst du achten?"},
+{"situation":"Du musst auf einer Familienfeier eine Rede über einen Trend halten, den du persönlich furchtbar findest.","woerter":["angesagt","nachhaltig","altmodisch"],"tipp":"Tipp: Sei ironisch, ehrlich oder beides. Übertreiben ist erlaubt!"},
+{"situation":"Ein KI-Agent macht ab morgen 80% deiner Arbeit. Erkläre deinen Eltern, wie du dich dabei fühlst.","woerter":["abgehängt","die Beschleunigung","überzeugen"],"tipp":"Tipp: Bist du erleichtert, panisch, neugierig? Wie erklärst du das deinen Eltern, die sich nicht auskennen?"},
+{"situation":"Du diskutierst mit deinem besten Freund / deiner besten Freundin über eine wichtige Entscheidung in deinem Leben.","woerter":["die These","abwägen","der Kompromiss"],"tipp":"Tipp: Was ist die Entscheidung? Was sagt dein Freund? Findet ihr einen Kompromiss?"},
+{"situation":"Du bist Tourist in deiner eigenen Heimatstadt – und entdeckst sie zum ersten Mal richtig.","woerter":["die Sehenswürdigkeit","sich vorstellen","ausstellen"],"tipp":"Tipp: Wem stellst du dich vor? Was wird ausgestellt? Was überrascht dich?"},
+{"situation":"In deinem Vorstellungsgespräch fragt der Chef plötzlich: „Was würden Sie an unserer Firma sofort ändern?“"," woerter":["die Schwäche","hinterfragen","überzeugen"],"tipp":"Tipp: Sei ehrlich, aber höflich. Eine Kritik darf konstruktiv sein."},
+{"situation":"Du musst einer 80-jährigen Nachbarin erklären, was ein KI-Agent ist – ohne sie zu überfordern.","woerter":["die Künstliche Intelligenz","die Folge","die Beratung"],"tipp":"Tipp: Vergleich mit etwas, das sie kennt (Sekretärin? Telefonansage?). Sei geduldig."},
+{"situation":"Du wirst zum Anführer einer Demo gegen oder für einen aktuellen Trend. Halte eine Mini-Rede!","woerter":["angesagt","abwägen","der Kompromiss"],"tipp":"Tipp: Wofür / wogegen demonstrierst du? Lautstärke ist erlaubt – auf Deutsch natürlich. 😄"}
+],'wennCards');
+
+upd();
+</script></body></html>

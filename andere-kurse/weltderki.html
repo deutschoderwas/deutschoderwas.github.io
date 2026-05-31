@@ -1,0 +1,329 @@
+<!DOCTYPE html><html lang="de"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title data-id="th-modified">B2/C1: Vom Internet zu KI-Agenten – wie verändert sich unser Leben? · deutschoderwas</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#2D5F8A;--acc-lt:#C5D9F5;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}.tbtn.reset{background:#555;color:white;}
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;scrollbar-width:none;}
+.phase-nav::-webkit-scrollbar{display:none;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;}.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.4rem;line-height:1.5;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.4rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--acc-lt);color:var(--acc);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.vok-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.vok-card.flipped{background:var(--acc-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);white-space:pre-line;}
+.vok-card.flipped .vok-back{display:block;}.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+.dialog{background:var(--sand-lt);border-radius:16px;overflow:hidden;margin-bottom:1.1rem;border:1.5px solid var(--sand);}
+.dialog-hd{background:var(--dark);color:white;padding:.6rem 1.3rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
+.dialog-body{padding:1rem 1.3rem;}
+.dl{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start;}.dl:last-child{margin-bottom:0;}
+.dl-spk{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:60px;padding-top:.25rem;flex-shrink:0;color:var(--acc);line-height:1.3;}
+.dl-spk.b{color:var(--rust);}.dl-spk.c{color:#6B3D8A;}
+.dl-txt{font-size:.9rem;line-height:1.65;}.dl-txt strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list{list-style:none;margin-bottom:1.1rem;}
+.phrase-list li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .9rem;border-radius:10px;margin-bottom:.4rem;background:white;border:1.5px solid var(--sand);font-size:.89rem;line-height:1.6;}
+.phrase-list li::before{content:'→';color:var(--acc);font-weight:700;flex-shrink:0;margin-top:.1rem;}
+.phrase-list li strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list li em{color:#888;font-size:.8rem;}
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.3rem;margin-bottom:.8rem;}
+.mc-q{font-size:.94rem;font-weight:600;margin-bottom:.75rem;line-height:1.55;}
+.mc-opts{display:flex;flex-direction:column;gap:.38rem;}
+.mc-opt{padding:.48rem 1rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.88rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--acc);background:var(--acc-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.81rem;margin-top:.6rem;display:none;font-weight:500;line-height:1.55;padding:.4rem .7rem;border-radius:8px;}
+.mc-fb.show{display:block;}.mc-fb.ok{color:var(--green);background:var(--green-lt);}.mc-fb.nope{color:var(--red);background:var(--red-lt);}
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.95rem 1.3rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.92rem;margin-bottom:.6rem;line-height:1.55;}
+.rf-btns{display:flex;gap:.45rem;}
+.rfbtn{padding:.28rem .85rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--acc);color:var(--acc);}.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.8rem;margin-top:.55rem;font-weight:500;display:none;line-height:1.55;padding:.35rem .6rem;border-radius:6px;}
+.rf-fb.show{display:block;}.rf-fb.ok{color:var(--green);background:var(--green-lt);}.rf-fb.bad{color:var(--red);background:var(--red-lt);}
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:13px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.speak-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.09);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);line-height:1.4;}
+.speak-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}.speak-hint{font-size:.68rem;color:#bbb;margin-top:.45rem;}
+.rsp-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;margin-bottom:.9rem;}
+.rsp-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.1);}.rsp-card.open .rsp-back{display:block;}.rsp-card.open .rsp-hint{display:none;}
+.rsp-top{background:var(--dark);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.75rem;}
+.rsp-emoji{font-size:1.4rem;flex-shrink:0;}.rsp-title{font-family:'Fraunces',serif;font-weight:700;color:white;font-size:1rem;}
+.rsp-body{padding:1rem 1.2rem;}.rsp-situation{font-size:.89rem;color:var(--dark);line-height:1.6;margin-bottom:.6rem;}
+.rsp-back{display:none;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--sand);}
+.rsp-rolle{font-size:.83rem;line-height:1.7;color:var(--dark);margin-bottom:.45rem;padding:.4rem .8rem;border-radius:8px;background:var(--cream);}
+.rsp-rolle strong{color:var(--acc);}.rsp-hint{font-size:.7rem;color:#bbb;}
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:.8rem;display:flex;align-items:flex-start;gap:1rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--acc-lt);flex-shrink:0;line-height:1;margin-top:.1rem;}
+.these-text{font-size:.93rem;line-height:1.65;}.these-starter{font-size:.77rem;color:#888;margin-top:.35rem;}
+.tipp{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-top:1.3rem;display:flex;gap:.9rem;align-items:flex-start;}
+.tipp-icon{font-size:1.3rem;flex-shrink:0;}.tipp-body{font-size:.87rem;line-height:1.75;}.tipp-body strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+.kultur{background:linear-gradient(135deg,var(--acc-lt),rgba(255,255,255,.5));border:1.5px solid var(--acc);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.kultur-title{font-family:'Fraunces',serif;font-weight:700;color:var(--acc);font-size:.9rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;}
+.kultur-body{font-size:.86rem;line-height:1.75;color:var(--dark);}
+.timeline{position:relative;padding:.5rem 0 1rem 0;margin-bottom:1.1rem;}
+.timeline-row{display:grid;grid-template-columns:90px 1fr;gap:1rem;padding:.8rem 0;border-left:3px solid var(--acc);padding-left:1.2rem;margin-left:.5rem;position:relative;}
+.timeline-row::before{content:'';position:absolute;left:-9px;top:1.1rem;width:15px;height:15px;border-radius:50%;background:var(--acc);border:3px solid var(--cream);}
+.timeline-year{font-family:'Fraunces',serif;font-weight:900;font-size:1.2rem;color:var(--rust);}
+.timeline-text{font-size:.88rem;line-height:1.6;}
+.timeline-text strong{font-family:'Fraunces',serif;color:var(--brown);}
+</style><meta property="og:title" content="B2/C1: Vom Internet zu KI-Agenten – wie verändert sich unser Leben? · deutschoderwas" data-id="th-modified" ><meta name="description" content="ki_agenten_b2c1" data-id="th-modified" ><meta property="og:description" content="ki_agenten_b2c1" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="/andere-kurse/weltderki.html" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="weltderki.deutschoderwas-lernen.de" src="https://analytics.tiiny.site/js/plausible.js"></script></head><body>
+<div class="timer-bar">
+  <div class="timer-display" id="td">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="tf"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;flex-shrink:0;">Unterrichtszeit</span>
+  <div class="timer-btns"><button class="tbtn start" onclick="toggleTimer()">▶ Start</button><button class="tbtn reset" onclick="resetTimer()">↺</button></div>
+</div>
+<div class="phase-nav"><span class="brand-tag">deutsch<span>oder</span>was</span><button class="phase-btn active" onclick="showPhase('p1',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('p2',this)">② Wortschatz</button>
+  <button class="phase-btn" onclick="showPhase('p3',this)">③ Dialoge</button>
+  <button class="phase-btn" onclick="showPhase('p4',this)">④ Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('p5',this)">⑤ Rollenspiele</button>
+  <button class="phase-btn" onclick="showPhase('p6',this)">⑥ Übungen</button>
+  <button class="phase-btn" onclick="showPhase('p7',this)">⑦ Debatte</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;flex-shrink:0;">B2/C1 · 60 Min.</span>
+</div>
+<main>
+<div id="phase-p1" class="phase active"><div class="card">
+<div class="card-header"><div class="eyebrow">B2/C1 · Einstieg · 8 Min.</div>
+<div class="card-title">Vom Internet zu KI-Agenten – <em>was macht das mit uns?</em></div><div class="card-sub">Innerhalb von 30 Jahren hat sich die Welt mehrfach komplett neu sortiert. Heute reden wir nicht über Technik – sondern darüber, wie wir damit leben (oder leiden).</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div>
+<div class="kultur"><div class="kultur-title">⏳ Die digitale Beschleunigung</div><div class="kultur-body">Wer 1990 geboren wurde, hat in einem Menschenleben vier Welten erlebt: <strong>Welt ohne Internet</strong> → <strong>Welt mit Google</strong> → <strong>Welt mit KI-Chats</strong> → <strong>Welt mit autonomen Agenten</strong>, die selbst Entscheidungen treffen. Jede dieser Stufen war ein Bruch – und jeder Bruch hinterlässt Menschen, die nicht mitkommen. Diese Stunde fragt: <em>Wer bleibt zurück, wer entscheidet das Tempo, und was kostet uns das?</em></div></div>
+<div class="slabel">⏳ Die letzten 30 Jahre auf einen Blick</div>
+<div class="timeline">
+<div class="timeline-row"><div class="timeline-year">~1995</div><div class="timeline-text"><strong>Das Internet wird Alltag.</strong> Plötzlich kann man E-Mails schicken, in Foren diskutieren, sich „einwählen". Die Welt fühlt sich verbunden an – aber auch unübersichtlich.</div></div>
+<div class="timeline-row"><div class="timeline-year">~2000</div><div class="timeline-text"><strong>Google verändert das Denken.</strong> Wissen ist nicht mehr in Büchern – es ist eine Suchanfrage entfernt. Auswendiglernen verliert an Bedeutung, dafür wird Quellenkritik wichtig.</div></div>
+<div class="timeline-row"><div class="timeline-year">~2007</div><div class="timeline-text"><strong>Das Smartphone kommt.</strong> Das Internet ist nicht mehr ein Ort, an den man geht – es ist überall, ständig, in der Hosentasche. Die ständige Erreichbarkeit beginnt.</div></div>
+<div class="timeline-row"><div class="timeline-year">~2010</div><div class="timeline-text"><strong>Soziale Medien explodieren.</strong> Facebook, Instagram, später TikTok. Wir kuratieren unser Leben für ein unsichtbares Publikum. Vergleich und Selbstdarstellung werden Alltag.</div></div>
+<div class="timeline-row"><div class="timeline-year">~2022</div><div class="timeline-text"><strong>ChatGPT öffnet die KI-Tür.</strong> Plötzlich kann eine Maschine Texte schreiben, Code erklären, Argumente formulieren. Erstmals fühlt sich KI nicht wie Science-Fiction an, sondern wie ein Werkzeug.</div></div>
+<div class="timeline-row"><div class="timeline-year">~2025</div><div class="timeline-text"><strong>KI-Agenten übernehmen Aufgaben.</strong> Nicht nur Antworten geben – sondern selbst Termine buchen, einkaufen, Mails beantworten. Wir geben zum ersten Mal Entscheidungen ab.</div></div>
+</div>
+<div class="slabel">Warming-up – sprecht zuerst!</div>
+<div class="speak-grid" id="warmup"></div>
+<div class="tipp"><div class="tipp-icon">🎯</div><div class="tipp-body"><strong>Heute geht es nicht um „Was kann KI?"</strong> – sondern um <em>„Wie verändert uns das? Was passiert mit denen, die nicht mithalten? Und wie wollen wir in Zukunft mit diesen Werkzeugen leben?"</em></div></div>
+</div></div></div>
+
+<div id="phase-p2" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B2/C1 · Wortschatz · 12 Min.</div>
+<div class="card-title">Worte für das, was schwer zu sagen ist</div>
+<div class="card-sub">Anspruchsvoller Wortschatz für die Debatte – klickt euch durch!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div>
+<div class="slabel">📚 Begriffe rund um digitalen Wandel &amp; Überforderung</div>
+<div class="vok-grid" id="v1"></div>
+</div></div></div>
+
+<div id="phase-p3" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B2/C1 · Dialoge · 12 Min.</div>
+<div class="card-title">So reden Menschen wirklich – <em>über Wandel und Sorge</em></div>
+<div class="card-sub">Lest die Dialoge laut und wechselt die Rollen!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">👵</span> Sonntags bei Oma – „Ich komme da nicht mehr mit"</div><div class="dialog-body">
+<div class="dl"><span class="dl-spk">Oma</span><div><div class="dl-txt">Diese App – ich hab' versucht, einen Termin bei der Bank zu machen. Aber das ging nur online. Und jetzt sagt mein Telefon, ich soll noch was bestätigen, und ich weiß nicht <strong>womit</strong>.</div></div></div>
+<div class="dl"><span class="dl-spk b">Enkel</span><div><div class="dl-txt">Zwei-Faktor-Authentifizierung. Du kriegst einen Code aufs Handy.</div></div></div>
+<div class="dl"><span class="dl-spk">Oma</span><div><div class="dl-txt">Du sagst das so, als wäre das selbstverständlich. Für mich ist das eine fremde Sprache. Ich fühle mich <strong>entmündigt</strong> – früher bin ich zur Bank gegangen, hab' mit einem Menschen gesprochen, fertig.</div></div></div>
+<div class="dl"><span class="dl-spk b">Enkel</span><div><div class="dl-txt">Aber das wird nicht zurückkommen, Oma. Die Filialen schließen ja alle.</div></div></div>
+<div class="dl"><span class="dl-spk">Oma</span><div><div class="dl-txt">Genau das meine ich. Man <strong>nimmt uns Älteren die Wahl</strong>. Es heißt immer: Es ist bequemer, schneller. Aber bequem für wen?</div></div></div>
+<div class="dl"><span class="dl-spk b">Enkel</span><div><div class="dl-txt">Ich verstehe das. Soll ich dir das nochmal in Ruhe zeigen?</div></div></div>
+<div class="dl"><span class="dl-spk">Oma</span><div><div class="dl-txt">Ja – aber langsam. Und sag mir nicht, das sei einfach. Für dich vielleicht.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">💼</span> Im Büro – „Wenn ich nicht mitlerne, bin ich raus"</div><div class="dialog-body">
+<div class="dl"><span class="dl-spk">Lisa</span><div><div class="dl-txt">Hast du gehört, dass die neue Praktikantin in drei Stunden geschafft hat, wofür ich früher zwei Tage gebraucht habe? Mit so einem KI-Agenten.</div></div></div>
+<div class="dl"><span class="dl-spk b">Marc</span><div><div class="dl-txt">Klar. Wer das nicht beherrscht, <strong>hinkt hinterher</strong>. So einfach ist das mittlerweile.</div></div></div>
+<div class="dl"><span class="dl-spk">Lisa</span><div><div class="dl-txt">Aber genau das macht mir Angst. Ich hab' nicht studiert, um Tools zu bedienen, die meine Arbeit übernehmen.</div></div></div>
+<div class="dl"><span class="dl-spk b">Marc</span><div><div class="dl-txt">Es übernimmt ja nicht – es <strong>beschleunigt</strong>. Du kannst strategieren, während die KI tippt.</div></div></div>
+<div class="dl"><span class="dl-spk">Lisa</span><div><div class="dl-txt">Und in fünf Jahren? Wenn die KI auch das Strategieren übernimmt? Ich habe das <strong>Gefühl, auf einem fahrenden Zug zu stehen</strong>, und niemand sagt mir, wo das hinführt.</div></div></div>
+<div class="dl"><span class="dl-spk b">Marc</span><div><div class="dl-txt">Vielleicht weiß das auch niemand. Vielleicht ist das gerade das Unheimliche – dass selbst die, die's bauen, nicht wissen, wo's hingeht.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">☕</span> Im Café – „Früher war alles… anders"</div><div class="dialog-body">
+<div class="dl"><span class="dl-spk">Anja</span><div><div class="dl-txt">Manchmal denke ich, früher war's <strong>nicht besser, aber langsamer</strong>. Und Langsamkeit war auch was wert.</div></div></div>
+<div class="dl"><span class="dl-spk b">Tom</span><div><div class="dl-txt">Das ist Verklärung. Du würdest auch nicht zurück zu Telefonzellen und Briefen wollen.</div></div></div>
+<div class="dl"><span class="dl-spk">Anja</span><div><div class="dl-txt">Nein. Aber ich vermisse das Gefühl, dass man <strong>nicht erreichbar sein darf</strong>. Heute musst du dich rechtfertigen, wenn du nicht antwortest.</div></div></div>
+<div class="dl"><span class="dl-spk b">Tom</span><div><div class="dl-txt">Das stimmt. Die Technik bringt uns Möglichkeiten – aber sie nimmt uns auch <strong>Selbstverständlichkeiten</strong>. Stille zum Beispiel.</div></div></div>
+<div class="dl"><span class="dl-spk">Anja</span><div><div class="dl-txt">Und Konzentration. Ich kann keine zehn Minuten lesen, ohne aufs Handy zu schauen. Das macht mir Angst.</div></div></div>
+<div class="dl"><span class="dl-spk b">Tom</span><div><div class="dl-txt">Die Frage ist: <strong>Wer entscheidet eigentlich, was Fortschritt ist?</strong> Wir? Oder ein paar Konzerne, die uns das Tempo vorgeben?</div></div></div>
+</div></div>
+</div></div></div>
+
+<div id="phase-p4" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B2/C1 · Redemittel · 10 Min.</div>
+<div class="card-title">So argumentiert man – <em>differenziert &amp; klar</em></div>
+<div class="card-sub">Diese Wendungen brauchst du in Phase 5 (Rollenspiel) und Phase 7 (Debatte)!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 10 Minuten</div>
+<div class="slabel">🗣 Bedenken &amp; Sorgen ausdrücken</div>
+<ul class="phrase-list">
+<li><strong>Mir bereitet Sorge, dass …</strong> <em>– sachlicher als „Ich habe Angst"</em></li>
+<li><strong>Was mich beunruhigt, ist nicht X, sondern Y.</strong> <em>– differenzierte Kritik</em></li>
+<li><strong>Ich kann mich des Eindrucks nicht erwehren, dass …</strong> <em>– gehoben, vorsichtig</em></li>
+<li><strong>Ich habe meine Zweifel daran, ob das wirklich Fortschritt ist.</strong></li>
+<li><strong>Da entzieht sich uns etwas, was wir früher selbst in der Hand hatten.</strong></li>
+</ul>
+<div class="slabel">🗣 Eine Entwicklung kritisch einordnen</div>
+<ul class="phrase-list">
+<li><strong>Auf den ersten Blick wirkt das wie ein Fortschritt – auf den zweiten Blick aber …</strong></li>
+<li><strong>Hier vermischt sich Bequemlichkeit mit Abhängigkeit.</strong></li>
+<li><strong>Was als Befreiung beginnt, kann sich schnell in Zwang verwandeln.</strong></li>
+<li><strong>Es ist nicht die Technik selbst, sondern das Tempo, das mich besorgt.</strong></li>
+<li><strong>Wir verwechseln oft Effizienz mit Sinn.</strong></li>
+</ul>
+<div class="slabel">🗣 Position beziehen &amp; abwägen</div>
+<ul class="phrase-list">
+<li><strong>Einerseits …, andererseits …</strong> <em>– klassisch, aber wirkt souverän</em></li>
+<li><strong>Ich teile die Begeisterung nicht vorbehaltlos.</strong></li>
+<li><strong>Da bin ich zwiegespalten / ambivalent.</strong></li>
+<li><strong>Ich plädiere dafür, dass wir bewusst innehalten.</strong></li>
+<li><strong>Wir müssen uns die Frage stellen, ob …</strong></li>
+</ul>
+<div class="slabel">🗣 Hoffnung &amp; konstruktive Wendungen</div>
+<ul class="phrase-list">
+<li><strong>Wenn wir das gemeinsam gestalten, kann daraus etwas Sinnvolles entstehen.</strong></li>
+<li><strong>Es liegt an uns, ob wir uns überrollen lassen oder mitgestalten.</strong></li>
+<li><strong>Ich sehe darin auch eine Chance, vorausgesetzt, dass …</strong></li>
+<li><strong>Niemand sollte zurückgelassen werden – das ist eine gesellschaftliche Aufgabe.</strong></li>
+</ul>
+<div class="tipp"><div class="tipp-icon">💡</div><div class="tipp-body"><strong>C1-Trick:</strong> Vermeide einfache Wörter wie „gut/schlecht". Sag stattdessen <em>sinnstiftend, problematisch, bedenklich, ambivalent, zwiespältig, ermutigend, beunruhigend, befreiend, entfremdend</em>. Das macht jeden Satz erwachsener.</div></div>
+</div></div></div>
+
+<div id="phase-p5" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B2/C1 · Rollenspiele · 12 Min.</div>
+<div class="card-title">Jetzt seid <em>ihr dran!</em></div>
+<div class="card-sub">Klickt die Karten für Rollen &amp; Tipps – verteilt die Rollen und spielt!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div><div id="rsp1"></div>
+</div></div></div>
+
+<div id="phase-p6" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B2/C1 · Übungen · 6 Min.</div>
+<div class="card-title">Wortschatz im Test</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 6 Minuten</div>
+<div class="slabel">Welches Wort passt?</div><div id="mc1"></div>
+<hr class="div"><div class="slabel">Richtig oder Falsch? Begründet eure Antwort!</div><div id="rf1"></div>
+</div></div></div>
+
+<div id="phase-p7" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B2/C1 · Debatte · 10 Min.</div>
+<div class="card-title">Jetzt debattieren wir – <em>mit Haltung!</em></div>
+<div class="card-sub">Wählt eine These. Eine:r ist DAFÜR, eine:r DAGEGEN – auch wenn ihr persönlich anders denkt!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 10 Minuten</div>
+<div class="these"><div class="these-num">1</div><div class="these-text">Wer in 10 Jahren keinen souveränen Umgang mit KI hat, wird gesellschaftlich abgehängt sein.<div class="these-starter">PRO: „Wer den Anschluss verliert, …" · CONTRA: „Die Mehrheit der Berufe wird auch in 10 Jahren …"</div></div></div>
+<div class="these"><div class="these-num">2</div><div class="these-text">Der Staat muss alle Bürger zur digitalen Teilhabe verpflichten – auch ältere Menschen.<div class="these-starter">PRO: „Wer Renten elektronisch ausgezahlt bekommt, muss …" · CONTRA: „Mündigkeit bedeutet auch, Nein sagen zu dürfen."</div></div></div>
+<div class="these"><div class="these-num">3</div><div class="these-text">KI-Agenten werden in fünf Jahren mehr Alltagsentscheidungen für uns treffen als wir selbst – und das ist ein Verlust an Mündigkeit.<div class="these-starter">PRO: „Wenn die Maschine entscheidet, was ich kaufe, lese, esse …" · CONTRA: „Wir delegieren schon immer Entscheidungen – an Ärzte, Behörden, Algorithmen …"</div></div></div>
+<div class="these"><div class="these-num">4</div><div class="these-text">Die Geschwindigkeit der Technik übersteigt die Fähigkeit unserer Gesellschaft, sich anzupassen.<div class="these-starter">PRO: „Gesetze, Bildungssysteme, Familienstrukturen brauchen Jahrzehnte …" · CONTRA: „Der Mensch hat sich immer angepasst – nur leiser, als wir denken."</div></div></div>
+<div class="these"><div class="these-num">5</div><div class="these-text">„Früher war alles langsamer und damit menschlicher" – diese Aussage ist nostalgische Verklärung.<div class="these-starter">PRO: „Auch früher war vieles ausschließend, einsam, beschwerlich …" · CONTRA: „Es gibt Qualitäten, die wir verloren haben: Konzentration, Stille, Geduld."</div></div></div>
+<div class="slabel">Freie Sprechkarten – einzeln ziehen!</div><div class="speak-grid" id="speakCards"></div>
+</div></div></div>
+</main>
+<script>
+const TOTAL=3600;let rem=TOTAL,intv=null,run=false;
+function upd(){const m=Math.floor(rem/60),s=rem%60;const d=document.getElementById('td');d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('tf').style.width=(rem/TOTAL*100)+'%';d.className='timer-display';if(rem<=600)d.classList.add('warn');if(rem<=120)d.classList.add('urgent');}
+function toggleTimer(){if(run){clearInterval(intv);run=false;document.querySelector('.tbtn.start').textContent='▶ Start';}else{run=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';intv=setInterval(()=>{if(rem>0){rem--;upd();}else{clearInterval(intv);run=false;}},1000);}}
+function resetTimer(){clearInterval(intv);run=false;rem=TOTAL;upd();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));document.getElementById('phase-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function buildVokCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(v=>{const d=document.createElement('div');d.className='vok-card';d.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${(v.back||'').replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint||'👆 klicken!'}</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildSpeakCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(i=>{const d=document.createElement('div');d.className='speak-card';d.innerHTML=`<div class="speak-front">${i.front}</div><div class="speak-back">${i.back}</div><div class="speak-hint">👆 Tipp & Formulierungshilfe</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildRSP(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(item=>{const d=document.createElement('div');d.className='rsp-card';d.innerHTML=`<div class="rsp-top"><span class="rsp-emoji">${item.emoji}</span><span class="rsp-title">${item.title}</span></div><div class="rsp-body"><div class="rsp-situation">${item.situation}</div><div class="rsp-back"><div class="rsp-rolle"><strong>🔴 Person A:</strong> ${item.a}</div><div class="rsp-rolle"><strong>🔵 Person B:</strong> ${item.b}</div>${item.tipps?`<div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">💡 Tipps:</strong> ${item.tipps}</div>`:''}</div><div class="rsp-hint">👆 klicken für Rollen & Tipps</div></div>`;d.addEventListener('click',()=>d.classList.toggle('open'));g.appendChild(d);});}
+function buildMC(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='mc';const opts=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${id}${i}')">${o}</button>`).join('');div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${opts}</div><div class="mc-fb" id="mcfb${id}${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerMC(btn,j,correct,fbId){btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');if(j!==correct)btn.classList.add('nope');const fb=document.getElementById(fbId);if(fb){fb.classList.add('show');fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);}}
+function buildRF(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='rf';div.id=`rf_${id}_${i}`;div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('${id}',${i},true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF('${id}',${i},false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb_${id}_${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerRF(id,i,answer,btn){const rfData=window['rfData_'+id];const card=document.getElementById(`rf_${id}_${i}`);card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));btn.classList.add(answer?'sel-r':'sel-f');const correct=rfData&&answer===rfData[i].ok;card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);const fb=document.getElementById(`rffb_${id}_${i}`);if(fb){fb.classList.add('show');fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);}}
+
+buildVokCards([
+{"front":"die Disruption","back":"= ein radikaler Bruch, der alte Strukturen plötzlich entwertet.\n\n„Die KI bedeutet eine Disruption für ganze Berufsfelder – Übersetzer, Texter, Anwälte.“\n\nAdjektiv: disruptiv (eine disruptive Technologie)","hint":"radikaler Bruch"},
+{"front":"die Beschleunigung","back":"= das immer schneller werdende Tempo, oft als Belastung empfunden.\n\n„Die digitale Beschleunigung lässt uns kaum Zeit zum Nachdenken.“\n\nGegenpol: die Entschleunigung (bewusste Verlangsamung)","hint":"das Tempo steigt – und steigt"},
+{"front":"die Überforderung","back":"= das Gefühl, mit etwas nicht zurechtzukommen.\n\n„Viele Ältere fühlen sich von der Geschwindigkeit der Veränderung überfordert.“\n\nVerb: jemanden überfordern · sich überfordert fühlen","hint":"„Ich komme nicht mehr mit“"},
+{"front":"abgehängt werden","back":"= zurückgelassen werden, den Anschluss verlieren.\n\n„Wer sich nicht digital weiterbildet, läuft Gefahr, abgehängt zu werden.“\n\nSubstantiv: die Abgehängten – ein politisch aufgeladenes Wort.","hint":"den Anschluss verlieren"},
+{"front":"die digitale Kluft","back":"= der Graben zwischen denen, die digital teilhaben können, und denen, die es nicht können.\n\nAuch: „digital divide“, „digitale Spaltung“.\n\n„Die digitale Kluft verläuft nicht nur zwischen Jung und Alt, sondern auch zwischen Stadt und Land.“","hint":"der Graben zwischen Digital-Fit und -Fern"},
+{"front":"die Mündigkeit","back":"= die Fähigkeit, selbstbestimmt zu denken und zu entscheiden.\n\n„Wenn ein Algorithmus für uns wählt, was wir lesen, wo bleibt da die Mündigkeit?“\n\nAdjektiv: mündig · Gegenteil: entmündigt werden","hint":"selbst entscheiden können"},
+{"front":"entmündigt werden","back":"= jemandem die Fähigkeit oder Erlaubnis nehmen, selbst zu entscheiden.\n\n„Ältere Menschen fühlen sich entmündigt, wenn alles nur noch digital geht.“\n\nFormeller, sehr starker Begriff – passt zur kritischen Debatte.","hint":"die Wahl genommen bekommen"},
+{"front":"die Souveränität","back":"= die Hoheit über sich selbst, die eigene Selbstständigkeit.\n\n„Digitale Souveränität bedeutet: Ich entscheide, wann und wie ich Technologie nutze – nicht umgekehrt.“\n\nAdjektiv: souverän (selbstsicher, beherrscht)","hint":"die Hoheit über das eigene Leben"},
+{"front":"die Teilhabe","back":"= das Mitwirken, das Dazugehören in der Gesellschaft.\n\n„Digitale Teilhabe ist heute eine Frage der Grundversorgung – wie Strom oder fließendes Wasser.“\n\nGegenteil: Ausschluss, Exklusion","hint":"Dazugehören-Können"},
+{"front":"die Ambivalenz","back":"= das gleichzeitige Vorhandensein widersprüchlicher Gefühle.\n\n„Ich empfinde der KI gegenüber eine tiefe Ambivalenz – Faszination und Furcht zugleich.“\n\nAdjektiv: ambivalent · zwiespältig (Synonym)","hint":"zwei Gefühle gleichzeitig"},
+{"front":"die Entfremdung","back":"= das Gefühl, sich von etwas zu entfernen, das früher vertraut war.\n\n„Die ständige Vernetzung führt paradoxerweise zu einer Entfremdung von sich selbst.“\n\nVerb: sich entfremden","hint":"das Vertraute wird fremd"},
+{"front":"sich (etwas) entziehen","back":"= sich vor etwas bewusst zurückziehen / nicht teilnehmen.\n\n„Manche Menschen versuchen, sich der digitalen Welt komplett zu entziehen – aber das wird immer schwieriger.“\n\nAuch: „Diese Entwicklung entzieht sich unserer Kontrolle.“","hint":"sich rausziehen, distanzieren"},
+{"front":"die Verklärung","back":"= die nostalgische Schönfärberei der Vergangenheit.\n\n„Wenn wir sagen, früher war alles besser, ist das oft eine Verklärung – das Schwere haben wir vergessen.“\n\nVerb: verklären","hint":"„Früher war alles besser“ – wirklich?"},
+{"front":"die Selbstwirksamkeit","back":"= das Gefühl, mit eigenem Handeln etwas bewirken zu können (Begriff aus der Psychologie).\n\n„Wer KI nur als bedrohlich erlebt, verliert das Gefühl der Selbstwirksamkeit – als wäre man Zuschauer im eigenen Leben.“","hint":"„Ich kann etwas bewirken“-Gefühl"},
+{"front":"das Ohnmachtsgefühl","back":"= das Empfinden, ausgeliefert zu sein, nichts ändern zu können.\n\n„Viele Menschen begegnen dem technologischen Wandel mit einem diffusen Ohnmachtsgefühl.“\n\nVerwandt: die Ohnmacht · ohnmächtig sein","hint":"ausgeliefert sein"},
+{"front":"der Paradigmenwechsel","back":"= ein grundlegender Wechsel der Denkweise oder Methode.\n\n„Mit den KI-Agenten erleben wir einen Paradigmenwechsel: Wir geben Aufgaben nicht mehr nur ein – wir delegieren ganze Entscheidungen.“\n\nGehoben, in Debatten sehr wirkungsvoll.","hint":"die Denkweise kippt komplett"},
+{"front":"die Resilienz","back":"= die Widerstandsfähigkeit gegenüber Krisen und Veränderungen.\n\n„Resilienz bedeutet nicht, dass Veränderung nicht schmerzt – sondern dass man sich davon nicht zerstören lässt.“\n\nAdjektiv: resilient","hint":"innere Widerstandskraft"},
+{"front":"den Anschluss verlieren","back":"= nicht mehr mithalten können, abgehängt werden.\n\n„Ich habe Angst, in meinem Beruf den Anschluss zu verlieren.“\n\nIdiomatisch, sehr gebräuchlich in dieser Debatte.","hint":"nicht mehr mithalten"},
+{"front":"sich (an etwas) anpassen","back":"= sich an neue Umstände gewöhnen / verändern.\n\n„Der Mensch hat sich immer angepasst – aber meist über Generationen, nicht innerhalb von Monaten.“\n\nSubstantiv: die Anpassung · die Adaption (Fremdwort)","hint":"sich verändern, um mitzukommen"},
+{"front":"Bequemlichkeit vs. Abhängigkeit","back":"= angenehmer Komfort – der oft in Abhängigkeit umschlägt.\n\n„Was als Bequemlichkeit beginnt – „Ich lasse das von der KI machen“ – endet schnell in Abhängigkeit: Ich kann es nicht mehr selbst.“","hint":"die Schwelle vom Komfort zur Falle"}
+],'v1');
+
+buildSpeakCards([
+{"front":"Wann hattest du deinen ersten Internet-Moment? Welcher technische Sprung hat dich am meisten beeindruckt?","back":"„Ich erinnere mich noch genau, wie ich zum ersten Mal … / Was mich am meisten geprägt hat, war …“"},
+{"front":"Gibt es jemanden in deinem Leben, der gerade abgehängt wird – und wie geht es dir damit?","back":"„Meine Mutter / Mein Vater / Mein Nachbar … / Was mich daran berührt, ist …“"}
+],'warmup');
+
+buildRSP([
+{"emoji":"👵","title":"Hilfe für Oma – KI-Agent einrichten","situation":"Die Bank schickt nur noch digital. Oma soll einen Termin online machen – und vielleicht sogar einen KI-Assistenten dafür nutzen. Enkel:in versucht zu helfen. Spielt das Gespräch durch – und zeigt sowohl die Frustration als auch die Geduld!","a":"OMA (74): Du fühlst dich entmündigt, hast Angst, etwas „falsch“ zu klicken. Du willst nicht „dumm“ wirken, aber alles ist neu. Stelle Rückfragen, sage deutlich, was dich überfordert.","b":"ENKEL:IN (28): Du willst helfen – aber findest manches selbstverständlich, was es nicht ist. Atme tief durch. Erkläre langsam, ohne herablassend zu sein. Frage Oma: „Was ist dir wichtig?“","tipps":"Wortschatz: entmündigen, Mündigkeit, Bequemlichkeit, sich überfordert fühlen, jemandem auf Augenhöhe begegnen, Geduld aufbringen"},
+{"emoji":"💼","title":"Im Team-Meeting – „Wir führen einen KI-Agenten ein“","situation":"Die Geschäftsführung verkündet: Ab nächstem Quartal arbeitet jede:r mit einem KI-Agenten, der E-Mails sortiert, Termine plant, Berichte vorschreibt. Ein:e Mitarbeiter:in spricht im Meeting die unausgesprochenen Sorgen an. Die Führungskraft reagiert.","a":"MITARBEITER:IN (52, lange im Unternehmen): Du bist nicht grundsätzlich dagegen – aber du fragst, was mit denen passiert, die nicht so schnell lernen. Du sprichst von Beschleunigungsdruck und Ohnmachtsgefühl.","b":"FÜHRUNGSKRAFT: Du siehst Effizienz und Wettbewerbsfähigkeit. Du musst entscheiden: Verteidigst du den Plan – oder hörst du wirklich zu? Du darfst auch eingestehen: „Da haben wir noch keine Antwort.“","tipps":"Wortschatz: abgehängt werden, Disruption, Beschleunigung, Souveränität, Teilhabe, sich überrumpelt fühlen, „Mir bereitet Sorge, dass …“"},
+{"emoji":"🎙","title":"Talkshow: „Wer entscheidet das Tempo?“","situation":"Eine Talkshow zum Thema „Wer bestimmt, wie schnell sich unsere Welt verändern darf?“ Zwei Gäste mit klaren Positionen. Diskutiert 5–7 Minuten – aber konkret, nicht abstrakt!","a":"GAST 1 (Tech-Optimist:in, ~35 J.): Du glaubst, dass Anpassung möglich und nötig ist. Wer nicht mitkommt, ist mitverantwortlich. Aber pass auf, nicht zynisch zu wirken.","b":"GAST 2 (Soziolog:in, ~55 J.): Du argumentierst, dass die Gesellschaft das Tempo nicht selbst bestimmt – wenige Konzerne tun das. Du forderst politische Eingriffe und Schutz für Schwächere.","tipps":"Wortschatz: Paradigmenwechsel, digitale Kluft, Verklärung, Selbstwirksamkeit, „Wir verwechseln Effizienz mit Sinn“, „Niemand sollte zurückgelassen werden“"}
+],'rsp1');
+
+buildMC([
+{"q":"Welches Wort beschreibt am besten das Gefühl, ausgeliefert und machtlos zu sein?","opts":["die Ambivalenz","das Ohnmachtsgefühl","die Resilienz"],"correct":1,"fb":"✓ Ohnmachtsgefühl = sich ausgeliefert / hilflos fühlen. Ambivalenz = widersprüchliche Gefühle. Resilienz = Widerstandskraft."},
+{"q":"„Wer nicht mitkommt, verliert den Anschluss“ – welches Substantiv passt zu Menschen in dieser Lage?","opts":["die Angepassten","die Abgehängten","die Disrupteure"],"correct":1,"fb":"✓ „Die Abgehängten“ – politisch aufgeladenes Wort für Menschen, die nicht mehr mitkommen. Disrupteure = die, die den Bruch verursachen. Angepasste = die Mitläufer."},
+{"q":"„Sich der digitalen Welt … “ – welches Verb passt am besten?","opts":["sich entziehen","sich entkoppeln","sich entfremden"],"correct":0,"fb":"✓ „Sich (Dat) der digitalen Welt ENTZIEHEN“ = bewusst nicht teilnehmen. Idiomatische Wahl. Entkoppeln und entfremden passen kontextuell, aber „sich entziehen“ ist hier die natürlichste Formulierung."},
+{"q":"Welches Wort meint einen grundlegenden Wechsel der Denkweise?","opts":["die Beschleunigung","der Paradigmenwechsel","die Verklärung"],"correct":1,"fb":"✓ Paradigmenwechsel = die Denkweise kippt komplett. Beschleunigung = Tempo steigt. Verklärung = die Vergangenheit schönfärben."},
+{"q":"„Ich empfinde der KI gegenüber eine tiefe ___ – Faszination und Furcht zugleich.“","opts":["Disruption","Ambivalenz","Souveränität"],"correct":1,"fb":"✓ Ambivalenz = zwei widersprüchliche Gefühle gleichzeitig. Disruption = ein Bruch. Souveränität = Selbstbestimmung."},
+{"q":"Was ist das Gegenteil von Mündigkeit?","opts":["Entmündigung","Entfremdung","Verklärung"],"correct":0,"fb":"✓ Mündigkeit ↔ Entmündigung. Entfremdung = das Vertraute wird fremd. Verklärung = Schönfärberei."}
+],'mc1');
+
+window.rfData_rf1=[
+{"s":"„Disruption“ bedeutet, dass eine Entwicklung sanft und allmählich verläuft.","ok":false,"fb":"✗ Falsch! Disruption ist das Gegenteil – ein radikaler Bruch, der bestehende Strukturen plötzlich entwertet."},
+{"s":"„Digitale Souveränität“ bedeutet, dass ich selbst entscheide, wann und wie ich Technologie nutze.","ok":true,"fb":"✓ Richtig! Souveränität = die Hoheit über sich selbst. Digital souverän heißt: nicht von der Technik bestimmt werden, sondern sie bestimmen."},
+{"s":"„Sich entmündigt fühlen“ und „seine Mündigkeit verlieren“ meinen ungefähr dasselbe.","ok":true,"fb":"✓ Richtig! Mündigkeit = Fähigkeit, selbst zu entscheiden. Entmündigt = man nimmt es einem weg (oder das Gefühl, dass es einem genommen wird)."},
+{"s":"„Selbstwirksamkeit“ und „Selbstüberschätzung“ sind Synonyme.","ok":false,"fb":"✗ Falsch! Selbstwirksamkeit = das Gefühl, mit eigenem Handeln etwas bewirken zu können (positiv, Psychologie). Selbstüberschätzung = sich für besser halten, als man ist (negativ)."},
+{"s":"Die „digitale Kluft“ verläuft ausschließlich zwischen jung und alt.","ok":false,"fb":"✗ Falsch! Die digitale Kluft (digital divide) verläuft auch zwischen Stadt und Land, Arm und Reich, Sprache und Bildung. Alter ist nur EIN Faktor."},
+{"s":"„Resilienz“ heißt nicht, dass Veränderung nicht schmerzt – sondern dass man sich davon nicht zerstören lässt.","ok":true,"fb":"✓ Richtig! Schöner Satz. Resilienz ist nicht Härte oder Gefühllosigkeit, sondern die Fähigkeit, nach Belastungen wieder ins Gleichgewicht zu kommen."}
+];
+buildRF(window.rfData_rf1,'rf1');
+
+buildSpeakCards([
+{"front":"Stell dir vor, du erklärst einem Kind von heute, was eine Welt OHNE Internet bedeutete. Was würdest du sagen?","back":"„Damals musste man ins Lexikon schauen / Briefe schreiben / sich nicht erreichen lassen können …“ – Versuche, die emotionale Qualität zu beschreiben, nicht nur die technische."},
+{"front":"Welche Eigenschaft brauchen Menschen in 20 Jahren, die sie heute noch nicht ausreichend haben?","back":"„Was es mehr braucht, ist … Resilienz / Ambivalenz-Toleranz / Geduld mit dem Ungewissen / die Fähigkeit zu pausieren …“"},
+{"front":"Wenn du EINE Sache an der digitalen Welt zurückdrehen könntest – welche wäre das, und warum?","back":"„Ich würde rückgängig machen, dass … – nicht aus Nostalgie, sondern weil …“"},
+{"front":"Wer trägt die Verantwortung, wenn jemand digital abgehängt wird: die Person selbst, die Gesellschaft oder die Unternehmen?","back":"„Ich plädiere für eine geteilte Verantwortung: Einerseits …, andererseits …“"},
+{"front":"Worin liegt für dich der Unterschied zwischen einem Werkzeug und einer Abhängigkeit?","back":"„Ein Werkzeug benutzt MAN. Eine Abhängigkeit benutzt EINEN. Konkret heißt das …“"},
+{"front":"Was wäre für dich ein guter Umgang mit KI-Agenten in 5 Jahren – realistisch, nicht utopisch?","back":"„Realistisch wäre, dass wir gelernt haben, … – und gleichzeitig akzeptiert haben, dass …“"}
+],'speakCards');
+
+upd();
+</script></body></html>

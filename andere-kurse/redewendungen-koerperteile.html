@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+        <html>
+          <head>
+            <title data-id="th-modified">Web Page</title>
+            
+          <meta property="og:title" content="Web Page" data-id="th-modified"><meta name="description" content="code" data-id="th-modified"><meta property="og:description" content="code" data-id="th-modified"><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified"><meta property="og:image:width" content="1501" data-id="th-modified"><meta property="og:image:height" content="1501" data-id="th-modified"><meta property="og:image:type" content="image/png" data-id="th-modified"><meta property="og:url" content="/andere-kurse/redewendungen-koerperteile.html" data-id="th-modified"><meta property="og:type" content="website" data-id="th-modified"><script defer data-domain="redewendungen-koerperteile.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+          <body>
+            <!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="no-referrer">
+<title>Redewendungen mit Körperteilen · deutschoderwas</title>
+<style>
+/* Self-contained fonts: system stack works offline, Google Fonts loads when online */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+:root {
+  --cream:#F7F3EE; --dark:#1A1410; --brown:#5C3D2E;
+  --rust:#C4622D; --rust-lt:#E8896A; --sand:#D9C4A8; --sand-lt:#EEE4D4;
+  --green:#3D6B4F; --green-lt:#D4E8DC; --red:#C0392B; --red-lt:#F5DDD9;
+  --purple:#6B3D8A; --purple-lt:#E8D4F5;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}
+.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--purple),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}
+.tbtn.reset{background:#555;color:white;}
+
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--purple);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--purple);color:var(--purple-lt);}
+.phase-btn.active{background:var(--purple);border-color:var(--purple);color:white;}
+
+main{max-width:900px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}
+.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;position:relative;overflow:hidden;}
+.card-header::after{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.04);}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--purple-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.35rem;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--purple),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--purple);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.3rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--purple-lt);color:var(--purple);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+
+/* REDEWENDUNG KARTE */
+.rw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.rw-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;border-left:5px solid var(--purple);}
+.rw-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(107,61,138,.12);}
+.rw-card.flipped{background:var(--purple-lt);}
+.rw-front{padding:1rem 1.2rem;}
+.rw-phrase{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:.2rem;}
+.rw-koerper{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:.3rem;}
+.rw-literal{font-size:.75rem;color:#aaa;font-style:italic;}
+.rw-back{background:white;padding:.8rem 1.2rem;border-top:1px dashed var(--purple-lt);display:none;}
+.rw-card.flipped .rw-back{display:block;}
+.rw-bedeutung{font-size:.88rem;font-weight:600;color:var(--dark);margin-bottom:.4rem;}
+.rw-beispiel{font-size:.83rem;color:var(--brown);line-height:1.5;font-style:italic;}
+.rw-hint{font-size:.65rem;color:#aaa;margin-top:.3rem;text-align:right;}
+
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.2rem;margin-bottom:.75rem;}
+.mc-q{font-size:.93rem;font-weight:600;margin-bottom:.7rem;line-height:1.5;}
+.mc-opts{display:flex;flex-direction:column;gap:.35rem;}
+.mc-opt{padding:.45rem .9rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.87rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--purple);background:var(--purple-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.8rem;margin-top:.55rem;display:none;font-weight:500;line-height:1.5;}
+.mc-fb.show{display:block;}
+.mc-fb.ok{color:var(--green);}
+.mc-fb.nope{color:var(--red);}
+
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}
+.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.91rem;margin-bottom:.55rem;line-height:1.5;}
+.rf-btns{display:flex;gap:.4rem;}
+.rfbtn{padding:.25rem .78rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.77rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--purple);color:var(--purple);}
+.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}
+.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.79rem;margin-top:.5rem;font-weight:500;display:none;line-height:1.5;}
+.rf-fb.show{display:block;}
+.rf-fb.ok{color:var(--green);}
+.rf-fb.bad{color:var(--red);}
+
+/* RATESPIEL */
+.rate-card{background:var(--dark);border-radius:16px;padding:1.5rem;text-align:center;margin-bottom:1rem;cursor:pointer;}
+.rate-situation{font-size:.9rem;color:#ccc;margin-bottom:.8rem;line-height:1.5;}
+.rate-answer{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;color:var(--purple-lt);filter:blur(8px);transition:filter .3s;}
+.rate-card.revealed .rate-answer{filter:none;}
+.rate-hint{font-size:.7rem;color:#777;margin-top:.6rem;}
+
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--purple);}
+.speak-card:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(107,61,138,.12);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.93rem;color:var(--dark);}
+.speak-back{font-size:.82rem;color:var(--dark);line-height:1.5;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}
+.speak-hint{font-size:.68rem;color:#aaa;margin-top:.4rem;}
+
+.tipp{background:var(--dark);color:var(--cream);border-radius:14px;padding:1rem 1.3rem;margin-top:1.2rem;display:flex;gap:.8rem;align-items:flex-start;}
+.tipp-icon{font-size:1.2rem;flex-shrink:0;}
+.tipp-text{font-size:.86rem;line-height:1.7;}
+.tipp-text strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.4rem 0;}
+</style>
+</head>
+<body>
+
+<div class="timer-bar">
+  <div class="timer-display" id="timerDisplay">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="timerFill"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;">Unterrichtszeit</span>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">▶ Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">↺</button>
+  </div>
+</div>
+
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <button class="phase-btn active" onclick="showPhase('einstieg',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('kopf',this)">② Kopf & Augen</button>
+  <button class="phase-btn" onclick="showPhase('hand',this)">③ Hand & Arm</button>
+  <button class="phase-btn" onclick="showPhase('rest',this)">④ Bauch & Bein</button>
+  <button class="phase-btn" onclick="showPhase('uebung',this)">⑤ Übungen</button>
+  <button class="phase-btn" onclick="showPhase('sprechen',this)">⑥ Sprechen</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;">Alltag B1/B2 · 60 Min.</span>
+</div>
+
+<main>
+
+<!-- ① EINSTIEG -->
+<div id="phase-einstieg" class="phase active">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Einstieg · 8 Min.</div>
+      <div class="card-title">Redewendungen mit <em>Körperteilen</em></div>
+      <div class="card-sub">Was der Körper auf Deutsch so alles sagt…</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+
+      <div class="slabel">Rate mal – was bedeuten diese Sätze?</div>
+      <div id="rateContainer"></div>
+      <button style="background:var(--purple);color:white;border:none;border-radius:30px;padding:.5rem 1.3rem;font-family:'Fraunces',serif;font-weight:700;font-size:.88rem;cursor:pointer;margin-top:.5rem;" onclick="nextRate()">🔀 Nächster Satz</button>
+
+      <div class="tipp">
+        <div class="tipp-icon">🎭</div>
+        <div class="tipp-text"><strong>Heute lernen wir:</strong> Die witzigsten und häufigsten deutschen Redewendungen mit Körperteilen – von Kopf bis Fuß! Diese Ausdrücke machen deinen Alltag auf Deutsch viel natürlicher.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② KOPF & AUGEN -->
+<div id="phase-kopf" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Redewendungen · 12 Min.</div>
+      <div class="card-title">🧠 Kopf, Augen &amp; <em>Ohren</em></div>
+      <div class="card-sub">Klick auf die Karten!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 12 Minuten</div>
+      <div class="rw-grid" id="kopfGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ HAND & ARM -->
+<div id="phase-hand" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Redewendungen · 12 Min.</div>
+      <div class="card-title">✋ Hand, Arm &amp; <em>Finger</em></div>
+      <div class="card-sub">Klick auf die Karten!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 12 Minuten</div>
+      <div class="rw-grid" id="handGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ BAUCH & BEIN -->
+<div id="phase-rest" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Redewendungen · 10 Min.</div>
+      <div class="card-title">🦵 Bauch, Bein &amp; <em>Fuß</em></div>
+      <div class="card-sub">Klick auf die Karten!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+      <div class="rw-grid" id="restGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ ÜBUNGEN -->
+<div id="phase-uebung" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Übungen · 10 Min.</div>
+      <div class="card-title">Jetzt üben wir!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">Übung 1 – Was bedeutet das?</div>
+      <div id="mc1"></div>
+
+      <hr class="div">
+
+      <div class="slabel">Übung 2 – Richtig oder Falsch?</div>
+      <div id="rf1"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑥ SPRECHEN -->
+<div id="phase-sprechen" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Alltag B1/B2 · Sprechen · 8 Min.</div>
+      <div class="card-title">Redewendungen <em>in Aktion!</em></div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+
+      <div class="slabel">Situationskarten – welche Redewendung passt?</div>
+      <div class="speak-grid" id="speakCards"></div>
+
+      <hr class="div">
+
+      <div class="slabel">Übersetzungsrunde – kennst du das aus deiner Sprache?</div>
+      <div style="background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:1rem;">
+        <div style="font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--purple-lt);margin-bottom:.6rem;">🌍 Vergleich mit eurer Muttersprache!</div>
+        <div style="font-size:.88rem;line-height:1.8;color:#ccc;">
+          Gibt es in deiner Sprache auch Redewendungen mit Körperteilen?<br>
+          Zum Beispiel: „Daumen drücken" – gibt es das bei euch auch?<br>
+          Was sagt man bei euch, wenn jemand sehr frech ist?<br>
+          Wie sagt man „jemandem auf die Nerven gehen"?
+        </div>
+      </div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🏠</div>
+        <div class="tipp-text"><strong>Hausaufgabe:</strong> Such dir 3 Redewendungen aus, die du lustig oder interessant findest. Schreib je einen Satz damit – aus deinem eigenen Alltag!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+const TOTAL=3600;let remaining=TOTAL,interval=null,running=false;
+function updateTimerDisplay(){
+  const m=Math.floor(remaining/60),s=remaining%60;
+  const d=document.getElementById('timerDisplay');
+  d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  document.getElementById('timerFill').style.width=(remaining/TOTAL*100)+'%';
+  d.className='timer-display';
+  if(remaining<=600)d.classList.add('warn');
+  if(remaining<=120)d.classList.add('urgent');
+}
+function toggleTimer(){
+  if(running){clearInterval(interval);running=false;document.querySelector('.tbtn.start').textContent='▶ Start';}
+  else{running=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';interval=setInterval(()=>{if(remaining>0){remaining--;updateTimerDisplay();}else{clearInterval(interval);running=false;}},1000);}
+}
+function resetTimer(){clearInterval(interval);running=false;remaining=TOTAL;updateTimerDisplay();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){
+  document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('phase-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// RATESPIEL
+const rateSaetze=[
+  {situation:'Jemand ist sehr frech und sagt, was er denkt – ohne Rücksicht.',answer:'Er/Sie hat Haare auf den Zähnen!'},
+  {situation:'Du weißt nicht, wie etwas enden wird.',answer:'Das liegt noch in den Sternen. / Das steht noch in den Händen der Zeit.'},
+  {situation:'Jemand nervt dich wirklich sehr.',answer:'Du gehst mir auf den Geist! / Du gehst mir auf die Nerven!'},
+  {situation:'Du wünschst jemandem viel Glück vor einer Prüfung.',answer:'Ich drücke dir die Daumen!'},
+  {situation:'Du hast etwas sehr Überraschendes erlebt.',answer:'Ich dachte, mein Herz bleibt stehen!'},
+  {situation:'Jemand lügt dich an – du weißt es.',answer:'Das kannst du mir nicht weismachen!'},
+];
+let rateIdx=0;
+function buildRate(){
+  const c=document.getElementById('rateContainer');
+  const div=document.createElement('div');div.className='rate-card';div.id='rateCard';
+  div.innerHTML=`<div class="rate-situation" id="rateSit">${rateSaetze[0].situation}</div><div class="rate-answer" id="rateAns">${rateSaetze[0].answer}</div><div class="rate-hint">👆 klicken zum Aufdecken</div>`;
+  div.addEventListener('click',()=>div.classList.toggle('revealed'));
+  c.appendChild(div);
+}
+function nextRate(){
+  rateIdx=(rateIdx+1)%rateSaetze.length;
+  document.getElementById('rateSit').textContent=rateSaetze[rateIdx].situation;
+  document.getElementById('rateAns').textContent=rateSaetze[rateIdx].answer;
+  document.getElementById('rateCard').classList.remove('revealed');
+}
+
+// REDEWENDUNGEN
+const kopfData=[
+  {koerper:'🧠 Kopf',phrase:'den Kopf verlieren',literal:'to lose one\'s head',bedeutung:'= in Panik geraten, die Kontrolle verlieren',beispiel:'"Bleib ruhig – verlier jetzt nicht den Kopf!"'},
+  {koerper:'🧠 Kopf',phrase:'etwas im Kopf haben',literal:'to have something in one\'s head',bedeutung:'= sich etwas vorstellen / planen',beispiel:'"Ich habe schon eine Idee im Kopf."'},
+  {koerper:'🧠 Kopf',phrase:'den Kopf in den Sand stecken',literal:'to stick one\'s head in the sand',bedeutung:'= Probleme ignorieren, Realität verweigern',beispiel:'"Du kannst nicht einfach den Kopf in den Sand stecken!"'},
+  {koerper:'👁️ Augen',phrase:'jemandem schöne Augen machen',literal:'to make nice eyes at someone',bedeutung:'= flirten, jemanden beeindrucken wollen',beispiel:'"Er macht ihr schöne Augen – er mag sie definitiv!"'},
+  {koerper:'👁️ Augen',phrase:'die Augen offen halten',literal:'to keep one\'s eyes open',bedeutung:'= aufmerksam sein, nach etwas Ausschau halten',beispiel:'"Halt die Augen offen – vielleicht siehst du ihn!"'},
+  {koerper:'👂 Ohren',phrase:'jemandem in den Ohren liegen',literal:'to lie in someone\'s ears',bedeutung:'= jemanden ständig nerven / um etwas bitten',beispiel:'"Er liegt mir ständig in den Ohren – er will einen Hund!"'},
+  {koerper:'👂 Ohren',phrase:'die Ohren spitzen',literal:'to sharpen one\'s ears',bedeutung:'= genau zuhören, aufhorchen',beispiel:'"Als sie seinen Namen hörte, spitzte sie die Ohren."'},
+  {koerper:'👃 Nase',phrase:'die Nase voll haben',literal:'to have one\'s nose full',bedeutung:'= genug haben, fed up sein',beispiel:'"Ich habe die Nase voll von diesem Stress!"'},
+  {koerper:'👃 Nase',phrase:'jmdm. auf der Nase herumtanzen',literal:'to dance on someone\'s nose',bedeutung:'= jemanden ausnutzen, keinen Respekt zeigen',beispiel:'"Die Kinder tanzen ihr auf der Nase herum!"'},
+];
+
+const handData=[
+  {koerper:'👍 Daumen',phrase:'jemandem die Daumen drücken',literal:'to squeeze thumbs for someone',bedeutung:'= jemandem Glück wünschen',beispiel:'"Ich drücke dir die Daumen für die Prüfung!"'},
+  {koerper:'✋ Hand',phrase:'jmdm. auf die Hände schauen',literal:'to look at someone\'s hands',bedeutung:'= jemanden kontrollieren / überwachen',beispiel:'"Der Chef schaut uns ständig auf die Hände."'},
+  {koerper:'✋ Hand',phrase:'die Hand ins Feuer legen',literal:'to put one\'s hand in the fire',bedeutung:'= für jemanden garantieren, absolut sicher sein',beispiel:'"Für seine Ehrlichkeit lege ich die Hand ins Feuer."'},
+  {koerper:'✋ Hand',phrase:'zwei linke Hände haben',literal:'to have two left hands',bedeutung:'= sehr ungeschickt sein',beispiel:'"Ich kann nicht basteln – ich habe zwei linke Hände!"'},
+  {koerper:'💪 Arm',phrase:'jmdn. auf den Arm nehmen',literal:'to take someone on one\'s arm',bedeutung:'= jemanden verarschen / nicht ernst meinen',beispiel:'"Du nimmst mich auf den Arm! Das kann nicht sein!"'},
+  {koerper:'💪 Arm',phrase:'jemandem unter die Arme greifen',literal:'to grab under someone\'s arms',bedeutung:'= jemandem helfen, jemanden unterstützen',beispiel:'"Er greift seiner Mutter unter die Arme – sie ist krank."'},
+  {koerper:'🦷 Zähne',phrase:'Haare auf den Zähnen haben',literal:'to have hair on one\'s teeth',bedeutung:'= sehr schlagfertig und durchsetzungsstark sein',beispiel:'"Sie lässt sich nichts gefallen – sie hat Haare auf den Zähnen."'},
+  {koerper:'🦷 Zähne',phrase:'durch die Zähne sprechen',literal:'to speak through one\'s teeth',bedeutung:'= undeutlich / mürrisch sprechen',beispiel:'"Er murmelte etwas durch die Zähne – ich verstand ihn kaum."'},
+];
+
+const restData=[
+  {koerper:'💀 Rücken',phrase:'jmdm. in den Rücken fallen',literal:'to fall in someone\'s back',bedeutung:'= jemanden hintergehen / verraten',beispiel:'"Sie ist meine beste Freundin – sie würde mir nie in den Rücken fallen."'},
+  {koerper:'🫁 Bauch',phrase:'einem Bauchgefühl folgen',literal:'to follow a gut feeling',bedeutung:'= auf Intuition hören',beispiel:'"Mein Bauchgefühl sagt mir, das ist die richtige Entscheidung."'},
+  {koerper:'❤️ Herz',phrase:'sich etwas zu Herzen nehmen',literal:'to take something to heart',bedeutung:'= etwas ernst nehmen / sich betroffen fühlen',beispiel:'"Nimm die Kritik nicht zu Herzen – sie meint es gut."'},
+  {koerper:'❤️ Herz',phrase:'das Herz auf dem rechten Fleck haben',literal:'to have one\'s heart in the right place',bedeutung:'= gute Absichten haben, hilfsbereit sein',beispiel:'"Sie ist manchmal direkt, aber ihr Herz ist auf dem rechten Fleck."'},
+  {koerper:'🦵 Bein',phrase:'jmdm. ein Bein stellen',literal:'to put a leg out for someone',bedeutung:'= jemanden absichtlich zum Scheitern bringen',beispiel:'"Der Kollege stellt ihm immer wieder ein Bein."'},
+  {koerper:'🦵 Bein',phrase:'auf eigenen Beinen stehen',literal:'to stand on one\'s own legs',bedeutung:'= selbstständig sein, unabhängig sein',beispiel:'"Mit 25 Jahren steht sie endlich auf eigenen Beinen."'},
+  {koerper:'🦶 Fuß',phrase:'auf dem falschen Fuß erwischt werden',literal:'to be caught on the wrong foot',bedeutung:'= überrascht / unvorbereitet erwischt werden',beispiel:'"Die Frage hat mich auf dem falschen Fuß erwischt."'},
+  {koerper:'🫀 Nerven',phrase:'jemandem auf die Nerven gehen',literal:'to go on someone\'s nerves',bedeutung:'= jemanden nerven / irritieren',beispiel:'"Er geht mir wirklich auf die Nerven mit seinen Fragen!"'},
+];
+
+function buildRWGrid(data, gridId){
+  const grid=document.getElementById(gridId);
+  data.forEach(item=>{
+    const div=document.createElement('div');div.className='rw-card';
+    div.innerHTML=`
+      <div class="rw-front">
+        <div class="rw-koerper">${item.koerper}</div>
+        <div class="rw-phrase">„${item.phrase}"</div>
+        <div class="rw-literal">${item.literal}</div>
+      </div>
+      <div class="rw-back">
+        <div class="rw-bedeutung">💡 ${item.bedeutung}</div>
+        <div class="rw-beispiel">${item.beispiel}</div>
+        <div class="rw-hint">👆 nochmal klicken zum Schließen</div>
+      </div>
+    `;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+const mcData=[
+  {q:'Was bedeutet „Ich habe die Nase voll"?',opts:['Ich habe einen Schnupfen.','Ich habe genug – ich bin fed up!','Meine Nase ist verstopft.'],correct:1,fb:'✓ Richtig! „Die Nase voll haben" = genug haben, es reicht mir. Sehr häufige umgangssprachliche Redewendung!'},
+  {q:'Was bedeutet „Er hat zwei linke Hände"?',opts:['Er ist Linkshänder.','Er ist sehr ungeschickt.','Er hilft gerne mit beiden Händen.'],correct:1,fb:'✓ Richtig! „Zwei linke Hände haben" = sehr ungeschickt sein, nicht handwerklich begabt sein.'},
+  {q:'Was bedeutet „Sie nimmt die Kritik zu Herzen"?',opts:['Sie ignoriert die Kritik.','Sie freut sich über die Kritik.','Sie nimmt die Kritik ernst und ist betroffen.'],correct:2,fb:'✓ Richtig! „Etwas zu Herzen nehmen" = etwas wirklich ernst nehmen / sich davon berühren lassen.'},
+  {q:'Was bedeutet „Ich drücke dir die Daumen"?',opts:['Ich halte deinen Daumen fest.','Ich wünsche dir viel Glück.','Ich gebe dir einen Tipp.'],correct:1,fb:'✓ Richtig! „Jemandem die Daumen drücken" = to keep fingers crossed = Glück wünschen. Sehr häufig vor Prüfungen!'},
+  {q:'Was bedeutet „Er nimmt mich auf den Arm"?',opts:['Er trägt mich.','Er verarscht mich / macht Witze auf meine Kosten.','Er umarmt mich.'],correct:1,fb:'✓ Richtig! „Jemanden auf den Arm nehmen" = jemanden verarschen, nicht ernst meinen. Achtung: buchstäblich bedeutet es etwas ganz anderes!'},
+];
+function buildMC(){
+  const c=document.getElementById('mc1');
+  mcData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='mc';
+    const optsHtml=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${i}')">${o}</button>`).join('');
+    div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${optsHtml}</div><div class="mc-fb" id="mcfb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerMC(btn,j,correct,fbId){
+  btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>{b.disabled=true;});
+  btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');
+  if(j!==correct)btn.classList.add('nope');
+  const fb=document.getElementById(fbId);fb.classList.add('show');
+  fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);
+}
+
+const rfData=[
+  {s:'„Haare auf den Zähnen haben" bedeutet, dass jemand schlechte Zähne hat.',ok:false,fb:'✗ Falsch! „Haare auf den Zähnen haben" = sehr schlagfertig und durchsetzungsstark sein. Nichts mit echten Haaren oder Zähnen!'},
+  {s:'„Auf eigenen Beinen stehen" bedeutet, selbstständig und unabhängig zu sein.',ok:true,fb:'✓ Richtig! Jemand, der auf eigenen Beinen steht, braucht keine finanzielle oder persönliche Unterstützung mehr.'},
+  {s:'„Jemanden in den Rücken fallen" ist eine positive Aussage.',ok:false,fb:'✗ Falsch! In den Rücken fallen = verraten, hintergehen. Das ist sehr negativ – ein Vertrauensbruch!'},
+  {s:'„Die Ohren spitzen" bedeutet genau zuhören.',ok:true,fb:'✓ Richtig! „Die Ohren spitzen" = sehr aufmerksam hören, aufhorchen. Oft wenn man etwas Interessantes oder Wichtiges hört.'},
+  {s:'„Jmdm. ein Bein stellen" bedeutet jemandem helfen.',ok:false,fb:'✗ Falsch! „Jemandem ein Bein stellen" = jemandem absichtlich schaden, sabotieren. Das Gegenteil von Helfen!'},
+];
+function buildRF(){
+  const c=document.getElementById('rf1');
+  rfData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='rf';div.id='rfc'+i;
+    div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF(${i},true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF(${i},false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerRF(i,answer,btn){
+  const card=document.getElementById('rfc'+i);
+  card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));
+  btn.classList.add(answer?'sel-r':'sel-f');
+  const correct=answer===rfData[i].ok;
+  card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);
+  const fb=document.getElementById('rffb'+i);fb.classList.add('show');
+  fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);
+}
+
+const speakData=[
+  {front:'Dein Freund hat eine wichtige Prüfung morgen. Was sagst du?',back:'„Ich drücke dir die Daumen!" / „Viel Erfolg – du schaffst das!"'},
+  {front:'Dein Kollege hat dich bei deinem Chef schlecht gemacht. Wie beschreibst du das?',back:'„Er ist mir in den Rücken gefallen." / „Er hat mich hintergangen."'},
+  {front:'Jemand nervt dich ständig. Wie sagst du das?',back:'„Du gehst mir auf die Nerven!" / „Ich habe die Nase voll davon!"'},
+  {front:'Dein Freund ist sehr ungeschickt beim Kochen. Wie beschreibst du ihn?',back:'„Er hat zwei linke Hände!" / „Er ist beim Kochen eine Katastrophe."'},
+  {front:'Du bist 100% sicher, dass deine Freundin ehrlich ist. Wie sagst du das?',back:'„Für ihre Ehrlichkeit lege ich die Hand ins Feuer!" / „Ich vertraue ihr absolut."'},
+  {front:'Jemand hatte ein gutes Bauchgefühl und es hat gestimmt!',back:'„Mein Bauchgefühl hatte recht!" / „Ich habe auf meine Intuition gehört – und es hat geklappt!"'},
+];
+function buildSpeakCards(){
+  const grid=document.getElementById('speakCards');
+  speakData.forEach(item=>{
+    const div=document.createElement('div');div.className='speak-card';
+    div.innerHTML=`<div class="speak-front">${item.front}</div><div class="speak-back">${item.back}</div><div class="speak-hint">👆 Antwortbeispiel</div>`;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+buildRate();
+buildRWGrid(kopfData,'kopfGrid');
+buildRWGrid(handData,'handGrid');
+buildRWGrid(restData,'restGrid');
+buildMC();buildRF();buildSpeakCards();updateTimerDisplay();
+</script>
+</body>
+</html>
+          </body>
+        </html>

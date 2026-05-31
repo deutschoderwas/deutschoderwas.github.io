@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+        <html>
+          <head>
+            <title data-id="th-modified">Web Page</title>
+            
+          <meta property="og:title" content="Web Page" data-id="th-modified" ><meta name="description" content="code" data-id="th-modified" ><meta property="og:description" content="code" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="/andere-kurse/beimarzta2.html" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="beimarzta2.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+          <body>
+            <!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beim Arzt – A2 | Interaktiver Sprechclub (60 Min)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        :root {
+            --primary: #0f3460;
+            --secondary: #16213e;
+            --accent: #e94560;
+            --gold: #d4af37;
+            --turquoise: #08d9d6;
+            --medical: #16a085;
+            --medical-light: #1abc9c;
+            --white: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+            color: var(--white);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .slide {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 30px;
+            animation: fadeIn 0.5s ease;
+        }
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .header-bar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(15, 52, 96, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 12px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 2px solid var(--medical);
+        }
+        .header-bar h3 {
+            color: var(--medical-light);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .progress-bar {
+            width: 180px;
+            height: 5px;
+            background: var(--secondary);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--medical), var(--turquoise));
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        .slide-counter {
+            color: var(--turquoise);
+            font-size: 12px;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--medical-light), var(--turquoise));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--medical-light);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--turquoise);
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        .card {
+            background: rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 35px;
+            max-width: 950px;
+            width: 100%;
+            border: 1px solid rgba(22, 160, 133, 0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+        }
+        .card-wide { max-width: 1000px; }
+        .time-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: var(--white);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .redemittel-box {
+            background: linear-gradient(135deg, rgba(22, 160, 133, 0.15), rgba(8, 217, 214, 0.1));
+            border-left: 4px solid var(--medical);
+            border-radius: 12px;
+            padding: 22px;
+            margin: 15px 0;
+        }
+        .redemittel-box h4 {
+            color: var(--medical-light);
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .redemittel-box ul { list-style: none; padding: 0; }
+        .redemittel-box li {
+            padding: 7px 0;
+            font-size: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .redemittel-box li:last-child { border-bottom: none; }
+        .redemittel-box .phrase { color: var(--turquoise); font-weight: 600; }
+        .redemittel-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 12px 0;
+            border: 1px solid rgba(22, 160, 133, 0.2);
+            transition: all 0.3s ease;
+        }
+        .redemittel-item:hover {
+            background: rgba(22, 160, 133, 0.1);
+            transform: translateX(5px);
+        }
+        .redemittel-item .emoji { font-size: 1.8rem; margin-bottom: 8px; display: block; }
+        .redemittel-item .phrase { color: var(--turquoise); font-weight: 600; font-size: 1.05rem; }
+        .redemittel-item .example {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+            margin-top: 8px;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            border-left: 2px solid var(--gold);
+        }
+        .vocab-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 14px;
+            padding: 18px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        .vocab-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--medical);
+            background: rgba(22, 160, 133, 0.1);
+        }
+        .vocab-card .emoji { font-size: 2.2rem; margin-bottom: 8px; display: block; }
+        .vocab-card .de { font-weight: 600; color: var(--medical-light); font-size: 1.05rem; }
+        .vocab-card .example {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            margin-top: 8px;
+            padding: 8px 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            border-left: 2px solid var(--gold);
+        }
+        .dialog-scene {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid rgba(22, 160, 133, 0.2);
+        }
+        .scene-title {
+            color: var(--gold);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .dialog-line {
+            display: flex;
+            margin: 10px 0;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .dialog-line:last-child { border-bottom: none; }
+        .speaker { min-width: 110px; font-weight: 700; font-size: 0.95rem; }
+        .speaker.arzt { color: var(--medical-light); }
+        .speaker.patient { color: var(--gold); }
+        .speaker.empfang { color: var(--turquoise); }
+        .speech { flex: 1; line-height: 1.6; font-size: 1rem; }
+        .speech .highlight { color: var(--turquoise); font-weight: 600; background: rgba(8, 217, 214, 0.15); padding: 1px 6px; border-radius: 4px; }
+        .sprechanlass {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(8, 217, 214, 0.1));
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid var(--gold);
+        }
+        .sprechanlass h4 { color: var(--gold); font-size: 1.2rem; margin-bottom: 12px; }
+        .sprechanlass p { font-size: 1rem; line-height: 1.7; margin-bottom: 10px; }
+        .pair-work {
+            background: rgba(8, 217, 214, 0.08);
+            border: 2px dashed var(--turquoise);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .pair-work-icon { font-size: 2rem; margin-bottom: 8px; }
+        .pair-work p { font-size: 1rem; line-height: 1.6; }
+        .role-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 10px 0;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .role-card h5 { color: var(--medical-light); font-size: 1.1rem; margin-bottom: 10px; }
+        .role-card ul { margin-left: 20px; font-size: 0.95rem; line-height: 1.8; }
+        .situation-box {
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.1), rgba(255, 107, 107, 0.05));
+            border-left: 4px solid var(--accent);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .situation-box h5 { color: var(--accent-light); margin-bottom: 10px; }
+        .nav-buttons {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+        }
+        .nav-btn {
+            background: var(--medical);
+            color: var(--white);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .nav-btn:hover {
+            background: var(--turquoise);
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(8, 217, 214, 0.3);
+        }
+        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .timer-display {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .info-tag {
+            display: inline-block;
+            background: rgba(22, 160, 133, 0.2);
+            color: var(--medical-light);
+            padding: 5px 14px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 3px;
+        }
+        .checklist { list-style: none; padding: 0; }
+        .checklist li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1rem;
+        }
+        .checklist li::before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: var(--medical-light);
+            font-size: 1.2rem;
+        }
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 15px 0;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            .card { padding: 20px; }
+            .slide { padding: 70px 15px 90px; }
+            .vocab-grid { grid-template-columns: 1fr; }
+            .dialog-line { flex-direction: column; gap: 5px; }
+            .speaker { min-width: auto; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <div class="header-bar">
+        <h3>🏥 Beim Arzt – A2 Sprechclub</h3>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width: 0%"></div></div>
+            <span class="slide-counter" id="slideCounter">1 / 14</span>
+        </div>
+    </div>
+
+    <div class="slide active" data-slide="1">
+        <div style="font-size: 5rem; margin-bottom: 20px;">🏥</div>
+        <h1>Beim Arzt</h1>
+        <p class="subtitle">Echte Dialoge aus dem Alltag | A2 Niveau</p>
+        <div style="text-align: center; margin: 25px 0;">
+            <span class="info-tag">⏱️ 60 Minuten</span>
+            <span class="info-tag">👥 4 Personen</span>
+            <span class="info-tag">🗣️ Sprechfokus</span>
+            <span class="info-tag">🎭 Rollenspiele</span>
+        </div>
+        <div class="card" style="max-width: 700px; text-align: center;">
+            <p style="font-size: 1.1rem; line-height: 1.8;">
+                Heute üben wir echte Situationen beim Arzt:<br>
+                <strong style="color: var(--medical-light);">Anmeldung → Wartezimmer → Untersuchung → Rezept → Apotheke</strong><br><br>
+                Du lernst, was der Arzt fragt, was du antwortest, und wie du deine Beschwerden beschreibst.
+            </p>
+        </div>
+    </div>
+
+
+    <div class="slide" data-slide="2">
+        <h2>⏱️ Zeitplan (60 Minuten)</h2>
+        <div class="card">
+            <div style="display: grid; gap: 12px;">
+                <div style="display: flex; align-items: center; gap: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                    <span style="font-size: 1.5rem;">🧠</span>
+                    <span style="color: var(--medical-light); font-weight: 700; min-width: 80px;">0–8 Min</span>
+                    <span><strong>Warm-up & Wortschatz:</strong> Körperteile, Krankheiten, Symptome</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                    <span style="font-size: 1.5rem;">🗣️</span>
+                    <span style="color: var(--medical-light); font-weight: 700; min-width: 80px;">8–15 Min</span>
+                    <span><strong>Redemittel:</strong> Beschwerden beschreiben, Fragen stellen</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                    <span style="font-size: 1.5rem;">💬</span>
+                    <span style="color: var(--medical-light); font-weight: 700; min-width: 80px;">15–25 Min</span>
+                    <span><strong>Beispieldialoge:</strong> 3 echte Szenen (Anmeldung, Untersuchung, Rezept)</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                    <span style="font-size: 1.5rem;">🎭</span>
+                    <span style="color: var(--medical-light); font-weight: 700; min-width: 80px;">25–40 Min</span>
+                    <span><strong>Rollenspiel 1:</strong> Paarweise – Arzt und Patient</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                    <span style="font-size: 1.5rem;">🎬</span>
+                    <span style="color: var(--medical-light); font-weight: 700; min-width: 80px;">40–52 Min</span>
+                    <span><strong>Rollenspiel 2:</strong> Gruppe 4 Personen – komplexe Szene</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                    <span style="font-size: 1.5rem;">✅</span>
+                    <span style="color: var(--medical-light); font-weight: 700; min-width: 80px;">52–60 Min</span>
+                    <span><strong>Feedback & Reflexion:</strong> Was habe ich gelernt?</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="slide" data-slide="3">
+        <h2>🧠 Wortschatz: Körperteile</h2>
+        <div class="card">
+            <div class="time-badge">⏱️ 3 Min – Besprechung im Plenum</div>
+            <div class="vocab-grid">
+                <div class="vocab-card"><span class="emoji">🧠</span><div class="de">der Kopf</div><div class="example">💬 „Mein Kopf tut weh."</div></div>
+                <div class="vocab-card"><span class="emoji">🦒</span><div class="de">der Hals</div><div class="example">💬 „Ich habe Halsschmerzen."</div></div>
+                <div class="vocab-card"><span class="emoji">🫁</span><div class="de">die Brust</div><div class="example">💬 „Meine Brust tut weh."</div></div>
+                <div class="vocab-card"><span class="emoji">🫃</span><div class="de">der Bauch</div><div class="example">💬 „Ich habe Bauchschmerzen."</div></div>
+                <div class="vocab-card"><span class="emoji">🦴</span><div class="de">der Rücken</div><div class="example">💬 „Mein Rücken tut weh."</div></div>
+                <div class="vocab-card"><span class="emoji">🦵</span><div class="de">das Knie</div><div class="example">💬 „Mein Knie tut weh."</div></div>
+                <div class="vocab-card"><span class="emoji">💪</span><div class="de">der Arm / das Bein</div><div class="example">💬 „Ich kann meinen Arm nicht bewegen."</div></div>
+                <div class="vocab-card"><span class="emoji">👁️</span><div class="de">das Auge / das Ohr</div><div class="example">💬 „Mein Ohr tut weh."</div></div>
+                <div class="vocab-card"><span class="emoji">👃</span><div class="de">die Nase / der Mund</div><div class="example">💬 „Meine Nase läuft."</div></div>
+                <div class="vocab-card"><span class="emoji">🖐️</span><div class="de">der Finger / die Zehe</div><div class="example">💬 „Ich habe mir den Finger verletzt."</div></div>
+                <div class="vocab-card"><span class="emoji">🧴</span><div class="de">die Haut</div><div class="example">💬 „Meine Haut juckt."</div></div>
+                <div class="vocab-card"><span class="emoji">❤️</span><div class="de">das Herz</div><div class="example">💬 „Mein Herz schlägt sehr schnell."</div></div>
+            </div>
+            <div class="pair-work">
+                <div class="pair-work-icon">👆</div>
+                <p><strong>Schnelle Übung:</strong> Zeigt auf euren Körper und nennt das Körperteil auf Deutsch! Der Nächste wiederholt und fügt eins hinzu.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="slide" data-slide="4">
+        <h2>🤒 Wortschatz: Krankheiten & Symptome</h2>
+        <div class="card">
+            <div class="time-badge">⏱️ 5 Min – Besprechung im Plenum</div>
+            <div class="vocab-grid">
+                <div class="vocab-card"><span class="emoji">🤕</span><div class="de">Kopfschmerzen haben</div><div class="example">💬 „Ich habe seit gestern Kopfschmerzen."</div></div>
+                <div class="vocab-card"><span class="emoji">😷</span><div class="de">Halsschmerzen haben</div><div class="example">💬 „Mir tut der Hals weh beim Schlucken."</div></div>
+                <div class="vocab-card"><span class="emoji">🤢</span><div class="de">Bauchschmerzen haben</div><div class="example">💬 „Ich habe seit zwei Tagen Bauchschmerzen."</div></div>
+                <div class="vocab-card"><span class="emoji">🪑</span><div class="de">Rückenschmerzen haben</div><div class="example">💬 „Mein Rücken tut besonders beim Sitzen weh."</div></div>
+                <div class="vocab-card"><span class="emoji">🤧</span><div class="de">schnupfen / die Nase läuft</div><div class="example">💬 „Ich habe Schnupfen und meine Nase läuft."</div></div>
+                <div class="vocab-card"><span class="emoji">😮‍💨</span><div class="de">husten / der Husten</div><div class="example">💬 „Ich huste seit einer Woche sehr stark."</div></div>
+                <div class="vocab-card"><span class="emoji">🌡️</span><div class="de">Fieber haben / Temperatur</div><div class="example">💬 „Ich habe 38,5 Grad Fieber."</div></div>
+                <div class="vocab-card"><span class="emoji">😵‍💫</span><div class="de">sich schwindlig fühlen</div><div class="example">💬 „Ich fühle mich schwindlig, wenn ich aufstehe."</div></div>
+                <div class="vocab-card"><span class="emoji">🤮</span><div class="de">sich übel fühlen / Übelkeit</div><div class="example">💬 „Ich fühle mich übel und habe keine Lust zu essen."</div></div>
+                <div class="vocab-card"><span class="emoji">🚽</span><div class="de">Durchfall haben</div><div class="example">💬 „Ich habe seit gestern Durchfall."</div></div>
+                <div class="vocab-card"><span class="emoji">🔴</span><div class="de">der Ausschlag / jucken</div><div class="example">💬 „Ich habe einen roten Ausschlag am Arm."</div></div>
+                <div class="vocab-card"><span class="emoji">🦠</span><div class="de">die Grippe / erkältet sein</div><div class="example">💬 „Ich bin stark erkältet und glaube, ich habe die Grippe."</div></div>
+            </div>
+            <div class="pair-work">
+                <div class="pair-work-icon">🎭</div>
+                <p><strong>Mime-Spiel:</strong> Eine Person mimt ein Symptom (ohne zu sprechen), die anderen raten: „Du hast Bauchschmerzen!" / „Du hustest!"</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="slide" data-slide="5">
+        <h2>🗣️ Redemittel: Beschwerden beschreiben</h2>
+        <div class="card">
+            <div class="time-badge">⏱️ 4 Min – Vorlesen & Nachsprechen</div>
+
+            <div class="redemittel-item">
+                <span class="emoji">🤕</span>
+                <div class="phrase">„Ich habe seit [2 Tagen] [Kopfschmerzen]."</div>
+                <div class="example">💬 „Ich habe seit gestern starke Kopfschmerzen."</div>
+            </div>
+            <div class="redemittel-item">
+                <span class="emoji">😣</span>
+                <div class="phrase">„Mir tut [der Kopf / der Hals / der Bauch] weh."</div>
+                <div class="example">💬 „Mir tut der Hals weh, besonders beim Schlucken."</div>
+            </div>
+            <div class="redemittel-item">
+                <span class="emoji">😔</span>
+                <div class="phrase">„Ich fühle mich [sehr schlecht / müde / schwindlig]."</div>
+                <div class="example">💬 „Ich fühle mich sehr müde und schwach."</div>
+            </div>
+            <div class="redemittel-item">
+                <span class="emoji">😖</span>
+                <div class="phrase">„Es tut weh, wenn ich [atme / schlucke / mich bewege]."</div>
+                <div class="example">💬 „Es tut weh, wenn ich tief einatme."</div>
+            </div>
+            <div class="redemittel-item">
+                <span class="emoji">🌡️</span>
+                <div class="phrase">„Ich habe [Fieber / 38,5 Grad]."</div>
+                <div class="example">💬 „Ich habe seit heute Morgen 39 Grad Fieber."</div>
+            </div>
+            <div class="redemittel-item">
+                <span class="emoji">📅</span>
+                <div class="phrase">„Das ist seit [gestern / 3 Tagen / einer Woche] so."</div>
+                <div class="example">💬 „Das ist seit drei Tagen so und wird nicht besser."</div>
+            </div>
+            <div class="redemittel-item">
+                <span class="emoji">💊</span>
+                <div class="phrase">„Ich habe [Aspirin / Tee / Tabletten] genommen."</div>
+                <div class="example">💬 „Ich habe schon Aspirin genommen, aber es hat nicht geholfen."</div>
+            </div>
+            <div class="redemittel-item">
+                <span class="emoji">📈</span>
+                <div class="phrase">„Es wird immer [schlimmer / besser]."</div>
+                <div class="example">💬 „Es wird immer schlimmer, besonders nachts."</div>
+            </div>
+
+            <div class="pair-work">
+                <div class="pair-work-icon">🗣️</div>
+                <p><strong>Partnerübung (3 Min):</strong> Spielt Arzt und Patient. Der Patient beschreibt seine Beschwerden mit den Redemitteln. Der Arzt stellt Nachfragen: „Seit wann?" „Wie stark?" „Was hast du schon probiert?"</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="slide" data-slide="6">
+        <h2>👨‍⚕️ Redemittel: Was fragt der Arzt?</h2>
+        <div class="card">
+            <div class="time-badge">⏱️ 3 Min – Vorlesen & Nachsprechen</div>
+
+            <div class="redemittel-item">
+                <span class="emoji">👨‍⚕️</span>
+                <div class="phrase">„Was fehlt Ihnen?" / „Was hat Sie hergeführt?"</div>
+                <div class="example">💬 „Guten Tag, was fehlt Ihnen heute?"</div>
+            </div>
+            <div class="redemittel-item">
+                <span class="emoji">🕐</span>
+                <div class="phrase">„Seit wann haben Sie diese Beschwerden?"</div>
+                <div class="example">💬 „Seit wann haben Sie diese starken Kopfschmerzen?"</div>
+            </div>
+            <div class="redemittel-item">
+                <span class="emoji">📍</span>
+                <div class="phrase">„Wo genau tut es weh?" / „Wie stark ist der Schmerz?"</div>
+                <div class="example">💬 „Wo genau tut es weh? Zeigen Sie mir bitte."</div>
+            </div>
+            <div class="redemittel-item">
+                <span class="emoji">🌡️</span>
+                <div class="phrase">„Haben Sie Fieber gemessen? Wie hoch?"</div>
+                <div class="example">💬 „Haben Sie Fieber gemessen? Wie hoch war die Temperatur?"</div>
+            </div>
+            <div class="redemittel-item">
+                <span class="emoji">🤧</span>
+                <div class="phrase">„Husten Sie? Haben Sie Schnupfen?"</div>
+                <div class="example">💬 „Husten Sie? Und läuft Ihre Nase?"</div>
+            </div>
+            <div class="redemittel-item">
+                <span class="emoji">💊</span>
+                <div class="phrase">„Nehmen Sie schon Medikamente?"</div>
+                <div class="example">💬 „Nehmen Sie schon Medikamente gegen die Schmerzen?"</div>
+            </div>
+            <div class="redemittel-item">
+                <span class="emoji">🚫</span>
+                <div class="phrase">„Sind Sie auf etwas allergisch?"</div>
+                <div class="example">💬 „Sind Sie auf bestimmte Medikamente allergisch?"</div>
+            </div>
+            <div class="redemittel-item">
+                <span class="emoji">👄</span>
+                <div class="phrase">„Machen Sie bitte den Mund auf."</div>
+                <div class="example">💬 „Machen Sie bitte den Mund auf, ich schaue in den Hals."</div>
+            </div>
+            <div class="redemittel-item">
+                <span class="emoji">🫁</span>
+                <div class="phrase">„Atmen Sie tief ein... und wieder aus."</div>
+                <div class="example">💬 „Atmen Sie tief ein... gut... und wieder aus."</div>
+            </div>
+            <div class="redemittel-item">
+                <span class="emoji">🔄</span>
+                <div class="phrase">„Drehen Sie sich bitte um."</div>
+                <div class="example">💬 „Drehen Sie sich bitte um, ich höre auf den Rücken."</div>
+            </div>
+
+            <div class="pair-work">
+                <div class="pair-work-icon">🔄</div>
+                <p><strong>Rollenwechsel (2 Min):</strong> Ihr seid jetzt der Arzt! Fragt euren Partner mit diesen Sätzen. Der Partner antwortet als Patient.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="slide" data-slide="7">
+        <h2>💬 Dialog 1: Anmeldung beim Empfang</h2>
+        <div class="card card-wide">
+            <div class="time-badge">⏱️ 5 Min – Dialog vorlesen, dann nachspielen</div>
+            <div class="dialog-scene">
+                <div class="scene-title">📋 Szene: Frau Petrova kommt zum ersten Mal zur Praxis</div>
+                <div class="dialog-line">
+                    <span class="speaker empfang">👩‍💼 Empfang:</span>
+                    <span class="speech">Guten Tag! Was kann ich für Sie tun?</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker patient">🙋‍♀️ Patientin:</span>
+                    <span class="speech">Guten Tag. Ich habe einen <span class="highlight">Termin</span> bei <span class="highlight">Herrn Dr. Müller</span>. Mein Name ist <span class="highlight">Petrova</span>.</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker empfang">👩‍💼 Empfang:</span>
+                    <span class="speech">Einen Moment, ich schaue nach... Ja, um <span class="highlight">10:30 Uhr</span>. Haben Sie Ihre <span class="highlight">Versichertenkarte</span> dabei?</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker patient">🙋‍♀️ Patientin:</span>
+                    <span class="speech">Ja, hier bitte. Und ich bin zum <span class="highlight">ersten Mal</span> hier. Muss ich noch etwas ausfüllen?</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker empfang">👩‍💼 Empfang:</span>
+                    <span class="speech">Ja, bitte füllen Sie diesen <span class="highlight">Anamnesebogen</span> aus. Ihre <span class="highlight">Adresse, Telefonnummer</span> und ob Sie <span class="highlight">Allergien</span> haben.</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker patient">🙋‍♀️ Patientin:</span>
+                    <span class="speech">Alles klar. Wie lange muss ich <span class="highlight">warten</span>?</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker empfang">👩‍💼 Empfang:</span>
+                    <span class="speech">Der Arzt hat gerade noch einen Patienten. Es dauert etwa <span class="highlight">10 Minuten</span>. Bitte nehmen Sie im <span class="highlight">Wartezimmer</span> Platz.</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker patient">🙋‍♀️ Patientin:</span>
+                    <span class="speech">Danke. Soll ich vorher noch <span class="highlight">wiegen</span>?</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker empfang">👩‍💼 Empfang:</span>
+                    <span class="speech">Ja, die Waage ist dort in der Ecke. Und bitte messen Sie auch Ihre <span class="highlight">Körpertemperatur</span> mit dem Fieberthermometer.</span>
+                </div>
+            </div>
+            <div class="sprechanlass">
+                <h4>🎭 Sprechanlass</h4>
+                <p>Spielt diesen Dialog zu zweit nach! Eine Person ist die Empfangsdame, die andere die Patientin. Benutzt die <span class="highlight">markierten Wörter</span> und fügt eure eigenen Details hinzu (Name, Uhrzeit, Beschwerden).</p>
+                <div class="timer-display">⏱️ 4 Minuten</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="slide" data-slide="8">
+        <h2>💬 Dialog 2: Die Untersuchung</h2>
+        <div class="card card-wide">
+            <div class="time-badge">⏱️ 5 Min – Dialog vorlesen, dann nachspielen</div>
+            <div class="dialog-scene">
+                <div class="scene-title">🩺 Szene: Herr Petrova hat starke Kopfschmerzen und Husten</div>
+                <div class="dialog-line">
+                    <span class="speaker arzt">👨‍⚕️ Arzt:</span>
+                    <span class="speech">Guten Tag, Herr Petrova. <span class="highlight">Was fehlt Ihnen?</span> Setzen Sie sich bitte.</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker patient">🙋‍♂️ Patient:</span>
+                    <span class="speech">Guten Tag, Herr Doktor. Ich habe <span class="highlight">seit drei Tagen starke Kopfschmerzen</span> und ich <span class="highlight">huste</span> sehr viel. Mir tut auch <span class="highlight">der Hals weh</span>.</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker arzt">👨‍⚕️ Arzt:</span>
+                    <span class="speech"><span class="highlight">Haben Sie Fieber gemessen?</span></span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker patient">🙋‍♂️ Patient:</span>
+                    <span class="speech">Ja, heute Morgen hatte ich <span class="highlight">38,2 Grad</span>. Aber jetzt ist es ein bisschen besser.</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker arzt">👨‍⚕️ Arzt:</span>
+                    <span class="speech">Ich verstehe. <span class="highlight">Haben Sie Schnupfen?</span> Oder tut es weh, wenn Sie <span class="highlight">schlucken</span>?</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker patient">🙋‍♂️ Patient:</span>
+                    <span class="speech">Ja, meine <span class="highlight">Nase läuft</span> und beim Schlucken tut es <span class="highlight">sehr weh</span>. Es ist <span class="highlight">seit gestern schlimmer geworden</span>.</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker arzt">👨‍⚕️ Arzt:</span>
+                    <span class="speech">Gut, dann schaue ich mir das mal an. <span class="highlight">Machen Sie bitte den Mund auf</span>... Ja, der <span class="highlight">Rachen</span> ist stark gerötet. <span class="highlight">Atmen Sie tief ein</span>... und wieder aus. Ich höre ein bisschen <span class="highlight">Rasseln</span> in der Lunge.</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker arzt">👨‍⚕️ Arzt:</span>
+                    <span class="speech">Ich denke, Sie haben eine <span class="highlight">grippeähnliche Infektion</span>. Es ist nichts Schlimmes, aber Sie müssen sich <span class="highlight">ausruhen</span>.</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker patient">🙋‍♂️ Patient:</span>
+                    <span class="speech">Muss ich <span class="highlight">Tabletten</span> nehmen? Und kann ich <span class="highlight">zur Arbeit gehen</span>?</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker arzt">👨‍⚕️ Arzt:</span>
+                    <span class="speech">Ich verschreibe Ihnen ein <span class="highlight">Antibiotikum</span> und <span class="highlight">Schmerztabletten</span>. Bitte bleiben Sie <span class="highlight">3 Tage zu Hause</span>, trinken Sie viel <span class="highlight">Wasser und Tee</span>. Wenn es nach 5 Tagen nicht besser ist, kommen Sie wieder.</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker patient">🙋‍♂️ Patient:</span>
+                    <span class="speech">Danke, Herr Doktor. Soll ich die Tabletten <span class="highlight">vor oder nach dem Essen</span> nehmen?</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker arzt">👨‍⚕️ Arzt:</span>
+                    <span class="speech"><span class="highlight">Nach dem Essen</span>, damit der Magen nicht leidet. <span class="highlight">3 Mal täglich</span>, morgens, mittags und abends. <span class="highlight">Gute Besserung!</span></span>
+                </div>
+            </div>
+            <div class="sprechanlass">
+                <h4>🎭 Sprechanlass</h4>
+                <p>Spielt diesen Dialog zu zweit nach! Einer ist der Arzt, der andere der Patient. Der Patient beschreibt andere Symptome (z. B. Bauchschmerzen, Rückenschmerzen, Hautausschlag). Der Arzt passt seine Fragen an!</p>
+                <div class="timer-display">⏱️ 5 Minuten</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="slide" data-slide="9">
+        <h2>💬 Dialog 3: Rezept & Apotheke</h2>
+        <div class="card card-wide">
+            <div class="time-badge">⏱️ 5 Min – Dialog vorlesen, dann nachspielen</div>
+            <div class="dialog-scene">
+                <div class="scene-title">💊 Szene: Frau Petrova geht zur Apotheke mit dem Rezept</div>
+                <div class="dialog-line">
+                    <span class="speaker patient">🙋‍♀️ Patientin:</span>
+                    <span class="speech">Guten Tag. Ich habe hier ein <span class="highlight">Rezept</span> vom Arzt. Können Sie mir die <span class="highlight">Medikamente</span> geben?</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker empfang">👩‍⚕️ Apothekerin:</span>
+                    <span class="speech">Guten Tag! Ja, ich schaue mir das Rezept an... Das <span class="highlight">Antibiotikum</span> und die <span class="highlight">Schmerztabletten</span>. Haben Sie schon einmal dieses <span class="highlight">Antibiotikum</span> genommen?</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker patient">🙋‍♀️ Patientin:</span>
+                    <span class="speech">Nein, das ist das <span class="highlight">erste Mal</span>. Gibt es <span class="highlight">Nebenwirkungen</span>?</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker empfang">👩‍⚕️ Apothekerin:</span>
+                    <span class="speech">Manchmal kann man <span class="highlight">Übelkeit</span> oder <span class="highlight">Durchfall</span> bekommen. Das ist normal. Aber wenn Sie <span class="highlight">Hautausschlag</span> bekommen oder <span class="highlight">Atemnot</span> haben, müssen Sie sofort zum Arzt.</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker patient">🙋‍♀️ Patientin:</span>
+                    <span class="speech">Verstehe. Und wie <span class="highlight">lange</span> muss ich das Antibiotikum nehmen?</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker empfang">👩‍⚕️ Apothekerin:</span>
+                    <span class="speech"><span class="highlight">7 Tage</span>, auch wenn es Ihnen schon nach 3 Tagen besser geht. Es ist wichtig, die <span class="highlight">Kur zu Ende</span> zu machen. Sonst werden die <span class="highlight">Bakterien</span> wieder stark.</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker patient">🙋‍♀️ Patientin:</span>
+                    <span class="speech">Muss ich etwas <span class="highlight">beachten</span>? Darf ich <span class="highlight">Alkohol</span> trinken?</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker empfang">👩‍⚕️ Apothekerin:</span>
+                    <span class="speech"><span class="highlight">Nein, auf keinen Fall!</span> Alkohol und Antibiotika sind sehr schlecht zusammen. Und bitte trinken Sie viel <span class="highlight">Wasser</span> dazu.</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker empfang">👩‍⚕️ Apothekerin:</span>
+                    <span class="speech">Hier sind Ihre Medikamente. Das macht <span class="highlight">12,50 Euro</span>. Haben Sie ein <span class="highlight">Rezept</span> von der <span class="highlight">Krankenkasse</span>? Dann zahlen Sie nur <span class="highlight">5 Euro</span>.</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker patient">🙋‍♀️ Patientin:</span>
+                    <span class="speech">Ja, ich habe die <span class="highlight">Krankenversicherungskarte</span>. Hier bitte. Danke für die <span class="highlight">Beratung</span>!</span>
+                </div>
+                <div class="dialog-line">
+                    <span class="speaker empfang">👩‍⚕️ Apothekerin:</span>
+                    <span class="speech">Gerne! <span class="highlight">Gute Besserung!</span> Wenn Sie Fragen haben, kommen Sie vorbei oder rufen Sie an.</span>
+                </div>
+            </div>
+            <div class="sprechanlass">
+                <h4>🎭 Sprechanlass</h4>
+                <p>Spielt diesen Dialog zu zweit nach! Die Apothekerin kann andere Warnungen geben (z. B. „Nicht im Auto fahren" / „Nicht auf nüchternen Magen"). Der Patient stellt andere Fragen.</p>
+                <div class="timer-display">⏱️ 4 Minuten</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="slide" data-slide="10">
+        <h2>🏥 Weitere echte Situationen beim Arzt</h2>
+        <div class="card">
+            <div class="time-badge">⏱️ 3 Min – Besprechung im Plenum</div>
+            <div class="situation-box">
+                <h5>🦷 Situation A: Beim Zahnarzt</h5>
+                <p style="font-size: 0.95rem; line-height: 1.7;">
+                    <strong>Patient:</strong> „Ich habe <span class="highlight">Zahnschmerzen</span>. Der <span class="highlight">hintere Zahn</span> tut weh, besonders beim <span class="highlight">Kauen</span> und bei <span class="highlight">kalten Getränken</span>."<br>
+                    <strong>Zahnarzt:</strong> „Ich schaue mal... Ja, da ist ein <span class="highlight">Loch</span>. Wir müssen die <span class="highlight">Zahnfüllung</span> erneuern. Machen Sie sich keine Sorgen, das ist nicht schlimm."
+                </p>
+            </div>
+            <div class="situation-box" style="border-left-color: var(--medical);">
+                <h5 style="color: var(--medical-light);">🩹 Situation B: Beim Orthopäden (Rückenschmerzen)</h5>
+                <p style="font-size: 0.95rem; line-height: 1.7;">
+                    <strong>Patient:</strong> „Ich habe <span class="highlight">seit Wochen Rückenschmerzen</span>. Es ist besonders <span class="highlight">morgens schlimm</span> und beim <span class="highlight">Sitzen</span>."<br>
+                    <strong>Arzt:</strong> „Machen Sie bitte <span class="highlight">Röntgen</span>? Ich schicke Sie zur <span class="highlight">Physiotherapie</span> und verschreibe <span class="highlight">Schmerzgel</span>."
+                </p>
+            </div>
+            <div class="situation-box" style="border-left-color: var(--turquoise);">
+                <h5 style="color: var(--turquoise);">👶 Situation C: Beim Kinderarzt (mit Kind)</h5>
+                <p style="font-size: 0.95rem; line-height: 1.7;">
+                    <strong>Mutter:</strong> „Mein Sohn hat <span class="highlight">Fieber seit gestern</span> und will nichts <span class="highlight">essen</span>. Er ist sehr <span class="highlight">müde</span>."<br>
+                    <strong>Arzt:</strong> „Wie alt ist er?... 4 Jahre. Ich schaue in den <span class="highlight">Hals</span>... Ja, die <span class="highlight">Mandeln</span> sind geschwollen. Das ist <span class="highlight">Mandelentzündung</span>."
+                </p>
+            </div>
+            <div class="situation-box" style="border-left-color: var(--gold);">
+                <h5 style="color: var(--gold);">🏥 Situation D: Notfall (Ambulanz)</h5>
+                <p style="font-size: 0.95rem; line-height: 1.7;">
+                    <strong>Patient:</strong> „Ich habe mich <span class="highlight">verletzt</span>! Ich bin <span class="highlight">gestürzt</span> und jetzt kann ich meinen <span class="highlight">Arm nicht bewegen</span>. Es tut <span class="highlight">sehr weh</span>!"<br>
+                    <strong>Arzt:</strong> „Keine Panik. Wir machen sofort ein <span class="highlight">Röntgenbild</span>. Atmen Sie tief ein..."
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="slide" data-slide="11">
+        <h2>🎭 Rollenspiel 1: Paarweise (2 Personen)</h2>
+        <div class="card">
+            <div class="time-badge">⏱️ 15 Min – Jede Gruppe spielt 5 Min, dann Wechsel</div>
+            <div class="sprechanlass">
+                <h4>📋 Anleitung</h4>
+                <p>Bildet 2er-Gruppen. Eine Person ist der <strong>Arzt</strong>, die andere der <strong>Patient</strong>. Wählt eine der 4 Situationen aus Slide 10 (oder erfindet eine eigene). Spielt den kompletten Dialog vom Empfang bis zur Apotheke!</p>
+            </div>
+            <div class="role-card">
+                <h5>👨‍⚕️ Rolle: Der Arzt</h5>
+                <ul>
+                    <li>🤝 Begrüße den Patienten freundlich</li>
+                    <li>❓ Frage: „Was fehlt Ihnen?" / „Seit wann?"</li>
+                    <li>🔍 Stelle Nachfragen (Fieber? Husten? Schmerzstärke?)</li>
+                    <li>🩺 Erkläre die Diagnose einfach</li>
+                    <li>💊 Gib Anweisungen: Medikamente, Ruhe, Termin</li>
+                    <li>🍀 Wünsche „Gute Besserung!"</li>
+                </ul>
+            </div>
+            <div class="role-card">
+                <h5>🙋 Rolle: Der Patient</h5>
+                <ul>
+                    <li>🤕 Beschreibe deine Beschwerden genau (wo, seit wann, wie stark)</li>
+                    <li>🗣️ Beantworte alle Fragen des Arztes</li>
+                    <li>💊 Frage nach: Medikamenten, Nebenwirkungen, Arbeit/Krankgeschrieben</li>
+                    <li>❓ Frage: „Wie lange dauert das?" / „Muss ich wiederkommen?"</li>
+                    <li>🙏 Sag „Danke" und „Gute Besserung" am Ende</li>
+                </ul>
+            </div>
+            <div class="pair-work">
+                <div class="pair-work-icon">🔄</div>
+                <p><strong>Tipp:</strong> Nach 5 Minuten <strong>Rollentausch</strong>! Der Patient wird Arzt und umgekehrt. So übt jeder beide Rollen.</p>
+            </div>
+            <div class="checklist">
+                <li>✅ Ich habe den Patienten / Arzt freundlich begrüßt</li>
+                <li>✅ Ich habe alle Redemittel aus den Slides benutzt</li>
+                <li>✅ Ich habe Nachfragen gestellt</li>
+                <li>✅ Ich habe mindestens 5 Sätze gesprochen</li>
+                <li>✅ Ich habe am Ende „Gute Besserung" oder „Danke" gesagt</li>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="slide" data-slide="12">
+        <h2>🎭 Rollenspiel 2: Gruppe 4 Personen</h2>
+        <div class="card">
+            <div class="time-badge">⏱️ 12 Min – Komplexe Szene mit allen Rollen</div>
+            <div class="sprechanlass">
+                <h4>📋 Szenario</h4>
+                <p>Ein Patient kommt mit <strong>starken Bauchschmerzen</strong> zur Praxis. Alle 4 Personen sind beteiligt:</p>
+            </div>
+            <div class="role-card">
+                <h5>👩‍💼 Person 1: Empfangsdame</h5>
+                <ul>
+                    <li>👋 Begrüße den Patienten</li>
+                    <li>📝 Frage nach Termin / Versicherung</li>
+                    <li>🪑 Weise ins Wartezimmer / zur Waage</li>
+                    <li>📢 Rufe den Patienten auf: „Herr/Frau [Name], bitte zu Raum 3!"</li>
+                </ul>
+            </div>
+            <div class="role-card">
+                <h5>👨‍⚕️ Person 2: Der Arzt</h5>
+                <ul>
+                    <li>👋 Begrüße den Patienten</li>
+                    <li>❓ Frage nach Beschwerden & Untersuche</li>
+                    <li>🩺 Stelle Diagnose & verschreibe Medikamente</li>
+                    <li>📄 Schreibe <strong>Krankmeldung</strong> (Attest) für 3 Tage</li>
+                </ul>
+            </div>
+            <div class="role-card">
+                <h5>🙋 Person 3: Der Patient</h5>
+                <ul>
+                    <li>🤕 Beschreibe Bauchschmerzen (seit wann, wie stark)</li>
+                    <li>🗣️ Antworte auf alle Fragen</li>
+                    <li>📄 Bitte um Krankmeldung für die Arbeit</li>
+                    <li>💊 Frage nach Medikamenten & Apotheke</li>
+                </ul>
+            </div>
+            <div class="role-card">
+                <h5>👩‍⚕️ Person 4: Apothekerin (am Telefon oder in der Apotheke)</h5>
+                <ul>
+                    <li>💊 Berate den Patienten zu den Medikamenten</li>
+                    <li>⚠️ Warnung vor Nebenwirkungen</li>
+                    <li>🍽️ Erkläre Einnahme (vor/nach Essen, wie oft)</li>
+                    <li>🍀 Wünsche „Gute Besserung!"</li>
+                </ul>
+            </div>
+            <div class="pair-work">
+                <div class="pair-work-icon">🎬</div>
+                <p><strong>Ablauf:</strong> Empfang → Wartezimmer → Untersuchung (Arzt + Patient) → Rezept → Apotheke. Jeder spielt seine Rolle mit echten Dialogen!</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="slide" data-slide="13">
+        <h2>💡 Tipps für echte Arztbesuche</h2>
+        <div class="card">
+            <div class="time-badge">⏱️ 3 Min – Besprechung im Plenum</div>
+            <div class="redemittel-box">
+                <h4>📝 Vor dem Termin</h4>
+                <ul>
+                    <li><span class="phrase">💳 Bringen Sie Ihre <strong>Versichertenkarte</strong> mit!</span></li>
+                    <li><span class="phrase">📝 Schreiben Sie Ihre <strong>Symptome</strong> auf – vergessen Sie nichts!</span></li>
+                    <li><span class="phrase">💊 Notieren Sie <strong>Medikamente</strong>, die Sie nehmen.</span></li>
+                    <li><span class="phrase">🤔 Überlegen Sie: <strong>Seit wann? Wie stark? Was haben Sie probiert?</strong></span></li>
+                </ul>
+            </div>
+            <div class="redemittel-box" style="border-left-color: var(--gold); background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));">
+                <h4 style="color: var(--gold);">🗣️ Während dem Termin</h4>
+                <ul>
+                    <li><span class="phrase">❓ Sagen Sie: <strong>„Ich verstehe nicht. Können Sie das wiederholen?"</strong></span></li>
+                    <li><span class="phrase">🇬🇧 Fragen Sie: <strong>„Was bedeutet [Wort] auf Englisch?"</strong></span></li>
+                    <li><span class="phrase">🔄 Wiederholen Sie: <strong>„Also, ich soll [3 Mal täglich / 7 Tage] nehmen?"</strong></span></li>
+                    <li><span class="phrase">📝 Notieren Sie alles Wichtige!</span></li>
+                </ul>
+            </div>
+            <div class="redemittel-box" style="border-left-color: var(--turquoise); background: linear-gradient(135deg, rgba(8, 217, 214, 0.15), rgba(8, 217, 214, 0.05));">
+                <h4 style="color: var(--turquoise);">🏥 Nützliche Vokabeln für die Praxis</h4>
+                <ul>
+                    <li><span class="phrase">📅 der <strong>Termin</strong> = appointment</span></li>
+                    <li><span class="phrase">💳 die <strong>Versichertenkarte</strong> = health insurance card</span></li>
+                    <li><span class="phrase">📝 das <strong>Rezept</strong> = prescription</span></li>
+                    <li><span class="phrase">📄 die <strong>Krankmeldung / das Attest</strong> = sick note / medical certificate</span></li>
+                    <li><span class="phrase">💊 die <strong>Apotheke</strong> = pharmacy</span></li>
+                    <li><span class="phrase">⚠️ die <strong>Nebenwirkungen</strong> = side effects</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="slide" data-slide="14">
+        <h1>🎉 Gut gemacht!</h1>
+        <p class="subtitle">Beim Arzt – A2 Sprechclub abgeschlossen</p>
+        <div class="card" style="max-width: 700px; text-align: center;">
+            <div style="font-size: 4rem; margin-bottom: 20px;">🏥✅</div>
+            <h2 style="color: var(--medical-light);">Was habt ihr heute gelernt?</h2>
+            <div style="text-align: left; margin: 25px 0;">
+                <p style="font-size: 1.05rem; margin: 10px 0;">🧠 Körperteile & Krankheiten benennen</p>
+                <p style="font-size: 1.05rem; margin: 10px 0;">🤕 Beschwerden beschreiben (wo, seit wann, wie stark)</p>
+                <p style="font-size: 1.05rem; margin: 10px 0;">👨‍⚕️ Arzt-Fragen verstehen & beantworten</p>
+                <p style="font-size: 1.05rem; margin: 10px 0;">💊 Rezepte & Medikamente besprechen</p>
+                <p style="font-size: 1.05rem; margin: 10px 0;">🎭 Echte Dialoge aus dem Alltag spielen</p>
+            </div>
+            <div class="sprechanlass" style="margin-top: 25px;">
+                <h4>📝 Kurze Reflexion (jede Person 1 Min)</h4>
+                <p>„Welche Situation war für mich am schwierigsten?"<br>
+                „Welche neuen Wörter habe ich heute gelernt?"<br>
+                „Was würde ich beim nächsten Arztbesuch anders machen?"</p>
+            </div>
+            <p style="margin-top: 30px; color: var(--turquoise); font-size: 1rem;">
+                📚 Nächste Stunde: <strong>Beim Behörde / Einwohnermeldeamt</strong>
+            </p>
+            <div style="margin-top: 25px; padding: 20px; background: rgba(22, 160, 133, 0.1); border-radius: 12px;">
+                <p style="font-size: 0.95rem; color: rgba(255,255,255,0.8);">
+                    💡 <strong>Hausaufgabe:</strong> Schreibt einen kurzen Text (5–8 Sätze):<br>
+                    „Letzte Woche war ich beim Arzt. Ich hatte... Der Arzt hat gesagt..."
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>← Zurück</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Weiter →</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 14;
+        function updateProgress() {
+            const percentage = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('slideCounter').textContent = currentSlide + ' / ' + totalSlides;
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+        }
+        function changeSlide(direction) {
+            document.querySelector('.slide.active').classList.remove('active');
+            currentSlide += direction;
+            document.querySelector('[data-slide="' + currentSlide + '"]').classList.add('active');
+            updateProgress();
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' && currentSlide < totalSlides) changeSlide(1);
+            if (e.key === 'ArrowLeft' && currentSlide > 1) changeSlide(-1);
+        });
+        updateProgress();
+    </script>
+</body>
+</html>
+          </body>
+        </html>

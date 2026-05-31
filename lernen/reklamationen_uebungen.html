@@ -1,0 +1,1049 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="no-referrer">
+<title>Reklamationen & Alltagsgespräche · deutschoderwas</title>
+
+<style>
+/* Self-contained fonts: system stack works offline, Google Fonts loads when online */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+  :root {
+    --cream:    #F7F3EE;
+    --dark:     #1A1410;
+    --brown:    #5C3D2E;
+    --rust:     #C4622D;
+    --rust-lt:  #E8896A;
+    --sand:     #D9C4A8;
+    --sand-lt:  #EEE4D4;
+    --green:    #3D6B4F;
+    --green-lt: #D4E8DC;
+    --red-lt:   #F5DDD9;
+    --red:      #C0392B;
+    --blue:     #2D5F8A;
+    --blue-lt:  #D4E4F0;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--dark);
+    color: var(--cream);
+    padding: 0 5vw;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    min-height: 110px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    right: 120px; top: -80px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: var(--rust);
+    opacity: .1;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    right: -40px; bottom: -60px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: var(--rust-lt);
+    opacity: .08;
+  }
+  .eyebrow {
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--rust-lt);
+    margin-bottom: .4rem;
+  }
+  header h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    font-weight: 900;
+    line-height: 1.15;
+  }
+  header h1 em { font-style: italic; color: var(--rust-lt); }
+  .brand {
+    font-family: 'Fraunces', serif;
+    font-size: .85rem;
+    font-weight: 700;
+    color: var(--sand);
+    white-space: nowrap;
+    z-index: 1;
+  }
+  .brand span { color: var(--rust-lt); }
+
+  .accent-bar {
+    height: 5px;
+    background: linear-gradient(90deg, var(--rust) 0%, var(--rust-lt) 50%, var(--sand) 100%);
+  }
+
+  /* CONTEXT TABS */
+  .tabs {
+    display: flex;
+    gap: 0;
+    background: var(--dark);
+    padding: 0 5vw;
+    overflow-x: auto;
+  }
+  .tab {
+    font-size: .8rem;
+    font-weight: 600;
+    padding: .75rem 1.4rem;
+    color: #888;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: color .2s, border-color .2s;
+    user-select: none;
+  }
+  .tab:hover { color: var(--sand); }
+  .tab.active { color: var(--rust-lt); border-bottom-color: var(--rust); }
+
+  /* MAIN */
+  main {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 3rem 5vw 6rem;
+  }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* SECTION LABELS */
+  .section-label {
+    font-size: .65rem;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: .8rem;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--sand); }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+    font-weight: 700;
+    margin-bottom: 1.8rem;
+    color: var(--dark);
+  }
+
+  /* VOCAB CARDS */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .vocab-card {
+    background: white;
+    border-radius: 14px;
+    padding: 1.1rem 1.3rem;
+    border: 1.5px solid var(--sand);
+    position: relative;
+    overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .vocab-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(92,61,46,.11); }
+  .vocab-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--rust);
+    border-radius: 14px 0 0 14px;
+  }
+  .vocab-wrong {
+    font-size: .78rem;
+    color: var(--red);
+    text-decoration: line-through;
+    margin-bottom: .2rem;
+    font-style: italic;
+  }
+  .vocab-right {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: .3rem;
+  }
+  .vocab-note {
+    font-size: .82rem;
+    color: #777;
+    line-height: 1.5;
+  }
+  .vocab-example {
+    margin-top: .6rem;
+    font-size: .85rem;
+    background: var(--sand-lt);
+    border-radius: 8px;
+    padding: .45rem .7rem;
+    color: var(--dark);
+    line-height: 1.5;
+  }
+  .vocab-example strong { color: var(--rust); }
+
+  /* DIALOGUE CARDS */
+  .dialogue-scene {
+    background: white;
+    border-radius: 16px;
+    border: 1.5px solid var(--sand);
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  .dialogue-header {
+    background: var(--dark);
+    color: var(--cream);
+    padding: .7rem 1.3rem;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .scene-icon { font-size: 1rem; }
+  .dialogue-body { padding: 1.2rem 1.4rem; }
+  .dialogue-line {
+    display: flex;
+    gap: .8rem;
+    margin-bottom: .8rem;
+    align-items: flex-start;
+  }
+  .speaker {
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--rust);
+    min-width: 70px;
+    padding-top: .15rem;
+    flex-shrink: 0;
+  }
+  .speaker.b { color: var(--blue); }
+  .line-text {
+    font-size: .92rem;
+    line-height: 1.55;
+    color: var(--dark);
+  }
+  .line-text em { color: #aaa; font-style: italic; font-size: .82rem; }
+
+  /* EXERCISES */
+  .exercise-block { margin-bottom: 3.5rem; }
+  .exercise-header {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    margin-bottom: .5rem;
+  }
+  .ex-num {
+    width: 32px; height: 32px;
+    background: var(--rust);
+    color: white;
+    border-radius: 50%;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: .95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .ex-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .ex-desc {
+    font-size: .84rem;
+    color: #777;
+    margin-bottom: 1.2rem;
+    margin-left: 2.7rem;
+  }
+
+  /* LÜCKENTEXT */
+  .gap-row {
+    background: white;
+    border: 1.5px solid var(--sand);
+    border-radius: 12px;
+    padding: .9rem 1.2rem;
+    margin-bottom: .65rem;
+    font-size: .93rem;
+    line-height: 1.9;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .3rem;
+    transition: border-color .2s, background .2s;
+  }
+  .gap-row.correct { border-color: var(--green); background: var(--green-lt); }
+  .gap-row.wrong   { border-color: var(--red);   background: var(--red-lt); }
+
+  .gap-blank {
+    display: inline-block;
+    min-width: 130px;
+    border-bottom: 2px solid var(--rust);
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    color: var(--rust);
+    font-size: .95rem;
+    padding: 0 .3rem;
+    cursor: pointer;
+    transition: border-color .2s;
+    text-align: center;
+  }
+  .gap-blank:empty::before { content: '___'; color: #ccc; font-style: italic; font-size: .85rem; }
+  .gap-blank.filled { color: var(--brown); }
+  .gap-icon { font-size: 1rem; opacity: 0; transition: opacity .3s; }
+  .gap-row.correct .gap-icon,
+  .gap-row.wrong   .gap-icon { opacity: 1; }
+
+  /* WORD BANK */
+  .word-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-bottom: 1.2rem;
+  }
+  .chip {
+    background: var(--dark);
+    color: var(--cream);
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: .82rem;
+    padding: .28rem .85rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background .15s, transform .1s, outline .1s;
+    user-select: none;
+    outline: 2px solid transparent;
+  }
+  .chip:hover { background: var(--rust); transform: scale(1.04); }
+  .chip.active { background: var(--rust); outline: 2px solid var(--rust-lt); }
+
+  /* RICHTIG/FALSCH */
+  .rf-card {
+    background: white;
+    border: 1.5px solid var(--sand);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    margin-bottom: .75rem;
+    transition: all .2s;
+  }
+  .rf-card.correct { border-color: var(--green); background: var(--green-lt); }
+  .rf-card.wrong   { border-color: var(--red);   background: var(--red-lt); }
+  .rf-sentence { font-size: .92rem; margin-bottom: .6rem; line-height: 1.5; }
+  .rf-btns { display: flex; gap: .5rem; flex-wrap: wrap; }
+  .rf-btn {
+    padding: .28rem .85rem;
+    border-radius: 20px;
+    border: 1.5px solid var(--sand);
+    background: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .rf-btn:hover { border-color: var(--rust); color: var(--rust); }
+  .rf-btn.sel-r { background: var(--green); border-color: var(--green); color: white; }
+  .rf-btn.sel-f { background: var(--red);   border-color: var(--red);   color: white; }
+  .rf-fb { font-size: .82rem; margin-top: .6rem; font-weight: 500; display: none; line-height: 1.5; }
+  .rf-fb.show { display: block; }
+  .rf-fb.ok  { color: var(--green); }
+  .rf-fb.bad { color: var(--red); }
+
+  /* ZUORDNUNG */
+  .match-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+  @media (max-width:560px) { .match-wrap { grid-template-columns:1fr; } }
+  .match-col-label {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: .55rem;
+  }
+  .m-item {
+    background: white;
+    border: 1.5px solid var(--sand);
+    border-radius: 10px;
+    padding: .65rem 1rem;
+    margin-bottom: .45rem;
+    font-size: .88rem;
+    cursor: pointer;
+    transition: all .2s;
+    user-select: none;
+    line-height: 1.45;
+  }
+  .m-item.verb-item { font-family: 'Fraunces', serif; font-weight: 700; color: var(--brown); }
+  .m-item:hover:not(.done) { border-color: var(--rust); }
+  .m-item.sel  { border-color: var(--rust); background: #FFF0EA; }
+  .m-item.done { border-color: var(--green); background: var(--green-lt); pointer-events: none; }
+  .m-item.err  { border-color: var(--red);   background: var(--red-lt); }
+
+  /* BUTTONS */
+  .check-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--rust);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: .6rem 1.5rem;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: .95rem;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+    margin-top: 1rem;
+  }
+  .check-btn:hover { background: var(--brown); transform: scale(1.02); }
+  .score {
+    display: inline-block;
+    background: var(--dark);
+    color: var(--cream);
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: .85rem;
+    padding: .25rem .9rem;
+    border-radius: 20px;
+    margin-left: .8rem;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .score.show { opacity: 1; }
+  .reset-link {
+    font-size: .75rem;
+    color: #bbb;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-left: .8rem;
+  }
+  .reset-link:hover { color: var(--rust); }
+
+  hr.div { border: none; border-top: 1.5px solid var(--sand); margin: 2.5rem 0; }
+
+  /* TIPP */
+  .tipp {
+    background: var(--dark);
+    color: var(--cream);
+    border-radius: 16px;
+    padding: 1.3rem 1.6rem;
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .tipp-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .tipp-text { font-size: .88rem; line-height: 1.7; }
+  .tipp-text strong { color: var(--rust-lt); font-family: 'Fraunces', serif; }
+
+  /* ANIMATION */
+  @keyframes pop { 0%{transform:scale(.85);opacity:0} 60%{transform:scale(1.07)} 100%{transform:scale(1);opacity:1} }
+  .pop { animation: pop .3s ease forwards; }
+
+  /* SITUATION BADGE */
+  .sit-badge {
+    display: inline-block;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: .15rem .65rem;
+    border-radius: 20px;
+    margin-bottom: .5rem;
+  }
+  .sit-reklamation { background: var(--red-lt); color: var(--red); }
+  .sit-restaurant  { background: var(--blue-lt); color: var(--blue); }
+  .sit-alltag      { background: var(--green-lt); color: var(--green); }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="eyebrow">Alltag B1/B2 · 1. Mai</div>
+    <h1>Reklamationen &amp; <em>Alltagsgespräche</em></h1>
+  </div>
+  <div class="brand">deutsch<span>oder</span>was</div>
+</header>
+<div class="accent-bar"></div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="showPanel('wortschatz', this)">📚 Wortschatz</div>
+  <div class="tab" onclick="showPanel('dialoge', this)">💬 Dialoge</div>
+  <div class="tab" onclick="showPanel('uebung1', this)">✏️ Übung 1</div>
+  <div class="tab" onclick="showPanel('uebung2', this)">🔍 Übung 2</div>
+  <div class="tab" onclick="showPanel('uebung3', this)">🧩 Übung 3</div>
+</div>
+
+<main>
+
+  <!-- ══ WORTSCHATZ ══ -->
+  <div id="panel-wortschatz" class="panel active">
+    <div class="section-label">Aus der Stunde · Alltag B1/B2</div>
+    <h2 class="section-title">Das haben wir heute gelernt</h2>
+
+    <div class="section-label">Korrekturen &amp; Wörter</div>
+    <div class="vocab-grid">
+
+      <div class="vocab-card">
+        <div class="vocab-wrong">der Fernsehen ✗</div>
+        <div class="vocab-right">der Fernseher</div>
+        <div class="vocab-note">Das Gerät heißt <em>der Fernseher</em> – nicht das Fernsehen (= die Tätigkeit)</div>
+        <div class="vocab-example"><strong>Bringen Sie den Fernseher rein</strong> und wir tauschen ihn um.</div>
+      </div>
+
+      <div class="vocab-card">
+        <div class="vocab-wrong">die Rohren ✗</div>
+        <div class="vocab-right">das Rohr / die Rohre</div>
+        <div class="vocab-note">Singular: <em>das Rohr</em> · Plural: <em>die Rohre</em></div>
+        <div class="vocab-example"><strong>Das Rohr tropft.</strong> / Die Rohre tropfen.</div>
+      </div>
+
+      <div class="vocab-card">
+        <div class="vocab-wrong">Wir können keine Rückerstattung. ✗</div>
+        <div class="vocab-right">Wir können keine Rückerstattung anbieten / geben.</div>
+        <div class="vocab-note">Verb fehlt! <em>können</em> braucht ein Vollverb.</div>
+        <div class="vocab-example"><strong>Leider können wir keine Rückerstattung anbieten.</strong></div>
+      </div>
+
+      <div class="vocab-card">
+        <div class="vocab-wrong">Ist das passt ✗</div>
+        <div class="vocab-right">Passt das? / Passt es Ihnen?</div>
+        <div class="vocab-note">Mischung aus zwei Konstruktionen – nur eine wählen!</div>
+        <div class="vocab-example"><strong>Ist das in Ordnung für Sie?</strong> / <strong>Passt das für Sie?</strong></div>
+      </div>
+
+      <div class="vocab-card">
+        <div class="vocab-wrong">Meine Frage ist eine Andere ✗</div>
+        <div class="vocab-right">Meine Frage ist eine andere. (klein!)</div>
+        <div class="vocab-note">Adjektive nach Artikel kleinschreiben (außer am Satzanfang)</div>
+        <div class="vocab-example"><strong>Meine Frage ist eine andere</strong> – nämlich…</div>
+      </div>
+
+      <div class="vocab-card">
+        <div class="vocab-right">unerwartet</div>
+        <div class="vocab-note">= wenn etwas plötzlich passiert, ohne Vorwarnung</div>
+        <div class="vocab-example">Das kam völlig <strong>unerwartet</strong>!</div>
+      </div>
+
+      <div class="vocab-card">
+        <div class="vocab-right">etwas loswerden</div>
+        <div class="vocab-note">= etwas verschwinden lassen / sich von etwas befreien</div>
+        <div class="vocab-example">Ich kann diese Erkältung einfach nicht <strong>loswerden</strong>.</div>
+      </div>
+
+      <div class="vocab-card">
+        <div class="vocab-right">die Garantie ist abgelaufen</div>
+        <div class="vocab-note">= die Garantiezeit ist vorbei / zu Ende</div>
+        <div class="vocab-example"><strong>Ihre Garantie ist leider abgelaufen.</strong></div>
+      </div>
+
+      <div class="vocab-card">
+        <div class="vocab-right">die Bestellung aufnehmen</div>
+        <div class="vocab-note">= im Restaurant: fragen was der Gast möchte</div>
+        <div class="vocab-example"><strong>Kann ich jetzt Ihre Bestellung aufnehmen?</strong></div>
+      </div>
+
+      <div class="vocab-card">
+        <div class="vocab-right">In 5 Minuten bin ich zurück.</div>
+        <div class="vocab-note">Kein „wieder zurück" – <em>zurück</em> allein reicht!</div>
+        <div class="vocab-example"><strong>Ich bin in 5 Minuten zurück.</strong> ✓</div>
+      </div>
+
+      <div class="vocab-card">
+        <div class="vocab-right">nachfragen</div>
+        <div class="vocab-note">= noch einmal fragen, um eine Information zu bekommen</div>
+        <div class="vocab-example">Ich <strong>frage mal in der Küche nach</strong>.</div>
+      </div>
+
+      <div class="vocab-card">
+        <div class="vocab-right">die Amortisationsdauer</div>
+        <div class="vocab-note">= Zeitraum, bis eine Investition sich rentiert hat</div>
+        <div class="vocab-example">Die <strong>Amortisationsdauer</strong> beträgt ca. 5 Jahre.</div>
+      </div>
+
+    </div>
+
+    <div class="tipp">
+      <div class="tipp-icon">💡</div>
+      <div class="tipp-text">
+        <strong>Tipp:</strong> Diese Wörter klingen alle sehr natürlich in Reklamationen und im Restaurant – lern sie mit der passenden <em>Situation</em>, nicht nur als Vokabel. Stell dir vor, du stehst wirklich am Tresen!
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIALOGE ══ -->
+  <div id="panel-dialoge" class="panel">
+    <div class="section-label">Typische Situationen</div>
+    <h2 class="section-title">Wie läuft das auf Deutsch?</h2>
+
+    <div class="dialogue-scene">
+      <div class="dialogue-header">
+        <span class="scene-icon">🛒</span> Im Elektronikladen – Reklamation
+      </div>
+      <div class="dialogue-body">
+        <div class="dialogue-line">
+          <span class="speaker">Mitarb.</span>
+          <span class="line-text">Guten Tag, was kann ich für Sie tun?</span>
+        </div>
+        <div class="dialogue-line">
+          <span class="speaker b">Kunde</span>
+          <span class="line-text">Ich habe vor zwei Tagen einen <strong>Fernseher</strong> gekauft, aber der Bildschirm gefällt mir nicht.</span>
+        </div>
+        <div class="dialogue-line">
+          <span class="speaker">Mitarb.</span>
+          <span class="line-text">Bringen Sie den Fernseher rein und wir tauschen ihn um.</span>
+        </div>
+        <div class="dialogue-line">
+          <span class="speaker b">Kunde</span>
+          <span class="line-text">Und bei der Kaffeemaschine – die ist defekt. Schauen Sie mal nach, ich habe doch eine zusätzliche Garantie.</span>
+        </div>
+        <div class="dialogue-line">
+          <span class="speaker">Mitarb.</span>
+          <span class="line-text">Leider ist Ihre Garantie <strong>abgelaufen</strong>. Wir können keine Rückerstattung <strong>anbieten</strong>.</span>
+        </div>
+        <div class="dialogue-line">
+          <span class="speaker b">Kunde</span>
+          <span class="line-text">Ich <strong>bestehe darauf</strong>, dass Sie das prüfen! Diese Maschine hat viel Geld gekostet.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialogue-scene">
+      <div class="dialogue-header">
+        <span class="scene-icon">🍝</span> Im Restaurant – Beschwerden &amp; Wünsche
+      </div>
+      <div class="dialogue-body">
+        <div class="dialogue-line">
+          <span class="speaker b">Gast</span>
+          <span class="line-text">Entschuldigung, ich warte schon seit einer Stunde.</span>
+        </div>
+        <div class="dialogue-line">
+          <span class="speaker">Kellner</span>
+          <span class="line-text">Oh, entschuldigung. Wir haben leider viel zu tun. Ich frage mal in der Küche <strong>nach</strong>.</span>
+        </div>
+        <div class="dialogue-line">
+          <span class="speaker b">Gast</span>
+          <span class="line-text">Kann ich jetzt die Bestellung <strong>aufnehmen</strong>? <em>(= Darf ich bestellen?)</em></span>
+        </div>
+        <div class="dialogue-line">
+          <span class="speaker">Kellner</span>
+          <span class="line-text">Natürlich! Was darf es sein?</span>
+        </div>
+        <div class="dialogue-line">
+          <span class="speaker b">Gast</span>
+          <span class="line-text">Ich habe Spaghetti bestellt – aber die sind nicht al dente. <strong>Passt die Sauce?</strong> Ja, die Sauce passt, nur die Spaghetti nicht.</span>
+        </div>
+        <div class="dialogue-line">
+          <span class="speaker b">Gast</span>
+          <span class="line-text">Könnten wir den Platz <strong>wechseln</strong>? Hauptsache nicht hier neben der Toilette.</span>
+        </div>
+        <div class="dialogue-line">
+          <span class="speaker">Kellner</span>
+          <span class="line-text"><strong>Passt das für Sie?</strong> / Ist das in Ordnung für Sie? Am Fenster sind die Plätze leider reserviert.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ÜBUNG 1: Lückentext ══ -->
+  <div id="panel-uebung1" class="panel">
+    <div class="section-label">Übung 1</div>
+    <h2 class="section-title">Lückentext</h2>
+
+    <div class="exercise-block">
+      <div class="exercise-header">
+        <span class="ex-num">1</span>
+        <span class="ex-title">Klick auf ein Wort – dann auf die Lücke</span>
+      </div>
+      <p class="ex-desc">Wähle das passende Wort aus dem Kasten und fülle die Lücke aus.</p>
+
+      <div class="word-bank" id="wb1"></div>
+      <div id="gaps1"></div>
+
+      <button class="check-btn" onclick="checkGaps()">✓ Prüfen <span id="sc1" class="score"></span></button>
+      <span class="reset-link" onclick="resetGaps()">zurücksetzen</span>
+    </div>
+  </div>
+
+  <!-- ══ ÜBUNG 2: Richtig/Falsch ══ -->
+  <div id="panel-uebung2" class="panel">
+    <div class="section-label">Übung 2</div>
+    <h2 class="section-title">Richtig oder falsch?</h2>
+    <div class="exercise-block">
+      <div class="exercise-header">
+        <span class="ex-num">2</span>
+        <span class="ex-title">Finde den Fehler aus der Stunde</span>
+      </div>
+      <p class="ex-desc">Alle Sätze kommen direkt aus der Fehlerkorrektur. Richtig oder falsch?</p>
+      <div id="rf1"></div>
+    </div>
+  </div>
+
+  <!-- ══ ÜBUNG 3: Zuordnung ══ -->
+  <div id="panel-uebung3" class="panel">
+    <div class="section-label">Übung 3</div>
+    <h2 class="section-title">Was passt zusammen?</h2>
+    <div class="exercise-block">
+      <div class="exercise-header">
+        <span class="ex-num">3</span>
+        <span class="ex-title">Situation → passender Satz</span>
+      </div>
+      <p class="ex-desc">Klick auf eine Situation (links), dann auf den passenden deutschen Ausdruck (rechts).</p>
+      <div class="match-wrap">
+        <div>
+          <div class="match-col-label">Situation</div>
+          <div id="mLeft"></div>
+        </div>
+        <div>
+          <div class="match-col-label">Auf Deutsch sagt man…</div>
+          <div id="mRight"></div>
+        </div>
+      </div>
+      <button class="check-btn" onclick="checkMatch()">✓ Prüfen <span id="sc3" class="score"></span></button>
+      <span class="reset-link" onclick="resetMatch()">zurücksetzen</span>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ─── TAB NAVIGATION ──────────────────────────────────────────────────────────
+function showPanel(id, tabEl) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  tabEl.classList.add('active');
+}
+
+// ─── ÜBUNG 1 DATA ────────────────────────────────────────────────────────────
+const gapSentences = [
+  {
+    pre: 'Bringen Sie den ',
+    blank: 'Fernseher',
+    post: ' rein und wir tauschen ihn um.'
+  },
+  {
+    pre: 'Ich kann diese Erkältung einfach nicht ',
+    blank: 'loswerden',
+    post: '.'
+  },
+  {
+    pre: 'Leider ist Ihre Garantie ',
+    blank: 'abgelaufen',
+    post: '. Wir können keine Rückerstattung anbieten.'
+  },
+  {
+    pre: 'Ich frage mal in der Küche ',
+    blank: 'nach',
+    post: '.'
+  },
+  {
+    pre: 'Kann ich jetzt die Bestellung ',
+    blank: 'aufnehmen',
+    post: '?'
+  },
+  {
+    pre: 'Das Rohr ',
+    blank: 'tropft',
+    post: ' – wir brauchen einen Klempner.'
+  },
+  {
+    pre: 'Das kam völlig ',
+    blank: 'unerwartet',
+    post: ' – damit haben wir nicht gerechnet.'
+  },
+  {
+    pre: 'Ist das in Ordnung für Sie? / ',
+    blank: 'Passt das',
+    post: ' für Sie?'
+  }
+];
+
+const wordBank = ['Fernseher','loswerden','abgelaufen','nach','aufnehmen','tropft','unerwartet','Passt das'];
+let selectedChip = null;
+const gapFills = {};
+
+function buildGaps() {
+  // word bank
+  const wb = document.getElementById('wb1');
+  wb.innerHTML = '';
+  wordBank.forEach(w => {
+    const c = document.createElement('span');
+    c.className = 'chip';
+    c.textContent = w;
+    c.dataset.word = w;
+    c.addEventListener('click', () => {
+      document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+      if (selectedChip === w) { selectedChip = null; return; }
+      selectedChip = w;
+      c.classList.add('active');
+    });
+    wb.appendChild(c);
+  });
+
+  // sentences
+  const container = document.getElementById('gaps1');
+  container.innerHTML = '';
+  gapSentences.forEach((s, i) => {
+    const row = document.createElement('div');
+    row.className = 'gap-row';
+    row.id = 'gr' + i;
+    row.innerHTML = `
+      <span>${s.pre}</span>
+      <span class="gap-blank" id="gb${i}" onclick="fillBlank(${i})">${gapFills[i] ? gapFills[i] : ''}</span>
+      <span>${s.post}</span>
+      <span class="gap-icon" id="gi${i}"></span>
+    `;
+    if (gapFills[i]) {
+      row.querySelector('.gap-blank').classList.add('filled');
+    }
+    container.appendChild(row);
+  });
+}
+
+function fillBlank(i) {
+  if (!selectedChip) return;
+  gapFills[i] = selectedChip;
+  const blank = document.getElementById('gb' + i);
+  blank.textContent = selectedChip;
+  blank.classList.add('filled');
+  document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+  selectedChip = null;
+}
+
+function checkGaps() {
+  let ok = 0;
+  gapSentences.forEach((s, i) => {
+    const row = document.getElementById('gr' + i);
+    const icon = document.getElementById('gi' + i);
+    const val = gapFills[i];
+    const correct = val && val.toLowerCase().trim() === s.blank.toLowerCase().trim();
+    row.classList.toggle('correct', correct);
+    row.classList.toggle('wrong', !correct);
+    icon.textContent = correct ? '✅' : '❌';
+    if (correct) ok++;
+  });
+  const sc = document.getElementById('sc1');
+  sc.textContent = `${ok}/${gapSentences.length}`;
+  sc.classList.add('show', 'pop');
+}
+
+function resetGaps() {
+  Object.keys(gapFills).forEach(k => delete gapFills[k]);
+  selectedChip = null;
+  buildGaps();
+  const sc = document.getElementById('sc1');
+  sc.classList.remove('show');
+}
+
+// ─── ÜBUNG 2 DATA ────────────────────────────────────────────────────────────
+const rfData = [
+  {
+    s: 'Ich habe vor zwei Tagen einen Fernsehen gekauft.',
+    ok: false,
+    fb: '✗ Falsch! Das Gerät heißt <strong>der Fernseher</strong> (nicht: das Fernsehen). → Ich habe einen Fernseher gekauft.'
+  },
+  {
+    s: 'In 5 Minuten bin ich wieder zurück.',
+    ok: false,
+    fb: '✗ Doppelt gemoppelt! „zurück" reicht allein → <strong>In 5 Minuten bin ich zurück.</strong>'
+  },
+  {
+    s: 'Leider können wir keine Rückerstattung anbieten.',
+    ok: true,
+    fb: '✓ Richtig! Das Vollverb <em>anbieten</em> ist dabei – perfekt!'
+  },
+  {
+    s: 'Das Rohr tropft – wir brauchen einen Klempner.',
+    ok: true,
+    fb: '✓ Richtig! <em>das Rohr / die Rohre</em> – korrekt!'
+  },
+  {
+    s: 'Meine Frage ist eine Andere.',
+    ok: false,
+    fb: '✗ Falsch! Adjektive nach Artikel kleinschreiben → <strong>Meine Frage ist eine andere.</strong>'
+  },
+  {
+    s: 'Ist das passt für Sie?',
+    ok: false,
+    fb: '✗ Zwei Konstruktionen gemischt! Nur eine wählen: <strong>Passt das für Sie?</strong> oder <strong>Ist das in Ordnung für Sie?</strong>'
+  },
+  {
+    s: 'Ich frage mal in der Küche nach.',
+    ok: true,
+    fb: '✓ Richtig! Trennbares Verb <em>nachfragen</em> – korrekt getrennt!'
+  },
+  {
+    s: 'Wir können keine Rückerstattung.',
+    ok: false,
+    fb: '✗ Verb fehlt! <em>können</em> braucht ein Vollverb → <strong>Wir können keine Rückerstattung geben / anbieten.</strong>'
+  },
+];
+
+function buildRF() {
+  const c = document.getElementById('rf1');
+  rfData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'rf-card';
+    div.id = 'rfc' + i;
+    div.innerHTML = `
+      <div class="rf-sentence">${item.s}</div>
+      <div class="rf-btns">
+        <button class="rf-btn" onclick="answerRF(${i},true,this)">✓ Richtig</button>
+        <button class="rf-btn" onclick="answerRF(${i},false,this)">✗ Falsch</button>
+      </div>
+      <div class="rf-fb" id="rff${i}">${item.fb}</div>
+    `;
+    c.appendChild(div);
+  });
+}
+
+function answerRF(i, answer, btn) {
+  const card = document.getElementById('rfc' + i);
+  card.querySelectorAll('.rf-btn').forEach(b => b.classList.remove('sel-r','sel-f'));
+  btn.classList.add(answer ? 'sel-r' : 'sel-f');
+  const correct = answer === rfData[i].ok;
+  card.classList.toggle('correct', correct);
+  card.classList.toggle('wrong', !correct);
+  const fb = document.getElementById('rff' + i);
+  fb.classList.add('show');
+  fb.classList.toggle('ok', correct);
+  fb.classList.toggle('bad', !correct);
+}
+
+// ─── ÜBUNG 3 DATA ────────────────────────────────────────────────────────────
+const matchData = [
+  { id: 'a', left: 'Du willst wissen, ob der Tisch frei ist.', right: 'Passt das für Sie?' },
+  { id: 'b', left: 'Du willst dich über lange Wartezeit beschweren.', right: 'Ich warte schon seit einer Stunde!' },
+  { id: 'c', left: 'Das Produkt ist kaputt und du forderst Ersatz.', right: 'Ich bestehe auf einer Reparatur.' },
+  { id: 'd', left: 'Du willst im Restaurant bestellen.', right: 'Kann ich die Bestellung aufnehmen?' },
+  { id: 'e', left: 'Die Garantie ist nicht mehr gültig.', right: 'Ihre Garantie ist abgelaufen.' },
+  { id: 'f', left: 'Du willst einen anderen Tisch.', right: 'Könnten wir den Platz wechseln?' },
+];
+
+let mSelected = null;
+const mPairs = {};
+const mShuffled = [...matchData].sort(() => Math.random() - .5);
+
+function buildMatch() {
+  const ml = document.getElementById('mLeft');
+  const mr = document.getElementById('mRight');
+  ml.innerHTML = ''; mr.innerHTML = '';
+
+  matchData.forEach(item => {
+    const l = document.createElement('div');
+    l.className = 'm-item';
+    l.textContent = item.left;
+    l.dataset.id = item.id;
+    l.dataset.side = 'left';
+    l.addEventListener('click', () => doMatch(l));
+    ml.appendChild(l);
+  });
+
+  mShuffled.forEach(item => {
+    const r = document.createElement('div');
+    r.className = 'm-item';
+    r.textContent = item.right;
+    r.dataset.id = item.id;
+    r.dataset.side = 'right';
+    r.addEventListener('click', () => doMatch(r));
+    mr.appendChild(r);
+  });
+}
+
+function doMatch(el) {
+  if (el.classList.contains('done')) return;
+  if (!mSelected) {
+    document.querySelectorAll('.m-item').forEach(x => x.classList.remove('sel'));
+    el.classList.add('sel');
+    mSelected = el;
+    return;
+  }
+  if (el.dataset.side === mSelected.dataset.side) {
+    document.querySelectorAll('.m-item').forEach(x => x.classList.remove('sel'));
+    el.classList.add('sel');
+    mSelected = el;
+    return;
+  }
+  // pair: record
+  const leftEl  = mSelected.dataset.side === 'left'  ? mSelected : el;
+  const rightEl = mSelected.dataset.side === 'right' ? mSelected : el;
+  mPairs[leftEl.dataset.id] = rightEl.dataset.id;
+  document.querySelectorAll('.m-item').forEach(x => x.classList.remove('sel'));
+  mSelected = null;
+}
+
+function checkMatch() {
+  let ok = 0;
+  matchData.forEach(item => {
+    const leftEl  = [...document.querySelectorAll('.m-item[data-side="left"]')].find(e => e.dataset.id === item.id);
+    const rightEl = [...document.querySelectorAll('.m-item[data-side="right"]')].find(e => e.dataset.id === item.id);
+    const paired = mPairs[item.id];
+    if (paired === item.id) {
+      ok++;
+      leftEl.classList.add('done'); rightEl.classList.add('done');
+      leftEl.classList.remove('err'); rightEl.classList.remove('err');
+    } else if (paired) {
+      leftEl.classList.add('err'); rightEl.classList.add('err');
+      setTimeout(() => {
+        leftEl.classList.remove('err'); rightEl.classList.remove('err');
+        delete mPairs[item.id];
+      }, 700);
+    }
+  });
+  const sc = document.getElementById('sc3');
+  sc.textContent = `${ok}/${matchData.length}`;
+  sc.classList.add('show', 'pop');
+}
+
+function resetMatch() {
+  Object.keys(mPairs).forEach(k => delete mPairs[k]);
+  mSelected = null;
+  buildMatch();
+  document.getElementById('sc3').classList.remove('show');
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+buildGaps();
+buildRF();
+buildMatch();
+</script>
+</body>
+</html>

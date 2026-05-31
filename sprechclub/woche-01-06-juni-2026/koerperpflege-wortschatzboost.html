@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-id="th-modified">Körperpflege · deutschoderwas Wortschatzboost</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:#F7F3EE; --dark:#1A1410; --brown:#5C3D2E;
+  --rust:#C4622D; --rust-lt:#E8896A; --sand:#D9C4A8; --sand-lt:#EEE4D4;
+  --green:#3D6B4F; --green-lt:#D4E8DC; --red:#C0392B; --red-lt:#F5DDD9;
+  --pink:#E07060; --pink-lt:#F5C5BE;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}
+.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--pink),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.tbtn.start{background:var(--green);color:white;}
+.tbtn.reset{background:#555;color:white;}
+
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--pink);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--pink);color:var(--pink-lt);}
+.phase-btn.active{background:var(--pink);border-color:var(--pink);color:white;}
+
+main{max-width:900px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}
+.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;position:relative;overflow:hidden;}
+.card-header::after{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.04);}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--pink-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.35rem;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--pink),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.3rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--pink-lt);color:var(--red);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+
+.verb-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;border-top:4px solid var(--pink);}
+.verb-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(224,112,96,.15);}
+.verb-card.revealed .verb-back{display:block;}
+.verb-front{padding:1rem 1.2rem;}
+.verb-name{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:900;color:var(--dark);}
+.verb-hint{font-size:.75rem;color:#aaa;font-style:italic;margin-top:.15rem;}
+.verb-back{background:var(--pink-lt);padding:.8rem 1.2rem;border-top:1px solid var(--sand);display:none;}
+.verb-bedeutung{font-size:.85rem;font-weight:600;color:var(--dark);margin-bottom:.3rem;}
+.verb-beispiel{font-size:.83rem;color:var(--brown);line-height:1.5;}
+.verb-beispiel strong{color:var(--pink);}
+.verb-grammar{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:var(--dark);color:var(--pink-lt);padding:.12rem .6rem;border-radius:20px;margin-top:.4rem;}
+
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.7rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.85rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--pink);}
+.vok-card:hover{transform:translateY(-2px);}
+.vok-card.flipped{background:var(--pink-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.5;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);}
+.vok-card.flipped .vok-back{display:block;}
+.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+
+.ex{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.75rem 1.1rem;margin-bottom:.5rem;border-left:4px solid var(--pink);font-size:.92rem;line-height:1.6;}
+.ex .de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);}
+.ex .en{font-size:.78rem;color:#aaa;font-style:italic;}
+.ex strong{color:var(--pink);}
+
+.ba-wrap{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1.2rem;}
+@media(max-width:560px){.ba-wrap{grid-template-columns:1fr;}}
+.ba-col{border-radius:12px;overflow:hidden;}
+.ba-head{padding:.5rem 1rem;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
+.ba-head.leh{background:#ddd;color:#666;}
+.ba-head.umg{background:var(--pink);color:white;}
+.ba-row{background:white;border:1px solid var(--sand);padding:.65rem 1rem;font-size:.88rem;line-height:1.5;}
+.ba-row:not(:last-child){border-bottom:none;}
+.ba-row.umg-row{font-family:'Fraunces',serif;font-weight:700;}
+.ba-row strong{color:var(--pink);}
+
+.gap-row{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.75rem 1.1rem;margin-bottom:.5rem;font-size:.92rem;line-height:1.9;display:flex;flex-wrap:wrap;align-items:center;gap:.3rem;transition:border-color .2s,background .2s;}
+.gap-row.correct{border-color:var(--green);background:var(--green-lt);}
+.gap-row.wrong{border-color:var(--red);background:var(--red-lt);}
+.blank{display:inline-block;min-width:130px;border-bottom:2.5px solid var(--pink);font-family:'Fraunces',serif;font-weight:700;color:var(--brown);font-size:.9rem;padding:0 .3rem;cursor:pointer;text-align:center;}
+.blank:empty::before{content:'___';color:#ccc;font-style:italic;font-size:.8rem;}
+.g-icon{font-size:.9rem;opacity:0;transition:opacity .3s;}
+.gap-row.correct .g-icon,.gap-row.wrong .g-icon{opacity:1;}
+.wbank{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem;}
+.chip{background:var(--dark);color:var(--cream);font-family:'Fraunces',serif;font-weight:700;font-size:.78rem;padding:.25rem .8rem;border-radius:20px;cursor:pointer;transition:background .15s,transform .1s;user-select:none;outline:2px solid transparent;}
+.chip:hover{background:var(--pink);transform:scale(1.04);}
+.chip.active{background:var(--pink);outline:2px solid var(--pink-lt);}
+
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}
+.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.91rem;margin-bottom:.55rem;line-height:1.5;}
+.rf-btns{display:flex;gap:.4rem;}
+.rfbtn{padding:.25rem .78rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.77rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--pink);color:var(--pink);}
+.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}
+.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.79rem;margin-top:.5rem;font-weight:500;display:none;line-height:1.5;}
+.rf-fb.show{display:block;}
+.rf-fb.ok{color:var(--green);}
+.rf-fb.bad{color:var(--red);}
+
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--pink);}
+.speak-card:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(224,112,96,.12);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.93rem;color:var(--dark);}
+.speak-back{font-size:.82rem;color:var(--dark);line-height:1.5;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}
+.speak-hint{font-size:.68rem;color:#aaa;margin-top:.4rem;}
+
+.check-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--pink);color:white;border:none;border-radius:30px;padding:.52rem 1.3rem;font-family:'Fraunces',serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .15s;margin-top:.8rem;}
+.check-btn:hover{background:var(--brown);transform:scale(1.02);}
+.score{display:inline-block;background:var(--dark);color:var(--cream);font-family:'Fraunces',serif;font-weight:700;font-size:.82rem;padding:.2rem .85rem;border-radius:20px;margin-left:.7rem;opacity:0;transition:opacity .3s;}
+.score.show{opacity:1;}
+.reset-link{font-size:.72rem;color:#bbb;cursor:pointer;text-decoration:underline;margin-left:.7rem;}
+.reset-link:hover{color:var(--pink);}
+
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:.75rem;display:flex;align-items:flex-start;gap:.9rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:900;color:var(--pink-lt);flex-shrink:0;line-height:1;}
+.these-text{font-size:.92rem;line-height:1.6;}
+.these-starter{font-size:.76rem;color:#888;margin-top:.3rem;}
+
+.tipp{background:var(--dark);color:var(--cream);border-radius:14px;padding:1rem 1.3rem;margin-top:1.2rem;display:flex;gap:.8rem;align-items:flex-start;}
+.tipp-icon{font-size:1.2rem;flex-shrink:0;}
+.tipp-text{font-size:.86rem;line-height:1.7;}
+.tipp-text strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.4rem 0;}
+</style>
+<meta property="og:title" content="Körperpflege · deutschoderwas Wortschatzboost" data-id="th-modified" ><meta name="description" content="koerperpflege_boost" data-id="th-modified" ><meta property="og:description" content="koerperpflege_boost" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="/sprechclub/woche-01-06-juni-2026/koerperpflege-wortschatzboost.html" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="koerperpflege-wortschatzboost.deutschoderwas-lernen.de" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+<body>
+
+<div class="timer-bar">
+  <div class="timer-display" id="timerDisplay">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="timerFill"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;">Unterrichtszeit</span>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">▶ Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">↺</button>
+  </div>
+</div>
+
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <button class="phase-btn active" onclick="showPhase('einstieg',this)">① Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('verben',this)">② Verben</button>
+  <button class="phase-btn" onclick="showPhase('vokabeln',this)">③ Vokabeln</button>
+  <button class="phase-btn" onclick="showPhase('umgangssprache',this)">④ Umgangssprache</button>
+  <button class="phase-btn" onclick="showPhase('uebung',this)">⑤ Übungen</button>
+  <button class="phase-btn" onclick="showPhase('sprechen',this)">⑥ Sprechen</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;">Wortschatzboost · ab B1 · 60 Min.</span>
+</div>
+
+<main>
+
+<!-- ① EINSTIEG -->
+<div id="phase-einstieg" class="phase active">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Wortschatzboost · ab B1 · Einstieg · 8 Min.</div>
+      <div class="card-title">Körperpflege – <em>wie sagt man das wirklich?</em></div>
+      <div class="card-sub">Vom Bad bis zur Apotheke – Wortschatz für den Alltag</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+
+      <div class="slabel">Einstiegsfrage – jeder antwortet!</div>
+      <div class="these" style="cursor:default;">
+        <div class="these-num">?</div>
+        <div class="these-text">
+          Wie lange dauert deine Morgenroutine? Was machst du als erstes, was als letztes?
+          <div class="these-starter">„Als erstes… dann… danach… zum Schluss…"</div>
+        </div>
+      </div>
+
+      <div class="slabel">Was fällt euch auf? Lehrbuch vs. Realität</div>
+      <div class="ba-wrap">
+        <div class="ba-col">
+          <div class="ba-head leh">❌ Lehrbuchdeutsch</div>
+          <div class="ba-row">Ich wasche mein Gesicht.</div>
+          <div class="ba-row">Ich trage Creme auf.</div>
+          <div class="ba-row">Ich gehe zum Friseur.</div>
+          <div class="ba-row">Ich habe Pickel.</div>
+        </div>
+        <div class="ba-col">
+          <div class="ba-head umg">✓ Echter Alltag</div>
+          <div class="ba-row umg-row">Ich <strong>wasche</strong> mein Gesicht / mache Gesichtspflege.</div>
+          <div class="ba-row umg-row">Ich <strong>creme mich ein</strong>.</div>
+          <div class="ba-row umg-row">Ich <strong>lasse mir die Haare schneiden</strong>.</div>
+          <div class="ba-row umg-row">Ich habe <strong>Pickel / eine unreine Haut</strong>.</div>
+        </div>
+      </div>
+
+      <div class="tipp">
+        <div class="tipp-icon">💡</div>
+        <div class="tipp-text"><strong>Heute lernen wir:</strong> Die wichtigsten Verben und Wörter rund um Körperpflege – von der Morgenroutine bis zum Friseur, von der Apotheke bis zur Hautpflege!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② VERBEN -->
+<div id="phase-verben" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Wortschatzboost · ab B1 · Verben · 12 Min.</div>
+      <div class="card-title">Die wichtigsten <em>Verben</em></div>
+      <div class="card-sub">Klick auf die Karten!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 12 Minuten</div>
+      <div class="slabel">Klick zum Aufdecken!</div>
+      <div class="vok-grid" id="verbGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ VOKABELN -->
+<div id="phase-vokabeln" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Wortschatzboost · ab B1 · Vokabeln · 10 Min.</div>
+      <div class="card-title">Produkte & <em>Körperpflege-Wörter</em></div>
+      <div class="card-sub">Klick zum Aufdecken!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+      <div class="slabel">Im Badezimmer & in der Apotheke</div>
+      <div class="vok-grid" id="vokGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ UMGANGSSPRACHE -->
+<div id="phase-umgangssprache" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Wortschatzboost · ab B1 · Umgangssprache · 8 Min.</div>
+      <div class="card-title">So reden <em>echte Deutsche</em> über Körperpflege</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 8 Minuten</div>
+
+      <div class="slabel">Typische Ausdrücke im Alltag</div>
+      <div class="ex"><div class="de">„Ich sehe heute <strong>total mitgenommen</strong> aus."</div><div class="en">= I look completely worn out today. (kein Schlaf, gestresst)</div></div>
+      <div class="ex"><div class="de">„Du siehst <strong>top aus!</strong>"</div><div class="en">= You look great! (Lob für das Aussehen)</div></div>
+      <div class="ex"><div class="de">„Ich muss dringend zum <strong>Friseur</strong> – meine Haare sind eine <strong>Katastrophe</strong>."</div><div class="en">= I urgently need a haircut – my hair is a disaster.</div></div>
+      <div class="ex"><div class="de">„Ich hab heute <strong>keinen guten Haartag</strong>."</div><div class="en">= I'm having a bad hair day. (aus dem Englischen übernommen!)</div></div>
+      <div class="ex"><div class="de">„Die Creme <strong>zieht gut ein</strong>."</div><div class="en">= The cream absorbs well. (einziehen = to absorb – trennbares Verb!)</div></div>
+      <div class="ex"><div class="de">„Ich <strong>gönne mir</strong> heute ein langes Bad."</div><div class="en">= I'm treating myself to a long bath today. (sich gönnen = to treat yourself)</div></div>
+      <div class="ex"><div class="de">„Du riechst <strong>super</strong> – was ist das für ein Parfum?"</div><div class="en">= You smell amazing – what perfume is that?</div></div>
+      <div class="ex"><div class="de">„Ich bin <strong>total verpeilt</strong> – habe vergessen, mich zu rasieren."</div><div class="en">= I'm totally out of it – forgot to shave. (verpeilt = spacey/forgetful, umgangssprachlich)</div></div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🎯</div>
+        <div class="tipp-text"><strong>Tipp:</strong> „sich gönnen" ist ein wunderschönes deutsches Verb – man benutzt es, wenn man sich etwas Schönes erlaubt. „Ich gönne mir heute eine Auszeit!" Lern es, lieb es, benutz es!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ ÜBUNGEN -->
+<div id="phase-uebung" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Wortschatzboost · ab B1 · Übungen · 12 Min.</div>
+      <div class="card-title">Jetzt üben wir!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 12 Minuten</div>
+
+      <div class="slabel">Übung 1 – Lückentext</div>
+      <p style="font-size:.82rem;color:#777;margin-bottom:.8rem;">Klick auf ein Wort, dann auf die Lücke.</p>
+      <div class="wbank" id="wb1"></div>
+      <div id="gaps1"></div>
+      <button class="check-btn" onclick="checkGaps()">✓ Prüfen <span id="sc1" class="score"></span></button>
+      <span class="reset-link" onclick="resetGaps()">zurücksetzen</span>
+
+      <hr class="div">
+
+      <div class="slabel">Übung 2 – Richtig oder Falsch?</div>
+      <div id="rf1"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑥ SPRECHEN -->
+<div id="phase-sprechen" class="phase">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Wortschatzboost · ab B1 · Sprechen · 10 Min.</div>
+      <div class="card-title">Jetzt <em>sprechen</em> wir!</div>
+    </div>
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="time-badge">⏱ 10 Minuten</div>
+
+      <div class="slabel">Sprechkarten – klick für Hilfe!</div>
+      <div class="speak-grid" id="speakCards"></div>
+
+      <hr class="div">
+
+      <div class="slabel">Debatte – Was denkt ihr?</div>
+      <div class="these">
+        <div class="these-num">1</div>
+        <div class="these-text">
+          Männer sollten genauso viel Zeit und Geld für Körperpflege ausgeben wie Frauen.
+          <div class="these-starter">„Ich finde, dass…" / „Das ist heutzutage selbstverständlich, weil…" / „Früher war das anders…"</div>
+        </div>
+      </div>
+      <div class="these">
+        <div class="these-num">2</div>
+        <div class="these-text">
+          Naturprodukte für die Körperpflege sind immer besser als chemische Produkte.
+          <div class="these-starter">„Das stimmt nur bedingt, denn…" / „Ich benutze lieber…, weil…"</div>
+        </div>
+      </div>
+
+      <div class="tipp">
+        <div class="tipp-icon">🏠</div>
+        <div class="tipp-text"><strong>Hausaufgabe:</strong> Schreib deine Morgenroutine auf Deutsch auf – mit mindestens 8 Verben und Ausdrücken aus der heutigen Stunde!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+const TOTAL=3600;let remaining=TOTAL,interval=null,running=false;
+function updateTimerDisplay(){
+  const m=Math.floor(remaining/60),s=remaining%60;
+  const d=document.getElementById('timerDisplay');
+  d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  document.getElementById('timerFill').style.width=(remaining/TOTAL*100)+'%';
+  d.className='timer-display';
+  if(remaining<=600)d.classList.add('warn');
+  if(remaining<=120)d.classList.add('urgent');
+}
+function toggleTimer(){
+  if(running){clearInterval(interval);running=false;document.querySelector('.tbtn.start').textContent='▶ Start';}
+  else{running=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';interval=setInterval(()=>{if(remaining>0){remaining--;updateTimerDisplay();}else{clearInterval(interval);running=false;}},1000);}
+}
+function resetTimer(){clearInterval(interval);running=false;remaining=TOTAL;updateTimerDisplay();document.querySelector('.tbtn.start').textContent='▶ Start';}
+
+function showPhase(id,btn){
+  document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('phase-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+const verbData=[
+  {front:'sich waschen',hint:'to wash (oneself)',back:'= sich reinigen\n„Ich wasche mich jeden Morgen." / „Ich wasche mir die Hände."',grammar:'Reflexivverb · ich wasche mich'},
+  {front:'sich eincremen',hint:'to put on cream',back:'= Creme auftragen\n„Ich creme mich jeden Abend ein." / „Ich creme mir das Gesicht ein."',grammar:'trennbar · creme … ein'},
+  {front:'sich rasieren',hint:'to shave',back:'= den Bart / die Beine rasieren\n„Er rasiert sich täglich." / „Ich rasiere mir die Beine."',grammar:'Reflexivverb · ich rasiere mich'},
+  {front:'sich schminken',hint:'to put on makeup',back:'= Make-up auftragen\n„Sie schminkt sich nur für besondere Anlässe."',grammar:'Reflexivverb · ich schminke mich'},
+  {front:'sich kämmen / bürsten',hint:'to comb / brush',back:'= die Haare kämmen\n„Ich kämme mir täglich die Haare." / „Sie bürstet sich die Haare."',grammar:'Reflexivverb mit Dativ'},
+  {front:'sich parfümieren',hint:'to put on perfume',back:'= Parfum auftragen\n„Er parfümiert sich zu stark – das ist unangenehm!"',grammar:'Reflexivverb'},
+  {front:'sich duschen',hint:'to take a shower',back:'= unter der Dusche stehen\n„Ich dusche mich morgens kalt."',grammar:'Reflexivverb · ich dusche mich'},
+  {front:'sich gönnen',hint:'to treat oneself',back:'= sich etwas Schönes erlauben\n„Ich gönne mir heute eine lange Badewanne."',grammar:'Dativobjekt: ich gönne mir'},
+  {front:'einziehen',hint:'to absorb (cream)',back:'= wenn Creme in die Haut einzieht\n„Die Creme zieht schnell ein."',grammar:'trennbar · zieht … ein'},
+  {front:'auftragen',hint:'to apply (product)',back:'= Creme / Sonnenschutz auftragen\n„Ich trage täglich Sonnencreme auf."',grammar:'trennbar · trägt … auf'},
+];
+
+function buildVerbGrid(){
+  const grid=document.getElementById('verbGrid');
+  verbData.forEach(v=>{
+    const div=document.createElement('div');div.className='vok-card';
+    div.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${v.back.replace(/\n/g,'<br>')}<br><span class="verb-grammar" style="margin-top:.4rem;display:inline-block;">${v.grammar}</span></div><div class="vok-hint">${v.hint} · klicken!</div>`;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+const vokData=[
+  {front:'das Shampoo',back:'= shampoo\n„Welches Shampoo benutzt du?" / „Ich brauche ein Shampoo für trockene Haare."',hint:'Pl: die Shampoos'},
+  {front:'die Feuchtigkeitscreme',back:'= moisturiser\n„Ich trage jeden Morgen Feuchtigkeitscreme auf."',hint:'oft: Tagescreme / Nachtcreme'},
+  {front:'der Sonnenschutz',back:'= sun protection / suncream\n„Vergiss nicht, Sonnenschutz aufzutragen!"',hint:'auch: Sonnencreme · LSF = Lichtschutzfaktor'},
+  {front:'das Deodorant',back:'= deodorant\n„Ich benutze lieber ein Deo ohne Aluminium."',hint:'umgangssprachlich: das Deo'},
+  {front:'die Zahnbürste / Zahnpasta',back:'= toothbrush / toothpaste\n„Ich putze mir zweimal täglich die Zähne."',hint:'Zähne putzen (nicht: waschen!)'},
+  {front:'das Peeling',back:'= exfoliating scrub\n„Ein Peeling entfernt abgestorbene Hautzellen."',hint:'aus dem Englischen übernommen'},
+  {front:'die Rasierklinge',back:'= razor blade\n„Ich benutze einen Einwegrasierer." / „Meine Rasierklinge ist stumpf."',hint:'auch: der Rasierer'},
+  {front:'das Wattestäbchen',back:'= cotton swab / Q-tip\n„Wattestäbchen sollte man nicht in den Ohren benutzen!"',hint:'typisch: zur Ohrenreinigung'},
+  {front:'die Körperlotion',back:'= body lotion\n„Ich trage nach dem Duschen immer Körperlotion auf."',hint:'auch: Körpermilch'},
+  {front:'das Parfum / der Duft',back:'= perfume / fragrance\n„Dieser Duft ist zu intensiv für das Büro."',hint:'der Duft = the scent (eleganter)'},
+  {front:'die Hautpflege',back:'= skincare\n„Gute Hautpflege ist wichtig – besonders im Winter."',hint:'eine Hautpflegeroutine haben'},
+  {front:'der Lippenstift',back:'= lipstick\n„Sie trägt heute einen roten Lippenstift."',hint:'auch: Lippenpflege / Lippenbalsam'},
+];
+
+function buildVokGrid(){
+  const grid=document.getElementById('vokGrid');
+  vokData.forEach(v=>{
+    const div=document.createElement('div');div.className='vok-card';
+    div.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${v.back.replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint} · klicken!</div>`;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+const gapData=[
+  {pre:'Ich ',blank:'dusche mich',post:' jeden Morgen kalt – das weckt mich auf!'},
+  {pre:'Er ',blank:'rasiert sich',post:' täglich, aber am Wochenende lässt er es manchmal.'},
+  {pre:'Die Creme ',blank:'zieht ein',post:' – ich kann mich jetzt anziehen.'},
+  {pre:'Ich ',blank:'gönne mir',post:' heute Abend ein langes Bad mit Schaum.'},
+  {pre:'Sie ',blank:'trägt',post:' jeden Morgen Feuchtigkeitscreme auf.'},
+  {pre:'Vergiss nicht, ',blank:'Sonnenschutz',post:' aufzutragen – heute wird es sehr heiß!'},
+  {pre:'Ich ',blank:'creme mich ein',post:' nach dem Duschen – meine Haut ist sehr trocken.'},
+];
+const bankWords=['dusche mich','rasiert sich','zieht ein','gönne mir','trägt','Sonnenschutz','creme mich ein'];
+let selChip=null;const fills={};
+
+function buildGaps(){
+  const wb=document.getElementById('wb1');wb.innerHTML='';
+  bankWords.forEach(w=>{
+    const c=document.createElement('span');c.className='chip';c.textContent=w;c.dataset.word=w;
+    c.addEventListener('click',()=>{document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));selChip=selChip===w?null:w;if(selChip)c.classList.add('active');});
+    wb.appendChild(c);
+  });
+  const gc=document.getElementById('gaps1');gc.innerHTML='';
+  gapData.forEach((s,i)=>{
+    const row=document.createElement('div');row.className='gap-row';row.id='gr'+i;
+    row.innerHTML=`<span>${s.pre}</span><span class="blank" id="gb${i}" onclick="fillBlank(${i})">${fills[i]||''}</span><span>${s.post}</span><span class="g-icon" id="gi${i}"></span>`;
+    gc.appendChild(row);
+  });
+}
+function fillBlank(i){if(!selChip)return;fills[i]=selChip;document.getElementById('gb'+i).textContent=selChip;document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));selChip=null;}
+function checkGaps(){
+  let ok=0;
+  gapData.forEach((s,i)=>{
+    const row=document.getElementById('gr'+i),icon=document.getElementById('gi'+i);
+    const correct=fills[i]&&fills[i].toLowerCase()===s.blank.toLowerCase();
+    row.classList.toggle('correct',correct);row.classList.toggle('wrong',!correct);
+    icon.textContent=correct?'✅':'❌';if(correct)ok++;
+  });
+  const sc=document.getElementById('sc1');sc.textContent=`${ok}/${gapData.length}`;sc.classList.add('show');
+}
+function resetGaps(){
+  gapData.forEach((s,i)=>{delete fills[i];document.getElementById('gr'+i).classList.remove('correct','wrong');document.getElementById('gi'+i).textContent='';document.getElementById('gb'+i).textContent='';});
+  selChip=null;document.querySelectorAll('#wb1 .chip').forEach(x=>x.classList.remove('active'));
+  document.getElementById('sc1').classList.remove('show');
+}
+
+const rfData=[
+  {s:'"Ich wasche mir die Haare" und "Ich wasche meine Haare" bedeuten dasselbe.',ok:true,fb:'✓ Richtig! Beide Formen sind korrekt. Mit Reflexivpronomen im Dativ ("mir") ist die Variante, die Körperteile besitzt.'},
+  {s:'"Ich creme ein" ist korrekt (trennbares Verb).',ok:false,fb:'✗ Falsch! Das Reflexivpronomen fehlt: „Ich creme mich ein." oder „Ich creme mir das Gesicht ein." – sich eincremen ist reflexiv!'},
+  {s:'"sich gönnen" bedeutet: sich etwas Schönes erlauben / sich verwöhnen.',ok:true,fb:'✓ Richtig! „Ich gönne mir heute Abend ein Bad." = I\'m treating myself to a bath tonight. Sehr schönes deutsches Verb!'},
+  {s:'"Die Creme trägt gut auf" ist korrekt.',ok:false,fb:'✗ Falsch! „einziehen" ist das Verb für absorbing cream: „Die Creme zieht gut ein." / „Auftragen" = to apply: „Ich trage die Creme auf."'},
+  {s:'"Ich putze meine Zähne" ist umgangssprachlich richtig.',ok:true,fb:'✓ Richtig! „Zähne putzen" = to brush teeth. Achtung: „Zähne waschen" sagt man nicht auf Deutsch!'},
+];
+function buildRF(){
+  const c=document.getElementById('rf1');
+  rfData.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='rf';div.id='rfc'+i;
+    div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF(${i},true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF(${i},false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb${i}">${item.fb}</div>`;
+    c.appendChild(div);
+  });
+}
+function answerRF(i,answer,btn){
+  const card=document.getElementById('rfc'+i);
+  card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));
+  btn.classList.add(answer?'sel-r':'sel-f');
+  const correct=answer===rfData[i].ok;
+  card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);
+  const fb=document.getElementById('rffb'+i);fb.classList.add('show');
+  fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);
+}
+
+const speakData=[
+  {front:'Beschreibe deine Morgenroutine – was machst du von Aufstehen bis Rausgehen?',back:'Ich stehe auf, dusche mich, creme mich ein, kämme mir die Haare, putze mir die Zähne und ziehe mich an. Das dauert ca. 30 Minuten.'},
+  {front:'Welche Körperpflegeprodukte kannst du nicht ohne dich vorstellen?',back:'Ich kann nicht ohne meine Feuchtigkeitscreme / mein Shampoo / meinen Lippenbalsam. Das ist für mich unverzichtbar!'},
+  {front:'Gehst du zum Friseur oder schneidest du dir die Haare selbst?',back:'Ich lasse mir die Haare schneiden, ca. alle 6 Wochen. / Ich schneide mir die Haare manchmal selbst – das spart Geld!'},
+  {front:'Was gönnst du dir manchmal zur Selbstpflege?',back:'Ich gönne mir manchmal ein langes Bad / eine Gesichtsmaske / eine Massage. Das ist wichtig für die Seele!'},
+  {front:'Was ist der Unterschied zwischen Dusche und Bad – wann nimmst du was?',back:'Unter der Woche dusche ich mich schnell. Am Wochenende gönne ich mir manchmal ein langes Bad zum Entspannen.'},
+];
+function buildSpeakCards(){
+  const grid=document.getElementById('speakCards');
+  speakData.forEach(item=>{
+    const div=document.createElement('div');div.className='speak-card';
+    div.innerHTML=`<div class="speak-front">${item.front}</div><div class="speak-back">${item.back}</div><div class="speak-hint">👆 Antwortbeispiel</div>`;
+    div.addEventListener('click',()=>div.classList.toggle('flipped'));
+    grid.appendChild(div);
+  });
+}
+
+buildVerbGrid();buildVokGrid();buildGaps();buildRF();buildSpeakCards();updateTimerDisplay();
+</script>
+</body>
+</html>

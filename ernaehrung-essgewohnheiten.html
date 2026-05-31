@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="de" data-qb-installed="true"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title data-id="th-modified">B1/B2: Ernährung &amp; Essgewohnheiten – Teil 1 + Teil 2 · deutschoderwas</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#4DB8A8;--acc-lt:#B8DDD4;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}.tbtn.reset{background:#555;color:white;}
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;scrollbar-width:none;}
+.phase-nav::-webkit-scrollbar{display:none;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+.phase-btn.teil2{border-color:var(--rust);}
+.phase-btn.teil2.active{background:var(--rust);border-color:var(--rust);}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;}.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.4rem;line-height:1.5;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.4rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--acc-lt);color:var(--acc);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.vok-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.vok-card.flipped{background:var(--acc-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);white-space:pre-line;}
+.vok-card.flipped .vok-back{display:block;}.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+.dialog{background:var(--sand-lt);border-radius:16px;overflow:hidden;margin-bottom:1.1rem;border:1.5px solid var(--sand);}
+.dialog-hd{background:var(--dark);color:white;padding:.6rem 1.3rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
+.dialog-body{padding:1rem 1.3rem;}
+.dl{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start;}.dl:last-child{margin-bottom:0;}
+.dl-spk{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:60px;padding-top:.25rem;flex-shrink:0;color:var(--acc);line-height:1.3;}
+.dl-spk.b{color:var(--rust);}.dl-spk.c{color:#6B3D8A;}
+.dl-txt{font-size:.9rem;line-height:1.65;}.dl-txt strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list{list-style:none;margin-bottom:1.1rem;}
+.phrase-list li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .9rem;border-radius:10px;margin-bottom:.4rem;background:white;border:1.5px solid var(--sand);font-size:.89rem;line-height:1.6;}
+.phrase-list li::before{content:'→';color:var(--acc);font-weight:700;flex-shrink:0;margin-top:.1rem;}
+.phrase-list li strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list li em{color:#888;font-size:.8rem;}
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.3rem;margin-bottom:.8rem;}
+.mc-q{font-size:.94rem;font-weight:600;margin-bottom:.75rem;line-height:1.55;}
+.mc-opts{display:flex;flex-direction:column;gap:.38rem;}
+.mc-opt{padding:.48rem 1rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.88rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--acc);background:var(--acc-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.81rem;margin-top:.6rem;display:none;font-weight:500;line-height:1.55;padding:.4rem .7rem;border-radius:8px;}
+.mc-fb.show{display:block;}.mc-fb.ok{color:var(--green);background:var(--green-lt);}.mc-fb.nope{color:var(--red);background:var(--red-lt);}
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.95rem 1.3rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.92rem;margin-bottom:.6rem;line-height:1.55;}
+.rf-btns{display:flex;gap:.45rem;}
+.rfbtn{padding:.28rem .85rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--acc);color:var(--acc);}.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.8rem;margin-top:.55rem;font-weight:500;display:none;line-height:1.55;padding:.35rem .6rem;border-radius:6px;}
+.rf-fb.show{display:block;}.rf-fb.ok{color:var(--green);background:var(--green-lt);}.rf-fb.bad{color:var(--red);background:var(--red-lt);}
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:13px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.speak-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.09);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);line-height:1.4;}
+.speak-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}.speak-hint{font-size:.68rem;color:#bbb;margin-top:.45rem;}
+.rsp-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;margin-bottom:.9rem;}
+.rsp-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.1);}.rsp-card.open .rsp-back{display:block;}.rsp-card.open .rsp-hint{display:none;}
+.rsp-top{background:var(--dark);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.75rem;}
+.rsp-emoji{font-size:1.4rem;flex-shrink:0;}.rsp-title{font-family:'Fraunces',serif;font-weight:700;color:white;font-size:1rem;}
+.rsp-body{padding:1rem 1.2rem;}.rsp-situation{font-size:.89rem;color:var(--dark);line-height:1.6;margin-bottom:.6rem;}
+.rsp-back{display:none;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--sand);}
+.rsp-rolle{font-size:.83rem;line-height:1.7;color:var(--dark);margin-bottom:.45rem;padding:.4rem .8rem;border-radius:8px;background:var(--cream);}
+.rsp-rolle strong{color:var(--acc);}.rsp-hint{font-size:.7rem;color:#bbb;}
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:.8rem;display:flex;align-items:flex-start;gap:1rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--acc-lt);flex-shrink:0;line-height:1;margin-top:.1rem;}
+.these-text{font-size:.93rem;line-height:1.65;}.these-starter{font-size:.77rem;color:#888;margin-top:.35rem;}
+.tipp{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-top:1.3rem;display:flex;gap:.9rem;align-items:flex-start;}
+.tipp-icon{font-size:1.3rem;flex-shrink:0;}.tipp-body{font-size:.87rem;line-height:1.75;}.tipp-body strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+.recap{background:linear-gradient(135deg,#FFF4E0,#FFFAEC);border:2px solid #E8B864;border-radius:16px;padding:1.2rem 1.5rem;margin-bottom:1.3rem;}
+.recap-label{font-family:'Fraunces',serif;font-weight:900;color:#B07A20;font-size:.95rem;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem;}
+.recap-body{font-size:.87rem;line-height:1.75;color:var(--dark);}
+.recap-body ul{margin:.4rem 0 .4rem 1.4rem;}
+.recap-body li{margin-bottom:.2rem;}
+.recap-body strong{color:#7A5008;}
+</style><meta property="og:title" content="B1/B2: Ernährung &amp; Essgewohnheiten – Teil 1 + Teil 2 · deutschoderwas" data-id="th-modified"><meta name="description" content="ernaehrung_essgewohnheiten" data-id="th-modified"><meta property="og:description" content="ernaehrung_essgewohnheiten" data-id="th-modified"><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified"><meta property="og:image:width" content="1501" data-id="th-modified"><meta property="og:image:height" content="1501" data-id="th-modified"><meta property="og:image:type" content="image/png" data-id="th-modified"><meta property="og:url" content="/ernaehrung-essgewohnheiten.html" data-id="th-modified"><meta property="og:type" content="website" data-id="th-modified"><script defer="" data-domain="ernaehrung-essgewohnheiten.deutschoderwas-lernen.de" src="https://analytics.tiiny.site/js/plausible.js"></script><script src="chrome-extension://liecbddmkiiihnedobmlmillhodjkdmb/js/recordConsoleEvents.js"></script></head><body>
+<div class="timer-bar">
+  <div class="timer-display" id="td">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="tf" style="width: 100%;"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;flex-shrink:0;">Unterrichtszeit</span>
+  <div class="timer-btns"><button class="tbtn start" onclick="toggleTimer()">▶ Start</button><button class="tbtn reset" onclick="resetTimer()">↺</button></div>
+</div>
+<div class="phase-nav"><span class="brand-tag">deutsch<span>oder</span>was</span><button class="phase-btn active" onclick="showPhase('p1',this)">① Recap Teil 1</button>
+  <button class="phase-btn teil2" onclick="showPhase('p2',this)">② Wortschatz Teil 2</button>
+  <button class="phase-btn teil2" onclick="showPhase('p3',this)">③ Dialoge Teil 2</button>
+  <button class="phase-btn teil2" onclick="showPhase('p4',this)">④ Redemittel</button>
+  <button class="phase-btn teil2" onclick="showPhase('p5',this)">⑤ Rollenspiele</button>
+  <button class="phase-btn teil2" onclick="showPhase('p6',this)">⑥ Übungen</button>
+  <button class="phase-btn teil2" onclick="showPhase('p7',this)">⑦ Debatte</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;flex-shrink:0;">B1/B2 · Teil 1+2 · 60 Min.</span>
+</div>
+<main>
+<div id="phase-p1" class="phase active"><div class="card">
+<div class="card-header"><div class="eyebrow">B1/B2 · Recap Teil 1 · 8 Min.</div>
+<div class="card-title">Ernährung – <em>kurze Wiederholung</em> aus Teil 1</div><div class="card-sub">Bevor wir tiefer einsteigen: Was haben wir letztes Mal gelernt?</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div>
+<div class="recap"><div class="recap-label">📚 Das haben wir in Teil 1 gemacht</div><div class="recap-body">
+<strong>Grundwortschatz Ernährung:</strong>
+<ul>
+<li>Die drei Mahlzeiten: <em>das Frühstück, das Mittagessen, das Abendessen</em> – plus <em>der Snack, die Zwischenmahlzeit</em></li>
+<li>Lebensmittelgruppen: <em>Obst, Gemüse, Fleisch, Fisch, Milchprodukte, Getreide, Hülsenfrüchte, Süßigkeiten</em></li>
+<li>Geschmack: <em>süß, salzig, scharf, sauer, bitter, fettig, mild, würzig</em></li>
+<li>Verben rund ums Essen: <em>schneiden, kochen, backen, braten, würzen, schälen, mischen, probieren</em></li>
+</ul>
+<strong>Wir haben außerdem geübt:</strong>
+<ul>
+<li>Vorlieben ausdrücken: „Ich esse gerne … / Ich mag kein …"</li>
+<li>Über die eigenen Essgewohnheiten sprechen: „Ich esse normalerweise …"</li>
+<li>Dialoge im Restaurant: bestellen, zahlen, höflich beschweren</li>
+<li>Einfache Rezepte beschreiben</li>
+</ul>
+<strong>Heute in Teil 2:</strong> Wir gehen weiter — <em>Diäten und Trends, Foodwaste, Restaurant-Kritik, Bio vs. konventionell, gesunde vs. ungesunde Lebensstile</em>. Mehr Diskussion, mehr Meinung, mehr Realität.
+</div></div>
+<div class="slabel">Warming-up – kurz wiederholen!</div>
+<div class="speak-grid" id="warmup"><div class="speak-card"><div class="speak-front">Nenn 5 Lebensmittel, die du diese Woche gegessen hast.</div><div class="speak-back">Tipp: Verschiedene Kategorien — Obst, Gemüse, Eiweiß, Getreide …</div><div class="speak-hint">Tipp &amp; Hilfe</div></div><div class="speak-card"><div class="speak-front">Was war dein Lieblingsessen als Kind?</div><div class="speak-back">Als Kind habe ich am liebsten … gegessen. Meine Oma hat oft …</div><div class="speak-hint">Tipp &amp; Hilfe</div></div></div>
+<div class="tipp"><div class="tipp-icon">🎯</div><div class="tipp-body"><strong>Tipp:</strong> Wenn dir aus Teil 1 ein Wort fehlt, frag in der Runde — wir sind hier, um zu wiederholen UND Neues zu lernen.</div></div>
+</div></div></div>
+
+<div id="phase-p2" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1/B2 · Teil 2 · Wortschatz · 12 Min.</div>
+<div class="card-title">Neue Vokabeln – <em>Trends, Diäten &amp; Bewusstsein</em></div>
+<div class="card-sub">Klick die Karten — Erklärung, Beispielsatz, Synonym/Gegenteil.</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 12 Minuten</div>
+<div class="slabel">🥗 Neue Wörter (B1/B2-Niveau)</div>
+<div class="vok-grid" id="v2"><div class="vok-card"><div class="vok-front">die Ernährungsumstellung</div><div class="vok-back">= wenn man seine Essgewohnheiten bewusst ändert.<br>Nach der Diagnose habe ich eine Ernährungsumstellung gemacht.<br>Verb: sich umstellen</div><div class="vok-hint">klicken!</div></div><div class="vok-card"><div class="vok-front">nachhaltig (Essen)</div><div class="vok-back">= so, dass Umwelt und Zukunft geschützt werden.<br>Regional einzukaufen ist nachhaltiger als Avocados aus Peru.<br>Substantiv: die Nachhaltigkeit</div><div class="vok-hint">klicken!</div></div><div class="vok-card"><div class="vok-front">das Bio-Siegel</div><div class="vok-back">= ein Zertifikat, das zeigt: das Produkt ist bio-zertifiziert.<br>Achte beim Einkauf auf das Bio-Siegel — nicht jedes natürlich ist auch bio.</div><div class="vok-hint">klicken!</div></div><div class="vok-card"><div class="vok-front">vegan / vegetarisch</div><div class="vok-back">vegan = kein Fleisch, kein Fisch, KEINE tierischen Produkte (keine Milch, Eier).<br>vegetarisch = kein Fleisch und Fisch, aber Milch und Eier sind ok.<br>Sie ernährt sich seit drei Jahren vegan.</div><div class="vok-hint">klicken!</div></div><div class="vok-card"><div class="vok-front">Foodwaste / Lebensmittelverschwendung</div><div class="vok-back">= wenn man Lebensmittel wegwirft, die noch essbar sind.<br>In Deutschland werden 11 Millionen Tonnen pro Jahr verschwendet.<br>Verb: verschwenden</div><div class="vok-hint">klicken!</div></div><div class="vok-card"><div class="vok-front">Mindesthaltbarkeitsdatum (MHD)</div><div class="vok-back">= bis wann ein Lebensmittel MINDESTENS gut ist (nicht: muss weg!).<br>Joghurt ist oft auch zwei Wochen nach MHD noch gut — riechen, schmecken, schauen!</div><div class="vok-hint">klicken!</div></div><div class="vok-card"><div class="vok-front">sich gesund ernähren</div><div class="vok-back">= ausgewogen essen, viel Gemüse, wenig Zucker, wenig Fast Food.<br>Ich versuche, mich gesund zu ernähren — aber am Wochenende sündige ich gerne.<br>Nomen: die Ernährung</div><div class="vok-hint">klicken!</div></div><div class="vok-card"><div class="vok-front">die Diät</div><div class="vok-back">= eine spezielle, oft kalorienreduzierte Ernährung.<br>Ich mache gerade Low-Carb-Diät.<br>Wichtig: eine Diät machen — nicht auf Diät sein.</div><div class="vok-hint">klicken!</div></div><div class="vok-card"><div class="vok-front">die Allergie / unverträglich</div><div class="vok-back">= Körper reagiert negativ auf ein Lebensmittel.<br>Ich habe eine Laktose-Allergie / Gluten-Unverträglichkeit.<br>Adjektiv: allergisch (gegen + Akk)</div><div class="vok-hint">klicken!</div></div><div class="vok-card"><div class="vok-front">die Inhaltsstoffe</div><div class="vok-back">= was alles in einem Produkt drinsteckt.<br>Schau auf die Inhaltsstoffe — da ist viel mehr Zucker drin, als du denkst!</div><div class="vok-hint">klicken!</div></div><div class="vok-card"><div class="vok-front">die Resteverwertung</div><div class="vok-back">= aus Übriggebliebenem etwas Neues kochen.<br>Aus dem Reis von gestern mache ich heute Resteverwertung — eine Pfanne mit Gemüse.</div><div class="vok-hint">klicken!</div></div><div class="vok-card"><div class="vok-front">fade / lasch</div><div class="vok-back">= ohne Geschmack, langweilig (über Essen).<br>Die Suppe war ziemlich fade — da fehlt das Salz.<br>Gegenteil: würzig, gewürzt</div><div class="vok-hint">klicken!</div></div><div class="vok-card"><div class="vok-front">überwürzt / versalzen</div><div class="vok-back">= zu viel Gewürz / zu viel Salz.<br>Das Essen war leider total überwürzt / versalzen.<br>Verb: würzen / salzen</div><div class="vok-hint">klicken!</div></div><div class="vok-card"><div class="vok-front">der Genuss / genießen</div><div class="vok-back">= mit Freude und Aufmerksamkeit essen / trinken.<br>Essen ist für mich Genuss, nicht nur Nahrung.<br>Gegenteil: nebenbei essen, schlingen</div><div class="vok-hint">klicken!</div></div><div class="vok-card"><div class="vok-front">sündigen (umgangssprachlich)</div><div class="vok-back">= sich beim Essen etwas Verbotenes gönnen.<br>Am Wochenende sündige ich — Pizza, Eis, Schokolade.<br>Ironisch gemeint — kein moralisches sündig!</div><div class="vok-hint">klicken!</div></div><div class="vok-card"><div class="vok-front">die Ess-Routine</div><div class="vok-back">= feste Gewohnheiten ums Essen herum.<br>Meine Ess-Routine ist: Frühstück um 7, Mittag um 12, Abend um 19 Uhr.<br>Auch: der Rhythmus, die Gewohnheit</div><div class="vok-hint">klicken!</div></div></div>
+</div></div></div>
+
+<div id="phase-p3" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1/B2 · Teil 2 · Dialoge · 10 Min.</div>
+<div class="card-title">Echte Gespräche – <em>über Essen heute</em></div>
+<div class="card-sub">Lest laut, wechselt die Rollen — achtet auf neue Vokabeln!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 10 Minuten</div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">🥬</span> Bio oder nicht Bio? – im Supermarkt</div><div class="dialog-body">
+<div class="dl"><span class="dl-spk">Mia</span><div><div class="dl-txt">Schau mal, die <strong>Bio-Tomaten</strong> kosten doppelt so viel wie die normalen!</div></div></div>
+<div class="dl"><span class="dl-spk b">Tom</span><div><div class="dl-txt">Klar, aber sie sind <strong>nachhaltiger</strong> produziert. Ohne Pestizide.</div></div></div>
+<div class="dl"><span class="dl-spk">Mia</span><div><div class="dl-txt">Stimmt. Aber wer kann sich das <strong>leisten</strong>? Bio ist oft Luxus.</div></div></div>
+<div class="dl"><span class="dl-spk b">Tom</span><div><div class="dl-txt">Das ist halt das Problem. Gesundes Essen ist teuer, ungesundes billig.</div></div></div>
+<div class="dl"><span class="dl-spk">Mia</span><div><div class="dl-txt">Ich versuche, wenigstens beim Obst Bio zu kaufen. Beim Rest schau ich auf den Preis.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">🍽</span> Restaurant-Kritik – am Esstisch</div><div class="dialog-body">
+<div class="dl"><span class="dl-spk">Anna</span><div><div class="dl-txt">Wie war's beim neuen Italiener?</div></div></div>
+<div class="dl"><span class="dl-spk b">Ben</span><div><div class="dl-txt">Naja, gemischt. Die Pasta war <strong>überwürzt</strong>, aber das Tiramisu war <strong>ein Traum</strong>.</div></div></div>
+<div class="dl"><span class="dl-spk">Anna</span><div><div class="dl-txt">Und der Service?</div></div></div>
+<div class="dl"><span class="dl-spk b">Ben</span><div><div class="dl-txt">Hm, <strong>aufmerksam</strong>, aber etwas langsam. Wir haben 45 Minuten auf das Essen gewartet.</div></div></div>
+<div class="dl"><span class="dl-spk">Anna</span><div><div class="dl-txt">Würdest du wiederkommen?</div></div></div>
+<div class="dl"><span class="dl-spk b">Ben</span><div><div class="dl-txt">Wahrscheinlich schon — aber nur für das Tiramisu. Und in der Nebensaison, wenn weniger los ist.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span style="font-size:1rem">♻️</span> Foodwaste – in der WG</div><div class="dialog-body">
+<div class="dl"><span class="dl-spk">Leo</span><div><div class="dl-txt">Diese Tomaten sind <strong>schon wieder schlecht</strong>! Wir werfen so viel weg.</div></div></div>
+<div class="dl"><span class="dl-spk b">Sara</span><div><div class="dl-txt">Stimmt, das ist ein <strong>Skandal</strong>. Wir sollten weniger einkaufen.</div></div></div>
+<div class="dl"><span class="dl-spk">Leo</span><div><div class="dl-txt">Ich hab gelesen, in Deutschland werden 11 Millionen Tonnen Lebensmittel im Jahr weggeworfen.</div></div></div>
+<div class="dl"><span class="dl-spk b">Sara</span><div><div class="dl-txt">Wahnsinn. Lass uns eine Regel machen: jeden Sonntag schauen wir, was übrig ist, und kochen daraus.</div></div></div>
+<div class="dl"><span class="dl-spk">Leo</span><div><div class="dl-txt">Gute Idee! Resteverwertung-Sonntag. Klingt nach einem neuen Trend.</div></div></div>
+</div></div>
+</div></div></div>
+
+<div id="phase-p4" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1/B2 · Teil 2 · Redemittel · 8 Min.</div>
+<div class="card-title">So bewertest du Essen <em>auf Deutsch</em></div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 8 Minuten</div>
+<div class="slabel">⭐ Etwas loben (positiv)</div>
+<ul class="phrase-list">
+<li><strong>Das schmeckt fantastisch / hervorragend / ausgezeichnet.</strong></li>
+<li><strong>Das ist ein Gedicht / ein Traum / eine Wucht!</strong> <em>– umgangssprachlich, sehr stark</em></li>
+<li><strong>Da kann man wirklich nichts daran aussetzen.</strong></li>
+<li><strong>Das war für mich das Highlight des Abends.</strong></li>
+</ul>
+<div class="slabel">⚠️ Sanft kritisieren</div>
+<ul class="phrase-list">
+<li><strong>Es ist nicht schlecht, aber etwas …</strong> (langweilig / überwürzt / fade / lasch)</li>
+<li><strong>Mir persönlich war es zu …</strong> (salzig / scharf / süß / fettig)</li>
+<li><strong>Ich hätte es lieber etwas mehr / weniger …</strong></li>
+<li><strong>Beim nächsten Mal würde ich was anderes nehmen.</strong></li>
+</ul>
+<div class="slabel">💭 Über Trends sprechen</div>
+<ul class="phrase-list">
+<li><strong>Ich finde den Trend zu … übertrieben / sinnvoll / ein Hype.</strong></li>
+<li><strong>Da ist viel Marketing dabei.</strong></li>
+<li><strong>Ich kann mit … wenig anfangen.</strong> <em>– höflich ablehnen</em></li>
+<li><strong>Das ist ja jetzt total angesagt – ich bleib lieber bei …</strong></li>
+</ul>
+</div></div></div>
+
+<div id="phase-p5" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1/B2 · Teil 2 · Rollenspiele · 10 Min.</div>
+<div class="card-title">Jetzt seid ihr dran!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 10 Minuten</div><div id="rsp1"><div class="rsp-card"><div class="rsp-top"><span class="rsp-emoji">🥗</span><span class="rsp-title">Im Restaurant: Beschwerde und Lob</span></div><div class="rsp-body"><div class="rsp-situation">Du bist mit Freund:innen essen. Das Hauptgericht war überwürzt, der Service aber sehr aufmerksam. Wie sprichst du den Kellner an?</div><div class="rsp-back"><div class="rsp-rolle"><strong>🔴 A:</strong> GAST: Sei höflich, aber direkt. Lob den Service, kritisiere sanft das Essen.</div><div class="rsp-rolle"><strong>🔵 B:</strong> KELLNER:IN: Reagiere professionell. Entschuldige dich, biete eine Lösung an (Rabatt? Nachspeise?).</div><div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">💡 Tipps:</strong> Wortschatz: überwürzt, aufmerksam, das Highlight, ich hätte es lieber etwas …</div></div><div class="rsp-hint">klicken für Details</div></div></div><div class="rsp-card"><div class="rsp-top"><span class="rsp-emoji">♻️</span><span class="rsp-title">WG-Meeting: Foodwaste reduzieren</span></div><div class="rsp-body"><div class="rsp-situation">Ihr werft zu viel Essen weg. Ein WG-Meeting muss her — Regeln finden!</div><div class="rsp-back"><div class="rsp-rolle"><strong>🔴 A:</strong> WG-Mitglied 1: Du willst strenge Regeln (Einkaufsliste, Resteplan).</div><div class="rsp-rolle"><strong>🔵 B:</strong> WG-Mitglied 2: Du willst Flexibilität (mal spontan einkaufen). Findet einen Kompromiss.</div><div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">💡 Tipps:</strong> Wortschatz: Foodwaste, MHD, Resteverwertung, sich einigen, der Kompromiss</div></div><div class="rsp-hint">klicken für Details</div></div></div><div class="rsp-card"><div class="rsp-top"><span class="rsp-emoji">💬</span><span class="rsp-title">Ernährungs-Debatte im Café</span></div><div class="rsp-body"><div class="rsp-situation">Eine Freundin erzählt stolz, dass sie seit einem Monat vegan lebt. Du bist neugierig, aber auch skeptisch.</div><div class="rsp-back"><div class="rsp-rolle"><strong>🔴 A:</strong> VEGANER:IN: Erzähle, warum und wie es dir geht. Sei nicht missionarisch.</div><div class="rsp-rolle"><strong>🔵 B:</strong> FREUND:IN: Stelle echte Fragen (Eiweiß? Geschmack? Aufwand?). Sei respektvoll.</div><div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">💡 Tipps:</strong> Wortschatz: vegan, Inhaltsstoffe, sich umstellen, die Ernährungsumstellung, nachhaltig</div></div><div class="rsp-hint">klicken für Details</div></div></div></div>
+</div></div></div>
+
+<div id="phase-p6" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1/B2 · Teil 2 · Übungen · 6 Min.</div>
+<div class="card-title">Wortschatz im Test</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 6 Minuten</div>
+<div class="slabel">Welches Wort passt?</div><div id="mc1"><div class="mc"><div class="mc-q">Diese Suppe ist total ___ — da ist gar kein Salz drin. Welches Wort passt?</div><div class="mc-opts"><button class="mc-opt" onclick="answerMC(this,0,1,'mcfbmc10')">überwürzt</button><button class="mc-opt" onclick="answerMC(this,1,1,'mcfbmc10')">fade</button><button class="mc-opt" onclick="answerMC(this,2,1,'mcfbmc10')">scharf</button></div><div class="mc-fb" id="mcfbmc10">✓ fade = ohne Geschmack. überwürzt wäre zu viel Gewürz. scharf wäre zu viel Chili/Pfeffer.</div></div><div class="mc"><div class="mc-q">Was bedeutet das MHD?</div><div class="mc-opts"><button class="mc-opt" onclick="answerMC(this,0,1,'mcfbmc11')">Maximales Haltbarkeitsdatum</button><button class="mc-opt" onclick="answerMC(this,1,1,'mcfbmc11')">Mindesthaltbarkeitsdatum</button><button class="mc-opt" onclick="answerMC(this,2,1,'mcfbmc11')">Muss-Heute-Drauf-Datum</button></div><div class="mc-fb" id="mcfbmc11">✓ Mindesthaltbarkeitsdatum — bis wann das Lebensmittel MINDESTENS gut ist. Danach oft noch essbar!</div></div><div class="mc"><div class="mc-q">Sie isst kein Fleisch und kein Fisch, aber Milch und Käse schon. Sie ist …</div><div class="mc-opts"><button class="mc-opt" onclick="answerMC(this,0,1,'mcfbmc12')">vegan</button><button class="mc-opt" onclick="answerMC(this,1,1,'mcfbmc12')">vegetarisch</button><button class="mc-opt" onclick="answerMC(this,2,1,'mcfbmc12')">flexitarisch</button></div><div class="mc-fb" id="mcfbmc12">✓ Vegetarisch = kein Fleisch/Fisch, aber Milchprodukte/Eier ok. Vegan = gar nichts Tierisches. Flexitarisch = manchmal Fleisch.</div></div><div class="mc"><div class="mc-q">Ich mache gerade eine ___, weil ich abnehmen will. Was passt?</div><div class="mc-opts"><button class="mc-opt" onclick="answerMC(this,0,1,'mcfbmc13')">Ernährung</button><button class="mc-opt" onclick="answerMC(this,1,1,'mcfbmc13')">Diät</button><button class="mc-opt" onclick="answerMC(this,2,1,'mcfbmc13')">Ess-Routine</button></div><div class="mc-fb" id="mcfbmc13">✓ eine Diät machen = spezielle Ernährung, oft zum Abnehmen. Ernährung wäre falsch (wie isst man immer).</div></div><div class="mc"><div class="mc-q">Welcher Begriff bezeichnet Lebensmittelverschwendung?</div><div class="mc-opts"><button class="mc-opt" onclick="answerMC(this,0,0,'mcfbmc14')">Foodwaste</button><button class="mc-opt" onclick="answerMC(this,1,0,'mcfbmc14')">Foodporn</button><button class="mc-opt" onclick="answerMC(this,2,0,'mcfbmc14')">Foodtruck</button></div><div class="mc-fb" id="mcfbmc14">✓ Foodwaste = Lebensmittelverschwendung. Foodporn = perfekte Essens-Fotos. Foodtruck = mobiler Imbiss.</div></div><div class="mc"><div class="mc-q">Achte beim Einkauf auf die ___ — viele Produkte enthalten versteckten Zucker. Was passt?</div><div class="mc-opts"><button class="mc-opt" onclick="answerMC(this,0,1,'mcfbmc15')">Mahlzeiten</button><button class="mc-opt" onclick="answerMC(this,1,1,'mcfbmc15')">Inhaltsstoffe</button><button class="mc-opt" onclick="answerMC(this,2,1,'mcfbmc15')">Allergien</button></div><div class="mc-fb" id="mcfbmc15">✓ Inhaltsstoffe = was im Produkt drinsteckt. Steht auf der Verpackung — meist klein gedruckt!</div></div><div class="mc"><div class="mc-q">Was ist eine Resteverwertung?</div><div class="mc-opts"><button class="mc-opt" onclick="answerMC(this,0,1,'mcfbmc16')">Eine Diät mit weniger Kalorien</button><button class="mc-opt" onclick="answerMC(this,1,1,'mcfbmc16')">Aus Übriggebliebenem etwas Neues kochen</button><button class="mc-opt" onclick="answerMC(this,2,1,'mcfbmc16')">Das Bio-Siegel auf Verpackungen</button></div><div class="mc-fb" id="mcfbmc16">✓ Aus dem, was übrig ist (Reis, Gemüse), etwas Neues machen. Spart Geld und reduziert Foodwaste.</div></div></div>
+<hr class="div"><div class="slabel">Richtig oder Falsch?</div><div id="rf1"><div class="rf" id="rf_rf1_0"><div class="rf-s">Bio und nachhaltig bedeuten genau dasselbe.</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('rf1',0,true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF('rf1',0,false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb_rf1_0">✗ Falsch! Bio = bestimmte Anbau-Regeln (keine Pestizide, artgerechte Tierhaltung). Nachhaltig = größerer Begriff (auch Transport, Verpackung, Sozial …). Bio ist EIN Aspekt von nachhaltig.</div></div><div class="rf" id="rf_rf1_1"><div class="rf-s">Wer eine Laktose-Allergie hat, kann keine Milchprodukte vertragen.</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('rf1',1,true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF('rf1',1,false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb_rf1_1">✓ Richtig! Genauer: Laktose-Intoleranz (medizinisch korrekt) — Milchzucker wird nicht vertragen. Beschwerden: Bauchschmerzen, Blähungen.</div></div><div class="rf" id="rf_rf1_2"><div class="rf-s">Fade und mild sind Synonyme.</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('rf1',2,true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF('rf1',2,false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb_rf1_2">✗ Falsch! mild ist positiv (z. B. milder Käse = sanft, nicht scharf). fade ist negativ (langweilig, ohne Geschmack). Wichtiger Unterschied!</div></div><div class="rf" id="rf_rf1_3"><div class="rf-s">Das MHD sagt: ab diesem Datum MUSS das Lebensmittel weggeworfen werden.</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('rf1',3,true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF('rf1',3,false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb_rf1_3">✗ Falsch! MHD = MINDESTENS haltbar bis. Viele Produkte sind noch lange danach gut. Riechen, schmecken, schauen — dann entscheiden!</div></div><div class="rf" id="rf_rf1_4"><div class="rf-s">Sündigen beim Essen bedeutet etwas Schlechtes tun.</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('rf1',4,true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF('rf1',4,false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb_rf1_4">✗ Falsch (im Kontext Essen)! sündigen ist hier ironisch — bedeutet: sich was Leckeres gönnen, das nicht gesund ist. Pizza, Schokolade, Eis am Wochenende — das ist sündigen.</div></div><div class="rf" id="rf_rf1_5"><div class="rf-s">Vegan und vegetarisch bedeuten dasselbe.</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('rf1',5,true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF('rf1',5,false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb_rf1_5">✗ Falsch! Vegetarisch = kein Fleisch/Fisch. Vegan = NICHTS Tierisches (auch keine Milch, Eier, Honig). Vegan ist strenger als vegetarisch.</div></div></div>
+</div></div></div>
+
+<div id="phase-p7" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">B1/B2 · Teil 2 · Debatte · 6 Min.</div>
+<div class="card-title">Eure Meinung – <em>mit Argumenten!</em></div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">⏱ 6 Minuten</div>
+<div class="these"><div class="these-num">1</div><div class="these-text">Sollte ungesundes Essen (Fast Food, Zucker) höher besteuert werden – wie Tabak und Alkohol?<div class="these-starter">PRO: „So zwingt man die Industrie …" · CONTRA: „Das trifft vor allem ärmere Familien …"</div></div></div>
+<div class="these"><div class="these-num">2</div><div class="these-text">Ist Bio wirklich besser – oder nur teures Marketing?<div class="these-starter">PRO: „Weniger Pestizide, bessere Tierhaltung …" · CONTRA: „Bio-Zertifikate sind oft Geschäftsmodell …"</div></div></div>
+<div class="slabel">Sprechkarten – jeder zieht eine!</div><div class="speak-grid" id="speakCards"><div class="speak-card"><div class="speak-front">Wie hat sich deine Ernährung in den letzten 5 Jahren verändert?</div><div class="speak-back">Früher habe ich oft … Heute esse ich bewusster / weniger / mehr …</div><div class="speak-hint">Tipp &amp; Hilfe</div></div><div class="speak-card"><div class="speak-front">Gibt es ein Trend-Essen, das du absolut nicht verstehst?</div><div class="speak-back">Ich versteh den Hype um … nicht. Für mich ist das …</div><div class="speak-hint">Tipp &amp; Hilfe</div></div><div class="speak-card"><div class="speak-front">Was kostet bei dir mehr — Bio-Lebensmittel oder Restaurantbesuche?</div><div class="speak-back">Bei mir ist es so, dass … Pro Monat gebe ich ungefähr …</div><div class="speak-hint">Tipp &amp; Hilfe</div></div><div class="speak-card"><div class="speak-front">Wie reduzierst du persönlich Foodwaste?</div><div class="speak-back">Ich mache Einkaufslisten / friere Reste ein / koche aus Resten …</div><div class="speak-hint">Tipp &amp; Hilfe</div></div><div class="speak-card"><div class="speak-front">Glaubst du, dass es in 20 Jahren noch normal sein wird, Fleisch zu essen?</div><div class="speak-back">Ich vermute, dass … Vielleicht wird Laborfleisch / In-vitro …</div><div class="speak-hint">Tipp &amp; Hilfe</div></div><div class="speak-card"><div class="speak-front">Welches Gericht aus deiner Kindheit kann nichts in der Welt ersetzen?</div><div class="speak-back">Wenn meine … mir … gekocht hat, war das …</div><div class="speak-hint">Tipp &amp; Hilfe</div></div></div>
+</div></div></div>
+</main>
+<script>
+const TOTAL=3600;let rem=TOTAL,intv=null,run=false;
+function upd(){const m=Math.floor(rem/60),s=rem%60;const d=document.getElementById('td');d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('tf').style.width=(rem/TOTAL*100)+'%';d.className='timer-display';if(rem<=600)d.classList.add('warn');if(rem<=120)d.classList.add('urgent');}
+function toggleTimer(){if(run){clearInterval(intv);run=false;document.querySelector('.tbtn.start').textContent='▶ Start';}else{run=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';intv=setInterval(()=>{if(rem>0){rem--;upd();}else{clearInterval(intv);run=false;}},1000);}}
+function resetTimer(){clearInterval(intv);run=false;rem=TOTAL;upd();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));document.getElementById('phase-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function buildVokCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(v=>{const d=document.createElement('div');d.className='vok-card';d.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${(v.back||'').replace(/\n/g,'<br>')}</div><div class="vok-hint">klicken!</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildSpeakCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(i=>{const d=document.createElement('div');d.className='speak-card';d.innerHTML=`<div class="speak-front">${i.front}</div><div class="speak-back">${i.back}</div><div class="speak-hint">Tipp & Hilfe</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildRSP(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(item=>{const d=document.createElement('div');d.className='rsp-card';d.innerHTML=`<div class="rsp-top"><span class="rsp-emoji">${item.emoji}</span><span class="rsp-title">${item.title}</span></div><div class="rsp-body"><div class="rsp-situation">${item.situation}</div><div class="rsp-back"><div class="rsp-rolle"><strong>🔴 A:</strong> ${item.a}</div><div class="rsp-rolle"><strong>🔵 B:</strong> ${item.b}</div>${item.tipps?`<div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">💡 Tipps:</strong> ${item.tipps}</div>`:''}</div><div class="rsp-hint">klicken für Details</div></div>`;d.addEventListener('click',()=>d.classList.toggle('open'));g.appendChild(d);});}
+function buildMC(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='mc';const opts=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${id}${i}')">${o}</button>`).join('');div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${opts}</div><div class="mc-fb" id="mcfb${id}${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerMC(btn,j,correct,fbId){btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');if(j!==correct)btn.classList.add('nope');const fb=document.getElementById(fbId);if(fb){fb.classList.add('show');fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);}}
+function buildRF(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='rf';div.id=`rf_${id}_${i}`;div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('${id}',${i},true,this)">✓ Richtig</button><button class="rfbtn" onclick="answerRF('${id}',${i},false,this)">✗ Falsch</button></div><div class="rf-fb" id="rffb_${id}_${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerRF(id,i,answer,btn){const rfData=window['rfData_'+id];const card=document.getElementById(`rf_${id}_${i}`);card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));btn.classList.add(answer?'sel-r':'sel-f');const correct=rfData&&answer===rfData[i].ok;card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);const fb=document.getElementById(`rffb_${id}_${i}`);if(fb){fb.classList.add('show');fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);}}
+
+buildSpeakCards([
+{"front":"Nenn 5 Lebensmittel, die du diese Woche gegessen hast.","back":"Tipp: Verschiedene Kategorien — Obst, Gemüse, Eiweiß, Getreide …"},
+{"front":"Was war dein Lieblingsessen als Kind?","back":"Als Kind habe ich am liebsten … gegessen. Meine Oma hat oft …"}
+],'warmup');
+
+buildVokCards([
+{"front":"die Ernährungsumstellung","back":"= wenn man seine Essgewohnheiten bewusst ändert.\nNach der Diagnose habe ich eine Ernährungsumstellung gemacht.\nVerb: sich umstellen"},
+{"front":"nachhaltig (Essen)","back":"= so, dass Umwelt und Zukunft geschützt werden.\nRegional einzukaufen ist nachhaltiger als Avocados aus Peru.\nSubstantiv: die Nachhaltigkeit"},
+{"front":"das Bio-Siegel","back":"= ein Zertifikat, das zeigt: das Produkt ist bio-zertifiziert.\nAchte beim Einkauf auf das Bio-Siegel — nicht jedes natürlich ist auch bio."},
+{"front":"vegan / vegetarisch","back":"vegan = kein Fleisch, kein Fisch, KEINE tierischen Produkte (keine Milch, Eier).\nvegetarisch = kein Fleisch und Fisch, aber Milch und Eier sind ok.\nSie ernährt sich seit drei Jahren vegan."},
+{"front":"Foodwaste / Lebensmittelverschwendung","back":"= wenn man Lebensmittel wegwirft, die noch essbar sind.\nIn Deutschland werden 11 Millionen Tonnen pro Jahr verschwendet.\nVerb: verschwenden"},
+{"front":"Mindesthaltbarkeitsdatum (MHD)","back":"= bis wann ein Lebensmittel MINDESTENS gut ist (nicht: muss weg!).\nJoghurt ist oft auch zwei Wochen nach MHD noch gut — riechen, schmecken, schauen!"},
+{"front":"sich gesund ernähren","back":"= ausgewogen essen, viel Gemüse, wenig Zucker, wenig Fast Food.\nIch versuche, mich gesund zu ernähren — aber am Wochenende sündige ich gerne.\nNomen: die Ernährung"},
+{"front":"die Diät","back":"= eine spezielle, oft kalorienreduzierte Ernährung.\nIch mache gerade Low-Carb-Diät.\nWichtig: eine Diät machen — nicht auf Diät sein."},
+{"front":"die Allergie / unverträglich","back":"= Körper reagiert negativ auf ein Lebensmittel.\nIch habe eine Laktose-Allergie / Gluten-Unverträglichkeit.\nAdjektiv: allergisch (gegen + Akk)"},
+{"front":"die Inhaltsstoffe","back":"= was alles in einem Produkt drinsteckt.\nSchau auf die Inhaltsstoffe — da ist viel mehr Zucker drin, als du denkst!"},
+{"front":"die Resteverwertung","back":"= aus Übriggebliebenem etwas Neues kochen.\nAus dem Reis von gestern mache ich heute Resteverwertung — eine Pfanne mit Gemüse."},
+{"front":"fade / lasch","back":"= ohne Geschmack, langweilig (über Essen).\nDie Suppe war ziemlich fade — da fehlt das Salz.\nGegenteil: würzig, gewürzt"},
+{"front":"überwürzt / versalzen","back":"= zu viel Gewürz / zu viel Salz.\nDas Essen war leider total überwürzt / versalzen.\nVerb: würzen / salzen"},
+{"front":"der Genuss / genießen","back":"= mit Freude und Aufmerksamkeit essen / trinken.\nEssen ist für mich Genuss, nicht nur Nahrung.\nGegenteil: nebenbei essen, schlingen"},
+{"front":"sündigen (umgangssprachlich)","back":"= sich beim Essen etwas Verbotenes gönnen.\nAm Wochenende sündige ich — Pizza, Eis, Schokolade.\nIronisch gemeint — kein moralisches sündig!"},
+{"front":"die Ess-Routine","back":"= feste Gewohnheiten ums Essen herum.\nMeine Ess-Routine ist: Frühstück um 7, Mittag um 12, Abend um 19 Uhr.\nAuch: der Rhythmus, die Gewohnheit"}
+],'v2');
+
+buildRSP([
+{"emoji":"🥗","title":"Im Restaurant: Beschwerde und Lob","situation":"Du bist mit Freund:innen essen. Das Hauptgericht war überwürzt, der Service aber sehr aufmerksam. Wie sprichst du den Kellner an?","a":"GAST: Sei höflich, aber direkt. Lob den Service, kritisiere sanft das Essen.","b":"KELLNER:IN: Reagiere professionell. Entschuldige dich, biete eine Lösung an (Rabatt? Nachspeise?).","tipps":"Wortschatz: überwürzt, aufmerksam, das Highlight, ich hätte es lieber etwas …"},
+{"emoji":"♻️","title":"WG-Meeting: Foodwaste reduzieren","situation":"Ihr werft zu viel Essen weg. Ein WG-Meeting muss her — Regeln finden!","a":"WG-Mitglied 1: Du willst strenge Regeln (Einkaufsliste, Resteplan).","b":"WG-Mitglied 2: Du willst Flexibilität (mal spontan einkaufen). Findet einen Kompromiss.","tipps":"Wortschatz: Foodwaste, MHD, Resteverwertung, sich einigen, der Kompromiss"},
+{"emoji":"💬","title":"Ernährungs-Debatte im Café","situation":"Eine Freundin erzählt stolz, dass sie seit einem Monat vegan lebt. Du bist neugierig, aber auch skeptisch.","a":"VEGANER:IN: Erzähle, warum und wie es dir geht. Sei nicht missionarisch.","b":"FREUND:IN: Stelle echte Fragen (Eiweiß? Geschmack? Aufwand?). Sei respektvoll.","tipps":"Wortschatz: vegan, Inhaltsstoffe, sich umstellen, die Ernährungsumstellung, nachhaltig"}
+],'rsp1');
+
+buildMC([
+{"q":"Diese Suppe ist total ___ — da ist gar kein Salz drin. Welches Wort passt?","opts":["überwürzt","fade","scharf"],"correct":1,"fb":"✓ fade = ohne Geschmack. überwürzt wäre zu viel Gewürz. scharf wäre zu viel Chili/Pfeffer."},
+{"q":"Was bedeutet das MHD?","opts":["Maximales Haltbarkeitsdatum","Mindesthaltbarkeitsdatum","Muss-Heute-Drauf-Datum"],"correct":1,"fb":"✓ Mindesthaltbarkeitsdatum — bis wann das Lebensmittel MINDESTENS gut ist. Danach oft noch essbar!"},
+{"q":"Sie isst kein Fleisch und kein Fisch, aber Milch und Käse schon. Sie ist …","opts":["vegan","vegetarisch","flexitarisch"],"correct":1,"fb":"✓ Vegetarisch = kein Fleisch/Fisch, aber Milchprodukte/Eier ok. Vegan = gar nichts Tierisches. Flexitarisch = manchmal Fleisch."},
+{"q":"Ich mache gerade eine ___, weil ich abnehmen will. Was passt?","opts":["Ernährung","Diät","Ess-Routine"],"correct":1,"fb":"✓ eine Diät machen = spezielle Ernährung, oft zum Abnehmen. Ernährung wäre falsch (wie isst man immer)."},
+{"q":"Welcher Begriff bezeichnet Lebensmittelverschwendung?","opts":["Foodwaste","Foodporn","Foodtruck"],"correct":0,"fb":"✓ Foodwaste = Lebensmittelverschwendung. Foodporn = perfekte Essens-Fotos. Foodtruck = mobiler Imbiss."},
+{"q":"Achte beim Einkauf auf die ___ — viele Produkte enthalten versteckten Zucker. Was passt?","opts":["Mahlzeiten","Inhaltsstoffe","Allergien"],"correct":1,"fb":"✓ Inhaltsstoffe = was im Produkt drinsteckt. Steht auf der Verpackung — meist klein gedruckt!"},
+{"q":"Was ist eine Resteverwertung?","opts":["Eine Diät mit weniger Kalorien","Aus Übriggebliebenem etwas Neues kochen","Das Bio-Siegel auf Verpackungen"],"correct":1,"fb":"✓ Aus dem, was übrig ist (Reis, Gemüse), etwas Neues machen. Spart Geld und reduziert Foodwaste."}
+],'mc1');
+
+window.rfData_rf1=[
+{"s":"Bio und nachhaltig bedeuten genau dasselbe.","ok":false,"fb":"✗ Falsch! Bio = bestimmte Anbau-Regeln (keine Pestizide, artgerechte Tierhaltung). Nachhaltig = größerer Begriff (auch Transport, Verpackung, Sozial …). Bio ist EIN Aspekt von nachhaltig."},
+{"s":"Wer eine Laktose-Allergie hat, kann keine Milchprodukte vertragen.","ok":true,"fb":"✓ Richtig! Genauer: Laktose-Intoleranz (medizinisch korrekt) — Milchzucker wird nicht vertragen. Beschwerden: Bauchschmerzen, Blähungen."},
+{"s":"Fade und mild sind Synonyme.","ok":false,"fb":"✗ Falsch! mild ist positiv (z. B. milder Käse = sanft, nicht scharf). fade ist negativ (langweilig, ohne Geschmack). Wichtiger Unterschied!"},
+{"s":"Das MHD sagt: ab diesem Datum MUSS das Lebensmittel weggeworfen werden.","ok":false,"fb":"✗ Falsch! MHD = MINDESTENS haltbar bis. Viele Produkte sind noch lange danach gut. Riechen, schmecken, schauen — dann entscheiden!"},
+{"s":"Sündigen beim Essen bedeutet etwas Schlechtes tun.","ok":false,"fb":"✗ Falsch (im Kontext Essen)! sündigen ist hier ironisch — bedeutet: sich was Leckeres gönnen, das nicht gesund ist. Pizza, Schokolade, Eis am Wochenende — das ist sündigen."},
+{"s":"Vegan und vegetarisch bedeuten dasselbe.","ok":false,"fb":"✗ Falsch! Vegetarisch = kein Fleisch/Fisch. Vegan = NICHTS Tierisches (auch keine Milch, Eier, Honig). Vegan ist strenger als vegetarisch."}
+];
+buildRF(window.rfData_rf1,'rf1');
+
+buildSpeakCards([
+{"front":"Wie hat sich deine Ernährung in den letzten 5 Jahren verändert?","back":"Früher habe ich oft … Heute esse ich bewusster / weniger / mehr …"},
+{"front":"Gibt es ein Trend-Essen, das du absolut nicht verstehst?","back":"Ich versteh den Hype um … nicht. Für mich ist das …"},
+{"front":"Was kostet bei dir mehr — Bio-Lebensmittel oder Restaurantbesuche?","back":"Bei mir ist es so, dass … Pro Monat gebe ich ungefähr …"},
+{"front":"Wie reduzierst du persönlich Foodwaste?","back":"Ich mache Einkaufslisten / friere Reste ein / koche aus Resten …"},
+{"front":"Glaubst du, dass es in 20 Jahren noch normal sein wird, Fleisch zu essen?","back":"Ich vermute, dass … Vielleicht wird Laborfleisch / In-vitro …"},
+{"front":"Welches Gericht aus deiner Kindheit kann nichts in der Welt ersetzen?","back":"Wenn meine … mir … gekocht hat, war das …"}
+],'speakCards');
+
+upd();
+</script>
+</body></html>

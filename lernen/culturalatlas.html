@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cultural Atlas – Übungen · deutschoderwas</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sand: #f5f0e8;
+  --sand-dark: #ede5d4;
+  --brown: #8b5e3c;
+  --brown-dark: #5c3d1e;
+  --terracotta: #c1603a;
+  --terracotta-light: #f7e8e2;
+  --olive: #7a8c4e;
+  --olive-light: #edf1e0;
+  --gold: #c89b3c;
+  --gold-light: #fdf3dc;
+  --slate: #2d3748;
+  --slate-mid: #4a5568;
+  --navy: #1a2744;
+  --cream: #fdfaf4;
+  --gray: #e2ddd6;
+  --gray-light: #f5f2ed;
+  --red: #c0392b;
+  --red-light: #fdecea;
+  --green: #2e7d52;
+  --green-light: #e8f5ee;
+  --radius: 12px;
+  --shadow: 0 3px 16px rgba(0,0,0,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--sand);color:var(--slate);font-size:16px;line-height:1.65;}
+
+/* HEADER */
+header{background:var(--navy);position:relative;overflow:hidden;}
+.header-wave{position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--terracotta),var(--gold),var(--olive),var(--terracotta));}
+.header-inner{padding:22px 20px 26px;max-width:820px;margin:0 auto;display:flex;align-items:flex-start;gap:14px;}
+.header-logo{font-size:1.35rem;font-weight:900;color:#c4b08a;letter-spacing:-.3px;line-height:1.1;}
+.header-logo strong{color:white;}
+.header-title{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;margin-top:4px;line-height:1.3;}
+.header-sub{font-size:.76rem;color:rgba(255,255,255,.45);margin-top:3px;}
+.header-badge{margin-left:auto;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#c4b08a;font-weight:800;font-size:.82rem;padding:5px 13px;border-radius:30px;white-space:nowrap;flex-shrink:0;}
+
+/* NAV */
+nav{background:var(--brown-dark);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-bottom:3px solid var(--terracotta);position:sticky;top:0;z-index:100;}
+nav::-webkit-scrollbar{display:none;}
+nav button{flex-shrink:0;background:none;border:none;color:rgba(255,255,255,.45);font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:800;padding:13px 17px;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .2s;}
+nav button.active{color:#f5c97a;border-bottom-color:var(--gold);}
+nav button:hover{color:white;}
+
+main{padding:20px 16px 70px;max-width:820px;margin:0 auto;}
+.tab-section{display:none;animation:fadeIn .3s ease;}
+.tab-section.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:none;}}
+
+.section-title{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:700;color:var(--brown-dark);margin-bottom:18px;padding-bottom:11px;border-bottom:2px solid var(--terracotta);display:flex;align-items:center;gap:10px;}
+
+.card{background:white;border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:var(--shadow);border:1px solid var(--gray);}
+.card h2{font-size:1rem;font-weight:900;color:var(--brown-dark);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.card h3{font-size:.85rem;font-weight:800;color:var(--terracotta);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;}
+
+/* NOTES */
+.note{background:var(--olive-light);border-left:4px solid var(--olive);border-radius:8px;padding:12px 16px;font-size:.88rem;color:var(--brown-dark);margin-top:10px;}
+.note strong{color:var(--olive);}
+.note-terra{background:var(--terracotta-light);border-left:4px solid var(--terracotta);border-radius:8px;padding:12px 16px;font-size:.88rem;color:var(--brown-dark);margin-top:10px;}
+.note-gold{background:var(--gold-light);border-left:4px solid var(--gold);border-radius:8px;padding:12px 16px;font-size:.88rem;color:var(--brown-dark);margin-top:10px;}
+
+/* PHRASE ROWS */
+.phrase-row{padding:9px 13px;border-radius:8px;margin-bottom:7px;background:var(--gray-light);border-left:4px solid var(--terracotta);font-size:.92rem;}
+.phrase-row .ph-de{font-weight:700;color:var(--slate);}
+.phrase-row .ph-en{font-size:.8rem;color:var(--slate-mid);}
+.phrase-row.olive{border-left-color:var(--olive);background:var(--olive-light);}
+.phrase-row.gold{border-left-color:var(--gold);background:var(--gold-light);}
+
+/* GAP EXERCISES */
+.gap-s{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:9px;font-size:.93rem;background:var(--gray-light);padding:10px 14px;border-radius:8px;border:1px solid var(--gray);}
+.gap-s select{font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:700;padding:4px 8px;border:2px solid var(--terracotta);border-radius:7px;background:white;color:var(--slate);cursor:pointer;max-width:200px;}
+.gap-s select.correct{border-color:var(--green);background:var(--green-light);color:var(--green);}
+.gap-s select.wrong{border-color:var(--red);background:var(--red-light);color:var(--red);}
+.gap-s .ctx{font-size:.72rem;color:var(--slate-mid);margin-left:auto;font-style:italic;}
+
+/* MC */
+.mc-q{margin-bottom:15px;}
+.mc-q p{font-size:.94rem;font-weight:700;margin-bottom:8px;color:var(--slate);}
+.mc-opts{display:flex;flex-wrap:wrap;gap:8px;}
+.mc-btn{background:var(--gray-light);border:2px solid var(--gray);border-radius:8px;padding:8px 14px;font-family:'Nunito',sans-serif;font-size:.87rem;font-weight:700;cursor:pointer;transition:all .15s;color:var(--slate);text-align:left;}
+.mc-btn:hover{border-color:var(--terracotta);}
+.mc-btn.correct{background:var(--green-light);border-color:var(--green);color:var(--green);}
+.mc-btn.wrong{background:var(--red-light);border-color:var(--red);color:var(--red);}
+
+/* SORT / ASSIGN */
+.assign-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+@media(max-width:500px){.assign-grid{grid-template-columns:1fr;}}
+.assign-box{border-radius:10px;padding:14px 16px;}
+.assign-box.pro{background:var(--olive-light);border:2px solid var(--olive);}
+.assign-box.con{background:var(--terracotta-light);border:2px solid var(--terracotta);}
+.assign-box h4{font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.assign-box.pro h4{color:var(--olive);}
+.assign-box.con h4{color:var(--terracotta);}
+.assign-box ul{list-style:none;font-size:.88rem;}
+.assign-box ul li{padding:4px 0;border-bottom:1px solid rgba(0,0,0,.06);}
+.assign-box ul li:last-child{border:none;}
+
+/* DEFINITION MATCH */
+.def-item{background:var(--gray-light);border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:.92rem;border-left:4px solid var(--gold);}
+.def-item .def-word{font-weight:900;color:var(--brown-dark);margin-bottom:3px;}
+.def-item select{font-family:'Nunito',sans-serif;font-size:.87rem;font-weight:700;padding:3px 8px;border:2px solid var(--gold);border-radius:6px;background:white;color:var(--slate);cursor:pointer;width:100%;margin-top:4px;}
+.def-item select.correct{border-color:var(--green);background:var(--green-light);color:var(--green);}
+.def-item select.wrong{border-color:var(--red);background:var(--red-light);color:var(--red);}
+
+/* FLASHCARDS */
+details.flash{background:white;border:2px solid var(--gray);border-radius:10px;margin-bottom:9px;overflow:hidden;}
+details.flash[open]{border-color:var(--terracotta);}
+details.flash summary{padding:13px 16px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--slate);font-size:.92rem;gap:8px;}
+details.flash summary::-webkit-details-marker{display:none;}
+details.flash summary::after{content:'▼';font-size:.68rem;color:var(--terracotta);flex-shrink:0;}
+details.flash[open] summary::after{transform:rotate(180deg);display:inline-block;}
+.flash-answer{padding:10px 16px 14px;color:var(--terracotta);font-weight:700;font-size:.91rem;border-top:1px solid var(--terracotta-light);}
+.flash-answer .sub{font-size:.82rem;color:var(--slate-mid);font-weight:400;margin-top:4px;}
+.flash-answer .ex{font-size:.85rem;margin-top:6px;color:var(--slate);}
+
+/* SPEAK CARDS */
+.speak-card{background:white;border-radius:var(--radius);border-left:5px solid var(--olive);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow);}
+.speak-card .sc-num{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:700;color:var(--olive);float:left;margin-right:12px;line-height:1;}
+.speak-card .sc-title{font-size:.98rem;font-weight:800;color:var(--brown-dark);margin-bottom:4px;}
+.speak-card .sc-prompt{font-size:.88rem;color:var(--slate-mid);margin-bottom:10px;}
+.speak-card .sc-starters{list-style:none;}
+.speak-card .sc-starters li{padding:5px 10px;background:var(--olive-light);border-radius:6px;font-size:.86rem;font-weight:700;color:var(--slate);margin-bottom:5px;}
+.speak-card .sc-starters li::before{content:'💬 ';}
+.speak-card.terra{border-left-color:var(--terracotta);}
+.speak-card.terra .sc-num{color:var(--terracotta);}
+.speak-card.terra .sc-starters li{background:var(--terracotta-light);}
+.speak-card.gold{border-left-color:var(--gold);}
+.speak-card.gold .sc-num{color:var(--gold);}
+.speak-card.gold .sc-starters li{background:var(--gold-light);}
+
+/* DEBATE SETUP */
+.debate-box{border-radius:var(--radius);padding:16px;margin-bottom:10px;}
+.debate-box.pro{background:var(--olive-light);border:2px solid var(--olive);}
+.debate-box.con{background:var(--terracotta-light);border:2px solid var(--terracotta);}
+.debate-box .db-label{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.debate-box.pro .db-label{color:var(--olive);}
+.debate-box.con .db-label{color:var(--terracotta);}
+.debate-box ul{list-style:none;font-size:.9rem;}
+.debate-box ul li{padding:4px 0;border-bottom:1px solid rgba(0,0,0,.07);}
+.debate-box ul li:last-child{border:none;}
+.debate-box ul li::before{content:'→ ';color:inherit;font-weight:800;}
+
+/* VOCAB TABLE */
+.vocab-table{width:100%;border-collapse:collapse;font-size:.88rem;}
+.vocab-table th{background:var(--brown-dark);color:white;padding:9px 12px;text-align:left;font-weight:800;}
+.vocab-table tr:nth-child(even) td{background:var(--gray-light);}
+.vocab-table td{padding:9px 12px;border-bottom:1px solid var(--gray);vertical-align:top;}
+.vocab-table td:first-child{font-weight:800;color:var(--terracotta);}
+
+/* FEHLER */
+.fehler-card{background:white;border-radius:var(--radius);border:2px solid var(--red);overflow:hidden;margin-bottom:12px;}
+.fehler-card .wl{background:var(--red-light);padding:11px 16px;font-size:.92rem;color:#7f1d1d;font-weight:600;}
+.fehler-card .wl::before{content:'✗ ';font-weight:800;}
+.fehler-card .cl{background:var(--green-light);padding:11px 16px;font-size:.92rem;color:var(--green);font-weight:700;}
+.fehler-card .cl::before{content:'✓ ';font-weight:800;}
+.fehler-card .ex{padding:9px 16px;font-size:.81rem;color:var(--slate-mid);border-top:1px solid var(--gray);}
+
+/* THESE CARDS */
+.these-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+@media(max-width:500px){.these-grid{grid-template-columns:1fr;}}
+.these-card{background:var(--slate);color:white;border-radius:10px;padding:16px;text-align:center;cursor:pointer;border:2px solid transparent;transition:all .2s;}
+.these-card:hover{border-color:var(--gold);}
+.these-card .tc-q{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:rgba(255,255,255,.45);margin-bottom:6px;}
+.these-card .tc-text{font-size:.93rem;font-weight:700;line-height:1.4;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="header-logo">deutsch<strong>oderwas</strong> · Sprechclub</div>
+      <div class="header-title">🌍 Cultural Atlas – Übungen</div>
+      <div class="header-sub">Globalisierung · Heimat · Hybride Identität · Nationalstolz · Kulturelle Aneignung</div>
+    </div>
+    <div class="header-badge">B2 / C1</div>
+  </div>
+  <div class="header-wave"></div>
+</header>
+
+<nav id="main-nav">
+  <button class="active" onclick="showTab('vokabeln',this)">📖 Vokabeln</button>
+  <button onclick="showTab('luecken',this)">✏️ Lückentext</button>
+  <button onclick="showTab('quiz',this)">🎯 Quiz</button>
+  <button onclick="showTab('lernkarten',this)">🃏 Lernkarten</button>
+  <button onclick="showTab('sprechen',this)">🎤 Sprechen</button>
+  <button onclick="showTab('debatte',this)">⚖️ Debatte</button>
+</nav>
+
+<main>
+
+<!-- ===== VOKABELN ===== -->
+<section id="vokabeln" class="tab-section active">
+  <div class="section-title">📖 Wortschatz – Das Lexikon der Zugehörigkeit</div>
+
+  <div class="card">
+    <h2>🗂️ Kernbegriffe</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Begriff</th><th>Erklärung</th><th>Beispielsatz</th></tr></thead>
+      <tbody>
+        <tr><td>die Heimat</td><td>Ort, Menschen oder Gefühl der Zugehörigkeit – subjektiv, kann sich wandeln</td><td>Heimat ist für mich ein Gefühl, nicht ein Ort.</td></tr>
+        <tr><td>die Zugehörigkeit</td><td>das Gefühl, irgendwo dazuzugehören (sense of belonging)</td><td>Ich vermisse das Gefühl der Zugehörigkeit, das ich in meiner Heimat hatte.</td></tr>
+        <tr><td>die Diaspora</td><td>Gemeinschaft, die außerhalb ihrer ursprünglichen Heimat lebt</td><td>Die türkische Diaspora in Deutschland umfasst ca. 3 Millionen Menschen.</td></tr>
+        <tr><td>transnational</td><td>über Grenzen hinaus – Familie, Freunde, Arbeit in mehreren Ländern</td><td>Ich lebe ein transnationales Leben mit Wurzeln in zwei Ländern.</td></tr>
+        <tr><td>sich verwurzeln</td><td>Heimat werden lassen – ein aktiver, bewusster Prozess (rootedness)</td><td>Es hat Jahre gedauert, bis ich mich hier verwurzelt habe.</td></tr>
+        <tr><td>die hybride Identität</td><td>mehrere kulturelle Zugehörigkeiten in einer Person – kein Widerspruch, sondern Bereicherung</td><td>Als Deutsch-Iranerin habe ich eine hybride Identität – und das ist meine Stärke.</td></tr>
+        <tr><td>die plurale Gesellschaft</td><td>Gesellschaft, in der viele Kulturen und Religionen friedlich koexistieren</td><td>Deutschland ist heute eine plurale Gesellschaft – das war nicht immer selbstverständlich.</td></tr>
+        <tr><td>die Globalisierung</td><td>weltweite Vernetzung von Wirtschaft, Kultur, Kommunikation und Menschen</td><td>Durch die Globalisierung ist Wissen überall verfügbar.</td></tr>
+        <tr><td>kulturelle Aneignung</td><td>Mehrheitskultur übernimmt Elemente einer Minderheitskultur ohne Anerkennung</td><td>Dreadlocks als Trend bei weißen Jugendlichen gilt manchen als kulturelle Aneignung.</td></tr>
+        <tr><td>kultureller Austausch</td><td>bewusster, respektvoller Dialog zwischen Kulturen – auf Augenhöhe</td><td>Wenn ich koche und die Rezepte anderer Kulturen erkläre, ist das kultureller Austausch.</td></tr>
+        <tr><td>die Geborgenheit</td><td>Sicherheit, Wärme, Schutz – emotionales Urempfinden von Heimat</td><td>Geborgenheit fühle ich, wenn ich mit meiner Familie zusammen bin.</td></tr>
+        <tr><td>der Nationalstolz</td><td>Stolz auf das eigene Land – in Deutschland historisch belastet</td><td>Nationalstolz auf Demokratie und Vielfalt ist möglich – blinder Nationalstolz nicht.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>🔄 Synonyme & verwandte Ausdrücke</h2>
+    <div class="phrase-row"><div class="ph-de">sich verwurzeln = Heimat finden = ankommen = sich einleben</div></div>
+    <div class="phrase-row"><div class="ph-de">hybrid = mehrfach = gemischt = bikulturell</div></div>
+    <div class="phrase-row olive"><div class="ph-de">Diaspora = Auslandsgemeinschaft = Gemeinschaft in der Fremde</div></div>
+    <div class="phrase-row olive"><div class="ph-de">transnational = grenzübergreifend = international = über Grenzen hinaus</div></div>
+    <div class="phrase-row gold"><div class="ph-de">kulturelle Aneignung ≠ kultureller Austausch (wichtiger Unterschied!)</div></div>
+  </div>
+
+  <div class="card">
+    <h2>🏠 Die Anatomie der Heimat – 5 Dimensionen</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:9px;">
+      <div style="background:var(--terracotta-light);border-radius:10px;padding:13px;border-left:4px solid var(--terracotta);">
+        <div style="font-weight:900;color:var(--terracotta);margin-bottom:3px;">📍 Ein Ort</div>
+        <div style="font-size:.82rem;">Stadt, Dorf, Land – geografischer Anker</div>
+      </div>
+      <div style="background:var(--olive-light);border-radius:10px;padding:13px;border-left:4px solid var(--olive);">
+        <div style="font-weight:900;color:var(--olive);margin-bottom:3px;">👥 Menschen</div>
+        <div style="font-size:.82rem;">Familie, Freunde – Heimat durch Beziehungen</div>
+      </div>
+      <div style="background:var(--gold-light);border-radius:10px;padding:13px;border-left:4px solid var(--gold);">
+        <div style="font-weight:900;color:var(--brown);margin-bottom:3px;">❤️ Ein Gefühl</div>
+        <div style="font-size:.82rem;">Geborgenheit, Sicherheit – emotionale Heimat</div>
+      </div>
+      <div style="background:var(--sand-dark);border-radius:10px;padding:13px;border-left:4px solid var(--brown);">
+        <div style="font-weight:900;color:var(--brown-dark);margin-bottom:3px;">🧠 Erinnerungen</div>
+        <div style="font-size:.82rem;">Gerüche, Geräusche, Geschmäcker – sensorische Heimat</div>
+      </div>
+      <div style="background:#f0edf5;border-radius:10px;padding:13px;border-left:4px solid #7c5cbf;">
+        <div style="font-weight:900;color:#7c5cbf;margin-bottom:3px;">🎵 Sprache & Musik</div>
+        <div style="font-size:.82rem;">Rituale, Lieder, Worte – kulturelle Heimat</div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:12px;"><strong>Merksatz:</strong> Heimat ist subjektiv – es gibt keine „richtige" Definition. Heimat kann sich im Laufe des Lebens wandeln!</div>
+  </div>
+</section>
+
+<!-- ===== LÜCKENTEXT ===== -->
+<section id="luecken" class="tab-section">
+  <div class="section-title">✏️ Lückentext – richtigen Begriff einsetzen</div>
+
+  <div class="card">
+    <h3>Block 1 – Heimat & Zugehörigkeit</h3>
+
+    <div class="gap-s">
+      Heimat ist für mich kein Ort, sondern ein
+      <select id="l1" onchange="checkSelect('l1','Gefühl')">
+        <option value="">___</option>
+        <option value="Gefühl">Gefühl</option>
+        <option value="Beruf">Beruf</option>
+        <option value="Dokument">Dokument</option>
+      </select>
+      der Geborgenheit.
+      <span class="ctx">emotionale Heimat</span>
+    </div>
+
+    <div class="gap-s">
+      Es hat Jahre gedauert, bis ich mich hier
+      <select id="l2" onchange="checkSelect('l2','verwurzelt')">
+        <option value="">___</option>
+        <option value="verloren">verloren</option>
+        <option value="verwurzelt">verwurzelt</option>
+        <option value="verirrt">verirrt</option>
+      </select>
+      habe.
+      <span class="ctx">sich verwurzeln = Heimat finden</span>
+    </div>
+
+    <div class="gap-s">
+      Die türkische
+      <select id="l3" onchange="checkSelect('l3','Diaspora')">
+        <option value="">___</option>
+        <option value="Diaspora">Diaspora</option>
+        <option value="Demokratie">Demokratie</option>
+        <option value="Debatte">Debatte</option>
+      </select>
+      in Deutschland umfasst ca. 3 Millionen Menschen.
+      <span class="ctx">Gemeinschaft außerhalb der Heimat</span>
+    </div>
+
+    <div class="gap-s">
+      Ich lebe ein
+      <select id="l4" onchange="checkSelect('l4','transnationales')">
+        <option value="">___</option>
+        <option value="traditionelles">traditionelles</option>
+        <option value="transnationales">transnationales</option>
+        <option value="transparentes">transparentes</option>
+      </select>
+      Leben – meine Familie lebt in drei Ländern.
+      <span class="ctx">über Grenzen hinaus</span>
+    </div>
+
+    <div class="gap-s">
+      Das Gefühl,
+      <select id="l5" onchange="checkSelect('l5','dazuzugehören')">
+        <option value="">___</option>
+        <option value="wegzugehen">wegzugehen</option>
+        <option value="dazuzugehören">dazuzugehören</option>
+        <option value="aufzugeben">aufzugeben</option>
+      </select>
+      , nennt man Zugehörigkeit.
+      <span class="ctx">sense of belonging</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Block 2 – Hybride Identität & Globalisierung</h3>
+
+    <div class="gap-s">
+      Eine hybride Identität bedeutet, mehrere kulturelle
+      <select id="m1" onchange="checkSelect('m1','Zugehörigkeiten')">
+        <option value="">___</option>
+        <option value="Zugehörigkeiten">Zugehörigkeiten</option>
+        <option value="Sprachen">Sprachen</option>
+        <option value="Pässe">Pässe</option>
+      </select>
+      in einer Person zu haben.
+      <span class="ctx">nicht nur Sprache oder Pass</span>
+    </div>
+
+    <div class="gap-s">
+      Das ist kein Widerspruch, sondern eine
+      <select id="m2" onchange="checkSelect('m2','Bereicherung')">
+        <option value="">___</option>
+        <option value="Schwäche">Schwäche</option>
+        <option value="Bereicherung">Bereicherung</option>
+        <option value="Belastung">Belastung</option>
+      </select>
+      !
+      <span class="ctx">Kernaussage aus der Präsentation</span>
+    </div>
+
+    <div class="gap-s">
+      Eine
+      <select id="m3" onchange="checkSelect('m3','plurale')">
+        <option value="">___</option>
+        <option value="globale">globale</option>
+        <option value="plurale">plurale</option>
+        <option value="nationale">nationale</option>
+      </select>
+      Gesellschaft ist eine, in der viele Kulturen friedlich koexistieren.
+    </div>
+
+    <div class="gap-s">
+      Durch die Globalisierung ist
+      <select id="m4" onchange="checkSelect('m4','Wissen')">
+        <option value="">___</option>
+        <option value="Geld">Geld</option>
+        <option value="Wissen">Wissen</option>
+        <option value="Macht">Macht</option>
+      </select>
+      überall verfügbar.
+      <span class="ctx">Chance der Globalisierung</span>
+    </div>
+
+    <div class="gap-s">
+      Ein Risiko der Globalisierung ist der
+      <select id="m5" onchange="checkSelect('m5','Identitätsverlust')">
+        <option value="">___</option>
+        <option value="Kulturaustausch">Kulturaustausch</option>
+        <option value="Identitätsverlust">Identitätsverlust</option>
+        <option value="Wirtschaftswachstum">Wirtschaftswachstum</option>
+      </select>
+      und das Verschwinden lokaler Kulturen.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Block 3 – Kulturelle Aneignung vs. Austausch</h3>
+
+    <div class="gap-s">
+      Kulturelle Aneignung bedeutet: eine
+      <select id="n1" onchange="checkSelect('n1','Mehrheitskultur')">
+        <option value="">___</option>
+        <option value="Minderheitskultur">Minderheitskultur</option>
+        <option value="Mehrheitskultur">Mehrheitskultur</option>
+        <option value="Nationalkultur">Nationalkultur</option>
+      </select>
+      übernimmt Elemente einer Minderheitskultur ohne Anerkennung.
+    </div>
+
+    <div class="gap-s">
+      Kultureller Austausch hingegen ist
+      <select id="n2" onchange="checkSelect('n2','gegenseitig')">
+        <option value="">___</option>
+        <option value="einseitig">einseitig</option>
+        <option value="gegenseitig">gegenseitig</option>
+        <option value="zufällig">zufällig</option>
+      </select>
+      und respektvoll auf Augenhöhe.
+    </div>
+
+    <div class="gap-s">
+      Aneignung ist
+      <select id="n3" onchange="checkSelect('n3','einseitig')">
+        <option value="">___</option>
+        <option value="gegenseitig">gegenseitig</option>
+        <option value="respektvoll">respektvoll</option>
+        <option value="einseitig">einseitig</option>
+      </select>
+      und ohne Verständnis für den kulturellen Kontext.
+    </div>
+
+    <div class="gap-s">
+      Nationalstolz auf
+      <select id="n4" onchange="checkSelect('n4','Demokratie')">
+        <option value="">___</option>
+        <option value="Überlegenheit">Überlegenheit</option>
+        <option value="Demokratie">Demokratie</option>
+        <option value="Geschichte">Geschichte</option>
+      </select>
+      und Vielfalt ist möglich – blinder Nationalstolz nicht.
+      <span class="ctx">junge Generation in Deutschland</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUIZ ===== -->
+<section id="quiz" class="tab-section">
+  <div class="section-title">🎯 Quiz – Wissen testen</div>
+
+  <div class="card">
+    <h2>Runde 1 – Begriffe verstehen</h2>
+
+    <div class="mc-q">
+      <p>Was ist die „Diaspora"?</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong')">Eine Sprachschule für Migranten</button>
+        <button class="mc-btn" onclick="mc(this,'correct')">Eine Gemeinschaft, die außerhalb ihrer ursprünglichen Heimat lebt</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">Eine politische Partei</button>
+      </div>
+    </div>
+
+    <div class="mc-q">
+      <p>Was bedeutet „hybride Identität"?</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong')">Man hat einen Doppelpass.</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">Man spricht zwei Sprachen perfekt.</button>
+        <button class="mc-btn" onclick="mc(this,'correct')">Man hat mehrere kulturelle Zugehörigkeiten in einer Person – kein Widerspruch, sondern Bereicherung.</button>
+      </div>
+    </div>
+
+    <div class="mc-q">
+      <p>Was bedeutet „sich verwurzeln"?</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong')">Das Heimatland vergessen</button>
+        <button class="mc-btn" onclick="mc(this,'correct')">Aktiv eine neue Heimat aufbauen – ein bewusster Prozess (rootedness)</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">Ein Haus kaufen</button>
+      </div>
+    </div>
+
+    <div class="mc-q">
+      <p>Was ist der Unterschied zwischen kultureller Aneignung und kulturellem Austausch?</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong')">Keiner – beides bedeutet dasselbe.</button>
+        <button class="mc-btn" onclick="mc(this,'correct')">Aneignung ist einseitig und ohne Anerkennung; Austausch ist gegenseitig und respektvoll auf Augenhöhe.</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">Aneignung ist positiv, Austausch ist negativ.</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Runde 2 – Globalisierung: Chancen oder Risiken?</h2>
+    <p style="font-size:.88rem;color:var(--slate-mid);margin-bottom:12px;">Ordne zu: Ist das eine <strong style="color:var(--olive)">Chance</strong> oder ein <strong style="color:var(--terracotta)">Risiko</strong> der Globalisierung?</p>
+
+    <div class="mc-q">
+      <p>„Mehr Reisefreiheit und internationale Jobmöglichkeiten"</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'correct')">✅ Chance</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">❌ Risiko</button>
+      </div>
+    </div>
+
+    <div class="mc-q">
+      <p>„Lokale Kulturen und Sprachen verschwinden langsam"</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong')">✅ Chance</button>
+        <button class="mc-btn" onclick="mc(this,'correct')">❌ Risiko</button>
+      </div>
+    </div>
+
+    <div class="mc-q">
+      <p>„Kulturaustausch und neue Perspektiven durch Begegnung"</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'correct')">✅ Chance</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">❌ Risiko</button>
+      </div>
+    </div>
+
+    <div class="mc-q">
+      <p>„Soziale Ungleichheit wächst weltweit"</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong')">✅ Chance</button>
+        <button class="mc-btn" onclick="mc(this,'correct')">❌ Risiko</button>
+      </div>
+    </div>
+
+    <div class="mc-q">
+      <p>„Wissen ist überall und kostenlos verfügbar (Internet)"</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'correct')">✅ Chance</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">❌ Risiko</button>
+      </div>
+    </div>
+
+    <div class="mc-q">
+      <p>„'Coca-Cola-isierung' – überall dasselbe, Vielfalt geht verloren"</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong')">✅ Chance</button>
+        <button class="mc-btn" onclick="mc(this,'correct')">❌ Risiko</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Runde 3 – Definitionen zuordnen</h2>
+    <p style="font-size:.88rem;color:var(--slate-mid);margin-bottom:12px;">Wähle die passende Definition für jeden Begriff.</p>
+
+    <div class="def-item">
+      <div class="def-word">die Geborgenheit</div>
+      <select onchange="checkDef(this,'Sicherheit und Wärme – emotionales Urempfinden von Heimat')">
+        <option value="">Wähle die Definition…</option>
+        <option value="Über Grenzen hinaus – Familie, Freunde, Arbeit in mehreren Ländern">Über Grenzen hinaus – Familie, Freunde, Arbeit in mehreren Ländern</option>
+        <option value="Sicherheit und Wärme – emotionales Urempfinden von Heimat">Sicherheit und Wärme – emotionales Urempfinden von Heimat</option>
+        <option value="Mehrere kulturelle Zugehörigkeiten in einer Person">Mehrere kulturelle Zugehörigkeiten in einer Person</option>
+      </select>
+    </div>
+
+    <div class="def-item">
+      <div class="def-word">transnational</div>
+      <select onchange="checkDef(this,'Über Grenzen hinaus – Familie, Freunde, Arbeit in mehreren Ländern')">
+        <option value="">Wähle die Definition…</option>
+        <option value="Über Grenzen hinaus – Familie, Freunde, Arbeit in mehreren Ländern">Über Grenzen hinaus – Familie, Freunde, Arbeit in mehreren Ländern</option>
+        <option value="Sicherheit und Wärme – emotionales Urempfinden von Heimat">Sicherheit und Wärme – emotionales Urempfinden von Heimat</option>
+        <option value="Viele Kulturen koexistieren friedlich">Viele Kulturen koexistieren friedlich</option>
+      </select>
+    </div>
+
+    <div class="def-item">
+      <div class="def-word">die plurale Gesellschaft</div>
+      <select onchange="checkDef(this,'Viele Kulturen koexistieren friedlich')">
+        <option value="">Wähle die Definition…</option>
+        <option value="Gemeinschaft außerhalb der Heimat">Gemeinschaft außerhalb der Heimat</option>
+        <option value="Viele Kulturen koexistieren friedlich">Viele Kulturen koexistieren friedlich</option>
+        <option value="Aktiv Heimat aufbauen – ein Prozess">Aktiv Heimat aufbauen – ein Prozess</option>
+      </select>
+    </div>
+
+    <div class="def-item">
+      <div class="def-word">die Diaspora</div>
+      <select onchange="checkDef(this,'Gemeinschaft außerhalb der Heimat')">
+        <option value="">Wähle die Definition…</option>
+        <option value="Eine politische Bewegung">Eine politische Bewegung</option>
+        <option value="Gemeinschaft außerhalb der Heimat">Gemeinschaft außerhalb der Heimat</option>
+        <option value="Viele Kulturen koexistieren friedlich">Viele Kulturen koexistieren friedlich</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LERNKARTEN ===== -->
+<section id="lernkarten" class="tab-section">
+  <div class="section-title">🃏 Lernkarten – aufklappen & antworten</div>
+  <p style="font-size:.88rem;color:var(--slate-mid);margin-bottom:16px;">Tippe auf eine Karte. Kannst du die Definition und ein Beispiel nennen?</p>
+
+  <details class="flash">
+    <summary>Was ist „Heimat"? Nenne alle 5 Dimensionen.</summary>
+    <div class="flash-answer">Heimat ist subjektiv – kein Ort allein!
+      <div class="sub">1. Ein Ort (geografischer Anker) · 2. Menschen (Beziehungen) · 3. Ein Gefühl (Geborgenheit) · 4. Erinnerungen (Gerüche, Geschmäcker) · 5. Sprache & Musik (kulturelle Heimat)</div>
+      <div class="ex">Heimat kann sich im Laufe des Lebens wandeln – jemand kann mehrere Heimaten haben!</div>
+    </div>
+  </details>
+
+  <details class="flash">
+    <summary>Was ist eine „hybride Identität"? Ist das ein Problem?</summary>
+    <div class="flash-answer">Mehrere kulturelle Zugehörigkeiten in einer Person.
+      <div class="sub">Kein Problem – kein Widerspruch, sondern Bereicherung und Vielfalt! Man muss sich nicht für eine Seite entscheiden.</div>
+      <div class="ex">Jemand kann deutsch-persisch, ukrainisch-deutsch, marokkanisch-französisch sein – alle diese Identitäten sind gleichzeitig gültig.</div>
+    </div>
+  </details>
+
+  <details class="flash">
+    <summary>Erkläre den Unterschied: kulturelle Aneignung vs. kultureller Austausch</summary>
+    <div class="flash-answer">
+      Aneignung: einseitig, ohne Anerkennung, Machtungleichgewicht<br>
+      Austausch: gegenseitig, respektvoll, auf Augenhöhe, mit Wertschätzung
+      <div class="sub">Grenze: Wenn man von einer Kultur profitiert, ohne sie zu verstehen oder zu respektieren → Aneignung. Wenn man bewusst lernt und anerkennt → Austausch.</div>
+    </div>
+  </details>
+
+  <details class="flash">
+    <summary>Nenne 3 Chancen und 3 Risiken der Globalisierung</summary>
+    <div class="flash-answer">
+      Chancen: Reisefreiheit · Kulturaustausch · Wissen überall verfügbar<br>
+      Risiken: Identitätsverlust · lokale Kulturen verschwinden · soziale Ungleichheit wächst
+      <div class="sub">„Coca-Cola-isierung" = Metapher für die Vereinheitlichung der Welt durch Globalisierung</div>
+    </div>
+  </details>
+
+  <details class="flash">
+    <summary>Warum ist Nationalstolz in Deutschland ein komplexes Thema?</summary>
+    <div class="flash-answer">Wegen der historischen Belastung durch den Nationalsozialismus.
+      <div class="sub">1. Historische Belastung → unkritischer Nationalstolz unmöglich · 2. Jahrzehntelanges Tabu · 3. Wendepunkt: Sommermärchen 2006 (WM) · 4. Junge Generation: Stolz auf Demokratie & Vielfalt statt auf die Nation als solche.</div>
+    </div>
+  </details>
+
+  <details class="flash">
+    <summary>Was bedeutet „sich verwurzeln"? Warum ist es ein aktiver Prozess?</summary>
+    <div class="flash-answer">= Heimat werden lassen – man baut aktiv Beziehungen, Routinen und Zugehörigkeit auf.
+      <div class="sub">Es passiert nicht von selbst – man muss sich darum bemühen: Sprache lernen, Kontakte knüpfen, Orte bedeutsam machen.</div>
+      <div class="ex">„Es hat Jahre gedauert, bis ich mich hier verwurzelt habe – aber heute ist Deutschland meine Heimat."</div>
+    </div>
+  </details>
+
+  <details class="flash">
+    <summary>Was ist eine „plurale Gesellschaft"? Ist Deutschland eine?</summary>
+    <div class="flash-answer">Eine Gesellschaft, in der viele Kulturen und Religionen friedlich koexistieren.
+      <div class="sub">Deutschland ist heute eine plurale Gesellschaft – ca. 26% der Menschen haben einen Migrationshintergrund. Das war historisch nicht immer selbstverständlich.</div>
+    </div>
+  </details>
+</section>
+
+<!-- ===== SPRECHEN ===== -->
+<section id="sprechen" class="tab-section">
+  <div class="section-title">🎤 Freies Sprechen – persönliche Reflexion</div>
+  <p style="font-size:.88rem;color:var(--slate-mid);margin-bottom:16px;">Sprich 2–3 Minuten zu jeder Frage – allein oder mit einem Partner. Benutze die neuen Wörter!</p>
+
+  <div class="speak-card">
+    <div class="sc-num">1</div>
+    <div class="sc-title">Wo ist deine Heimat – und warum?</div>
+    <div class="sc-prompt">Ist es ein Ort, ein Gefühl, eine Person – oder etwas ganz anderes?</div>
+    <ul class="sc-starters">
+      <li>„Für mich ist Heimat vor allem …, weil …"</li>
+      <li>„Ich fühle mich am meisten zuhause, wenn …"</li>
+      <li>„Meine Heimat hat sich verändert, seitdem …"</li>
+      <li>„Was Heimat für mich bedeutet: …"</li>
+    </ul>
+  </div>
+
+  <div class="speak-card terra">
+    <div class="sc-num">2</div>
+    <div class="sc-title">Hast du eine hybride Identität?</div>
+    <div class="sc-prompt">Beschreibe einen Moment, in dem du dich „dazwischen" gefühlt hast – zwischen zwei Kulturen, zwei Welten.</div>
+    <ul class="sc-starters">
+      <li>„Ich habe mich einmal dazwischen gefühlt, als …"</li>
+      <li>„Meine hybride Identität zeigt sich zum Beispiel darin, dass …"</li>
+      <li>„Einerseits bin ich …, andererseits …"</li>
+      <li>„Was ich aus beiden Kulturen mitgenommen habe, ist …"</li>
+    </ul>
+  </div>
+
+  <div class="speak-card">
+    <div class="sc-num">3</div>
+    <div class="sc-title">Was vermisst du aus deiner Herkunftskultur?</div>
+    <div class="sc-prompt">Ein Gericht, ein Fest, eine Stimmung, eine Sprache – ein Geruch?</div>
+    <ul class="sc-starters">
+      <li>„Am meisten vermisse ich …, weil …"</li>
+      <li>„Was in Deutschland anders ist: …"</li>
+      <li>„Sensorische Heimat für mich ist der Geruch / Geschmack von …"</li>
+    </ul>
+  </div>
+
+  <div class="speak-card gold">
+    <div class="sc-num">4</div>
+    <div class="sc-title">Was bedeutet Globalisierung für dich persönlich?</div>
+    <div class="sc-prompt">Chancen, Herausforderungen – oder beides? Gib konkrete Beispiele aus deinem Leben.</div>
+    <ul class="sc-starters">
+      <li>„Ohne Globalisierung würde ich heute nicht hier sein, weil …"</li>
+      <li>„Was ich an der Globalisierung schätze, ist …"</li>
+      <li>„Was mich besorgt, ist …"</li>
+      <li>„Einerseits … andererseits …"</li>
+    </ul>
+  </div>
+
+  <div class="speak-card terra">
+    <div class="sc-num">5</div>
+    <div class="sc-title">Welche Tradition hast du in Deutschland übernommen?</div>
+    <div class="sc-prompt">War das bewusst oder unbewusst? Ist das kultureller Austausch – oder etwas anderes?</div>
+    <ul class="sc-starters">
+      <li>„Ich habe ohne es zu merken angefangen, … zu machen."</li>
+      <li>„Was ich bewusst aus der deutschen Kultur übernommen habe, ist …"</li>
+      <li>„Was ich nie übernehmen werde, ist … – weil …"</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== DEBATTE ===== -->
+<section id="debatte" class="tab-section">
+  <div class="section-title">⚖️ Debatte – Thesen diskutieren</div>
+  <p style="font-size:.88rem;color:var(--slate-mid);margin-bottom:16px;">Wähle eine These, bilde eine Position und argumentiere 2–3 Minuten. Dann Gegenseite!<br>Nutze das Vokabular aus dem Unterricht!</p>
+
+  <div class="card">
+    <h2>🎭 Die 4 Diskussions-Thesen</h2>
+    <div class="these-grid">
+      <div class="these-card"><div class="tc-q">These 1</div><div class="tc-text">„Heimat ist da, wo dein Herz ist."</div></div>
+      <div class="these-card"><div class="tc-q">These 2</div><div class="tc-text">„Globalisierung zerstört Vielfalt."</div></div>
+      <div class="these-card"><div class="tc-q">These 3</div><div class="tc-text">„Hybride Identitäten sind die Zukunft."</div></div>
+      <div class="these-card"><div class="tc-q">These 4</div><div class="tc-text">„Nationalstolz ist immer problematisch."</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>⚖️ Globalisierung: Segen oder Fluch?</h2>
+    <p style="font-size:.88rem;color:var(--slate-mid);margin-bottom:12px;">Podiumsdiskussion – wähle eine Seite und argumentiere!</p>
+    <div class="assign-grid">
+      <div class="assign-box pro">
+        <h4>✅ Pro – Chancen</h4>
+        <ul>
+          <li>Mehr Reisefreiheit und internationale Chancen</li>
+          <li>Kulturaustausch und neue Perspektiven</li>
+          <li>Wirtschaftswachstum, mehr Produkte</li>
+          <li>Wissen überall verfügbar</li>
+          <li>Begegnung mit anderen Lebensweisen</li>
+        </ul>
+      </div>
+      <div class="assign-box con">
+        <h4>❌ Contra – Risiken</h4>
+        <ul>
+          <li>Identitätsverlust, „Coca-Cola-isierung"</li>
+          <li>Lokale Kulturen verschwinden</li>
+          <li>Soziale Ungleichheit wächst</li>
+          <li>Klimakrise als globales Problem</li>
+          <li>Macht liegt bei wenigen Konzernen</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note-gold">💡 <strong>Tipp:</strong> Konkrete Beispiele aus dem eigenen Leben stärken jedes Argument enorm! Sag nicht nur „Globalisierung ist gut" – erzähl warum aus deiner persönlichen Erfahrung.</div>
+  </div>
+
+  <div class="card">
+    <h2>🌶️ Aneignung oder Austausch? – Du entscheidest</h2>
+    <p style="font-size:.88rem;color:var(--slate-mid);margin-bottom:12px;">Ist das kulturelle Aneignung oder kultureller Austausch? Diskutiert!</p>
+
+    <div class="mc-q">
+      <p>Ein Modedesigner verwendet traditionelle Muster eines indigenen Volkes, ohne Erlaubnis oder Anerkennung, und verkauft sie als eigene Kollektion.</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'correct')">Kulturelle Aneignung – einseitig, kein Respekt, kein Gewinn für die Herkunftskultur</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">Kultureller Austausch – er zeigt Interesse an anderen Kulturen</button>
+      </div>
+    </div>
+
+    <div class="mc-q">
+      <p>Eine Deutsche lernt Sitar spielen, nimmt Unterricht bei einem indischen Lehrer, besucht Konzerte und versteht die kulturelle Bedeutung der Musik.</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong')">Kulturelle Aneignung – sie kommt aus einer anderen Kultur</button>
+        <button class="mc-btn" onclick="mc(this,'correct')">Kultureller Austausch – bewusst, respektvoll, mit Anerkennung und Lernen</button>
+      </div>
+    </div>
+
+    <div class="mc-q">
+      <p>Jemand trägt Dreadlocks als Modetrend, ohne zu wissen, was sie in der Rastafari-Kultur bedeuten.</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'correct')">Eher kulturelle Aneignung – ohne Kontext und Verständnis</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">Kultureller Austausch – Mode darf jeder tragen</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">Das ist eine Grauzone – es kommt auf die Absicht an</button>
+      </div>
+    </div>
+
+    <div class="note-terra" style="margin-top:14px;"><strong>Wo verläuft die Grenze?</strong> Diskutiert! Wann ist Übernahme Respekt – und wann ist sie Aneignung? Die Antwort ist nicht immer einfach, aber das Nachdenken darüber ist wichtig!</div>
+  </div>
+
+  <div class="card">
+    <h2>🇩🇪 Nationalstolz – Wie zeigt man das verantwortungsvoll?</h2>
+    <p style="font-size:.88rem;color:var(--slate-mid);margin-bottom:12px;">Darf man stolz auf Deutschland sein? Worauf genau?</p>
+    <div class="mc-q">
+      <p>Auf was kann man laut der Präsentation in Deutschland stolz sein?</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong')">Auf die Nation als solche – Deutschland über alles</button>
+        <button class="mc-btn" onclick="mc(this,'correct')">Auf Demokratie, Vielfalt und Kultur – differenzierter Nationalstolz</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">Nationalstolz ist in Deutschland komplett verboten</button>
+      </div>
+    </div>
+    <div class="mc-q">
+      <p>Was war das „Sommermärchen 2006"?</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong')">Ein bekanntes deutsches Theaterstück</button>
+        <button class="mc-btn" onclick="mc(this,'correct')">Die Fußball-WM 2006 in Deutschland – Wendepunkt für ein neues, offenes Nationalgefühl</button>
+        <button class="mc-btn" onclick="mc(this,'wrong')">Ein historisches Ereignis aus dem 19. Jahrhundert</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  var n=document.getElementById('main-nav');
+  n.scrollTo({left:btn.offsetLeft-(n.offsetWidth/2)+(btn.offsetWidth/2),behavior:'smooth'});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function checkSelect(id,correct){
+  var s=document.getElementById(id);
+  if(!s)return;
+  s.classList.remove('correct','wrong');
+  if(!s.value)return;
+  s.classList.add(s.value===correct?'correct':'wrong');
+}
+function checkDef(sel,correct){
+  sel.classList.remove('correct','wrong');
+  if(!sel.value)return;
+  sel.classList.add(sel.value===correct?'correct':'wrong');
+}
+function mc(btn,result){
+  btn.closest('.mc-opts').querySelectorAll('.mc-btn').forEach(b=>b.classList.remove('correct','wrong'));
+  btn.classList.add(result);
+}
+</script>
+</body>
+</html>

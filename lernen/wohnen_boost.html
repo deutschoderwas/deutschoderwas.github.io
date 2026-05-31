@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+<meta charset="UTF-8"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Wortschatzboost: Wohnen &amp; Zuhause &middot; deutschoderwas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#C4622D;--acc-lt:#F5D5B0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}.tbtn.reset{background:#555;color:white;}
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;scrollbar-width:none;}
+.phase-nav::-webkit-scrollbar{display:none;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}
+.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.4rem;line-height:1.5;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.4rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--acc-lt);color:var(--acc);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+/* VOCAB */
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.vok-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.vok-card.flipped{background:var(--acc-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);white-space:pre-line;}
+.vok-card.flipped .vok-back{display:block;}
+.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+/* EXAMPLES */
+.ex{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.85rem 1.2rem;margin-bottom:.55rem;border-left:4px solid var(--acc);font-size:.93rem;line-height:1.7;}
+.ex .de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);margin-bottom:.2rem;}
+.ex .en{font-size:.79rem;color:#888;font-style:italic;}
+.ex .note{font-size:.78rem;color:var(--acc);margin-top:.2rem;font-weight:600;}
+.ex strong{color:var(--acc);}
+/* DIALOGS */
+.dialog{background:var(--sand-lt);border-radius:16px;overflow:hidden;margin-bottom:1.1rem;border:1.5px solid var(--sand);}
+.dialog-hd{background:var(--dark);color:white;padding:.6rem 1.3rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
+.dialog-hd-icon{font-size:1rem;}
+.dialog-body{padding:1rem 1.3rem;}
+.dl{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start;}
+.dl:last-child{margin-bottom:0;}
+.dl-spk{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:60px;padding-top:.25rem;flex-shrink:0;color:var(--acc);line-height:1.3;}
+.dl-spk.b{color:var(--rust);}
+.dl-spk.c{color:#6B3D8A;}
+.dl-txt{font-size:.9rem;line-height:1.65;}
+.dl-txt strong{font-family:'Fraunces',serif;color:var(--brown);}
+.dl-note{font-size:.75rem;color:#888;font-style:italic;}
+/* ANNOTATIONS on dialog */
+.dl-ann{background:rgba(0,0,0,.04);border-left:3px solid var(--acc);font-size:.75rem;color:#555;padding:.3rem .7rem;margin-top:.2rem;border-radius:0 6px 6px 0;line-height:1.5;}
+/* HIGHLIGHT BOX */
+.hbox{border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.hbox.blue{background:var(--acc-lt);border:1.5px solid var(--acc);}
+.hbox.dark{background:var(--dark);color:white;}
+.hbox.warn{background:#FFF8E0;border:1.5px solid #C8A870;}
+.hbox-title{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;margin-bottom:.5rem;}
+.hbox.dark .hbox-title{color:var(--acc-lt);}
+.hbox.blue .hbox-title{color:var(--acc);}
+.hbox.warn .hbox-title{color:#5C3D2E;}
+.hbox-body{font-size:.87rem;line-height:1.8;}
+.hbox.dark .hbox-body{color:#ddd;}
+/* PHRASE LIST */
+.phrase-list{list-style:none;margin-bottom:1.1rem;}
+.phrase-list li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .9rem;border-radius:10px;margin-bottom:.4rem;background:white;border:1.5px solid var(--sand);font-size:.89rem;line-height:1.6;}
+.phrase-list li::before{content:'→';color:var(--acc);font-weight:700;flex-shrink:0;margin-top:.1rem;}
+.phrase-list li strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list li em{color:#888;font-size:.8rem;}
+/* QUIZ */
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.3rem;margin-bottom:.8rem;}
+.mc-q{font-size:.94rem;font-weight:600;margin-bottom:.75rem;line-height:1.55;}
+.mc-opts{display:flex;flex-direction:column;gap:.38rem;}
+.mc-opt{padding:.48rem 1rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.88rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--acc);background:var(--acc-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.81rem;margin-top:.6rem;display:none;font-weight:500;line-height:1.55;padding:.4rem .7rem;border-radius:8px;}
+.mc-fb.show{display:block;}
+.mc-fb.ok{color:var(--green);background:var(--green-lt);}.mc-fb.nope{color:var(--red);background:var(--red-lt);}
+/* RF */
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.95rem 1.3rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}
+.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.92rem;margin-bottom:.6rem;line-height:1.55;}
+.rf-btns{display:flex;gap:.45rem;}
+.rfbtn{padding:.28rem .85rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--acc);color:var(--acc);}
+.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}
+.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.8rem;margin-top:.55rem;font-weight:500;display:none;line-height:1.55;padding:.35rem .6rem;border-radius:6px;}
+.rf-fb.show{display:block;}
+.rf-fb.ok{color:var(--green);background:var(--green-lt);}.rf-fb.bad{color:var(--red);background:var(--red-lt);}
+/* SPEAK CARDS */
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:13px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.speak-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.09);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);line-height:1.4;}
+.speak-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}
+.speak-hint{font-size:.68rem;color:#bbb;margin-top:.45rem;}
+/* RSP */
+.rsp-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;margin-bottom:.9rem;}
+.rsp-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.1);}
+.rsp-card.open .rsp-back{display:block;}
+.rsp-card.open .rsp-hint{display:none;}
+.rsp-top{background:var(--dark);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.75rem;}
+.rsp-emoji{font-size:1.4rem;flex-shrink:0;}
+.rsp-title{font-family:'Fraunces',serif;font-weight:700;color:white;font-size:1rem;}
+.rsp-body{padding:1rem 1.2rem;}
+.rsp-situation{font-size:.89rem;color:var(--dark);line-height:1.6;margin-bottom:.6rem;}
+.rsp-back{display:none;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--sand);}
+.rsp-rolle{font-size:.83rem;line-height:1.7;color:var(--dark);margin-bottom:.45rem;padding:.4rem .8rem;border-radius:8px;background:var(--cream);}
+.rsp-rolle strong{color:var(--acc);}
+.rsp-hint{font-size:.7rem;color:#bbb;}
+/* THESEN */
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:.8rem;display:flex;align-items:flex-start;gap:1rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--acc-lt);flex-shrink:0;line-height:1;margin-top:.1rem;}
+.these-text{font-size:.93rem;line-height:1.65;}
+.these-starter{font-size:.77rem;color:#888;margin-top:.35rem;}
+/* TIPP */
+.tipp{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-top:1.3rem;display:flex;gap:.9rem;align-items:flex-start;}
+.tipp-icon{font-size:1.3rem;flex-shrink:0;}
+.tipp-body{font-size:.87rem;line-height:1.75;}
+.tipp-body strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+/* CULTURAL NOTE */
+.kultur{background:linear-gradient(135deg,var(--acc-lt),rgba(255,255,255,.5));border:1.5px solid var(--acc);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.kultur-title{font-family:'Fraunces',serif;font-weight:700;color:var(--acc);font-size:.9rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;}
+.kultur-body{font-size:.86rem;line-height:1.75;color:var(--dark);}
+</style></head><body>
+<div class="timer-bar">
+  <div class="timer-display" id="td">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="tf"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;flex-shrink:0;">Unterrichtszeit</span>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">&#9654; Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">&#8635;</button>
+  </div>
+</div>
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <button class="phase-btn active" onclick="showPhase('p1',this)">&#9312; Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('p2',this)">&#9313; Wortschatz</button>
+  <button class="phase-btn" onclick="showPhase('p3',this)">&#9314; Dialoge</button>
+  <button class="phase-btn" onclick="showPhase('p4',this)">&#9315; Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('p5',this)">&#9316; Rollenspiele</button>
+  <button class="phase-btn" onclick="showPhase('p6',this)">&#9317; &#220;bungen</button>
+  <button class="phase-btn" onclick="showPhase('p7',this)">&#9318; Sprechen</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;flex-shrink:0;">Wortschatzboost ab B1 &middot; 60 Min.</span>
+</div>
+<main>
+<div id="phase-p1" class="phase active"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 &middot; Einstieg &middot; 8 Min.</div>
+<div class="card-title">Wortschatzboost: Wohnen &amp; Zuhause</div>
+<div class="card-sub">Nebenkosten, Hausordnung, Vermieter &ndash; das echte Deutsch f&#252;rs Wohnen</div></div><div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="kultur"><div class="kultur-title">&#127987; Kulturnotiz</div><div class="kultur-body">Deutschland hat mit ca. <strong>50% Mietquote</strong> eine der höchsten in Europa – nur in der Schweiz mieten noch mehr Menschen. Das Mietrecht ist komplex aber gut geschützt: Einfach mal lesen was im Mietvertrag steht!</div></div>
+
+<div class="slabel">Warming-up &ndash; Sprecht zuerst!</div>
+<div class="speak-grid" id="warmup"></div>
+<div class="tipp"><div class="tipp-icon">&#127919;</div><div class="tipp-body"><strong>Heute lernen wir:</strong> Kaltmiete, Kaution, Hausordnung, Kehrwoche &ndash; das komplette Wohnungs-Vokabular f&#252;r den deutschen Alltag!</div></div>
+</div></div></div>
+
+<div id="phase-p2" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 &middot; Wortschatz &middot; 12 Min.</div>
+<div class="card-title">Wichtige W&#246;rter &amp; <em>Ausdr&#252;cke</em></div>
+<div class="card-sub">Klickt auf die Karten &ndash; Deutsch vorne, Erkl&#228;rung hinten!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div class="slabel">&#127968; Miete &amp; Abrechnung</div><div class="vok-grid" id="vok1"></div>
+<div class="slabel">&#128295; Typische Probleme</div><div class="vok-grid" id="vok2"></div>
+
+</div></div></div>
+
+<div id="phase-p3" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 &middot; Dialoge &middot; 12 Min.</div>
+<div class="card-title">Echte Gespr&#228;che &ndash; <em>so klingt das!</em></div>
+<div class="card-sub">Lest die Dialoge laut &ndash; wechselt die Rollen!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#127968;</span> Heizung kaputt &ndash; Vermieter anrufen</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Mieter</span><div><div class="dl-txt">Guten Tag, hier ist Anastasia Kovač aus der Wohnung 3b. Ich habe ein dringendes Problem: <strong>Die Heizung funktioniert seit gestern Morgen nicht mehr</strong>.</div></div></div>
+<div class="dl"><span class="dl-spk b">Vermieter</span><div><div class="dl-txt">Guten Tag Frau Kovač. Das tut mir leid. Haben Sie das Thermostat &#252;berpr&#252;ft?</div></div></div>
+<div class="dl"><span class="dl-spk ">Mieter</span><div><div class="dl-txt">Ja, habe ich. Alles korrekt eingestellt – aber die Heizk&#246;rper bleiben kalt.</div></div></div>
+<div class="dl"><span class="dl-spk b">Vermieter</span><div><div class="dl-txt">Ich rufe sofort den Handwerker an. Gehen wir davon aus, dass er <strong>morgen Vormittag</strong> kommen kann – w&#228;re das m&#246;glich?</div></div></div>
+<div class="dl"><span class="dl-spk ">Mieter</span><div><div class="dl-txt">Morgen früh bis 12 Uhr bin ich da. Aber ich m&#246;chte das gerne <strong>schriftlich best&#228;tigt</strong> haben – per E-Mail bitte.</div><div class="dl-ann">Mieter hat Recht auf schriftliche Bestätigung!</div></div></div>
+<div class="dl"><span class="dl-spk b">Vermieter</span><div><div class="dl-txt">Selbstverst&#228;ndlich. Ich schreibe Ihnen direkt im Anschluss. Und falls der Handwerker nicht kommt, melden Sie sich bitte.</div></div></div>
+<div class="dl"><span class="dl-spk ">Mieter</span><div><div class="dl-txt">Danke. Ich m&#246;chte nur der Vollst&#228;ndigkeit halber erw&#228;hnen: Ich <strong>dokumentiere</strong> das alles per Foto.</div><div class="dl-ann">gut so!</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#128203;</span> Wohnungsabnahme beim Auszug</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Vermieter</span><div><div class="dl-txt">So, gehen wir systematisch vor. Ich schaue jetzt alle R&#228;ume durch und mache <strong>Notizen</strong>.</div></div></div>
+<div class="dl"><span class="dl-spk b">Mieter</span><div><div class="dl-txt">Gerne. Ich habe beim <strong>Einzug</strong> schon ein Übergabeprotokoll gemacht – hier ist mein Exemplar.</div><div class="dl-ann">Einzugsprotokoll schützt den Mieter!</div></div></div>
+<div class="dl"><span class="dl-spk ">Vermieter</span><div><div class="dl-txt">Gut. Die K&#252;che sieht sehr sauber aus... aber da ist ein <strong>kleines Loch in der Wand</strong>. Das war beim Einzug nicht da.</div></div></div>
+<div class="dl"><span class="dl-spk b">Mieter</span><div><div class="dl-txt">Das stimmt – das habe ich verursacht. Ich habe bereits einen Handwerker angefragt, das kostet ca. <strong>80 Euro</strong>. Ich &#252;bernehme das.</div><div class="dl-ann">selbst ansprechen = professionell!</div></div></div>
+<div class="dl"><span class="dl-spk ">Vermieter</span><div><div class="dl-txt">Das ist fair. Den Rest der Wohnung finde ich in <strong>ordnungsgemäßem Zustand</strong>. Ich gebe Ihnen die Kaution <strong>innerhalb von zwei Wochen</strong> zurück.</div></div></div>
+<div class="dl"><span class="dl-spk b">Mieter</span><div><div class="dl-txt">Perfekt. K&#246;nnen wir das im <strong>Protokoll festhalten</strong>?</div><div class="dl-ann">immer unterschreiben lassen!</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#128232;</span> Nebenkostenabrechnung verstehen</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Leo</span><div><div class="dl-txt">Ich habe meine <strong>Nebenkostenabrechnung</strong> bekommen – 320 Euro Nachzahlung! Das ist doch nicht möglich!</div></div></div>
+<div class="dl"><span class="dl-spk b">Mia</span><div><div class="dl-txt">Zeig mal. Lass uns das durchgehen: Heizkosten 180€, Wasser 65€, Hausmeister 75€...</div></div></div>
+<div class="dl"><span class="dl-spk ">Leo</span><div><div class="dl-txt">Aber ich war doch fast drei Monate im Urlaub! Wie kann das so viel sein?</div></div></div>
+<div class="dl"><span class="dl-spk b">Mia</span><div><div class="dl-txt">Heizkosten werden teils nach <strong>Wohnfl&#228;che</strong> berechnet, nicht nur nach tatsächlichem Verbrauch.</div><div class="dl-ann">70% Verbrauch, 30% Fläche ist üblich</div></div></div>
+<div class="dl"><span class="dl-spk ">Leo</span><div><div class="dl-txt">Kann ich da <strong>widersprechen</strong>?</div></div></div>
+<div class="dl"><span class="dl-spk b">Mia</span><div><div class="dl-txt">Ja – du hast <strong>12 Monate</strong> Zeit zum Prüfen. Bitte alle <strong>Belege</strong> an. Das ist dein Recht.</div><div class="dl-ann">Mieter dürfen Belege einsehen!</div></div></div>
+</div></div>
+
+</div></div></div>
+
+<div id="phase-p4" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 &middot; Redemittel &middot; 8 Min.</div>
+<div class="card-title">So sagt man das <em>wirklich!</em></div>
+<div class="card-sub">Echte S&#228;tze &ndash; kein Lehrbuchangeldeutsch!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="slabel">&#128273; Grundvokabular Wohnen</div>
+<ul class="phrase-list">
+<li><strong>Die <strong>Warmmiete</strong> = Kaltmiete + Nebenkosten.</strong> <span style="color:#888;font-size:.82rem;">= Warm rent = base rent + utilities.</span></li>
+<li><strong>Die <strong>Kaution</strong> bekomme ich beim Auszug zur&#252;ck – wenn alles in Ordnung ist.</strong> <span style="color:#888;font-size:.82rem;">= The deposit is returned when I move out – if everything is in order.</span></li>
+<li><strong>Ich m&#246;chte einen <strong>Mangel melden</strong> – bitte schriftlich best&#228;tigen.</strong> <span style="color:#888;font-size:.82rem;">= I'd like to report a defect – please confirm in writing.</span> <em>– immer schriftlich!</em></li>
+</ul>
+<div class="slabel">&#9888; Wichtige Rechte als Mieter</div>
+<ul class="phrase-list">
+<li><strong>Ich habe das Recht auf <strong>Belegeinsicht</strong> bei der Nebenkostenabrechnung.</strong> <span style="color:#888;font-size:.82rem;">= I have the right to inspect receipts for the utility bill.</span> <em>– 12 Monate Zeit!</em></li>
+<li><strong>Mein Vermieter muss <strong>Sch&#228;den reparieren</strong> – das ist seine Pflicht.</strong> <span style="color:#888;font-size:.82rem;">= My landlord must repair defects – that is his legal duty.</span></li>
+<li><strong>Die Kaution muss <strong>getrennt angelegt</strong> werden – nicht auf dem Privatkonto.</strong> <span style="color:#888;font-size:.82rem;">= The deposit must be kept in a separate account.</span> <em>– Treuhänderkonto</em></li>
+<li><strong>Bei <strong>fristloser K&#252;ndigung</strong> durch den Vermieter: sofort Rechtsberatung holen.</strong> <span style="color:#888;font-size:.82rem;">= If served notice without notice period: seek legal advice immediately.</span> <em>– Mieterverein!</em></li>
+</ul>
+
+</div></div></div>
+
+<div id="phase-p5" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 &middot; Rollenspiele &middot; 12 Min.</div>
+<div class="card-title">Euer Auftritt &ndash; <em>los geht&apos;s!</em></div>
+<div class="card-sub">Klickt auf die Karte f&#252;r Rollen &amp; Tipps</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div id="rsp1"></div>
+</div></div></div>
+
+<div id="phase-p6" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 &middot; &#220;bungen &middot; 8 Min.</div>
+<div class="card-title">Jetzt testen wir!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="slabel">Multiple Choice</div><div id="mc1"></div>
+<hr class="div">
+<div class="slabel">Richtig oder Falsch?</div><div id="rf1"></div>
+</div></div></div>
+
+<div id="phase-p7" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Wortschatzboost ab B1 &middot; Freies Sprechen &middot; 10 Min.</div>
+<div class="card-title">Eure Meinung &ndash; <em>jetzt seid ihr dran!</em></div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 10 Minuten</div>
+<div class="these"><div class="these-num">1</div><div class="these-text">Mietrecht in Deutschland &ndash; gut ger&#252;stet oder &#252;berkompliziert?<div class="these-starter">&#8222;Ich finde das System...&#8220; / &#8222;Was ich nicht wusste...&#8220; / &#8222;In meiner Heimat ist es...'</div></div></div>
+<div class="these"><div class="these-num">2</div><div class="these-text">Mieten oder kaufen &ndash; was ist die bessere Strategie?<div class="these-starter">&#8222;Bei den aktuellen Zinsen...&#8220; / &#8222;Ich würde lieber...&#8220; / &#8222;Das kommt drauf an ob...'</div></div></div>
+
+<div class="slabel">Sprechkarten</div>
+<div class="speak-grid" id="speakCards"></div>
+</div></div></div>
+</main>
+<script>
+const TOTAL=3600;let rem=TOTAL,intv=null,run=false;
+function upd(){const m=Math.floor(rem/60),s=rem%60;const d=document.getElementById('td');d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('tf').style.width=(rem/TOTAL*100)+'%';d.className='timer-display';if(rem<=600)d.classList.add('warn');if(rem<=120)d.classList.add('urgent');}
+function toggleTimer(){if(run){clearInterval(intv);run=false;document.querySelector('.tbtn.start').textContent='▶ Start';}else{run=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';intv=setInterval(()=>{if(rem>0){rem--;upd();}else{clearInterval(intv);run=false;}},1000);}}
+function resetTimer(){clearInterval(intv);run=false;rem=TOTAL;upd();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));document.getElementById('phase-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function buildVokCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(v=>{const d=document.createElement('div');d.className='vok-card';d.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${(v.back||'').replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint||'&#128070; klicken!'}</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildSpeakCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(i=>{const d=document.createElement('div');d.className='speak-card';d.innerHTML=`<div class="speak-front">${i.front}</div><div class="speak-back">${i.back}</div><div class="speak-hint">&#128070; Tipp &amp; Formulierungshilfe</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildRSP(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(item=>{const d=document.createElement('div');d.className='rsp-card';d.innerHTML=`<div class="rsp-top"><span class="rsp-emoji">${item.emoji}</span><span class="rsp-title">${item.title}</span></div><div class="rsp-body"><div class="rsp-situation">${item.situation}</div><div class="rsp-back"><div class="rsp-rolle"><strong>&#128308; Person A:</strong> ${item.a}</div><div class="rsp-rolle"><strong>&#128309; Person B:</strong> ${item.b}</div>${item.tipps?`<div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">&#128161; Tipps:</strong> ${item.tipps}</div>`:''}</div><div class="rsp-hint">&#128070; klicken f&#252;r Rollen &amp; Tipps</div></div>`;d.addEventListener('click',()=>d.classList.toggle('open'));g.appendChild(d);});}
+function buildMC(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='mc';const opts=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${id}${i}')">${o}</button>`).join('');div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${opts}</div><div class="mc-fb" id="mcfb${id}${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerMC(btn,j,correct,fbId){btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');if(j!==correct)btn.classList.add('nope');const fb=document.getElementById(fbId);if(fb){fb.classList.add('show');fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);}}
+function buildRF(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='rf';div.id=`rf_${id}_${i}`;div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('${id}',${i},true,this)">&#10003; Richtig</button><button class="rfbtn" onclick="answerRF('${id}',${i},false,this)">&#10007; Falsch</button></div><div class="rf-fb" id="rffb_${id}_${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerRF(id,i,answer,btn){const rfData=window['rfData_'+id];const card=document.getElementById(`rf_${id}_${i}`);card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));btn.classList.add(answer?'sel-r':'sel-f');const correct=rfData&&answer===rfData[i].ok;card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);const fb=document.getElementById(`rffb_${id}_${i}`);if(fb){fb.classList.add('show');fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);}}
+buildVokCards([{"front": "die Kaltmiete", "back": "= base rent (without utilities)\nKaltmiete + Nebenkosten = Warmmiete\n'Die Kaltmiete ist 850\u20ac \u2013 Nebenkosten kommen noch dazu.'", "hint": "immer nachfragen!"}, {"front": "die Nebenkosten", "back": "= utility costs / operating costs\nEnth\u00e4lt: Heizung, Wasser, M\u00fcll, Hausmeister...\n\u26a0 Strom & Internet meist SEPARAT", "hint": "ca. 2\u20ac pro m\u00b2"}, {"front": "die Kaution", "back": "= security deposit\nMax. 3 Kaltmieten gesetzlich!\nWird bei Auszug zur\u00fcckgegeben (wenn keine Sch\u00e4den)\n'Ich zahle 2.400\u20ac Kaution.'", "hint": "max. 3 Monatsmieten!"}, {"front": "die Nebenkostenabrechnung", "back": "= annual utility statement\nKommt einmal pro Jahr\nKann Nachzahlung oder Gutschrift bedeuten!\n'Ich muss 150\u20ac nachzahlen.'", "hint": "j\u00e4hrlich abrechnen"}, {"front": "fristgerecht k&#252;ndigen", "back": "= give notice on time\nGesetzliche Frist: 3 Monate!\nSchriftlich per Einschreiben\n'Ich k\u00fcndige fristgerecht zum 30. September.'", "hint": "schriftlich + Einschreiben!"}, {"front": "die Hausordnung", "back": "= house rules\nRegelungen zu: L\u00e4rm, Kehrwoche, G\u00e4ste, M\u00fcll...\nVerbindlich f\u00fcr alle Mieter!\n'Laut Hausordnung ist Musik nach 22 Uhr verboten.'", "hint": "verbindlich!"}, {"front": "die Wohnungsabnahme", "back": "= flat inspection (when moving out)\nVermieter und Mieter gehen gemeinsam durch\nProtokoll = sehr wichtig f\u00fcr Kaution!\n'Die Wohnungsabnahme ist am 31. M\u00e4rz.'", "hint": "Protokoll = wichtig!"}, {"front": "die Mietkaution anlegen", "back": "= to invest the deposit separately\nVermieter muss Kaution getrennt anlegen\n'Meine Kaution liegt auf einem Treuhandkonto.'", "hint": "Zinsen geh\u00f6ren dem Mieter!"}],'vok1');
+buildVokCards([{"front": "einen Mangel melden", "back": "= to report a defect\n'Ich melde einen Mangel: Das Fenster schlie\u00dft nicht.'\nImmer schriftlich! Fotobeweis machen.\n\u2192 Vermieter muss reparieren", "hint": "schriftlich + Foto!"}, {"front": "die Kehrwoche", "back": "= cleaning duty week\n'Diese Woche bin ich mit der Kehrwoche dran.'\nTreppenhaus, Eingang, manchmal Gehweg\nTypisch s\u00fcddeutsch!", "hint": "&#127482;&#127465; typisch s\u00fcddeutsch!"}, {"front": "der Handwerker", "back": "= tradesman / repairman\n'Der Handwerker kommt morgen um 10 Uhr.'\nVom Vermieter organisiert und bezahlt\n'Wann kann ein Handwerker kommen?'", "hint": "Vermieter zahlt"}, {"front": "das Kellerabteil", "back": "= basement storage unit\n'Mein Fahrrad steht im Kellerabteil.'\nIm Mietvertrag geregelt \u2013 hat eine Nummer", "hint": "oft im Vertrag"}],'vok2');
+buildMC([{"q": "Was ist die Warmmiete?", "opts": ["Miete im Sommer", "Kaltmiete plus Nebenkosten", "Miete mit Heizung inklusive, aber ohne Wasser"], "correct": 1, "fb": "&#10003; Richtig! Warmmiete = alles inklusive (Kaltmiete + alle Nebenkosten). Kaltmiete = nur die Grundmiete."}, {"q": "Wie lange hat man Zeit die Nebenkostenabrechnung zu pr\u00fcfen?", "opts": ["3 Monate", "12 Monate", "Nur 1 Monat"], "correct": 1, "fb": "&#10003; Richtig! Mieter haben 12 Monate Zeit die NK-Abrechnung zu pr\u00fcfen und Belegeinsicht zu verlangen!"}, {"q": "Was ist die K\u00fcndigungsfrist f\u00fcr Mieter?", "opts": ["1 Monat", "3 Monate", "6 Monate"], "correct": 1, "fb": "&#10003; Richtig! Gesetzliche K\u00fcndigungsfrist f\u00fcr Mieter: 3 Monate. Schriftlich, per Einschreiben, zum Monatsende!"}],'mc1');
+window.rfData_rf1=[{"s": "Der Vermieter darf die Kaution auf seinem Privatkonto verwahren.", "ok": false, "fb": "&#10007; Falsch! Die Kaution muss getrennt angelegt werden \u2013 auf einem Treuhandkonto. Die Zinsen geh\u00f6ren dem Mieter!"}, {"s": "'Fristgerecht k\u00fcndigen' bedeutet, die gesetzliche 3-Monats-Frist einzuhalten.", "ok": true, "fb": "&#10003; Richtig! Immer schriftlich k\u00fcndigen, per Einschreiben, mit vollst\u00e4ndiger Unterschrift. Frist = 3 Monate zum Monatsende."}, {"s": "Bei der Kehrwoche muss man die eigene Wohnung putzen.", "ok": false, "fb": "&#10007; Falsch! Kehrwoche = das Treppenhaus, den Hauseingang, manchmal den Gehweg reinigen. Die eigene Wohnung ist Privatsache!"}];
+buildRF(window.rfData_rf1,'rf1');
+buildRSP([{"emoji": "&#127968;", "title": "Schimmel in der Wohnung", "situation": "Du entdeckst Schimmel an der Badezimmerdecke. Du schreibst dem Vermieter.", "a": "Mieter: Erkl\u00e4re Problem detailliert, erw\u00e4hne Dokumentation, setze Frist f\u00fcr Reparatur.", "b": "Vermieter: Reagiere, weise ggf. auf falsches L\u00fcftverhalten hin, organisiere Handwerker.", "tipps": "Tipp: Schimmel = Gesundheitsgefahr! Vermieter hat Pflicht zur Beseitigung. Fotos und schriftliche Dokumentation sind Gold wert."}, {"emoji": "&#128203;", "title": "Hohe Nebenkostenabrechnung anfechten", "situation": "Deine NK-Abrechnung ist 400\u20ac h\u00f6her als letztes Jahr. Du willst die Belege sehen.", "a": "Mieter: Frag nach Belegeinsicht, hinterfrage Positionen, k\u00fcndige ggf. Pr\u00fcfung durch Mieterverein an.", "b": "Vermieter: Erkl\u00e4re Kostensteigerungen, zeige Bereitschaft zur Einsicht.", "tipps": "Mieterverein = sehr empfehlenswert! Ca. 80-120\u20ac/Jahr, ber\u00e4t kostenlos bei Streitigkeiten."}],'rsp1');
+buildSpeakCards([{"front": "Was war deine gr\u00f6\u00dfte \u00dcberraschung beim Wohnen in Deutschland?", "back": "'Was mich \u00fcberrascht hat: Kaution / Hausordnung / Kehrwoche / NK-Abrechnung...'"}, {"front": "Hast du schon mal einen Mangel beim Vermieter gemeldet?", "back": "'Einmal war... kaputt / Ich habe geschrieben dass... / Die Reaktion war...'"}, {"front": "Was w\u00fcrdest du einem Neuank\u00f6mmling \u00fcber Wohnen in DE raten?", "back": "'Das Wichtigste ist: ... / Was viele nicht wissen: ... / Immer...!'"}],'speakCards');
+buildSpeakCards([{"front": "Wie hast du deine Wohnung gefunden?", "back": "'Ich habe auf... gesucht / Es hat... gesucht / Die Bewerbung war...'"}],'warmup');
+upd();</script></body></html>

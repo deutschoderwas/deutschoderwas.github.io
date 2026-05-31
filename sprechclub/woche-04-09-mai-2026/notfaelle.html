@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+        <html>
+          <head>
+            <title data-id="th-modified">Web Page</title>
+            
+          <meta property="og:title" content="Web Page" data-id="th-modified" ><meta name="description" content="code" data-id="th-modified" ><meta property="og:description" content="code" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="/sprechclub/woche-04-09-mai-2026/notfaelle.html" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="notfaelle.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+          <body>
+            <!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notfälle – deutschoderwas · Sprechclub</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--teal:#2ec4b6;--navy:#1a2340;--gold:#f4c542;--red:#e05555;--orange:#f07830;--green:#3aaa6a;--bg:#f5f7fa;--white:#fff;--light:#e8f7f6;--radius:12px;--shadow:0 2px 12px rgba(30,40,80,.10)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh}
+
+  /* HEADER */
+  header{background:var(--navy);padding:16px 20px 12px;text-align:center}
+  header .brand{font-size:.75rem;font-weight:700;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
+  header h1{font-size:1.4rem;font-weight:800;color:#fff}
+  header .sub{font-size:.8rem;color:var(--teal);margin-top:4px;font-weight:600}
+
+  /* NOTRUF BANNER */
+  .notruf-banner{display:flex;justify-content:center;gap:10px;padding:12px 16px;background:#1a0a0a;flex-wrap:wrap}
+  .notruf-pill{display:flex;align-items:center;gap:8px;background:#2a0a0a;border:2px solid var(--red);border-radius:30px;padding:8px 16px;cursor:pointer;transition:background .2s}
+  .notruf-pill:hover{background:#3a1010}
+  .notruf-pill .num{font-size:1.2rem;font-weight:800;color:var(--red)}
+  .notruf-pill .label{font-size:.75rem;font-weight:700;color:#ffaaaa;line-height:1.2}
+
+  /* TABS */
+  .tabs{display:flex;overflow-x:auto;background:var(--navy);border-bottom:3px solid var(--teal);gap:2px;padding:0 8px}
+  .tab-btn{flex-shrink:0;background:none;border:none;color:#a0b0c8;font-family:'Nunito',sans-serif;font-size:.76rem;font-weight:700;padding:11px 12px 9px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-3px;white-space:nowrap;transition:color .2s,border-color .2s}
+  .tab-btn.active{color:var(--gold);border-bottom:3px solid var(--gold)}
+  .tab-panel{display:none;padding:18px 14px 50px}
+  .tab-panel.active{display:block}
+
+  /* CARDS */
+  .card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
+  .card h2{font-size:.98rem;font-weight:800;color:var(--navy);margin-bottom:10px;border-left:4px solid var(--teal);padding-left:10px}
+  p,li{font-size:.88rem;line-height:1.6}
+  ul{padding-left:18px} li{margin-bottom:4px}
+
+  /* LEVEL-VERGLEICH */
+  .level-table{width:100%;border-collapse:collapse;margin-bottom:4px}
+  .level-table th{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:8px 10px;text-align:left}
+  .level-table td{font-size:.84rem;padding:9px 10px;vertical-align:top;border-top:1px solid #e8ecf2;line-height:1.5}
+  .th-b1{background:#e8f7f6;color:#1a8f88}
+  .th-b2{background:#fff3c4;color:#8a6000}
+  .th-c1{background:#f0e8ff;color:#5a2090}
+  .td-b1{background:#f5fcfb}
+  .td-b2{background:#fffdf0}
+  .td-c1{background:#faf5ff}
+  .sit-tag{display:inline-block;font-size:.65rem;font-weight:800;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+  .tag-red{background:#ffe0e0;color:#c00}
+  .tag-orange{background:#ffe8d0;color:#a04000}
+  .tag-blue{background:#e0eaff;color:#1a3080}
+  .tag-green{background:#e0f7ee;color:#1a6040}
+  .tag-purple{background:#f0e8ff;color:#5a2090}
+
+  /* REDEMITTEL */
+  .rm-block{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+  .rm-head{padding:12px 16px;border-bottom:1px solid #e8ecf2}
+  .rm-head .rm-title{font-size:.95rem;font-weight:800;color:var(--navy)}
+  .rm-head p{font-size:.78rem;color:#7a8da0;margin-top:2px}
+  .rm-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border-top:1px solid #e8ecf2}
+  .rm-cell{padding:9px 10px;font-size:.82rem;line-height:1.5;font-weight:600}
+  .rm-cell-head{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;padding:7px 10px;border-top:none}
+  .b1c{background:#f5fcfb;border-right:1px solid #e8ecf2;color:#1a5a56}
+  .b2c{background:#fffdf0;border-right:1px solid #e8ecf2;color:#7a5000}
+  .c1c{background:#faf5ff;color:#5a2090}
+  .b1h{background:#e0f7f3;color:#1a8f88;border-right:1px solid #e8ecf2}
+  .b2h{background:#fff5d0;color:#8a6000;border-right:1px solid #e8ecf2}
+  .c1h{background:#ede0ff;color:#5a2090}
+  .highlight{background:#fff3c4;border-radius:3px;padding:1px 4px;color:#7a4a00;font-weight:800}
+
+  /* DIALOGE */
+  .dialog-wrap{background:#1a2340;border-radius:var(--radius);overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow)}
+  .dialog-header{padding:12px 16px;border-bottom:1px solid #2a3a5a}
+  .dialog-header .scene-label{font-size:.68rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px}
+  .dialog-header .scene-title{font-size:.95rem;font-weight:800;color:#fff}
+  .dialog-header p{font-size:.78rem;color:#8ab8b5;margin-top:3px}
+  .dialog-body{padding:12px 10px}
+  .bubble{display:flex;gap:9px;margin-bottom:9px;align-items:flex-start}
+  .bubble.right{flex-direction:row-reverse}
+  .avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;margin-top:2px}
+  .av-a{background:#2a3a5a}
+  .av-b{background:#1a4a46}
+  .av-c{background:#3a2a0a}
+  .bubble-text{border-radius:10px 10px 10px 2px;padding:9px 12px;max-width:83%}
+  .bubble.right .bubble-text{border-radius:10px 10px 2px 10px}
+  .ba{background:#2a3a5a}
+  .bb{background:#1a4a46}
+  .bc{background:#3a2a0a}
+  .bubble-text .speaker{font-size:.62rem;font-weight:800;color:var(--gold);margin-bottom:3px;text-transform:uppercase;letter-spacing:.07em}
+  .bubble-text p{font-size:.84rem;color:#fff;line-height:1.5;font-weight:600}
+  .bubble-text .rm{background:#f4c54235;border-radius:3px;padding:1px 4px;color:#f4d042}
+  .bubble-text .transl{font-size:.72rem;color:#8ab8b5;margin-top:4px;font-style:italic;line-height:1.4}
+  .dialog-note{background:#2a3a5a;border-top:1px solid #3a4a6a;padding:10px 14px;font-size:.76rem;color:#8ab8b5;line-height:1.6}
+  .dialog-note strong{color:var(--gold)}
+
+  /* FLASHCARD */
+  details.flashcard{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:9px}
+  details.flashcard summary{padding:13px 16px;font-weight:700;font-size:.88rem;color:var(--navy);cursor:pointer;list-style:none;background:var(--light);display:flex;justify-content:space-between;align-items:center;gap:10px}
+  details.flashcard summary::after{content:"▶ Antwort";font-size:.7rem;color:var(--teal);font-weight:700;flex-shrink:0}
+  details.flashcard[open] summary::after{content:"▲ schließen"}
+  .fc-answer{padding:13px 16px;font-size:.86rem;color:#1a5a56;background:#e0f7f5;border-top:2px solid var(--teal);font-weight:600;line-height:1.65}
+
+  /* ÜBUNGEN */
+  .uebung-item{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin-bottom:11px}
+  .uebung-item p{font-weight:700;color:var(--navy);margin-bottom:8px;font-size:.88rem;line-height:1.5}
+  .uebung-item select{width:100%;padding:9px 12px;border:2px solid #c8d8e8;border-radius:8px;font-family:'Nunito',sans-serif;font-size:.86rem;color:var(--navy);background:var(--bg);margin-bottom:8px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%232ec4b6' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+  details.loesung summary{display:inline-flex;align-items:center;gap:6px;font-size:.76rem;font-weight:700;color:var(--teal);cursor:pointer;list-style:none;padding:4px 0}
+  details.loesung summary::before{content:"▶ ";font-size:.65rem}
+  details.loesung[open] summary::before{content:"▼ "}
+  .loesung-text{margin-top:6px;padding:9px 12px;background:#e0f7f5;border-radius:8px;font-size:.84rem;color:#1a5a56;font-weight:600;line-height:1.6}
+
+  /* FEHLER */
+  .fehler-item{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin-bottom:11px}
+  .fehler-falsch{background:#fff0f0;border-left:4px solid var(--red);padding:8px 12px;border-radius:6px;font-size:.86rem;color:#8b0000;margin-bottom:7px}
+  .fehler-richtig{background:#e8f9e8;border-left:4px solid var(--green);padding:8px 12px;border-radius:6px;font-size:.86rem;color:#1b5e20;font-weight:700}
+  .fehler-erkl{background:#f5f7fa;border-radius:6px;padding:8px 12px;font-size:.8rem;color:#4a5a70;margin-top:6px;line-height:1.55}
+  .fl{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
+  .fl-f{color:var(--red)}.fl-r{color:var(--green)}
+
+  /* SPRECHEN */
+  .prompt-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:15px;margin-bottom:11px;border-left:4px solid var(--gold)}
+  .prompt-card .prompt-title{font-weight:800;color:var(--navy);font-size:.92rem;margin-bottom:5px}
+  .prompt-card .hint{font-size:.82rem;color:#5a6a80;font-weight:600;line-height:1.55}
+  .rollen{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+  .rolle{font-size:.73rem;font-weight:700;padding:4px 10px;border-radius:20px}
+  .rolle-a{background:#ffe0e0;color:#900}
+  .rolle-b{background:#e0eaff;color:#1a3080}
+  .rolle-c{background:#e0f7ee;color:#1a6040}
+
+  /* TIP BOX */
+  .tip-box{background:#fff8e1;border-radius:10px;padding:11px 14px;border-left:4px solid var(--gold);margin-bottom:14px;font-size:.84rem;line-height:1.6}
+  .tip-box strong{color:var(--navy)}
+  .sos-box{background:#1a0a0a;border:2px solid var(--red);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px}
+  .sos-box h3{color:var(--red);font-size:.9rem;font-weight:800;margin-bottom:8px}
+  .sos-box p,.sos-box li{color:#ffcccc;font-size:.84rem;line-height:1.6}
+  .sos-box ul{padding-left:16px}
+  .sos-box strong{color:#ffeeee}
+
+  /* LEGEND */
+  .legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;background:var(--white);border-radius:10px;padding:10px 14px;box-shadow:var(--shadow)}
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:.76rem;font-weight:700}
+  .leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+  /* SECTION HEADER */
+  .sec-head{background:var(--navy);border-radius:var(--radius);padding:12px 16px;margin-bottom:4px;margin-top:10px}
+  .sec-head .sec-emoji{font-size:1.4rem}
+  .sec-head h3{font-size:.98rem;font-weight:800;color:#fff;margin-top:2px}
+  .sec-head p{font-size:.78rem;color:#8ab8b5;margin-top:2px}
+  .sec-body{background:var(--white);border-radius:0 0 var(--radius) var(--radius);box-shadow:var(--shadow);padding:14px;margin-bottom:18px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">deutschoderwas · Sprechclub</div>
+  <h1>🚨 Notfälle – Was sage ich?</h1>
+  <div class="sub">Redemittel, Dialoge & Rollenspiele für echte Notfallsituationen</div>
+</header>
+
+<!-- NOTRUFNUMMERN -->
+<div class="notruf-banner">
+  <div class="notruf-pill"><span class="num">112</span><span class="label">Feuerwehr &<br>Rettungsdienst</span></div>
+  <div class="notruf-pill"><span class="num">110</span><span class="label">Polizei</span></div>
+  <div class="notruf-pill"><span class="num">116 117</span><span class="label">Ärztlicher<br>Bereitschaftsdienst</span></div>
+  <div class="notruf-pill"><span class="num">0800 111 0 111</span><span class="label">Telefonseelsorge<br>(kostenlos, 24h)</span></div>
+</div>
+
+<nav class="tabs">
+  <button class="tab-btn active" onclick="showTab('basics',this)">📞 Wie rufe ich an?</button>
+  <button class="tab-btn" onclick="showTab('redemittel',this)">💬 Redemittel</button>
+  <button class="tab-btn" onclick="showTab('dialoge',this)">🎬 Dialoge</button>
+  <button class="tab-btn" onclick="showTab('uebungen',this)">✏️ Übungen</button>
+  <button class="tab-btn" onclick="showTab('fehler',this)">🔍 Fehler</button>
+  <button class="tab-btn" onclick="showTab('sprechen',this)">🎭 Rollenspiele</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 1: BASICS – WIE RUFE ICH AN? -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel active" id="tab-basics">
+
+  <div class="sos-box">
+    <h3>🚨 Das Wichtigste zuerst: Die 5 W-Fragen beim Notruf</h3>
+    <p>Die Leitstelle braucht diese Infos – immer in dieser Reihenfolge:</p>
+    <ul style="margin-top:8px">
+      <li><strong>Wo</strong> ist es passiert? (genaue Adresse, Orientierungspunkte)</li>
+      <li><strong>Was</strong> ist passiert? (Unfall, Feuer, medizinischer Notfall ...)</li>
+      <li><strong>Wie viele</strong> Personen sind betroffen / verletzt?</li>
+      <li><strong>Welche</strong> Verletzungen / Symptome?</li>
+      <li><strong>Warten</strong> – nicht auflegen! Die Leitstelle stellt Fragen.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Der typische Ablauf eines Notrufs</h2>
+    <p>Wenn du die 112 oder 110 anrufst, passiert folgendes:</p>
+    <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div style="background:var(--red);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0;margin-top:1px">1</div>
+        <div><strong>Leitstelle meldet sich:</strong> „Feuerwehr und Rettungsdienst, was ist passiert?" oder „Notruf, was kann ich für Sie tun?"</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div style="background:var(--red);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0;margin-top:1px">2</div>
+        <div><strong>Du gibst die 5 W-Informationen.</strong> Ruhig, klar und deutlich sprechen.</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div style="background:var(--red);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0;margin-top:1px">3</div>
+        <div><strong>Die Leitstelle stellt Rückfragen.</strong> Du musst warten und antworten – nicht auflegen!</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div style="background:var(--red);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0;margin-top:1px">4</div>
+        <div><strong>Hilfe ist unterwegs.</strong> Die Leitstelle kann dir auch Anweisungen geben (z.B. für Erste Hilfe).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Situationen Übersicht -->
+  <div class="card">
+    <h2>Wann rufe ich welche Nummer an?</h2>
+    <table class="level-table" style="margin-top:4px">
+      <tr>
+        <th style="background:#e0eaff;color:#1a3080">Situation</th>
+        <th style="background:#ffe0e0;color:#900">Nummer</th>
+        <th style="background:#e8f7f6;color:#1a8f88">Wer antwortet?</th>
+      </tr>
+      <tr>
+        <td>Herzinfarkt, Bewusstlosigkeit, schwerer Unfall</td>
+        <td style="font-weight:800;color:var(--red)">112</td>
+        <td>Rettungsdienst</td>
+      </tr>
+      <tr>
+        <td>Feuer, Rauch, eingeklemmte Person</td>
+        <td style="font-weight:800;color:var(--red)">112</td>
+        <td>Feuerwehr</td>
+      </tr>
+      <tr>
+        <td>Einbruch, Bedrohung, Gewalt, Unfall mit Fahrerflucht</td>
+        <td style="font-weight:800;color:var(--red)">110</td>
+        <td>Polizei</td>
+      </tr>
+      <tr>
+        <td>Starke Bauchschmerzen, hohes Fieber (nachts / Wochenende)</td>
+        <td style="font-weight:800;color:var(--orange)">116 117</td>
+        <td>Kassenärztl. Dienst</td>
+      </tr>
+      <tr>
+        <td>Psychische Krise, suizidale Gedanken</td>
+        <td style="font-weight:800;color:var(--orange)">0800 111 0 111</td>
+        <td>Telefonseelsorge</td>
+      </tr>
+      <tr>
+        <td>Vergiftung (Kind hat etwas geschluckt)</td>
+        <td style="font-weight:800;color:var(--orange)">0228 19240</td>
+        <td>Giftnotruf Bonn</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>💡 Wichtige Tipps für den Anruf</h2>
+    <ul>
+      <li>Ruhig sprechen – auch wenn du nervös bist. Das kommt mit Übung!</li>
+      <li>Wenn du Deutsch nicht gut sprichst: <strong>„Ich spreche wenig Deutsch. Haben Sie jemanden, der [Englisch / Arabisch / ...] spricht?"</strong></li>
+      <li>Die 112 ist europaweit kostenlos – auch ohne Guthaben auf dem Handy.</li>
+      <li>Gib immer die genaue <strong>Adresse mit Hausnummer</strong> und <strong>Stockwerk</strong> an.</li>
+      <li>Wenn du die Adresse nicht kennst: Orientierungspunkte nennen (Bahnhof, Supermarkt, Straße).</li>
+      <li><strong>Nicht auflegen</strong> – die Leitstelle beendet das Gespräch.</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 2: REDEMITTEL (B1 / B2 / C1 Vergleich) -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-redemittel">
+
+  <div class="legend">
+    <div class="legend-item"><div class="leg-dot" style="background:#2ec4b6"></div><span style="color:#1a8f88">B1 – einfach, direkt</span></div>
+    <div class="legend-item"><div class="leg-dot" style="background:#f4c542"></div><span style="color:#8a6000">B2 – klarer, vollständiger</span></div>
+    <div class="legend-item"><div class="leg-dot" style="background:#a070e0"></div><span style="color:#5a2090">C1 – präzise, formell</span></div>
+  </div>
+
+  <!-- BLOCK 1: Eröffnung -->
+  <div class="rm-block">
+    <div class="rm-head">
+      <div class="rm-title">📞 Den Notruf eröffnen – Was ist passiert?</div>
+      <p>Das erste, was du sagst – klar und ruhig.</p>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell-head b1h">B1 – einfach</div>
+      <div class="rm-cell-head b2h">B2 – vollständiger</div>
+      <div class="rm-cell-head c1h">C1 – präzise</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„Ich brauche Hilfe!"</div>
+      <div class="rm-cell b2c">„Ich melde einen Notfall."</div>
+      <div class="rm-cell c1c">„Ich möchte einen Notfall melden – bitte schicken Sie sofort Hilfe."</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„Es gibt einen Unfall."</div>
+      <div class="rm-cell b2c">„Es hat einen Unfall gegeben."</div>
+      <div class="rm-cell c1c">„Es hat sich ein schwerer Verkehrsunfall ereignet."</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„Jemand ist verletzt."</div>
+      <div class="rm-cell b2c">„Es gibt eine verletzte Person."</div>
+      <div class="rm-cell c1c">„Es liegen mehrere Verletzte vor – einer ist bewusstlos."</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„Es brennt!"</div>
+      <div class="rm-cell b2c">„Es gibt einen Brand in einem Gebäude."</div>
+      <div class="rm-cell c1c">„Es ist ein Feuer ausgebrochen – Personen könnten eingeschlossen sein."</div>
+    </div>
+  </div>
+
+  <!-- BLOCK 2: Ort -->
+  <div class="rm-block">
+    <div class="rm-head">
+      <div class="rm-title">📍 Den Ort beschreiben</div>
+      <p>Möglichst genau – je mehr Details, desto schneller kommt die Hilfe.</p>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell-head b1h">B1</div><div class="rm-cell-head b2h">B2</div><div class="rm-cell-head c1h">C1</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„Ich bin in der [Straße]."</div>
+      <div class="rm-cell b2c">„Der Unfall ist in der [Straße], Hausnummer [X]."</div>
+      <div class="rm-cell c1c">„Der Vorfall ereignete sich in der [Straße] [Nr.], im [X.] Stockwerk, in [Stadt]."</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„Ich kenne die Adresse nicht genau."</div>
+      <div class="rm-cell b2c">„Ich weiß die genaue Adresse nicht – es ist neben [Supermarkt / Bahnhof]."</div>
+      <div class="rm-cell c1c">„Die genaue Adresse ist mir nicht bekannt. Als Orientierungspunkt: direkt gegenüber dem [Gebäude]."</div>
+    </div>
+  </div>
+
+  <!-- BLOCK 3: Verletzungen / Zustand -->
+  <div class="rm-block">
+    <div class="rm-head">
+      <div class="rm-title">🩺 Verletzungen & Zustand beschreiben</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell-head b1h">B1</div><div class="rm-cell-head b2h">B2</div><div class="rm-cell-head c1h">C1</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„Er schläft nicht mehr." / „Er reagiert nicht."</div>
+      <div class="rm-cell b2c">„Die Person ist bewusstlos."</div>
+      <div class="rm-cell c1c">„Die Person ist bewusstlos und reagiert nicht auf Ansprache."</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„Er atmet nicht."</div>
+      <div class="rm-cell b2c">„Ich glaube, er atmet nicht mehr."</div>
+      <div class="rm-cell c1c">„Die Atmung ist nicht feststellbar – ich habe begonnen, Wiederbelebungsmaßnahmen durchzuführen."</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„Er blutet viel."</div>
+      <div class="rm-cell b2c">„Es gibt eine starke Blutung."</div>
+      <div class="rm-cell c1c">„Es liegt eine starke Blutung am [Kopf / Arm] vor – ich versuche, sie zu stoppen."</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„Er hat starke Schmerzen in der Brust."</div>
+      <div class="rm-cell b2c">„Er klagt über starke Brustschmerzen und schwitzt stark."</div>
+      <div class="rm-cell c1c">„Der Patient zeigt Symptome, die auf einen Herzinfarkt hindeuten: Brustschmerzen, Ausstrahlung in den linken Arm, Schweißausbruch."</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„Sie kann nicht aufstehen."</div>
+      <div class="rm-cell b2c">„Sie hat sich das Bein verletzt und kann nicht laufen."</div>
+      <div class="rm-cell c1c">„Die Verunfallte ist nicht transportfähig – mutmaßlich liegt eine Fraktur vor."</div>
+    </div>
+  </div>
+
+  <!-- BLOCK 4: Auf Rückfragen reagieren -->
+  <div class="rm-block">
+    <div class="rm-head">
+      <div class="rm-title">❓ Auf Rückfragen der Leitstelle antworten</div>
+      <p>Die Leitstelle fragt – du antwortest ruhig und klar.</p>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell-head b1h">Frage der Leitstelle</div>
+      <div class="rm-cell-head b2h">B2-Antwort</div>
+      <div class="rm-cell-head c1h">C1-Antwort</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„Wie viele Personen sind verletzt?"</div>
+      <div class="rm-cell b2c">„Soweit ich sehen kann, zwei Personen."</div>
+      <div class="rm-cell c1c">„Nach meiner Einschätzung sind mindestens zwei Personen verletzt – eine davon schwer."</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„Ist die Person ansprechbar?"</div>
+      <div class="rm-cell b2c">„Nein, sie reagiert nicht, wenn ich sie anspreche."</div>
+      <div class="rm-cell c1c">„Nein, sie reagiert weder auf Ansprache noch auf Schmerzreize."</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„Können Sie Erste Hilfe leisten?"</div>
+      <div class="rm-cell b2c">„Ich versuche es – sagen Sie mir bitte, was ich tun soll."</div>
+      <div class="rm-cell c1c">„Ich führe gerade Herzdruckmassage durch – bitte geben Sie mir weitere Anweisungen."</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„Wie ist Ihr Name?"</div>
+      <div class="rm-cell b2c">„Mein Name ist [Name]. Ich bin gerade an der Unfallstelle."</div>
+      <div class="rm-cell c1c">„[Name]. Ich bin Zeuge des Unfalls und stehe direkt neben der verletzten Person."</div>
+    </div>
+  </div>
+
+  <!-- BLOCK 5: Wenn man kein Deutsch kann -->
+  <div class="rm-block">
+    <div class="rm-head">
+      <div class="rm-title">🌍 Wenn dein Deutsch nicht reicht – Was sagst du?</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell-head b1h">B1 – auf Englisch ausweichen</div>
+      <div class="rm-cell-head b2h">B2 – um Hilfe bitten</div>
+      <div class="rm-cell-head c1h">C1 – Sprachproblem erklären</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„I need help! Emergency!"</div>
+      <div class="rm-cell b2c">„Ich spreche wenig Deutsch. Sprechen Sie Englisch?"</div>
+      <div class="rm-cell c1c">„Mein Deutsch ist leider nicht ausreichend für diese Situation. Gibt es einen Dolmetscher?"</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-cell b1c">„Unfall. [Straßenname]. Hilfe!"</div>
+      <div class="rm-cell b2c">„Es gibt einen Notfall in der [Straße]. Bitte schicken Sie Hilfe."</div>
+      <div class="rm-cell c1c">„Ich möchte einen Notfall melden. Die Adresse ist: [Straße, Nr., Stadt]. Können Sie bitte jemanden schicken?"</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 3: DIALOGE -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-dialoge">
+  <div class="tip-box"><strong>💡 Legende:</strong> <span style="background:#f4c54235;border-radius:3px;padding:1px 5px;color:#c8a000;font-weight:800;font-size:.83rem">goldgelb</span> = Redemittel zum Merken. <strong>L</strong> = Leitstelle / Notarzt · <strong>A</strong> = Anrufer:in · <strong>P</strong> = Passant</div>
+
+  <!-- Dialog 1: Herzinfarkt -->
+  <div class="dialog-wrap">
+    <div class="dialog-header">
+      <div class="scene-label">🫀 Situation 1 · Medizinischer Notfall</div>
+      <div class="scene-title">Herzinfarkt – Mann auf der Straße bricht zusammen</div>
+      <p>Du gehst spazieren. Ein älterer Mann hält sich die Brust und fällt um. Du rufst 112 an.</p>
+    </div>
+    <div class="dialog-body">
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">Leitstelle (L)</div><p>Notruf 112, was ist passiert?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">Anruferin (A)</div><p><span class="rm">Ich brauche sofort Hilfe!</span> Ein Mann ist auf der Straße zusammengebrochen. Er ist bewusstlos.</p><div class="transl">I need help immediately! A man has collapsed on the street. He is unconscious.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Wo sind Sie genau?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p><span class="rm">Ich bin in der</span> Schillerstraße, Ecke Bahnhofstraße, in Mannheim. Neben der Apotheke.</p><div class="transl">I'm at Schillerstraße, corner of Bahnhofstraße, in Mannheim. Next to the pharmacy.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Atmet die Person?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p><span class="rm">Ich bin nicht sicher</span> – er bewegt sich nicht. <span class="rm">Ich glaube, er atmet nicht mehr.</span></p><div class="transl">I'm not sure – he isn't moving. I think he's no longer breathing.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Okay. Können Sie Herzdruckmassage machen? Ich erkläre Ihnen wie.</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p>Ja, <span class="rm">sagen Sie mir bitte, was ich tun soll!</span> Ich versuche es.</p><div class="transl">Yes, please tell me what to do! I'll try.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Gut. Legen Sie die Person auf den Rücken. Setzen Sie beide Hände auf die Mitte der Brust und drücken Sie rhythmisch 5–6 cm tief. Der Rettungswagen ist in ca. 8 Minuten bei Ihnen. Bleiben Sie bitte in der Leitung.</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p><span class="rm">Ich mache das. Bitte beeilen Sie sich!</span></p><div class="transl">I'm doing that. Please hurry!</div></div></div>
+    </div>
+    <div class="dialog-note"><strong>Merke:</strong> sofort Hilfe brauchen · zusammenbrechen · bewusstlos sein · Ich glaube, er atmet nicht mehr · Sagen Sie mir, was ich tun soll · in der Leitung bleiben</div>
+  </div>
+
+  <!-- Dialog 2: Wohnungsbrand -->
+  <div class="dialog-wrap">
+    <div class="dialog-header">
+      <div class="scene-label">🔥 Situation 2 · Brand</div>
+      <div class="scene-title">Wohnungsbrand im Nachbarhaus</div>
+      <p>Du riechst Rauch und siehst Flammen aus dem Fenster deiner Nachbarin. Du rufst 112 an.</p>
+    </div>
+    <div class="dialog-body">
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Feuerwehr und Rettungsdienst, Notruf 112.</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p><span class="rm">Ich melde einen Brand!</span> Es brennt in einem Wohnhaus. <span class="rm">Bitte schicken Sie sofort die Feuerwehr!</span></p><div class="transl">I'm reporting a fire! A residential building is on fire. Please send the fire brigade immediately!</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Adresse?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p>Goethestraße 17, dritter Stock, in Heidelberg.</p></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Sind Personen im Gebäude?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p><span class="rm">Ich bin nicht sicher.</span> Meine Nachbarin wohnt dort – ich weiß nicht, ob sie zuhause ist. <span class="rm">Es ist möglich, dass sie noch drin ist.</span></p><div class="transl">I'm not sure. My neighbour lives there – I don't know if she's home. It's possible she's still inside.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Bitte versuchen Sie nicht, das Gebäude zu betreten. Warnen Sie andere Bewohner und verlassen Sie das Gebäude. Die Feuerwehr ist in 4 Minuten da.</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p>Verstanden. <span class="rm">Ich klopfe an die anderen Türen.</span> Soll ich hier warten?</p><div class="transl">Understood. I'll knock on the other doors. Should I wait here?</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Ja, warten Sie bitte draußen und winken Sie dem Rettungsfahrzeug. Wie heißen Sie?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p>[Name]. <span class="rm">Ich bin direkt vor dem Haus.</span></p></div></div>
+    </div>
+    <div class="dialog-note"><strong>Merke:</strong> einen Brand melden · Feuerwehr schicken · Personen eingeschlossen · Gebäude nicht betreten · andere warnen · vor dem Haus warten</div>
+  </div>
+
+  <!-- Dialog 3: Einbruch / Polizei -->
+  <div class="dialog-wrap">
+    <div class="dialog-header">
+      <div class="scene-label">🚔 Situation 3 · Polizeinotruf</div>
+      <div class="scene-title">Einbruch – du hörst jemanden in deiner Wohnung</div>
+      <p>Du kommst nach Hause. Die Tür ist aufgebrochen. Du rufst 110 an – leise.</p>
+    </div>
+    <div class="dialog-body">
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Polizeinotruf 110, was ist passiert?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p><span class="rm">Ich glaube, es gibt einen Einbruch</span> in meiner Wohnung. <span class="rm">Ich höre Geräusche drinnen.</span> Ich bin gerade vor der Tür.</p><div class="transl">I think there's a break-in at my flat. I can hear noises inside. I'm right outside the door.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Betreten Sie die Wohnung auf keinen Fall! Gehen Sie auf Abstand. Adresse?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p>Kantstraße 5, zweiter Stock, links. Frankfurt, Sachsenhausen.</p></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Können Sie die Person sehen?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p><span class="rm">Nein, ich kann die Person nicht sehen</span> – ich höre sie nur. Die Wohnungstür ist <span class="rm">aufgebrochen</span> – das Schloss ist kaputt.</p><div class="transl">No, I can't see the person – I can only hear them. The front door has been forced – the lock is broken.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Gut. Verlassen Sie den Flur und warten Sie unten am Eingang. Die Streife ist in ca. 5 Minuten bei Ihnen. Bleiben Sie in der Leitung.</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p>Okay, <span class="rm">ich gehe runter.</span> Bitte beeilen Sie sich.</p></div></div>
+    </div>
+    <div class="dialog-note"><strong>Merke:</strong> Einbruch vermuten · Geräusche hören · Wohnung nicht betreten · aufgebrochen sein · in der Leitung bleiben · Streife (= Polizeipatrouille)</div>
+  </div>
+
+  <!-- Dialog 4: Unfall auf der Straße -->
+  <div class="dialog-wrap">
+    <div class="dialog-header">
+      <div class="scene-label">🚗 Situation 4 · Verkehrsunfall</div>
+      <div class="scene-title">Schwerer Unfall auf der Autobahn – du bist Zeuge</div>
+      <p>Zwei Autos sind zusammengestoßen. Du hältst an und rufst 112 an.</p>
+    </div>
+    <div class="dialog-body">
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Notruf 112.</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p><span class="rm">Ich melde einen schweren Verkehrsunfall</span> auf der A5, Richtung Frankfurt, kurz nach Ausfahrt Darmstadt, Kilometer 47. Zwei Autos sind zusammengestoßen.</p><div class="transl">I'm reporting a serious traffic accident on the A5, direction Frankfurt, just after the Darmstadt exit, km 47. Two cars have collided.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Wie viele Verletzte?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p><span class="rm">Soweit ich sehen kann</span>, mindestens drei. Eine Person <span class="rm">sitzt eingeklemmt</span> im Auto und kann nicht raus. Eine andere liegt auf der Fahrbahn.</p><div class="transl">As far as I can see, at least three. One person is trapped in the car and can't get out. Another is lying on the road.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Ist die Person auf der Fahrbahn ansprechbar?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p><span class="rm">Ich gehe jetzt hin</span> – einen Moment ... Sie antwortet, aber <span class="rm">sie ist sehr verwirrt</span> und blutet am Kopf stark.</p><div class="transl">I'm going over now – one moment ... She's responding but she's very confused and bleeding heavily from the head.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Versuchen Sie, die Blutung mit einem Tuch oder Kleidungsstück zu stoppen. Decken Sie die Person ab. Betreten Sie nicht die andere Fahrbahn. Haben Sie Warndreieck und Weste?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p>Ja, ich habe beides. <span class="rm">Ich stelle das Warndreieck auf</span> und mache die Warnweste an. <span class="rm">Wann kommen Sie?</span></p></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Rettungswagen und Feuerwehr sind bereits unterwegs – ca. 6 Minuten. Bleiben Sie bitte in der Leitung.</p></div></div>
+    </div>
+    <div class="dialog-note"><strong>Merke:</strong> schweren Unfall melden · eingeklemmt sein · soweit ich sehen kann · Blutung stoppen · Warndreieck aufstellen · Warnweste anziehen · unterwegs sein</div>
+  </div>
+
+  <!-- Dialog 5: Kind hat etwas geschluckt -->
+  <div class="dialog-wrap">
+    <div class="dialog-header">
+      <div class="scene-label">🧪 Situation 5 · Vergiftung</div>
+      <div class="scene-title">Kind hat Reinigungsmittel geschluckt</div>
+      <p>Du passt auf das Kind deiner Freundin auf. Es hat etwas aus einer Flasche getrunken.</p>
+    </div>
+    <div class="dialog-body">
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">Giftnotruf (L)</div><p>Giftnotruf, was ist passiert?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p><span class="rm">Mein – also das Kind hat etwas geschluckt</span>, das es nicht hätte trinken sollen. <span class="rm">Ich mache mir große Sorgen.</span></p><div class="transl">My – I mean the child has swallowed something it shouldn't have drunk. I'm very worried.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Wie alt ist das Kind, und was genau hat es geschluckt?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p>Es ist drei Jahre alt. <span class="rm">Es hat aus dieser Flasche getrunken</span> – hier steht: Backofenreiniger. <span class="rm">Ich weiß nicht, wie viel.</span></p><div class="transl">It's three years old. It drank from this bottle – it says: oven cleaner. I don't know how much.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Bitte geben Sie dem Kind NICHTS zu trinken und versuchen Sie NICHT, das Erbrechen auszulösen. Hat das Kind Schmerzen, Schaumbildung im Mund oder Atemnot?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p><span class="rm">Es weint und</span> hat rote Lippen. <span class="rm">Es sieht so aus, als ob</span> es ihm wehtut.</p><div class="transl">It's crying and has red lips. It looks as though it's in pain.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Rufen Sie sofort 112 an – das ist ein Notfall. Nehmen Sie die Flasche mit ins Krankenhaus, damit die Ärzte wissen, was es war.</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p>Danke. <span class="rm">Ich rufe sofort 112 an</span> und nehme die Flasche mit.</p></div></div>
+    </div>
+    <div class="dialog-note"><strong>Merke:</strong> etwas schlucken / trinken · sich Sorgen machen · Erbrechen nicht auslösen · Schmerzen haben · Flasche mitnehmen · sofort 112 anrufen</div>
+  </div>
+
+  <!-- Dialog 6: Psychische Krise -->
+  <div class="dialog-wrap">
+    <div class="dialog-header">
+      <div class="scene-label">💙 Situation 6 · Psychische Krise</div>
+      <div class="scene-title">Freund zeigt Anzeichen einer Krise – du rufst die Telefonseelsorge an</div>
+      <p>Dein Freund hat dir etwas sehr Beunruhigendes geschrieben. Du weißt nicht, was du tun sollst.</p>
+    </div>
+    <div class="dialog-body">
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">Telefonseelsorge (L)</div><p>Telefonseelsorge, guten Abend. Was bewegt Sie?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p>Ich rufe wegen meines Freundes an. <span class="rm">Ich mache mir sehr große Sorgen um ihn.</span> Er hat mir Nachrichten geschickt, die mich beunruhigen.</p><div class="transl">I'm calling about my friend. I'm very worried about him. He sent me messages that are worrying me.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Das klingt sehr belastend. Was hat er geschrieben – können Sie das beschreiben?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p><span class="rm">Er hat geschrieben, dass er nicht mehr kann</span> und dass er nicht weiß, wie es weitergehen soll. <span class="rm">Ich habe Angst, dass er sich etwas antut.</span></p><div class="transl">He wrote that he can't go on and doesn't know how things can continue. I'm afraid he might do something to himself.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Das nehmen wir sehr ernst. Wissen Sie, wo er gerade ist?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p>Er <span class="rm">antwortet nicht mehr auf meine Nachrichten.</span> Ich wohne weit weg – <span class="rm">ich kann nicht einfach zu ihm fahren.</span></p><div class="transl">He's no longer responding to my messages. I live far away – I can't just go to him.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Wenn Sie ernsthaft glauben, dass er in akuter Gefahr ist, können Sie unter 110 einen Wohlfahrtscheck der Polizei beantragen – die gehen dann zu ihm. Wissen Sie seine Adresse?</p></div></div>
+      <div class="bubble"><div class="avatar av-a">👤</div><div class="bubble-text ba"><div class="speaker">A</div><p>Ja. <span class="rm">Was ist ein Wohlfahrtscheck?</span> Ich kenne das nicht.</p><div class="transl">Yes. What is a welfare check? I don't know that.</div></div></div>
+      <div class="bubble right"><div class="avatar av-b">🏥</div><div class="bubble-text bb"><div class="speaker">L</div><p>Das ist, wenn die Polizei zu jemandem geht, um zu schauen, ob es ihm gut geht – ohne dass er etwas getan haben muss. Rufen Sie 110 an und beschreiben Sie die Situation so wie mit mir.</p></div></div>
+    </div>
+    <div class="dialog-note"><strong>Merke:</strong> sich Sorgen machen um · jemand antut sich etwas · nicht mehr antworten · Wohlfahrtscheck beantragen · akute Gefahr · Polizei rufen · die Situation beschreiben</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 4: ÜBUNGEN -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-uebungen">
+
+  <div class="card"><h2>Übung 1 – Welche Nummer rufst du an?</h2></div>
+
+  <div class="uebung-item">
+    <p>Deine Nachbarin liegt bewusstlos auf dem Boden – du weißt nicht, warum.</p>
+    <select><option value="">— wählen —</option><option>110 – Polizei</option><option>112 – Rettungsdienst ✓</option><option>116 117 – Ärztlicher Dienst</option></select>
+    <details class="loesung"><summary>Lösung</summary><div class="loesung-text">✅ <strong>112</strong> – Bewusstlosigkeit ist ein medizinischer Notfall. Sofort Rettungsdienst rufen!</div></details>
+  </div>
+
+  <div class="uebung-item">
+    <p>Du hörst, wie jemand dein Fahrrad von draußen klaut. Der Täter läuft gerade weg.</p>
+    <select><option value="">— wählen —</option><option>112 – Rettungsdienst</option><option>110 – Polizei ✓</option><option>116 117 – Ärztlicher Dienst</option></select>
+    <details class="loesung"><summary>Lösung</summary><div class="loesung-text">✅ <strong>110</strong> – Diebstahl und laufende Straftat → Polizei. Beschreibe den Täter und die Richtung, in die er gegangen ist.</div></details>
+  </div>
+
+  <div class="uebung-item">
+    <p>Es ist Sonntagnacht. Dein Kind hat 40 Grad Fieber und Ohren­schmerzen, aber es ist kein Notfall.</p>
+    <select><option value="">— wählen —</option><option>112 – Rettungsdienst</option><option>110 – Polizei</option><option>116 117 – Ärztlicher Bereitschaftsdienst ✓</option></select>
+    <details class="loesung"><summary>Lösung</summary><div class="loesung-text">✅ <strong>116 117</strong> – Der kassenärztliche Bereitschaftsdienst ist für dringende, aber nicht lebens­bedrohliche Situationen außerhalb der Praxisöffnungszeiten.</div></details>
+  </div>
+
+  <div class="uebung-item">
+    <p>Du siehst Rauch aus dem Keller deines Hauses aufsteigen.</p>
+    <select><option value="">— wählen —</option><option>112 – Feuerwehr ✓</option><option>110 – Polizei</option><option>Ich warte, ob es schlimmer wird.</option></select>
+    <details class="loesung"><summary>Lösung</summary><div class="loesung-text">✅ <strong>112</strong> – Immer sofort anrufen! Feuer kann sich extrem schnell ausbreiten. Andere Bewohner warnen und das Gebäude verlassen.</div></details>
+  </div>
+
+  <div class="card" style="margin-top:18px"><h2>Übung 2 – Die 5 W-Fragen: Was fehlt?</h2></div>
+
+  <div class="uebung-item">
+    <p>Notruf: „Es hat einen Unfall gegeben. Drei Personen sind verletzt. Einer blutet am Kopf." – Was fehlt?</p>
+    <select><option value="">— wählen —</option><option>Was passiert ist</option><option>Der Ort / die Adresse ✓</option><option>Wie viele Personen verletzt sind</option></select>
+    <details class="loesung"><summary>Lösung</summary><div class="loesung-text">✅ <strong>Der Ort / die Adresse</strong> – ohne Adresse kann keine Hilfe kommen! Immer als erstes nennen.</div></details>
+  </div>
+
+  <div class="uebung-item">
+    <p>Notruf: „Ich bin in der Hauptstraße 5, München. Es brennt. Die Feuerwehr soll kommen." – Was fehlt noch?</p>
+    <select><option value="">— wählen —</option><option>Die Adresse</option><option>Ob Personen im Gebäude sind ✓</option><option>Dein Name</option></select>
+    <details class="loesung"><summary>Lösung</summary><div class="loesung-text">✅ <strong>Ob Personen eingeschlossen / verletzt sind</strong> – das bestimmt, wie schnell und mit welchen Kräften die Feuerwehr kommt.</div></details>
+  </div>
+
+  <div class="card" style="margin-top:18px"><h2>Übung 3 – Auf Anfang: Was sagst du zuerst?</h2></div>
+
+  <details class="flashcard">
+    <summary>Du rufst 112 an wegen eines Herzinfarkts. Was sind deine ersten zwei Sätze?</summary>
+    <div class="fc-answer">„<strong>Ich melde einen medizinischen Notfall.</strong> Ein Mann / Eine Frau ist zusammengebrochen – ich glaube, es ist ein Herzinfarkt. Ich bin in der [Adresse]."<br><br>→ Schlüssel: sofort sagen WAS + WO. Nicht lange erklären.</div>
+  </details>
+
+  <details class="flashcard">
+    <summary>Du weißt die genaue Adresse nicht. Was sagst du?</summary>
+    <div class="fc-answer">„<strong>Ich weiß die genaue Adresse nicht – es ist in der Nähe von [Supermarkt / Bahnhof / Straße].</strong> Ich sende Ihnen meinen Standort." (Viele Smartphones können GPS-Position senden.)</div>
+  </details>
+
+  <details class="flashcard">
+    <summary>Die Leitstelle fragt: „Atmet die Person?" – Du weißt es nicht genau. Was sagst du?</summary>
+    <div class="fc-answer">„<strong>Ich bin nicht sicher – ich höre / sehe keine Atembewegung.</strong> Soll ich Herzdruckmassage machen?" → Nie raten – ehrlich sagen, was du siehst/hörst.</div>
+  </details>
+
+  <details class="flashcard">
+    <summary>Dein Deutsch ist schwach. Was sagst du am Anfang des Notrufs?</summary>
+    <div class="fc-answer">„<strong>Ich spreche wenig Deutsch. Emergency! Unfall. [Straße].</strong>" – Notfalls die Adresse buchstabieren oder auf Englisch nennen. 112 hat oft mehrsprachige Mitarbeiter.</div>
+  </details>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 5: FEHLER -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-fehler">
+  <div class="card"><h2>Typische Fehler im Notrufgespräch</h2></div>
+
+  <div class="fehler-item">
+    <div class="fl fl-f">✗ Falsch / zu vage</div>
+    <div class="fehler-falsch">„Er ist krank. Er liegt. Bitte kommen."</div>
+    <div class="fl fl-r" style="margin-top:8px">✓ Besser</div>
+    <div class="fehler-richtig">„Eine Person liegt bewusstlos auf dem Boden. Ich bin in der Schillerstraße 3, Mannheim. Bitte schicken Sie sofort den Rettungsdienst."</div>
+    <div class="fehler-erkl">Im Notruf zählt Präzision. „Krank" und „liegt" reichen nicht – die Leitstelle braucht: bewusstlos / atmet nicht / blutet stark + Adresse.</div>
+  </div>
+
+  <div class="fehler-item">
+    <div class="fl fl-f">✗ Falsch</div>
+    <div class="fehler-falsch">„Ich habe aufgelegt, weil ich gedacht habe, die Hilfe ist unterwegs."</div>
+    <div class="fl fl-r" style="margin-top:8px">✓ Richtig</div>
+    <div class="fehler-richtig">Nie auflegen! Die Leitstelle beendet das Gespräch – nicht der Anrufer.</div>
+    <div class="fehler-erkl">Die Leitstelle stellt weitere Fragen und gibt Anweisungen (z.B. für Erste Hilfe). Auflegen kann lebensrettende Sekunden kosten.</div>
+  </div>
+
+  <div class="fehler-item">
+    <div class="fl fl-f">✗ Falsch (Grammatik)</div>
+    <div class="fehler-falsch">„Er hat zusammengebrochen."</div>
+    <div class="fl fl-r" style="margin-top:8px">✓ Richtig</div>
+    <div class="fehler-richtig">„Er ist zusammengebrochen."</div>
+    <div class="fehler-erkl">zusammenbrechen = Bewegungsverb → Perfekt mit <em>sein</em>. Ebenso: ist gefallen · ist gestürzt · ist kollabiert.</div>
+  </div>
+
+  <div class="fehler-item">
+    <div class="fl fl-f">✗ Falsch (Grammatik)</div>
+    <div class="fehler-falsch">„Das Kind hat etwas geschluckt was es nicht soll."</div>
+    <div class="fl fl-r" style="margin-top:8px">✓ Richtig</div>
+    <div class="fehler-richtig">„Das Kind hat etwas geschluckt, was es nicht hätte schlucken sollen."</div>
+    <div class="fehler-erkl">Konjunktiv II Vergangenheit: hätte + Infinitiv + sollen. Das klingt natürlicher. Einfacher: „Das Kind hat etwas Gefährliches getrunken."</div>
+  </div>
+
+  <div class="fehler-item">
+    <div class="fl fl-f">✗ Falsch</div>
+    <div class="fehler-falsch">„Es brennt bei Nummer 17." (ohne Straße, ohne Stadt)</div>
+    <div class="fl fl-r" style="margin-top:8px">✓ Richtig</div>
+    <div class="fehler-richtig">„Es brennt in der Goethestraße 17, zweiter Stock, in Heidelberg."</div>
+    <div class="fehler-erkl">Straße + Hausnummer + Stockwerk + Stadt = vollständige Adresse. Ohne Straßennamen und Stadt kann die Feuerwehr nicht lokalisieren.</div>
+  </div>
+
+  <div class="fehler-item">
+    <div class="fl fl-f">✗ Falsch (zu unsicher)</div>
+    <div class="fehler-falsch">„Vielleicht atmet sie... ich weiß nicht... es kann sein..."</div>
+    <div class="fl fl-r" style="margin-top:8px">✓ Richtig</div>
+    <div class="fehler-richtig">„Ich sehe keine Atembewegung." oder „Ich bin nicht sicher – ich sehe keine Reaktion."</div>
+    <div class="fehler-erkl">Klare Aussagen helfen der Leitstelle, die Priorität einzuschätzen. Unsicherheit ist okay – sag klar, WAS du nicht weißt.</div>
+  </div>
+
+  <div class="fehler-item">
+    <div class="fl fl-f">✗ Falsch</div>
+    <div class="fehler-falsch">„Er hat starke Schmerzen in seiner Brust und er schwitzt und er sieht sehr schlecht aus und er hat auch Schmerzen im Arm."</div>
+    <div class="fl fl-r" style="margin-top:8px">✓ Besser</div>
+    <div class="fehler-richtig">„Er hat starke Brustschmerzen mit Ausstrahlung in den linken Arm und schwitzt stark – möglicher Herzinfarkt."</div>
+    <div class="fehler-erkl">Kurze, klare Sätze statt langer Ketten mit „und". Die Leitstelle braucht Fakten, keine Geschichte. Symptome + Vermutung nennen.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 6: ROLLENSPIELE -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-sprechen">
+
+  <div class="tip-box"><strong>💡 Tipp:</strong> Person A spielt den Anrufer / die Anruferin, Person B spielt die Leitstelle. Wechselt nach jedem Szenario die Rollen. Person B soll realistische Rückfragen stellen!</div>
+
+  <div class="prompt-card">
+    <div class="prompt-title">🫀 Rollenspiel 1 – Kollaps im Supermarkt</div>
+    <div class="hint"><strong>Szenario:</strong> Eine ältere Dame fällt im Supermarkt um. Du bist daneben. Sie ist ansprechbar, aber sehr blass, klagt über Brustschmerzen. Der Supermarkt-Manager ist auch da.<br><br>
+    <strong>A (Anrufer:in) muss:</strong> 112 anrufen · Ort genau beschreiben · Zustand der Person beschreiben · auf Rückfragen antworten · Anweisungen folgen<br>
+    <strong>B (Leitstelle) muss:</strong> die 5 W-Fragen stellen · nach Atmung / Bewusstsein fragen · Erste-Hilfe-Anweisungen geben</div>
+    <div class="rollen"><span class="rolle rolle-a">👤 Anrufer:in</span><span class="rolle rolle-b">🏥 Leitstelle 112</span><span class="rolle rolle-c">🏪 Supermarkt-Manager (optional)</span></div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-title">🔥 Rollenspiel 2 – Rauch aus dem Nachbarhaus</div>
+    <div class="hint"><strong>Szenario:</strong> Du stehst vor deinem Haus. Aus dem Fenster im 2. Stock des Nachbarhauses kommt Rauch. Du weißt, dass eine Familie mit kleinen Kindern dort wohnt. Du hast keine Zeit zu warten.<br><br>
+    <strong>A:</strong> 112 anrufen · Lage beschreiben · sagen, dass Personen drin sein könnten · fragen, was du tun sollst (klingeln? Tür einschlagen?)<br>
+    <strong>B:</strong> Adresse erfragen · nach Personen im Gebäude fragen · Anweisungen geben (Tür nicht öffnen / Bewohner warnen / warten)</div>
+    <div class="rollen"><span class="rolle rolle-a">👤 Zeuge / Zeugin</span><span class="rolle rolle-b">🏥 Leitstelle 112</span></div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-title">🚗 Rollenspiel 3 – Unfall auf glatter Straße</div>
+    <div class="hint"><strong>Szenario:</strong> Winterstraße. Ein Auto ist von der Straße abgekommen und liegt im Graben. Der Fahrer sitzt noch drin, scheint verletzt zu sein. Eine weitere Person liegt draußen im Schnee.<br><br>
+    <strong>A:</strong> Standort beschreiben (kein Ortsschild sichtbar – Orientierungspunkte nutzen) · zwei Verletzte beschreiben · fragen, ob man das Auto öffnen soll<br>
+    <strong>B:</strong> Standort genau erfragen · beide Personen beurteilen lassen · Hinweise für Erste Hilfe geben</div>
+    <div class="rollen"><span class="rolle rolle-a">👤 Zeuge / Zeugin</span><span class="rolle rolle-b">🏥 Leitstelle 112</span></div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-title">🚔 Rollenspiel 4 – Lauter Streit / mögliche Gewalt</div>
+    <div class="hint"><strong>Szenario:</strong> Du hörst aus der Wohnung über dir sehr laute Schreie und Schläge. Du bist unsicher, ob du eingreifen sollst. Du rufst 110 an.<br><br>
+    <strong>A:</strong> beschreiben, was du hörst · Adresse + Wohnung nennen · sagen, ob du die Personen kennst · fragen, was du tun sollst<br>
+    <strong>B:</strong> Situation klären · fragen, ob jemand verletzt ist · sagen, ob die Person eingreifen soll oder nicht · Streife schicken</div>
+    <div class="rollen"><span class="rolle rolle-a">👤 Nachbar:in</span><span class="rolle rolle-b">🚔 Polizei 110</span></div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-title">💙 Rollenspiel 5 – Krise eines Freundes</div>
+    <div class="hint"><strong>Szenario:</strong> Dein Freund / deine Freundin schreibt dir: „Ich kann nicht mehr. Es hat keinen Sinn." Du machst dir große Sorgen und weißt nicht, was du tun sollst. Du rufst die Telefonseelsorge an.<br><br>
+    <strong>A:</strong> Situation beschreiben · eigene Sorge ausdrücken · fragen, was du tun kannst · reagieren auf den Rat (Wohlfahrtscheck)<br>
+    <strong>B:</strong> ruhig und einfühlsam reagieren · Informationen erfragen · Optionen erklären (110 · direkt hinfahren · weiter schreiben)</div>
+    <div class="rollen"><span class="rolle rolle-a">👤 Freund:in (besorgt)</span><span class="rolle rolle-b">💙 Telefonseelsorge</span></div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-title">🌍 Rollenspiel 6 – Sprachbarriere im Notfall</div>
+    <div class="hint"><strong>Szenario:</strong> Eine Touristin (kein Deutsch) hat einen Unfall auf dem Marktplatz. Du bist dabei. Dein Deutsch ist nicht perfekt. Du musst trotzdem 112 anrufen und die Situation erklären.<br><br>
+    <strong>A:</strong> Notruf auf Deutsch versuchen · bei Unsicherheit auf Englisch ausweichen · Adresse auf Deutsch buchstabieren · Verletzungen beschreiben<br>
+    <strong>B:</strong> geduldig nachfragen · langsam und deutlich sprechen · bei Bedarf anbieten, auf Englisch zu wechseln</div>
+    <div class="rollen"><span class="rolle rolle-a">👤 Zeuge / Zeugin (wenig Deutsch)</span><span class="rolle rolle-b">🏥 Leitstelle 112</span><span class="rolle rolle-c">🌍 Touristin (kein Deutsch)</span></div>
+  </div>
+
+  <div class="tip-box" style="margin-top:4px"><strong>🎯 Ziel nach den Rollenspielen:</strong> Ihr solltet in der Lage sein, einen Notruf auf Deutsch zu führen – auch wenn ihr nervös seid, auch wenn euer Deutsch nicht perfekt ist. Die 5 W-Fragen, klare Sätze und die richtigen Redemittel sind eure Werkzeuge!</div>
+
+</div>
+
+<script>
+function showTab(n,b){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('tab-'+n).classList.add('active');
+  b.classList.add('active');
+}
+</script>
+</body>
+</html>
+          </body>
+        </html>

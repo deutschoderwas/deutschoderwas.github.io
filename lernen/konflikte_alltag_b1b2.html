@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+<meta charset="UTF-8"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Konflikte l&#246;sen im Alltag &middot; deutschoderwas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#2D8A7A;--acc-lt:#B8DDD4;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;}
+.timer-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);padding:.4rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.timer-display{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:white;min-width:60px;}
+.timer-display.warn{color:#FFCE00;}.timer-display.urgent{color:#CC0000;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-progress{flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--rust-lt));width:100%;transition:width 1s linear;}
+.timer-btns{display:flex;gap:.4rem;}
+.tbtn{font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:12px;border:none;cursor:pointer;}
+.tbtn.start{background:var(--green);color:white;}.tbtn.reset{background:#555;color:white;}
+.phase-nav{position:sticky;top:38px;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;scrollbar-width:none;}
+.phase-nav::-webkit-scrollbar{display:none;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.8rem;font-weight:700;color:var(--sand);white-space:nowrap;margin-right:.5rem;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}
+.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.8rem;}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.35rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.84rem;color:#aaa;margin-top:.4rem;line-height:1.5;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;margin-top:1.4rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+.time-badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--acc-lt);color:var(--acc);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:1rem;}
+/* VOCAB */
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.1rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.vok-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.vok-card.flipped{background:var(--acc-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--dark);}
+.vok-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sand);white-space:pre-line;}
+.vok-card.flipped .vok-back{display:block;}
+.vok-hint{font-size:.68rem;color:#aaa;margin-top:.35rem;}
+/* EXAMPLES */
+.ex{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.85rem 1.2rem;margin-bottom:.55rem;border-left:4px solid var(--acc);font-size:.93rem;line-height:1.7;}
+.ex .de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);margin-bottom:.2rem;}
+.ex .en{font-size:.79rem;color:#888;font-style:italic;}
+.ex .note{font-size:.78rem;color:var(--acc);margin-top:.2rem;font-weight:600;}
+.ex strong{color:var(--acc);}
+/* DIALOGS */
+.dialog{background:var(--sand-lt);border-radius:16px;overflow:hidden;margin-bottom:1.1rem;border:1.5px solid var(--sand);}
+.dialog-hd{background:var(--dark);color:white;padding:.6rem 1.3rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
+.dialog-hd-icon{font-size:1rem;}
+.dialog-body{padding:1rem 1.3rem;}
+.dl{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start;}
+.dl:last-child{margin-bottom:0;}
+.dl-spk{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-width:60px;padding-top:.25rem;flex-shrink:0;color:var(--acc);line-height:1.3;}
+.dl-spk.b{color:var(--rust);}
+.dl-spk.c{color:#6B3D8A;}
+.dl-txt{font-size:.9rem;line-height:1.65;}
+.dl-txt strong{font-family:'Fraunces',serif;color:var(--brown);}
+.dl-note{font-size:.75rem;color:#888;font-style:italic;}
+/* ANNOTATIONS on dialog */
+.dl-ann{background:rgba(0,0,0,.04);border-left:3px solid var(--acc);font-size:.75rem;color:#555;padding:.3rem .7rem;margin-top:.2rem;border-radius:0 6px 6px 0;line-height:1.5;}
+/* HIGHLIGHT BOX */
+.hbox{border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.hbox.blue{background:var(--acc-lt);border:1.5px solid var(--acc);}
+.hbox.dark{background:var(--dark);color:white;}
+.hbox.warn{background:#FFF8E0;border:1.5px solid #C8A870;}
+.hbox-title{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;margin-bottom:.5rem;}
+.hbox.dark .hbox-title{color:var(--acc-lt);}
+.hbox.blue .hbox-title{color:var(--acc);}
+.hbox.warn .hbox-title{color:#5C3D2E;}
+.hbox-body{font-size:.87rem;line-height:1.8;}
+.hbox.dark .hbox-body{color:#ddd;}
+/* PHRASE LIST */
+.phrase-list{list-style:none;margin-bottom:1.1rem;}
+.phrase-list li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .9rem;border-radius:10px;margin-bottom:.4rem;background:white;border:1.5px solid var(--sand);font-size:.89rem;line-height:1.6;}
+.phrase-list li::before{content:'→';color:var(--acc);font-weight:700;flex-shrink:0;margin-top:.1rem;}
+.phrase-list li strong{font-family:'Fraunces',serif;color:var(--brown);}
+.phrase-list li em{color:#888;font-size:.8rem;}
+/* QUIZ */
+.mc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.3rem;margin-bottom:.8rem;}
+.mc-q{font-size:.94rem;font-weight:600;margin-bottom:.75rem;line-height:1.55;}
+.mc-opts{display:flex;flex-direction:column;gap:.38rem;}
+.mc-opt{padding:.48rem 1rem;border-radius:8px;border:1.5px solid var(--sand);background:var(--cream);font-size:.88rem;cursor:pointer;text-align:left;transition:all .15s;}
+.mc-opt:hover:not(:disabled){border-color:var(--acc);background:var(--acc-lt);}
+.mc-opt.ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:600;}
+.mc-opt.nope{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.mc-opt:disabled{cursor:default;}
+.mc-fb{font-size:.81rem;margin-top:.6rem;display:none;font-weight:500;line-height:1.55;padding:.4rem .7rem;border-radius:8px;}
+.mc-fb.show{display:block;}
+.mc-fb.ok{color:var(--green);background:var(--green-lt);}.mc-fb.nope{color:var(--red);background:var(--red-lt);}
+/* RF */
+.rf{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.95rem 1.3rem;margin-bottom:.6rem;transition:all .2s;}
+.rf.correct{border-color:var(--green);background:var(--green-lt);}
+.rf.wrong{border-color:var(--red);background:var(--red-lt);}
+.rf-s{font-size:.92rem;margin-bottom:.6rem;line-height:1.55;}
+.rf-btns{display:flex;gap:.45rem;}
+.rfbtn{padding:.28rem .85rem;border-radius:20px;border:1.5px solid var(--sand);background:white;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.rfbtn:hover{border-color:var(--acc);color:var(--acc);}
+.rfbtn.sel-r{background:var(--green);border-color:var(--green);color:white;}
+.rfbtn.sel-f{background:var(--red);border-color:var(--red);color:white;}
+.rf-fb{font-size:.8rem;margin-top:.55rem;font-weight:500;display:none;line-height:1.55;padding:.35rem .6rem;border-radius:6px;}
+.rf-fb.show{display:block;}
+.rf-fb.ok{color:var(--green);background:var(--green-lt);}.rf-fb.bad{color:var(--red);background:var(--red-lt);}
+/* SPEAK CARDS */
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.speak-card{background:white;border:1.5px solid var(--sand);border-radius:13px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .2s;border-top:4px solid var(--acc);}
+.speak-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.09);}
+.speak-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--dark);line-height:1.4;}
+.speak-back{font-size:.83rem;color:var(--dark);line-height:1.6;display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--sand);}
+.speak-card.flipped .speak-back{display:block;}
+.speak-hint{font-size:.68rem;color:#bbb;margin-top:.45rem;}
+/* RSP */
+.rsp-card{background:white;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;margin-bottom:.9rem;}
+.rsp-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.1);}
+.rsp-card.open .rsp-back{display:block;}
+.rsp-card.open .rsp-hint{display:none;}
+.rsp-top{background:var(--dark);padding:.8rem 1.2rem;display:flex;align-items:center;gap:.75rem;}
+.rsp-emoji{font-size:1.4rem;flex-shrink:0;}
+.rsp-title{font-family:'Fraunces',serif;font-weight:700;color:white;font-size:1rem;}
+.rsp-body{padding:1rem 1.2rem;}
+.rsp-situation{font-size:.89rem;color:var(--dark);line-height:1.6;margin-bottom:.6rem;}
+.rsp-back{display:none;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--sand);}
+.rsp-rolle{font-size:.83rem;line-height:1.7;color:var(--dark);margin-bottom:.45rem;padding:.4rem .8rem;border-radius:8px;background:var(--cream);}
+.rsp-rolle strong{color:var(--acc);}
+.rsp-hint{font-size:.7rem;color:#bbb;}
+/* THESEN */
+.these{background:var(--dark);color:white;border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:.8rem;display:flex;align-items:flex-start;gap:1rem;}
+.these-num{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--acc-lt);flex-shrink:0;line-height:1;margin-top:.1rem;}
+.these-text{font-size:.93rem;line-height:1.65;}
+.these-starter{font-size:.77rem;color:#888;margin-top:.35rem;}
+/* TIPP */
+.tipp{background:var(--dark);color:white;border-radius:14px;padding:1.1rem 1.4rem;margin-top:1.3rem;display:flex;gap:.9rem;align-items:flex-start;}
+.tipp-icon{font-size:1.3rem;flex-shrink:0;}
+.tipp-body{font-size:.87rem;line-height:1.75;}
+.tipp-body strong{color:var(--rust-lt);font-family:'Fraunces',serif;}
+hr.div{border:none;border-top:1.5px solid var(--sand);margin:1.5rem 0;}
+/* CULTURAL NOTE */
+.kultur{background:linear-gradient(135deg,var(--acc-lt),rgba(255,255,255,.5));border:1.5px solid var(--acc);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.1rem;}
+.kultur-title{font-family:'Fraunces',serif;font-weight:700;color:var(--acc);font-size:.9rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;}
+.kultur-body{font-size:.86rem;line-height:1.75;color:var(--dark);}
+</style></head><body>
+<div class="timer-bar">
+  <div class="timer-display" id="td">60:00</div>
+  <div class="timer-progress"><div class="timer-fill" id="tf"></div></div>
+  <span style="font-size:.7rem;color:#aaa;white-space:nowrap;flex-shrink:0;">Unterrichtszeit</span>
+  <div class="timer-btns">
+    <button class="tbtn start" onclick="toggleTimer()">&#9654; Start</button>
+    <button class="tbtn reset" onclick="resetTimer()">&#8635;</button>
+  </div>
+</div>
+<div class="phase-nav">
+  <span class="brand-tag">deutsch<span>oder</span>was</span>
+  <button class="phase-btn active" onclick="showPhase('p1',this)">&#9312; Einstieg</button>
+  <button class="phase-btn" onclick="showPhase('p2',this)">&#9313; Wortschatz</button>
+  <button class="phase-btn" onclick="showPhase('p3',this)">&#9314; Dialoge</button>
+  <button class="phase-btn" onclick="showPhase('p4',this)">&#9315; Redemittel</button>
+  <button class="phase-btn" onclick="showPhase('p5',this)">&#9316; Rollenspiele</button>
+  <button class="phase-btn" onclick="showPhase('p6',this)">&#9317; &#220;bungen</button>
+  <button class="phase-btn" onclick="showPhase('p7',this)">&#9318; Sprechen</button>
+  <span style="font-size:.65rem;color:#666;white-space:nowrap;margin-left:auto;flex-shrink:0;">Alltag B1/B2 &middot; 60 Min.</span>
+</div>
+<main>
+<div id="phase-p1" class="phase active"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Einstieg &middot; 8 Min.</div>
+<div class="card-title">Konflikte l&#246;sen im Alltag</div>
+<div class="card-sub">Nachbarn, Lärm, Beschwerden &ndash; h&#246;flich aber bestimmt auf Deutsch</div></div><div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="kultur"><div class="kultur-title">&#127987; Kulturnotiz</div><div class="kultur-body">In Deutschland gilt die <strong>Nachtruhe</strong> von 22 bis 6 Uhr &ndash; in vielen Regionen auch Mittagsruhe von 13 bis 15 Uhr. Verstöße können zu einer offiziellen Abmahnung führen. Aber: Direkt ansprechen ist in Deutschland kulturell akzeptiert und oft respektierter als eine anonyme Beschwerde!</div></div>
+
+<div class="slabel">Warming-up &ndash; Sprecht zuerst!</div>
+<div class="speak-grid" id="warmup"></div>
+<div class="tipp"><div class="tipp-icon">&#127919;</div><div class="tipp-body"><strong>Heute lernen wir:</strong> H&#246;flich aber bestimmt &ndash; Nachbarn ansprechen, Beschwerden formulieren, Konflikte l&#246;sen!</div></div>
+</div></div></div>
+
+<div id="phase-p2" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Wortschatz &middot; 12 Min.</div>
+<div class="card-title">Wichtige W&#246;rter &amp; <em>Ausdr&#252;cke</em></div>
+<div class="card-sub">Klickt auf die Karten &ndash; Deutsch vorne, Erkl&#228;rung hinten!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div class="slabel">&#128154; Konflikt &amp; Kommunikation</div><div class="vok-grid" id="vok1"></div>
+<div class="slabel">&#127968; Wohnen &amp; Hausgemeinschaft</div><div class="vok-grid" id="vok2"></div>
+
+</div></div></div>
+
+<div id="phase-p3" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Dialoge &middot; 12 Min.</div>
+<div class="card-title">Echte Gespr&#228;che &ndash; <em>so klingt das!</em></div>
+<div class="card-sub">Lest die Dialoge laut &ndash; wechselt die Rollen!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#127925;</span> L&#228;rm ansprechen &ndash; Nachbar klingeln</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Leon</span><div><div class="dl-txt">Guten Abend, entschuldigen Sie bitte die St&#246;rung. Ich bin Ihr Nachbar aus der Wohnung &#252;ber Ihnen.</div></div></div>
+<div class="dl"><span class="dl-spk b">Nachbar</span><div><div class="dl-txt">Ach, hallo! Was kann ich f&#252;r Sie tun?</div></div></div>
+<div class="dl"><span class="dl-spk ">Leon</span><div><div class="dl-txt">Ich wollte kurz ansprechen &ndash; ich h&#246;re manchmal bis sp&#228;t in die Nacht laute Musik aus Ihrer Wohnung.</div><div class="dl-ann">direkt aber freundlich</div></div></div>
+<div class="dl"><span class="dl-spk b">Nachbar</span><div><div class="dl-txt">Oh! Das wusste ich gar nicht. Die W&#228;nde sind hier offenbar sehr d&#252;nn.</div></div></div>
+<div class="dl"><span class="dl-spk ">Leon</span><div><div class="dl-txt">Kein Problem, ich verstehe das. Ich wollte nur fragen ob wir gemeinsam eine <strong>L&#246;sung</strong> finden k&#246;nnen?</div></div></div>
+<div class="dl"><span class="dl-spk b">Nachbar</span><div><div class="dl-txt">Selbstverst&#228;ndlich! Ich achte ab sofort auf die <strong>Lautst&#228;rke nach 22 Uhr</strong>. Und ich kaufe mir Kopfh&#246;rer.</div></div></div>
+<div class="dl"><span class="dl-spk ">Leon</span><div><div class="dl-txt">Das ist sehr nett. Danke, dass Sie das so offen aufnehmen!</div></div></div>
+<div class="dl"><span class="dl-spk b">Nachbar</span><div><div class="dl-txt">Gerne! Und falls Sie noch andere Probleme haben &ndash; kommen Sie einfach wieder.</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#128663;</span> Falscher Parkplatz &ndash; Treppenhaus</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Maria</span><div><div class="dl-txt">Entschuldigung &ndash; sind Sie der Bewohner aus Wohnung 5?</div></div></div>
+<div class="dl"><span class="dl-spk b">Klaus</span><div><div class="dl-txt">Ja, das bin ich. Was ist los?</div></div></div>
+<div class="dl"><span class="dl-spk ">Maria</span><div><div class="dl-txt">Ich glaube, Sie stehen auf <strong>meinem Stellplatz</strong>. Der wei&#223;e VW da drau&#223;en?</div></div></div>
+<div class="dl"><span class="dl-spk b">Klaus</span><div><div class="dl-txt">Oh nein wirklich? Ich dachte das ist ein freier Platz!</div></div></div>
+<div class="dl"><span class="dl-spk ">Maria</span><div><div class="dl-txt">Nein, das ist Nummer 12 &ndash; der ist in meinem Mietvertrag. W&#228;ren Sie so nett und <strong>fahren kurz um</strong>?</div></div></div>
+<div class="dl"><span class="dl-spk b">Klaus</span><div><div class="dl-txt">Nat&#252;rlich, das mache ich sofort! Tut mir sehr leid. Ich kannte die Nummerierung noch nicht.</div></div></div>
+<div class="dl"><span class="dl-spk ">Maria</span><div><div class="dl-txt">Kein Problem &ndash; das kann am Anfang unübersichtlich sein. Die Nummer steht auf dem Asphalt.</div></div></div>
+<div class="dl"><span class="dl-spk b">Klaus</span><div><div class="dl-txt">Alles klar. Nochmals Entschuldigung!</div></div></div>
+</div></div>
+<div class="dialog"><div class="dialog-hd"><span class="dialog-hd-icon">&#128232;</span> Beschwerde an die Hausverwaltung</div><div class="dialog-body"><div class="dl"><span class="dl-spk ">Brief/Email</span><div><div class="dl-txt">Betreff: Beschwerde wegen wiederholter Ruhest&#246;rung, Wohnung 3a</div></div></div>
+<div class="dl"><span class="dl-spk b">Mieter</span><div><div class="dl-txt">Sehr geehrte Damen und Herren,<br>ich m&#246;chte eine <strong>formelle Beschwerde</strong> einreichen. Seit drei Wochen kommt es regelm&#228;ßig nach 23 Uhr zu <strong>lauten Musik- und Partygeräuschen</strong> aus Wohnung 4b.</div><div class="dl-ann">formell beginnen!</div></div></div>
+<div class="dl"><span class="dl-spk b">Mieter</span><div><div class="dl-txt">Ich habe den Bewohner <strong>zweimal pers&#246;nlich angesprochen</strong>, leider ohne dauerhaften Erfolg. Ich bitte Sie daher, die Situation zu pr&#252;fen und ggf. eine <strong>Abmahnung</strong> auszusprechen.</div><div class="dl-ann">bisherige Schritte nennen!</div></div></div>
+<div class="dl"><span class="dl-spk b">Mieter</span><div><div class="dl-txt">F&#252;r R&#252;ckfragen stehe ich gerne zur Verf&#252;gung.<br>Mit freundlichen Gr&#252;&#223;en,<br>Anna Müller</div></div></div>
+</div></div>
+
+</div></div></div>
+
+<div id="phase-p4" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Redemittel &middot; 8 Min.</div>
+<div class="card-title">So sagt man das <em>wirklich!</em></div>
+<div class="card-sub">Echte S&#228;tze &ndash; kein Lehrbuchangeldeutsch!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="slabel">&#128154; Konflikte ansprechen</div>
+<ul class="phrase-list">
+<li><strong>Entschuldigen Sie bitte die St&#246;rung &ndash; ich m&#246;chte kurz ansprechen...</strong> <span style="color:#888;font-size:.82rem;">= Sorry to disturb you – I wanted to briefly address...</span> <em>– weich einsteigen</em></li>
+<li><strong>Ich h&#246;re manchmal <strong>laute Musik / Ger&#228;usche</strong> aus Ihrer Wohnung.</strong> <span style="color:#888;font-size:.82rem;">= I sometimes hear loud music / noises from your apartment.</span> <em>– Sachlich bleiben!</em></li>
+<li><strong>K&#246;nnten wir daf&#252;r eine <strong>L&#246;sung</strong> finden?</strong> <span style="color:#888;font-size:.82rem;">= Could we find a solution for this?</span></li>
+<li><strong>Das ist sicher kein b&#246;ser Wille &ndash; ich wollte es nur erw&#228;hnen.</strong> <span style="color:#888;font-size:.82rem;">= I'm sure it wasn't intentional – I just wanted to mention it.</span> <em>– Deeskalation!</em></li>
+</ul>
+<div class="slabel">&#9888; Wenn es ernst wird</div>
+<ul class="phrase-list">
+<li><strong>Ich m&#246;chte Sie bitten, die <strong>Hausordnung</strong> einzuhalten.</strong> <span style="color:#888;font-size:.82rem;">= I'd like to ask you to follow the house rules.</span></li>
+<li><strong>Ich werde das der <strong>Hausverwaltung</strong> melden wenn...</strong> <span style="color:#888;font-size:.82rem;">= I'll report this to the property management if...</span> <em>– letzter Ausweg</em></li>
+<li><strong>Laut <strong>Nachtruhe</strong> ist das nach 22 Uhr nicht erlaubt.</strong> <span style="color:#888;font-size:.82rem;">= According to quiet hours, this is not allowed after 10pm.</span> <em>– Regeln zitieren</em></li>
+<li><strong>Ich habe das <strong>dokumentiert</strong> (Datum, Uhrzeit, Art).</strong> <span style="color:#888;font-size:.82rem;">= I have documented this (date, time, nature).</span> <em>– schriftlich!</em></li>
+</ul>
+
+</div></div></div>
+
+<div id="phase-p5" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Rollenspiele &middot; 12 Min.</div>
+<div class="card-title">Euer Auftritt &ndash; <em>los geht&apos;s!</em></div>
+<div class="card-sub">Klickt auf die Karte f&#252;r Rollen &amp; Tipps</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 12 Minuten</div>
+<div id="rsp1"></div>
+</div></div></div>
+
+<div id="phase-p6" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; &#220;bungen &middot; 8 Min.</div>
+<div class="card-title">Jetzt testen wir!</div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 8 Minuten</div>
+<div class="slabel">Multiple Choice</div><div id="mc1"></div>
+<hr class="div">
+<div class="slabel">Richtig oder Falsch?</div><div id="rf1"></div>
+</div></div></div>
+
+<div id="phase-p7" class="phase"><div class="card">
+<div class="card-header"><div class="eyebrow">Alltag B1/B2 &middot; Freies Sprechen &middot; 10 Min.</div>
+<div class="card-title">Eure Meinung &ndash; <em>jetzt seid ihr dran!</em></div></div>
+<div class="card-accent"></div><div class="card-body">
+<div class="time-badge">&#9201; 10 Minuten</div>
+<div class="these"><div class="these-num">1</div><div class="these-text">Direktheit oder Diplomatie &ndash; wie l&#246;st man in eurer Heimatkultur Konflikte?<div class="these-starter">&#8222;In meiner Heimat ist es üblich...&#8220; / &#8222;Direktheit gilt dort als...&#8220;</div></div></div>
+<div class="these"><div class="these-num">2</div><div class="these-text">Wann ist es okay zur Polizei zu gehen &ndash; und wann &#252;bertreibt man?<div class="these-starter">&#8222;Ich würde die Polizei rufen wenn... / Für kleinere Sachen lieber...&#8220;</div></div></div>
+
+<div class="slabel">Sprechkarten</div>
+<div class="speak-grid" id="speakCards"></div>
+</div></div></div>
+</main>
+<script>
+const TOTAL=3600;let rem=TOTAL,intv=null,run=false;
+function upd(){const m=Math.floor(rem/60),s=rem%60;const d=document.getElementById('td');d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('tf').style.width=(rem/TOTAL*100)+'%';d.className='timer-display';if(rem<=600)d.classList.add('warn');if(rem<=120)d.classList.add('urgent');}
+function toggleTimer(){if(run){clearInterval(intv);run=false;document.querySelector('.tbtn.start').textContent='▶ Start';}else{run=true;document.querySelector('.tbtn.start').textContent='⏸ Pause';intv=setInterval(()=>{if(rem>0){rem--;upd();}else{clearInterval(intv);run=false;}},1000);}}
+function resetTimer(){clearInterval(intv);run=false;rem=TOTAL;upd();document.querySelector('.tbtn.start').textContent='▶ Start';}
+function showPhase(id,btn){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));document.getElementById('phase-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function buildVokCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(v=>{const d=document.createElement('div');d.className='vok-card';d.innerHTML=`<div class="vok-front">${v.front}</div><div class="vok-back">${(v.back||'').replace(/\n/g,'<br>')}</div><div class="vok-hint">${v.hint||'&#128070; klicken!'}</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildSpeakCards(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(i=>{const d=document.createElement('div');d.className='speak-card';d.innerHTML=`<div class="speak-front">${i.front}</div><div class="speak-back">${i.back}</div><div class="speak-hint">&#128070; Tipp &amp; Formulierungshilfe</div>`;d.addEventListener('click',()=>d.classList.toggle('flipped'));g.appendChild(d);});}
+function buildRSP(data,id){const g=document.getElementById(id);if(!g)return;data.forEach(item=>{const d=document.createElement('div');d.className='rsp-card';d.innerHTML=`<div class="rsp-top"><span class="rsp-emoji">${item.emoji}</span><span class="rsp-title">${item.title}</span></div><div class="rsp-body"><div class="rsp-situation">${item.situation}</div><div class="rsp-back"><div class="rsp-rolle"><strong>&#128308; Person A:</strong> ${item.a}</div><div class="rsp-rolle"><strong>&#128309; Person B:</strong> ${item.b}</div>${item.tipps?`<div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--acc-lt);border-radius:8px;font-size:.8rem;line-height:1.6;"><strong style="color:var(--acc);">&#128161; Tipps:</strong> ${item.tipps}</div>`:''}</div><div class="rsp-hint">&#128070; klicken f&#252;r Rollen &amp; Tipps</div></div>`;d.addEventListener('click',()=>d.classList.toggle('open'));g.appendChild(d);});}
+function buildMC(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='mc';const opts=item.opts.map((o,j)=>`<button class="mc-opt" onclick="answerMC(this,${j},${item.correct},'mcfb${id}${i}')">${o}</button>`).join('');div.innerHTML=`<div class="mc-q">${item.q}</div><div class="mc-opts">${opts}</div><div class="mc-fb" id="mcfb${id}${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerMC(btn,j,correct,fbId){btn.closest('.mc-opts').querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);btn.closest('.mc-opts').querySelectorAll('.mc-opt')[correct].classList.add('ok');if(j!==correct)btn.classList.add('nope');const fb=document.getElementById(fbId);if(fb){fb.classList.add('show');fb.classList.toggle('ok',j===correct);fb.classList.toggle('nope',j!==correct);}}
+function buildRF(data,id){const c=document.getElementById(id);if(!c)return;data.forEach((item,i)=>{const div=document.createElement('div');div.className='rf';div.id=`rf_${id}_${i}`;div.innerHTML=`<div class="rf-s">${item.s}</div><div class="rf-btns"><button class="rfbtn" onclick="answerRF('${id}',${i},true,this)">&#10003; Richtig</button><button class="rfbtn" onclick="answerRF('${id}',${i},false,this)">&#10007; Falsch</button></div><div class="rf-fb" id="rffb_${id}_${i}">${item.fb}</div>`;c.appendChild(div);});}
+function answerRF(id,i,answer,btn){const rfData=window['rfData_'+id];const card=document.getElementById(`rf_${id}_${i}`);card.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('sel-r','sel-f'));btn.classList.add(answer?'sel-r':'sel-f');const correct=rfData&&answer===rfData[i].ok;card.classList.toggle('correct',correct);card.classList.toggle('wrong',!correct);const fb=document.getElementById(`rffb_${id}_${i}`);if(fb){fb.classList.add('show');fb.classList.toggle('ok',correct);fb.classList.toggle('bad',!correct);}}
+buildVokCards([{"front": "sich beschweren", "back": "= to complain / make a complaint\n'Ich muss mich bei Ihnen beschweren.'\n\u2192 die Beschwerde = formal complaint", "hint": "h\u00f6flich, aber direkt!"}, {"front": "ein Kompromiss", "back": "= compromise\n'K\u00f6nnen wir einen Kompromiss finden?'\n'Ich schlage einen Kompromiss vor.'\n\u2192 auf einen Kompromiss einigen", "hint": "beide geben nach"}, {"front": "das Missverst&#228;ndnis", "back": "= misunderstanding\n'Das war sicher ein Missverst\u00e4ndnis.'\n\u2192 aufkl\u00e4ren = to clarify\n\u2192 aus dem Weg r\u00e4umen", "hint": "entsch\u00e4rft Situationen!"}, {"front": "auf jemanden zugehen", "back": "= to approach someone\n'Ich gehe auf ihn zu.'\n= Initiative ergreifen\n= selbst das Gespr\u00e4ch suchen", "hint": "Initiative!"}, {"front": "die Ruhezeit", "back": "= quiet hours\n'Die Ruhezeit beginnt um 22 Uhr.'\n\u2192 Nachtruhe, Mittagsruhe\nIn der Hausordnung geregelt", "hint": "22-6 Uhr + Mittag"}, {"front": "die Abmahnung", "back": "= formal warning\n'Der Vermieter hat mir eine Abmahnung geschickt.'\nBei Wiederholung \u2192 fristlose K\u00fcndigung!", "hint": "ernstzunehmen!"}, {"front": "schlichten", "back": "= to mediate / settle\n'Wir brauchen jemanden der schlichtet.'\nder Schlichter / die Schlichter:in", "hint": "neutrale Person"}, {"front": "eskalieren", "back": "= to escalate\n'Ich will das nicht eskalieren lassen.'\n\u2192 Gegenteil: deeskalieren", "hint": "vermeiden!"}],'vok1');
+buildVokCards([{"front": "die Hausordnung", "back": "= house rules\n'Laut Hausordnung ist das verboten.'\nVerbindlich f\u00fcr alle Mieter!", "hint": "verbindlich!"}, {"front": "der Hausfrieden", "back": "= peaceful coexistence\n'Das st&#246;rt den Hausfrieden.'\nGesetzlicher Begriff!", "hint": "gesetzlicher Begriff!"}, {"front": "der Stellplatz", "back": "= parking space\n'Sie stehen auf meinem Stellplatz.'\nIm Mietvertrag geregelt", "hint": "im Vertrag fixiert"}, {"front": "die Hausverwaltung", "back": "= property management\n'Ich wende mich an die Hausverwaltung.'\nWenn Gespr\u00e4ch scheitert", "hint": "zweite Instanz"}],'vok2');
+buildMC([{"q": "Was ist die Nachtruhe in Deutschland?", "opts": ["20 bis 7 Uhr", "22 bis 6 Uhr", "24 bis 8 Uhr"], "correct": 1, "fb": "&#10003; Richtig! Gesetzliche Nachtruhe: 22 bis 6 Uhr. Viele Hausordnungen haben zus\u00e4tzlich Mittagsruhe (13-15 Uhr)!"}, {"q": "Was ist eine 'Abmahnung' im Mietrecht?", "opts": ["Eine Lobeshymne", "Eine formelle Verwarnung \u2013 Vorstufe zur K\u00fcndigung", "Eine Rechnung"], "correct": 1, "fb": "&#10003; Richtig! Abmahnung = formal warning. Bei wiederholter St\u00f6rung des Hausfriedens kann der Vermieter abmahnen \u2013 und dann fristlos k\u00fcndigen!"}, {"q": "Wie geht man bei einem Nachbarschaftskonflikt in Deutschland idealerweise vor?", "opts": ["Sofort die Polizei rufen", "Erst direkt ansprechen, dann schriftlich, dann Hausverwaltung", "Ignorieren"], "correct": 1, "fb": "&#10003; Richtig! Stufenweise vorgehen: Erst pers\u00f6nlich, dann schriftlich, dann Hausverwaltung, dann ggf. Anwalt."}],'mc1');
+window.rfData_rf1=[{"s": "In Deutschland ist es unh\u00f6flich, einen Nachbar direkt anzusprechen.", "ok": false, "fb": "&#10007; Falsch! Im Gegenteil: In Deutschland gilt direktes Ansprechen als respektvoller als anonyme Beschwerden. Allerdings: Immer sachlich und ruhig!"}, {"s": "Der Hausfrieden ist in Deutschland ein gesetzlich gesch\u00fctzter Begriff.", "ok": true, "fb": "&#10003; Richtig! 'St\u00f6rung des Hausfriedens' ist ein Rechtsbegriff. Wiederholte St\u00f6rungen k\u00f6nnen zur fristlosen K\u00fcndigung f\u00fchren!"}, {"s": "Bei Konflikten sollte man direkt den Anwalt einschalten.", "ok": false, "fb": "&#10007; Nicht als erstes! Zuerst: pers\u00f6nlich, dann schriftlich, dann Hausverwaltung. Anwalt/Mieterverein als letzter Schritt."}];
+buildRF(window.rfData_rf1,'rf1');
+buildRSP([{"emoji": "&#127925;", "title": "Dauerstress mit dem Nachbarn", "situation": "Dein Nachbar macht seit 4 Wochen jede Woche mindestens zweimal L\u00e4rm nach 22 Uhr. Du hast schon zweimal geredet, nichts hat geholfen.", "a": "Du: Entscheide: nochmals pers\u00f6nlich, schriftlich oder Hausverwaltung? Formuliere klar und sachlich.", "b": "Nachbar: Reagiere mit Ausreden, dann mit Einsicht \u2013 oder Unverst\u00e4ndnis.", "tipps": "Reihenfolge: 1. Pers\u00f6nlich ansprechen 2. Schriftlich 3. Hausverwaltung 4. Mietrechtsberatung"}, {"emoji": "&#128663;", "title": "Abzug von der Kaution wegen Kratzer", "situation": "Du ziehst aus. Der Vermieter will 300\u20ac von deiner Kaution f\u00fcr einen Kratzer am Fu\u00dfboden abziehen. Du findest das \u00fcbertrieben.", "a": "Mieter: Widersprich sachlich, weise auf normale Abnutzung hin.", "b": "Vermieter: Bestehe zun\u00e4chst auf Abzug, zeige dann Kompromissbereitschaft.", "tipps": "Normale Abnutzung = kein Abzug! Nur tats\u00e4chliche Sch\u00e4den. Mieterverein kann beraten."}],'rsp1');
+buildSpeakCards([{"front": "Hast du schon mal einen Nachbarschaftskonflikt erlebt?", "back": "'Einmal... / Ich habe... angesprochen / Das Ergebnis war... / Ich habe gelernt...'"}, {"front": "Was w\u00fcrdest du tun wenn der Nachbar auch nach dem Gespr\u00e4ch nicht aufh\u00f6rt?", "back": "'Dann w\u00fcrde ich... / Als n\u00e4chsten Schritt... / Ich h\u00e4tte kein Problem damit...'"}, {"front": "Wie geht man in deiner Heimat mit Nachbarkonflikten um?", "back": "'In meiner Heimat ist es \u00fcblich... / Man geht zu... / Direktheit ist dort...'"}],'speakCards');
+buildSpeakCards([{"front": "Was nervt dich manchmal an deinen Nachbarn?", "back": "'Was mich manchmal st\u00f6rt... / Aber ich sage dann... / Ich finde es besser..."}],'warmup');
+upd();</script></body></html>

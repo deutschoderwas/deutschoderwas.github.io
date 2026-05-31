@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+        <html>
+          <head>
+            <title data-id="th-modified">Web Page</title>
+            
+          <meta property="og:title" content="Web Page" data-id="th-modified" ><meta name="description" content="code" data-id="th-modified" ><meta property="og:description" content="code" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="/sprechclub/woche-04-09-mai-2026/wohnungssuche.html" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="wohnungssuche.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+          <body>
+            <!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wohnungssuche A2 – Sprechclub</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Nunito:wght@400;600;700;800;900&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #0d7377;
+  --primary-dark: #0a5458;
+  --primary-soft: #e0f2f2;
+  --accent: #f5b800;
+  --accent-soft: #fff8e1;
+  --navy: #1a2b3c;
+  --navy-light: #2d4356;
+  --bg: #fafaf7;
+  --white: #fff;
+  --text: #1a2b3c;
+  --muted: #6b7785;
+  --border: #e4e2db;
+  --success: #2d8659;
+  --success-bg: #e1f4e8;
+  --error: #c0392b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+
+/* ---- TOP TABS ---- */
+.top-tabs{display:flex;background:var(--navy);gap:0}
+.top-tab{flex:1;padding:18px 10px;color:rgba(255,255,255,0.6);font-weight:800;font-size:14px;text-align:center;cursor:pointer;border-bottom:4px solid transparent;transition:all .2s;letter-spacing:.5px}
+.top-tab.active{color:var(--accent);border-bottom-color:var(--accent);background:rgba(255,255,255,0.05)}
+.top-tab:hover:not(.active){color:white}
+
+/* ---- HEADER ---- */
+.part-header{padding:28px 24px 20px;background:linear-gradient(135deg,var(--navy) 0%,var(--primary) 100%);color:white;text-align:center}
+.part-header .brand{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:8px}
+.part-header h1{font-family:'Lora',serif;font-size:26px;margin-bottom:6px}
+.part-header .meta{font-size:13px;opacity:.85}
+.badge-row{margin-top:12px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:900;letter-spacing:1px}
+.badge-level{background:var(--accent);color:var(--navy)}
+.badge-time{background:rgba(255,255,255,0.15);color:white}
+
+/* ---- SUB TABS ---- */
+.sub-tabs{display:flex;background:white;border-bottom:2px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sub-tab{flex-shrink:0;padding:13px 16px;font-weight:700;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.sub-tab.active{color:var(--primary);border-bottom-color:var(--primary)}
+.sub-tab:hover:not(.active){color:var(--navy);border-bottom-color:var(--accent)}
+
+/* ---- CONTENT ---- */
+.content{max-width:860px;margin:0 auto;padding:24px 20px 60px}
+
+.slide{display:none}
+.slide.active{display:block}
+
+/* ---- BLOCKS ---- */
+h2{font-family:'Lora',serif;font-size:24px;font-weight:700;color:var(--navy);margin-bottom:6px;display:flex;align-items:center;gap:10px}
+h2 .em{font-size:26px}
+.slide-sub{color:var(--muted);font-size:13px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid var(--primary-soft)}
+h3{font-family:'Lora',serif;font-size:19px;color:var(--primary);margin:22px 0 12px}
+p{margin-bottom:12px;font-size:15px}
+
+section.card{background:white;border-radius:14px;padding:24px 22px;margin-bottom:20px;border:1px solid var(--border)}
+
+/* vocab table */
+.vtable{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+.vtable th{background:var(--navy);color:white;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.5px;font-weight:800}
+.vtable td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.vtable tr:nth-child(even) td{background:#fafaf0}
+.vtable .w{font-weight:800;color:var(--primary)}
+.vtable .art{color:var(--error);font-weight:700}
+
+/* info box */
+.info-box{background:var(--primary-soft);border-left:5px solid var(--primary);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:14px;font-size:14px}
+.info-box strong{color:var(--primary)}
+
+/* warn box */
+.warn-box{background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:14px;font-size:14px}
+.warn-box strong{color:#b57800}
+
+/* dialog */
+.dialog{background:#f8f9fb;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.dialog-title{background:var(--navy);color:white;padding:10px 16px;font-size:13px;font-weight:800;letter-spacing:.5px}
+.bubble-wrap{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.bubble{max-width:82%;padding:10px 14px;border-radius:12px;font-size:14px;line-height:1.55}
+.bubble .who{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;opacity:.7}
+.bubble.m{background:var(--primary-soft);align-self:flex-start;border-bottom-left-radius:3px}
+.bubble.m .who{color:var(--primary-dark)}
+.bubble.f{background:var(--accent-soft);align-self:flex-end;border-bottom-right-radius:3px}
+.bubble.f .who{color:#b57800}
+
+/* redewittel list */
+.red-list{list-style:none;padding:0}
+.red-list li{padding:8px 0 8px 26px;border-bottom:1px dashed var(--border);font-size:14px;position:relative}
+.red-list li:last-child{border-bottom:none}
+.red-list li::before{content:"▸";color:var(--accent);font-weight:900;position:absolute;left:6px}
+.red-list li strong{color:var(--primary)}
+
+/* two col */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.two-col{grid-template-columns:1fr}}
+
+/* role card */
+.role-card{background:var(--primary-soft);border:2px solid var(--primary);border-radius:12px;padding:16px 18px}
+.role-card .rl{display:inline-block;background:var(--primary);color:white;font-size:10px;font-weight:900;padding:3px 10px;border-radius:11px;letter-spacing:1px;margin-bottom:8px}
+.role-card h4{color:var(--navy);font-family:'Lora',serif;font-size:16px;margin-bottom:8px}
+.role-card ul{margin-left:18px}
+.role-card li{font-size:14px;margin-bottom:4px;color:var(--navy-light)}
+
+/* quick question */
+.quick-q{background:linear-gradient(135deg,var(--navy) 0%,#1d3a55 100%);border-radius:14px;padding:20px 22px;margin-bottom:16px;color:white}
+.quick-q .ql{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:900;margin-bottom:10px}
+.quick-q .qq{font-size:17px;font-weight:700;margin-bottom:14px}
+.quick-q .hints{display:flex;flex-wrap:wrap;gap:8px}
+.quick-q .hint{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.9);padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700}
+
+/* tip */
+.tip{display:flex;gap:10px;background:var(--success-bg);border-radius:10px;padding:13px 16px;font-size:13px;margin-bottom:12px;align-items:flex-start}
+.tip .tip-i{font-size:16px;flex-shrink:0;margin-top:1px}
+.tip .tip-t strong{color:var(--success);display:block;margin-bottom:2px}
+
+/* pill */
+.pill{display:inline-block;background:var(--accent);color:var(--navy);font-size:11px;font-weight:900;padding:3px 10px;border-radius:13px;letter-spacing:.5px;margin-right:6px;margin-bottom:4px}
+
+/* checklist */
+.checklist{list-style:none;padding:0}
+.checklist li{padding:8px 0 8px 30px;border-bottom:1px solid var(--border);font-size:14px;position:relative}
+.checklist li:last-child{border-bottom:none}
+.checklist li::before{content:"☐";position:absolute;left:4px;font-size:16px;color:var(--primary);font-weight:900}
+
+/* grammar box */
+.grammar-box{background:var(--navy);color:white;border-radius:12px;padding:18px 20px;margin-bottom:14px}
+.grammar-box h4{color:var(--accent);font-size:15px;margin-bottom:10px;font-weight:800}
+.grammar-box code{background:rgba(255,255,255,0.1);padding:2px 7px;border-radius:4px;color:var(--accent);font-family:'DM Mono',monospace;font-size:13px}
+
+/* step bar */
+.steps{display:flex;gap:0;margin-bottom:20px;overflow-x:auto}
+.step{flex:1;min-width:90px;padding:12px 10px;text-align:center;background:white;border:1px solid var(--border);font-size:12px;font-weight:700;color:var(--muted);position:relative}
+.step:first-child{border-radius:10px 0 0 10px}
+.step:last-child{border-radius:0 10px 10px 0}
+.step.done{background:var(--primary-soft);color:var(--primary);border-color:var(--primary)}
+.step .sn{display:block;font-size:20px;margin-bottom:4px}
+
+/* footer */
+.footer{text-align:center;padding:30px 20px;color:var(--muted);font-size:12px;border-top:1px solid var(--border);margin-top:40px}
+.footer strong{color:var(--navy)}
+</style>
+</head>
+<body>
+
+<!-- TOP PART TABS -->
+<div class="top-tabs">
+  <div class="top-tab active" onclick="switchPart(1)">Teil 1 · Stunde 1</div>
+  <div class="top-tab" onclick="switchPart(2)">Teil 2 · Stunde 2</div>
+</div>
+
+<!-- ==================== PART 1 ==================== -->
+<div id="part1">
+<div class="part-header">
+  <div class="brand">Deutschoderwas · Sprechclub A2</div>
+  <h1>🏠 Wohnungssuche — Teil 1</h1>
+  <p class="meta">Inserate verstehen · Anrufen beim Vermieter · Erste Fragen stellen</p>
+  <div class="badge-row">
+    <span class="badge badge-level">A2</span>
+    <span class="badge badge-time">⏱ 60 Minuten</span>
+    <span class="badge badge-time">Teil 1 von 2</span>
+  </div>
+</div>
+
+<div class="sub-tabs" id="tabs1">
+  <div class="sub-tab active" onclick="switchSlide(1,'s1a')">🔥 Einstieg</div>
+  <div class="sub-tab" onclick="switchSlide(1,'s1b')">📋 Inserat lesen</div>
+  <div class="sub-tab" onclick="switchSlide(1,'s1c')">📞 Anrufen</div>
+  <div class="sub-tab" onclick="switchSlide(1,'s1d')">💬 Redemittel 1</div>
+  <div class="sub-tab" onclick="switchSlide(1,'s1e')">🎭 Rollenspiel</div>
+  <div class="sub-tab" onclick="switchSlide(1,'s1f')">📝 Abschluss</div>
+</div>
+
+<div class="content">
+
+<!-- SLIDE 1A: EINSTIEG -->
+<div id="s1a" class="slide active">
+  <section class="card">
+    <h2><span class="em">🔥</span> Warm-up · Einstieg</h2>
+    <p class="slide-sub">10 Minuten · Sprechen ohne Druck</p>
+
+    <div class="quick-q">
+      <div class="ql">📣 Frage an alle</div>
+      <div class="qq">Wo wohnst du gerade? Mietest du oder kaufst du?</div>
+      <div class="hints">
+        <span class="hint">Ich wohne in einer Wohnung</span>
+        <span class="hint">Ich miete / kaufe</span>
+        <span class="hint">Ich wohne allein / mit Familie / mit Mitbewohnern</span>
+      </div>
+    </div>
+
+    <div class="quick-q">
+      <div class="ql">📣 Frage 2</div>
+      <div class="qq">Hast du schon mal in Deutschland eine Wohnung gesucht? Was war schwer?</div>
+      <div class="hints">
+        <span class="hint">Es war schwer, weil …</span>
+        <span class="hint">Ich musste viele Dokumente geben</span>
+        <span class="hint">Es gab viele Bewerber</span>
+        <span class="hint">Ich habe noch nie …</span>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>Thema heute:</strong> In Deutschland ist die Wohnungssuche oft sehr stressig — besonders in Großstädten. Wir lernen heute die wichtigsten Sätze und Fragen, damit ihr vorbereitet seid!
+    </div>
+
+    <h3>Ablauf Stunde 1 — 60 Min</h3>
+    <div class="steps">
+      <div class="step done"><span class="sn">🔥</span>Einstieg<br><small>10 Min</small></div>
+      <div class="step"><span class="sn">📋</span>Inserat<br><small>12 Min</small></div>
+      <div class="step"><span class="sn">📞</span>Anrufen<br><small>15 Min</small></div>
+      <div class="step"><span class="sn">💬</span>Redemittel<br><small>10 Min</small></div>
+      <div class="step"><span class="sn">🎭</span>Rollenspiel<br><small>10 Min</small></div>
+      <div class="step"><span class="sn">📝</span>Abschluss<br><small>3 Min</small></div>
+    </div>
+  </section>
+</div>
+
+<!-- SLIDE 1B: INSERAT LESEN -->
+<div id="s1b" class="slide">
+  <section class="card">
+    <h2><span class="em">📋</span> Ein Inserat lesen</h2>
+    <p class="slide-sub">12 Minuten · Vokabular + Verstehen</p>
+
+    <h3>Wichtiges Vokabular</h3>
+    <table class="vtable">
+      <tr><th>Abkürzung / Wort</th><th>Bedeutung</th><th>Beispiel</th></tr>
+      <tr><td class="w">die WG</td><td>Wohngemeinschaft (mehrere Personen)</td><td>Ich suche eine WG</td></tr>
+      <tr><td class="w"><span class="art">die</span> Kaltmiete</td><td>Miete ohne Nebenkosten</td><td>850 € Kaltmiete</td></tr>
+      <tr><td class="w"><span class="art">die</span> Warmmiete</td><td>Miete mit allen Kosten</td><td>1.050 € Warmmiete</td></tr>
+      <tr><td class="w"><span class="art">die</span> Nebenkosten (NK)</td><td>Heizung, Wasser, Müll …</td><td>+200 € NK</td></tr>
+      <tr><td class="w"><span class="art">die</span> Kaution</td><td>Sicherheitsanzahlung (max. 3 Monatsmieten)</td><td>2.550 € Kaution</td></tr>
+      <tr><td class="w">2 ZKB / 3 ZKB</td><td>2 / 3 Zimmer, Küche, Bad</td><td>2 ZKB, 58 m²</td></tr>
+      <tr><td class="w">EBK</td><td>Einbauküche</td><td>mit EBK</td></tr>
+      <tr><td class="w">provisionsfrei</td><td>keine Maklergebühr</td><td>Angebot provisionsfrei</td></tr>
+      <tr><td class="w"><span class="art">der</span> Vermieter</td><td>Person, die vermietet</td><td>Der Vermieter heißt Herr Müller</td></tr>
+      <tr><td class="w"><span class="art">der</span> Mieter</td><td>Person, die mietet (ich!)</td><td>Ich bin Mieter</td></tr>
+      <tr><td class="w">frei ab</td><td>ab wann die Wohnung frei ist</td><td>frei ab 01.08.</td></tr>
+      <tr><td class="w">Keller / Stellplatz</td><td>Keller = Lagerraum, Stellplatz = Parkplatz</td><td>mit Keller und Stellplatz</td></tr>
+    </table>
+
+    <h3>Beispiel-Inserat</h3>
+    <div style="background:#f0f7ff;border:2px solid #b5d4f4;border-radius:12px;padding:18px 20px;font-size:14px;margin-bottom:16px">
+      <div style="font-weight:900;font-size:16px;color:#185fa5;margin-bottom:10px">🏠 2-Zimmer-Wohnung in Mannheim-Innenstadt</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;margin-bottom:10px">
+        <span>📐 <strong>Größe:</strong> 62 m²</span>
+        <span>🛏 <strong>Zimmer:</strong> 2 ZKB</span>
+        <span>💶 <strong>Kaltmiete:</strong> 920 €</span>
+        <span>🔥 <strong>NK:</strong> ca. 180 €</span>
+        <span>🗝 <strong>Kaution:</strong> 1.840 €</span>
+        <span>📅 <strong>Frei ab:</strong> 01.07.2025</span>
+        <span>🍳 <strong>EBK:</strong> ja</span>
+        <span>🚗 <strong>Stellplatz:</strong> 50 €/Mon</span>
+      </div>
+      <div style="border-top:1px dashed #b5d4f4;padding-top:10px;color:#185fa5">
+        Schöne helle Wohnung im 3. OG, frisch renoviert, Balkon nach Süden. Kein Haustier, keine Raucher. Provisionsfrei. Besichtigungstermin nach Vereinbarung.<br>
+        <strong>Kontakt:</strong> Herr Wagner, ☎ 0621 / 44 55 66 (Mo–Fr, 9–18 Uhr)
+      </div>
+    </div>
+
+    <div class="quick-q">
+      <div class="ql">⚡ Schnellfrage — 2 Min</div>
+      <div class="qq">Lies das Inserat. Welche Information fehlt dir? Was würdest du fragen?</div>
+      <div class="hints">
+        <span class="hint">Gibt es …?</span>
+        <span class="hint">Wie ist die Wohnung …?</span>
+        <span class="hint">Was kostet …?</span>
+      </div>
+    </div>
+
+    <div class="tip">
+      <span class="tip-i">💡</span>
+      <div class="tip-t"><strong>Tipp: Warmmiete ausrechnen!</strong>
+        Kaltmiete (920 €) + Nebenkosten (180 €) = <strong>Warmmiete 1.100 €</strong>. Das ist das, was du wirklich jeden Monat zahlst!
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- SLIDE 1C: ANRUFEN -->
+<div id="s1c" class="slide">
+  <section class="card">
+    <h2><span class="em">📞</span> Beim Vermieter anrufen</h2>
+    <p class="slide-sub">15 Minuten · Die wichtigsten Sätze am Telefon</p>
+
+    <div class="warn-box">
+      <strong>⚠️ Wichtig:</strong> In Deutschland ruft man an oder schreibt eine E-Mail — oft <strong>keine</strong> WhatsApp oder SMS! Seid höflich und formal: „Sie" verwenden!
+    </div>
+
+    <div class="dialog">
+      <div class="dialog-title">📞 Beispiel-Dialog: Erster Anruf</div>
+      <div class="bubble-wrap">
+        <div class="bubble m"><div class="who">Vermieter (Herr Wagner)</div>Wagner, guten Tag.</div>
+        <div class="bubble f"><div class="who">Du (Mieter:in)</div>Guten Tag, mein Name ist Lena Kowalski. Ich rufe wegen Ihrer Wohnung in der Hauptstraße 12 an. Die habe ich auf ImmoScout gesehen.</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>Ja, richtig. Die ist noch frei.</div>
+        <div class="bubble f"><div class="who">Du</div>Super! Ich hätte einige Fragen, wenn das okay ist. Ist die Wohnung noch verfügbar?</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>Ja, wir haben noch Besichtigungstermine frei. Was möchten Sie wissen?</div>
+        <div class="bubble f"><div class="who">Du</div>Wie hoch sind die Nebenkosten genau? Im Inserat steht „ca. 180 Euro".</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>Die Nebenkosten sind 175 Euro pro Monat, inklusive Heizung und Wasser.</div>
+        <div class="bubble f"><div class="who">Du</div>Verstehe. Und ist ein Besichtigungstermin möglich? Ich kann nächste Woche — am Dienstag oder Mittwoch.</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>Dienstag, 14 Uhr — das würde passen.</div>
+        <div class="bubble f"><div class="who">Du</div>Perfekt! Ich notiere das: Dienstag, 14 Uhr. Muss ich etwas mitbringen?</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>Bringen Sie bitte Ihren Personalausweis und, wenn möglich, eine SCHUFA-Auskunft mit.</div>
+        <div class="bubble f"><div class="who">Du</div>Sehr gut. Vielen Dank! Bis Dienstag dann. Auf Wiederhören!</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>Auf Wiederhören!</div>
+      </div>
+    </div>
+
+    <h3>Alle wichtigen Fragen beim Anruf</h3>
+    <ul class="red-list">
+      <li><strong>„Ist die Wohnung noch verfügbar / frei?"</strong></li>
+      <li><strong>„Wie hoch sind die Nebenkosten genau?"</strong></li>
+      <li><strong>„Ab wann ist die Wohnung frei?"</strong></li>
+      <li><strong>„Ist die Miete verhandelbar?"</strong></li>
+      <li><strong>„Gibt es einen Parkplatz / Keller?"</strong></li>
+      <li><strong>„Ist die Wohnung noch renoviert?"</strong> (= in gutem Zustand?)</li>
+      <li><strong>„Sind Haustiere erlaubt?"</strong></li>
+      <li><strong>„Kann ich einen Besichtigungstermin machen?"</strong></li>
+      <li><strong>„Was muss ich zur Besichtigung mitbringen?"</strong></li>
+      <li><strong>„An wen schicke ich meine Bewerbungsunterlagen?"</strong></li>
+    </ul>
+
+    <div class="tip">
+      <span class="tip-i">📝</span>
+      <div class="tip-t"><strong>Tipp: Notizen machen!</strong>
+        Beim Telefonieren immer Stift und Papier bereithalten. Am Ende wiederholen: „Habe ich das richtig verstanden — Dienstag, 14 Uhr?"
+      </div>
+    </div>
+
+    <div class="quick-q">
+      <div class="ql">⚡ Austausch — 3 Min</div>
+      <div class="qq">Welche Frage wäre für euch persönlich am wichtigsten beim Anruf — und warum?</div>
+      <div class="hints">
+        <span class="hint">Für mich ist … wichtig, weil …</span>
+        <span class="hint">Ich würde zuerst fragen …</span>
+        <span class="hint">Das ist mir egal, aber … ist wichtig</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- SLIDE 1D: REDEMITTEL -->
+<div id="s1d" class="slide">
+  <section class="card">
+    <h2><span class="em">💬</span> Redemittel — Teil 1</h2>
+    <p class="slide-sub">10 Minuten · Strukturen üben</p>
+
+    <div class="grammar-box">
+      <h4>Struktur: Höflich fragen mit „hätte" und „würde"</h4>
+      <p style="color:rgba(255,255,255,0.85);font-size:14px">Am Telefon sind wir höflicher als im Alltag. Statt „Ich will einen Termin" sagen wir:</p>
+      <p style="margin-top:10px;color:white;font-size:15px">→ <code>Ich hätte gerne einen Termin.</code></p>
+      <p style="color:white;font-size:15px">→ <code>Ich würde die Wohnung gerne besichtigen.</code></p>
+      <p style="color:white;font-size:15px">→ <code>Könnten Sie mir sagen, ob …?</code></p>
+    </div>
+
+    <h3>Am Telefon — Sätze für jeden Schritt</h3>
+
+    <div class="info-box" style="margin-bottom:8px"><strong>Eröffnung:</strong><br>
+    „Guten Tag, mein Name ist [Name]. Ich rufe wegen Ihrer Anzeige auf [ImmoScout / eBay Kleinanzeigen] an."</div>
+
+    <div class="info-box" style="margin-bottom:8px"><strong>Nachfragen:</strong><br>
+    „Entschuldigung, könnten Sie das wiederholen?"<br>
+    „Wie war das noch mal? Ich habe das nicht ganz verstanden."<br>
+    „Wie schreibt man das? / Wie buchstabieren Sie das?"</div>
+
+    <div class="info-box" style="margin-bottom:8px"><strong>Termin vereinbaren:</strong><br>
+    „Wann wäre eine Besichtigung möglich?"<br>
+    „Ich hätte Zeit am Dienstag nachmittag oder am Donnerstag morgen."<br>
+    „Passt Ihnen der [Datum] um [Uhrzeit] Uhr?"</div>
+
+    <div class="info-box"><strong>Abschluss:</strong><br>
+    „Vielen Dank für Ihre Zeit!"<br>
+    „Ich freue mich auf die Besichtigung!"<br>
+    „Auf Wiederhören!"</div>
+
+    <h3>Dokumente — was brauche ich?</h3>
+    <table class="vtable">
+      <tr><th>Dokument</th><th>Was ist das?</th><th>Wichtig?</th></tr>
+      <tr><td class="w">Personalausweis / Pass</td><td>Zur Identifikation</td><td>✅ immer</td></tr>
+      <tr><td class="w">SCHUFA-Auskunft</td><td>Zeigt, ob du Schulden hast</td><td>✅ oft nötig</td></tr>
+      <tr><td class="w">Gehaltsnachweis</td><td>Letzten 3 Monate</td><td>✅ oft nötig</td></tr>
+      <tr><td class="w">Mietschuldenfreiheit</td><td>Bestätigung vom alten Vermieter</td><td>⭕ manchmal</td></tr>
+      <tr><td class="w">Selbstauskunft</td><td>Formular mit persönlichen Daten</td><td>⭕ manchmal</td></tr>
+    </table>
+
+    <div class="quick-q">
+      <div class="ql">⚡ Schnell-Übung — 3 Min</div>
+      <div class="qq">Macht es zu zweit: Person A fragt, Person B antwortet. Tauscht dann.<br>„Ist die Wohnung noch verfügbar?" — „Wann kann ich besichtigen?" — „Was muss ich mitbringen?"</div>
+    </div>
+  </section>
+</div>
+
+<!-- SLIDE 1E: ROLLENSPIEL -->
+<div id="s1e" class="slide">
+  <section class="card">
+    <h2><span class="em">🎭</span> Rollenspiel — Anruf beim Vermieter</h2>
+    <p class="slide-sub">10 Minuten · Zu zweit üben</p>
+
+    <div class="info-box">
+      <strong>Aufgabe:</strong> Person A ruft an (Mieter:in). Person B ist der Vermieter. Benutzt die Karte mit der Wohnungsinfo unten. Danach tauscht ihr.
+    </div>
+
+    <div style="background:#f0f7ff;border:2px solid #b5d4f4;border-radius:12px;padding:16px 18px;font-size:13px;margin-bottom:16px">
+      <div style="font-weight:900;font-size:15px;color:#185fa5;margin-bottom:10px">📋 Wohnungsinfo für das Rollenspiel</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 20px">
+        <span>📐 <strong>Größe:</strong> 58 m²</span>
+        <span>🛏 <strong>Zimmer:</strong> 2 ZKB</span>
+        <span>💶 <strong>Kaltmiete:</strong> 780 €</span>
+        <span>🔥 <strong>NK:</strong> ca. 150 €</span>
+        <span>🗝 <strong>Kaution:</strong> 1.560 €</span>
+        <span>📅 <strong>Frei ab:</strong> 01.08.2025</span>
+        <span>🍳 <strong>EBK:</strong> nein</span>
+        <span>🐾 <strong>Haustiere:</strong> nein</span>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="role-card">
+        <span class="rl">MIETER:IN (Person A)</span>
+        <h4>Deine Aufgaben</h4>
+        <ul>
+          <li>Begrüße mit deinem Namen</li>
+          <li>Erkläre, warum du anrufst</li>
+          <li>Stelle mindestens 4 Fragen</li>
+          <li>Mache einen Termin</li>
+          <li>Frage, was du mitbringen musst</li>
+          <li>Verabschiede dich höflich</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <span class="rl">VERMIETER (Person B)</span>
+        <h4>Deine Aufgaben</h4>
+        <ul>
+          <li>Begrüße mit deinem Namen</li>
+          <li>Beantworte alle Fragen</li>
+          <li>Schlage Termin vor: Di 15 Uhr oder Do 10 Uhr</li>
+          <li>Bitte um SCHUFA + Gehaltsnachweis</li>
+          <li>Bleibe freundlich und geduldig</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="warn-box">
+      <strong>💬 Tipp für Vermieter:</strong> Wenn du eine Frage nicht beantworten kannst, sag: „Das muss ich noch prüfen — ich melde mich dann." — So klingt es sehr natürlich!
+    </div>
+  </section>
+</div>
+
+<!-- SLIDE 1F: ABSCHLUSS -->
+<div id="s1f" class="slide">
+  <section class="card">
+    <h2><span class="em">📝</span> Zusammenfassung — Was haben wir heute gelernt?</h2>
+    <p class="slide-sub">3 Minuten · Rückblick</p>
+
+    <div class="quick-q">
+      <div class="ql">📣 Abschlussrunde</div>
+      <div class="qq">Was war heute neu für euch? Welcher Satz war am schwierigsten?</div>
+    </div>
+
+    <h3>✅ Das kann ich jetzt</h3>
+    <ul class="checklist">
+      <li>Ein Wohnungsinserat lesen und verstehen</li>
+      <li>Abkürzungen kennen: ZKB, NK, EBK, Kaution</li>
+      <li>Beim Vermieter anrufen und mich vorstellen</li>
+      <li>Mindestens 5 wichtige Fragen stellen</li>
+      <li>Einen Besichtigungstermin vereinbaren</li>
+      <li>Fragen, was ich mitbringen muss</li>
+      <li>Höfliche Telefonformeln benutzen</li>
+    </ul>
+
+    <div class="info-box">
+      <strong>Nächste Stunde:</strong> Bei der Besichtigung — was ich sehe, was ich frage, was ich beachten muss — und was man sagt, wenn man die Wohnung nimmt (oder nicht nimmt).
+    </div>
+  </section>
+</div>
+
+</div><!-- end content -->
+</div><!-- end part1 -->
+
+<!-- ==================== PART 2 ==================== -->
+<div id="part2" style="display:none">
+<div class="part-header">
+  <div class="brand">Deutschoderwas · Sprechclub A2</div>
+  <h1>🏠 Wohnungssuche — Teil 2</h1>
+  <p class="meta">Bei der Besichtigung · Entscheidung treffen · Vertrag und Einzug</p>
+  <div class="badge-row">
+    <span class="badge badge-level">A2</span>
+    <span class="badge badge-time">⏱ 60 Minuten</span>
+    <span class="badge badge-time">Teil 2 von 2</span>
+  </div>
+</div>
+
+<div class="sub-tabs" id="tabs2">
+  <div class="sub-tab active" onclick="switchSlide(2,'s2a')">🔥 Rückblick</div>
+  <div class="sub-tab" onclick="switchSlide(2,'s2b')">🚪 Besichtigung</div>
+  <div class="sub-tab" onclick="switchSlide(2,'s2c')">💬 Redemittel 2</div>
+  <div class="sub-tab" onclick="switchSlide(2,'s2d')">❓ Alle Fragen</div>
+  <div class="sub-tab" onclick="switchSlide(2,'s2e')">🎭 Rollenspiel</div>
+  <div class="sub-tab" onclick="switchSlide(2,'s2f')">📄 Vertrag &amp; Ende</div>
+</div>
+
+<div class="content">
+
+<!-- SLIDE 2A: RÜCKBLICK -->
+<div id="s2a" class="slide active">
+  <section class="card">
+    <h2><span class="em">🔥</span> Rückblick + Einstieg</h2>
+    <p class="slide-sub">8 Minuten · Wiederholung + Neues vorbereiten</p>
+
+    <div class="quick-q">
+      <div class="ql">📣 Warm-up</div>
+      <div class="qq">Was erinnert ihr euch noch aus Stunde 1? Was sind die 3 wichtigsten Sätze beim Anruf?</div>
+      <div class="hints">
+        <span class="hint">Ich rufe wegen … an</span>
+        <span class="hint">Ist die Wohnung noch frei?</span>
+        <span class="hint">Kann ich einen Termin machen?</span>
+      </div>
+    </div>
+
+    <div class="quick-q">
+      <div class="ql">📣 Frage heute</div>
+      <div class="qq">Ihr habt einen Besichtigungstermin. Was nehmt ihr mit? Was zieht ihr an?</div>
+      <div class="hints">
+        <span class="hint">Ich nehme SCHUFA mit</span>
+        <span class="hint">Ich kleide mich ordentlich</span>
+        <span class="hint">Ich bin pünktlich</span>
+        <span class="hint">Ich mache Fotos von der Wohnung</span>
+      </div>
+    </div>
+
+    <h3>Ablauf Stunde 2 — 60 Min</h3>
+    <div class="steps">
+      <div class="step done"><span class="sn">🔥</span>Rückblick<br><small>8 Min</small></div>
+      <div class="step"><span class="sn">🚪</span>Besichtigung<br><small>15 Min</small></div>
+      <div class="step"><span class="sn">💬</span>Redemittel<br><small>10 Min</small></div>
+      <div class="step"><span class="sn">❓</span>Alle Fragen<br><small>8 Min</small></div>
+      <div class="step"><span class="sn">🎭</span>Rollenspiel<br><small>12 Min</small></div>
+      <div class="step"><span class="sn">📄</span>Vertrag<br><small>7 Min</small></div>
+    </div>
+
+    <div class="tip">
+      <span class="tip-i">💡</span>
+      <div class="tip-t"><strong>Guter erster Eindruck ist wichtig!</strong>
+        Bei 10–20 Bewerbern für eine Wohnung entscheidet der Vermieter oft nach dem Bauchgefühl. Freundlich, pünktlich, vorbereitet — das macht den Unterschied.
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- SLIDE 2B: BESICHTIGUNG -->
+<div id="s2b" class="slide">
+  <section class="card">
+    <h2><span class="em">🚪</span> Bei der Besichtigung</h2>
+    <p class="slide-sub">15 Minuten · Was passiert, was sagt man</p>
+
+    <div class="info-box">
+      <strong>Situation:</strong> Du stehst vor der Tür. Der Vermieter öffnet. Was sagst du als erstes?
+    </div>
+
+    <div class="dialog">
+      <div class="dialog-title">🚪 Beispiel-Dialog: Besichtigung von Anfang bis Ende</div>
+      <div class="bubble-wrap">
+        <div class="bubble f"><div class="who">Du (Mieter:in)</div>Guten Tag, Herr Wagner! Ich bin Lena Kowalski — wir haben um 14 Uhr ausgemacht.</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>Ah ja, Frau Kowalski! Bitte kommen Sie herein. Die Wohnung liegt im dritten Stockwerk.</div>
+        <div class="bubble f"><div class="who">Du</div>Vielen Dank! Schönes Haus — gibt es einen Aufzug?</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>Leider nicht. Aber viele Mieter finden das dann gut für die Fitness. <em>(lacht)</em></div>
+        <div class="bubble f"><div class="who">Du</div><em>(In der Wohnung)</em> Oh, das ist sehr hell! Nach Süden, oder?</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>Ja, genau. Das Wohnzimmer und der Balkon zeigen nach Süden.</div>
+        <div class="bubble f"><div class="who">Du</div>Wie hoch sind die Räume? Die Decken sehen sehr hoch aus.</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>Raumhöhe ist 2,70 Meter — das ist über dem Durchschnitt.</div>
+        <div class="bubble f"><div class="who">Du</div>Schön. Und wie ist das mit dem Internet? Gibt es eine Glasfaser-Verbindung?</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>Das Haus hat einen Kabelanschluss. Glasfaser kommt nächstes Jahr.</div>
+        <div class="bubble f"><div class="who">Du</div>Okay. Und das Badezimmer — wann war das zuletzt renoviert?</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>2019. Die Küche wurde 2022 neu gemacht.</div>
+        <div class="bubble f"><div class="who">Du</div>Ich sehe, eine Waschmaschine gibt es nicht im Bad — wo kann ich waschen?</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>Im Keller gibt es einen Waschraum — den teilen sich alle Mieter. Es gibt einen Zeitplan.</div>
+        <div class="bubble f"><div class="who">Du</div>Verstehe. Darf ich den Balkon kurz sehen?</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>Natürlich — bitte!</div>
+        <div class="bubble f"><div class="who">Du</div><em>(nach der Besichtigung)</em> Die Wohnung gefällt mir sehr gut. Was sind die nächsten Schritte?</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>Schicken Sie mir bitte Ihre Unterlagen per E-Mail — SCHUFA, Gehaltsnachweis und Personalausweis. Ich melde mich dann.</div>
+        <div class="bubble f"><div class="who">Du</div>Sehr gerne. Bis wann sollte ich das schicken?</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>Am besten bis Ende dieser Woche.</div>
+        <div class="bubble f"><div class="who">Du</div>Alles klar! Vielen Dank für die Besichtigung, Herr Wagner. Auf Wiedersehen!</div>
+        <div class="bubble m"><div class="who">Herr Wagner</div>Auf Wiedersehen, Frau Kowalski!</div>
+      </div>
+    </div>
+
+    <div class="quick-q">
+      <div class="ql">⚡ Austausch — 3 Min</div>
+      <div class="qq">Was hat Lena gut gemacht? Was würdet ihr noch fragen?</div>
+      <div class="hints">
+        <span class="hint">Sie war höflich</span>
+        <span class="hint">Sie hat viele Fragen gestellt</span>
+        <span class="hint">Ich würde noch fragen …</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- SLIDE 2C: REDEMITTEL 2 -->
+<div id="s2c" class="slide">
+  <section class="card">
+    <h2><span class="em">💬</span> Redemittel — Bei der Besichtigung</h2>
+    <p class="slide-sub">10 Minuten · Strukturen und echte Sätze</p>
+
+    <h3>Ankommen und begrüßen</h3>
+    <ul class="red-list">
+      <li>„Guten Tag! Ich bin [Name] — wir haben um [Uhrzeit] ausgemacht."</li>
+      <li>„Schön, Sie kennenzulernen!"</li>
+      <li>„Darf ich meinen Mantel hier aufhängen?"</li>
+      <li>„Soll ich die Schuhe ausziehen?"</li>
+    </ul>
+
+    <h3>Die Wohnung beschreiben und kommentieren</h3>
+    <ul class="red-list">
+      <li>„Das ist sehr <strong>hell / groß / gemütlich</strong>!"</li>
+      <li>„Ich mag den Balkon / das Bad / die Küche sehr."</li>
+      <li>„Wie groß ist das Zimmer hier genau?"</li>
+      <li>„Darf ich Fotos machen?"</li>
+      <li>„Ich sehe, dass … — ist das ein Problem?"</li>
+      <li>„Was bedeutet dieser Fleck an der Wand?" <em>(= gibt es ein Wasserproblem?)</em></li>
+    </ul>
+
+    <h3>Interesse zeigen — aber nicht zu viel!</h3>
+    <div class="warn-box">
+      <strong>⚠️ Tipp:</strong> Zeige Interesse, aber sage nicht sofort „Ich nehme die Wohnung!" — das schwächt deine Verhandlungsposition. Besser: „Die Wohnung gefällt mir sehr gut — ich melde mich bald."
+    </div>
+    <ul class="red-list">
+      <li>„Die Wohnung gefällt mir sehr gut."</li>
+      <li>„Das entspricht genau meinen Vorstellungen."</li>
+      <li>„Ich bin sehr interessiert."</li>
+      <li>„Ich muss noch kurz nachdenken / mit meinem Partner sprechen."</li>
+      <li>„Ich melde mich morgen / bis Freitag bei Ihnen."</li>
+    </ul>
+
+    <h3>Wenn die Wohnung NICHT passt</h3>
+    <ul class="red-list">
+      <li>„Vielen Dank für die Besichtigung!"</li>
+      <li>„Die Wohnung ist leider nicht ganz das, was ich suche."</li>
+      <li>„Ich werde mich dann nicht bewerben — aber danke!"</li>
+    </ul>
+
+    <div class="quick-q">
+      <div class="ql">⚡ Schnell-Übung</div>
+      <div class="qq">Wie sagst du höflich, dass dir etwas nicht gefällt? Übt zu zweit 2 Sätze.</div>
+      <div class="hints">
+        <span class="hint">Das Zimmer ist leider etwas klein für mich</span>
+        <span class="hint">Ich hatte mir das etwas anders vorgestellt</span>
+        <span class="hint">Das ist mir leider zu …</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- SLIDE 2D: ALLE FRAGEN -->
+<div id="s2d" class="slide">
+  <section class="card">
+    <h2><span class="em">❓</span> Alle wichtigen Fragen bei der Besichtigung</h2>
+    <p class="slide-sub">8 Minuten · Vollständige Liste — ausdrucken und mitnehmen!</p>
+
+    <div class="info-box">
+      <strong>Profi-Tipp:</strong> Drucke diese Liste aus und bring sie zur Besichtigung. Es ist völlig normal, eine Liste dabei zu haben — Vermieter sehen das als positiv!
+    </div>
+
+    <h3>🏗 Zum Gebäude</h3>
+    <ul class="red-list">
+      <li>„Gibt es einen Aufzug?"</li>
+      <li>„Wie viele Stockwerke hat das Haus?"</li>
+      <li>„Gibt es einen Keller?"</li>
+      <li>„Wo kann ich Fahrräder abstellen?"</li>
+      <li>„Gibt es einen Parkplatz / eine Garage?"</li>
+      <li>„Wie ist die Heizung — Gas, Fernwärme, Wärmepumpe?"</li>
+      <li>„Wie ist die Energieeffizienzklasse des Hauses?"</li>
+    </ul>
+
+    <h3>🛁 Zur Wohnung selbst</h3>
+    <ul class="red-list">
+      <li>„Wann war die letzte Renovierung?"</li>
+      <li>„Gibt es Schimmel im Bad oder in der Küche?"</li>
+      <li>„Wie dick sind die Wände — ist es ruhig?"</li>
+      <li>„Kann ich eine Waschmaschine in der Wohnung aufstellen?"</li>
+      <li>„Gibt es Glasfaser / schnelles Internet?"</li>
+      <li>„Sind Möbel inbegriffen?"</li>
+      <li>„Darf ich die Wände streichen?"</li>
+      <li>„Darf ich Bilder aufhängen / Löcher bohren?"</li>
+    </ul>
+
+    <h3>🐾 Zu den Regeln</h3>
+    <ul class="red-list">
+      <li>„Sind Haustiere erlaubt?"</li>
+      <li>„Darf ich rauchen auf dem Balkon?"</li>
+      <li>„Gibt es eine Hausordnung?"</li>
+      <li>„Wann ist Ruhezeit?" <em>(= meist: 22–7 Uhr + 13–15 Uhr)</em></li>
+      <li>„Wie viele Schlüssel bekomme ich?"</li>
+    </ul>
+
+    <h3>💶 Zu Kosten und Vertrag</h3>
+    <ul class="red-list">
+      <li>„Wie lange ist der Mietvertrag — befristet oder unbefristet?"</li>
+      <li>„Gibt es eine Mietpreisbremse in diesem Gebiet?"</li>
+      <li>„Wie oft darf die Miete erhöht werden?"</li>
+      <li>„Wie viele Monate Kündigungsfrist gibt es?"</li>
+      <li>„Wann genau kann ich einziehen?"</li>
+      <li>„Wann muss ich die Kaution zahlen?"</li>
+    </ul>
+
+    <div class="quick-q">
+      <div class="ql">⚡ Paar-Übung</div>
+      <div class="qq">Jede Person wählt 3 Fragen aus der Liste. Stellt sie eurer Partnerin / eurem Partner. Sie/Er antwortet frei.</div>
+    </div>
+  </section>
+</div>
+
+<!-- SLIDE 2E: ROLLENSPIEL -->
+<div id="s2e" class="slide">
+  <section class="card">
+    <h2><span class="em">🎭</span> Rollenspiel — Die Besichtigung</h2>
+    <p class="slide-sub">12 Minuten · Komplett-Szenario zu zweit</p>
+
+    <div class="info-box">
+      <strong>Aufgabe:</strong> Spielt eine komplette Besichtigung — von der Begrüßung an der Tür bis zur Verabschiedung. Person A ist die Mieter:in, Person B ist der Vermieter. Dann tauscht.
+    </div>
+
+    <div style="background:#f0f7ff;border:2px solid #b5d4f4;border-radius:12px;padding:16px 18px;font-size:13px;margin-bottom:16px">
+      <div style="font-weight:900;font-size:15px;color:#185fa5;margin-bottom:10px">📋 Wohnung für das Rollenspiel</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;margin-bottom:8px">
+        <span>📐 <strong>Größe:</strong> 72 m²</span>
+        <span>🛏 <strong>Zimmer:</strong> 3 ZKB</span>
+        <span>💶 <strong>Warmmiete:</strong> 1.150 €</span>
+        <span>🗝 <strong>Kaution:</strong> 2.400 €</span>
+        <span>📅 <strong>Frei ab:</strong> 15.07.2025</span>
+        <span>🍳 <strong>EBK:</strong> ja (neu, 2022)</span>
+        <span>🐾 <strong>Haustiere:</strong> kleine erlaubt</span>
+        <span>🚗 <strong>Parkplatz:</strong> 80 €/Mon extra</span>
+      </div>
+      <div style="color:#185fa5;font-size:12px">Badezimmer renoviert 2018. Kein Aufzug (4. OG). Waschkeller im Erdgeschoss. Ruhezeit ab 22 Uhr. Unbefristeter Vertrag. 3 Monate Kündigungsfrist.</div>
+    </div>
+
+    <div class="two-col">
+      <div class="role-card">
+        <span class="rl">MIETER:IN (Person A)</span>
+        <h4>Deine Aufgaben</h4>
+        <ul>
+          <li>Begrüße an der Tür</li>
+          <li>Schau dir jedes Zimmer an</li>
+          <li>Stelle mind. 6 Fragen</li>
+          <li>Kommentiere die Wohnung</li>
+          <li>Zeige Interesse — ohne zu übertreiben</li>
+          <li>Frage nach nächsten Schritten</li>
+          <li>Verabschiede dich höflich</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <span class="rl">VERMIETER (Person B)</span>
+        <h4>Deine Aufgaben</h4>
+        <ul>
+          <li>Öffne die Tür und begrüße</li>
+          <li>Zeige alle Zimmer</li>
+          <li>Beantworte Fragen ehrlich</li>
+          <li>Erwähne: viele Bewerber, schnell entscheiden</li>
+          <li>Frage auch: Beruf? Wie lange geplant?</li>
+          <li>Bitte um Unterlagen bis Do</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="warn-box">
+      <strong>Vermieter darf auch fragen!</strong> In Deutschland sind folgende Fragen erlaubt: Beruf, Einkommen, wie viele Personen einziehen. Nicht erlaubt: Nationalität, Religion, Herkunft, Schwangerschaft.
+    </div>
+
+    <div class="quick-q">
+      <div class="ql">💬 Reflexion nach dem Rollenspiel</div>
+      <div class="qq">Was war leicht? Was war schwer? Welchen Satz habt ihr nicht gewusst?</div>
+    </div>
+  </section>
+</div>
+
+<!-- SLIDE 2F: VERTRAG & ABSCHLUSS -->
+<div id="s2f" class="slide">
+  <section class="card">
+    <h2><span class="em">📄</span> Mietvertrag &amp; Abschluss</h2>
+    <p class="slide-sub">7 Minuten · Wichtiges im Vertrag + Abschluss</p>
+
+    <h3>Was steht im Mietvertrag? — Wichtigste Punkte</h3>
+    <table class="vtable">
+      <tr><th>Begriff</th><th>Was bedeutet das?</th></tr>
+      <tr><td class="w">Mietdauer</td><td>Befristet (z.B. 2 Jahre) oder unbefristet (= für immer)</td></tr>
+      <tr><td class="w">Kündigungsfrist</td><td>Wie früh muss ich kündigen? (meist 3 Monate)</td></tr>
+      <tr><td class="w">Schönheitsreparaturen</td><td>Muss ich am Ende streichen? (steht im Vertrag)</td></tr>
+      <tr><td class="w">Tierhaltung</td><td>Erlaubt? Mit Zustimmung? Verboten?</td></tr>
+      <tr><td class="w">Untervermietung</td><td>Darf jemand anderes zeitweise einziehen?</td></tr>
+      <tr><td class="w">Indexmiete</td><td>Miete steigt mit der Inflation — Vorsicht!</td></tr>
+      <tr><td class="w">Staffelmiete</td><td>Miete steigt nach Plan, z.B. 2% pro Jahr</td></tr>
+    </table>
+
+    <div class="warn-box" style="margin-top:16px">
+      <strong>⚠️ Wichtig:</strong> Unterschreibe den Mietvertrag erst, wenn du alles verstanden hast! Du kannst sagen: „Darf ich den Vertrag erst zu Hause lesen?" — Das ist völlig normal und dein Recht!
+    </div>
+
+    <h3>Wenn du die Wohnung NIMMST — was sagst du?</h3>
+    <ul class="red-list">
+      <li>„Ich würde die Wohnung gerne nehmen."</li>
+      <li>„Ich bin sehr interessiert. Kann ich den Mietvertrag bekommen?"</li>
+      <li>„Können Sie mir den Vertrag per E-Mail schicken?"</li>
+      <li>„Wann kann ich einziehen?"</li>
+      <li>„Wann und wie zahle ich die Kaution?"</li>
+    </ul>
+
+    <h3>Beim Einzug — das Übergabeprotokoll</h3>
+    <div class="info-box">
+      <strong>Was ist das?</strong> Beim Einzug geht der Vermieter mit dir durch die Wohnung. Ihr notiert zusammen: Welche Schäden gibt es schon? Wie viele Schlüssel? Welche Zählerstände? Das Protokoll unterschreiben beide — sehr wichtig!
+    </div>
+    <ul class="red-list">
+      <li>„Ich sehe hier einen Kratzer an der Tür — können wir das notieren?"</li>
+      <li>„Darf ich das Protokoll fotografieren?"</li>
+      <li>„Wie viele Schlüssel bekomme ich?"</li>
+      <li>„Was ist der aktuelle Zählerstand für Strom / Gas?"</li>
+    </ul>
+
+    <div class="quick-q">
+      <div class="ql">📣 Abschlussrunde</div>
+      <div class="qq">Was nehmt ihr heute mit? Welcher Satz war am nützlichsten für euch?</div>
+    </div>
+
+    <h3>✅ Das kann ich jetzt — nach beiden Stunden</h3>
+    <ul class="checklist">
+      <li>Ein Inserat lesen und alle Abkürzungen verstehen</li>
+      <li>Beim Vermieter anrufen und mich vorstellen</li>
+      <li>Wichtige Fragen am Telefon stellen</li>
+      <li>Einen Besichtigungstermin vereinbaren</li>
+      <li>Bei der Besichtigung höflich fragen und kommentieren</li>
+      <li>Mein Interesse zeigen — oder freundlich absagen</li>
+      <li>Den Mietvertrag verstehen (Grundbegriffe)</li>
+      <li>Beim Einzug das Übergabeprotokoll verstehen</li>
+    </ul>
+
+    <div class="info-box" style="margin-top:20px">
+      <strong>🎉 Gut gemacht!</strong> Die Wohnungssuche auf Deutsch ist ein echter Alltagstest. Mit diesen Sätzen seid ihr gut vorbereitet!
+    </div>
+  </section>
+</div>
+
+</div><!-- end content -->
+</div><!-- end part2 -->
+
+<div class="footer" style="max-width:860px;margin:0 auto">
+  <strong>DEUTSCHODERWAS · SPRECHCLUB · A2 · Wohnungssuche</strong><br>
+  Teil 1: Inserat + Anruf · Teil 2: Besichtigung + Vertrag
+</div>
+
+<script>
+function switchPart(n) {
+  document.getElementById('part1').style.display = n===1?'block':'none';
+  document.getElementById('part2').style.display = n===2?'block':'none';
+  document.querySelectorAll('.top-tab').forEach((t,i)=>{
+    t.classList.toggle('active', i===n-1);
+  });
+}
+
+function switchSlide(part, id) {
+  var prefix = 's'+part;
+  document.querySelectorAll('[id^="'+prefix+'"]').forEach(s=>{
+    s.classList.remove('active');
+  });
+  document.getElementById(id).classList.add('active');
+  var tabs = document.querySelectorAll('#tabs'+part+' .sub-tab');
+  var slides = Array.from(document.querySelectorAll('[id^="'+prefix+'"]'));
+  var activeIdx = slides.findIndex(s=>s.id===id);
+  tabs.forEach((t,i)=>t.classList.toggle('active', i===activeIdx));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
+          </body>
+        </html>
