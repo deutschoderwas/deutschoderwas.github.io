@@ -1,0 +1,259 @@
+<!DOCTYPE html><html lang="de"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>B1 Grammatik: Passiv · deutschoderwas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#C8A870;--acc-lt:#EEE4D4;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;line-height:1.5;}
+.phase-nav{position:sticky;top:0;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.7rem 1.2rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.85rem;font-weight:700;color:var(--sand);margin-right:.5rem;white-space:nowrap;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;transition:.2s;font-family:inherit;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}
+.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.2rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fade .3s;}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none;}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.6rem;}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.3rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.83rem;color:#aaa;margin-top:.4rem;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin:1.4rem 0 .9rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+table.fmt{width:100%;border-collapse:collapse;margin:.6rem 0 1rem;font-size:.9rem;}
+table.fmt th,table.fmt td{padding:.55rem .8rem;text-align:left;border-bottom:1px solid var(--sand);}
+table.fmt th{background:var(--acc-lt);color:var(--brown);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;}
+table.fmt td:first-child{font-weight:700;color:var(--brown);}
+.formel{background:var(--acc-lt);border:2px solid var(--acc);border-radius:12px;padding:1rem 1.3rem;margin:1rem 0;font-family:'Fraunces',serif;font-size:1.05rem;color:var(--brown);text-align:center;font-weight:700;}
+.formel strong{color:var(--rust);}
+.ex{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.7rem 1.1rem;margin-bottom:.5rem;border-left:4px solid var(--acc);font-size:.92rem;}
+.ex .de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);}
+.ex .hint{font-size:.78rem;color:#888;font-style:italic;margin-top:.2rem;}
+.ex strong{color:var(--rust);background:var(--rust-lt);padding:.05em .3em;border-radius:4px;}
+.quiz{background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.q-text{font-family:'Fraunces',serif;font-size:1.02rem;font-weight:700;color:var(--brown);margin-bottom:.8rem;}
+.q-text .blank{background:var(--acc-lt);padding:.05em .8em;border-radius:6px;color:var(--acc);font-style:italic;}
+.q-opts{display:flex;flex-direction:column;gap:.5rem;}
+.q-opt{background:var(--sand-lt);border:1.5px solid var(--sand);border-radius:10px;padding:.65rem 1rem;cursor:pointer;font-size:.92rem;font-weight:500;transition:.15s;text-align:left;font-family:inherit;color:var(--dark);}
+.q-opt:hover{border-color:var(--acc);background:var(--acc-lt);}
+.q-opt.correct{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:700;}
+.q-opt.wrong{background:var(--red-lt);border-color:var(--red);color:var(--red);text-decoration:line-through;}
+.q-explain{margin-top:.7rem;font-size:.82rem;color:var(--green);background:var(--green-lt);padding:.55rem .9rem;border-radius:8px;display:none;font-weight:500;}
+.q-explain.show{display:block;}
+.q-explain.wrong{color:var(--red);background:var(--red-lt);}
+.transform{background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.t-aktiv{font-family:'Fraunces',serif;font-size:1rem;color:var(--brown);font-style:italic;margin-bottom:.5rem;}
+.t-arrow{text-align:center;color:var(--acc);font-size:1.4rem;margin:.3rem 0;}
+.t-input{width:100%;font-family:inherit;font-size:.95rem;padding:.7rem 1rem;border:2px solid var(--sand);border-radius:10px;background:var(--cream);}
+.t-input:focus{outline:none;border-color:var(--acc);background:white;}
+.t-check{background:var(--acc);color:white;border:none;padding:.55rem 1.4rem;border-radius:20px;font-weight:700;font-family:inherit;font-size:.85rem;cursor:pointer;margin-top:.6rem;}
+.t-feedback{margin-top:.6rem;padding:.6rem .9rem;border-radius:8px;font-size:.85rem;display:none;font-weight:500;}
+.t-feedback.show{display:block;}
+.t-feedback.right{background:var(--green-lt);color:var(--green);}
+.t-feedback.miss{background:var(--red-lt);color:var(--red);}
+.t-feedback .sol{margin-top:.3rem;font-family:'Fraunces',serif;font-weight:700;}
+.tip{background:var(--green-lt);border-left:4px solid var(--green);padding:.7rem 1.1rem;border-radius:8px;margin:.8rem 0;font-size:.88rem;color:var(--green);}
+.tip strong{font-weight:700;}
+.warn{background:var(--red-lt);border-left:4px solid var(--red);padding:.7rem 1.1rem;border-radius:8px;margin:.8rem 0;font-size:.88rem;color:var(--red);}
+.score{position:fixed;top:55px;right:1rem;background:var(--dark);color:white;padding:.4rem 1rem;border-radius:20px;font-size:.78rem;font-weight:700;z-index:50;box-shadow:0 4px 12px rgba(0,0,0,.2);}
+.score .pts{color:var(--acc);font-family:'Fraunces',serif;font-size:1rem;}
+footer{text-align:center;font-size:.75rem;color:#bbb;padding:2rem 1rem 1rem;}
+@media(max-width:700px){.card-body{padding:1.2rem 1.2rem;}main{padding:1rem .8rem 4rem;}}
+</style>
+</head>
+<body>
+<div class="phase-nav">
+  <div class="brand-tag">deutschoderwas <span>· Passiv</span></div>
+  <button class="phase-btn active" data-phase="1">1 Bildung</button>
+  <button class="phase-btn" data-phase="2">2 Zeitformen</button>
+  <button class="phase-btn" data-phase="3">3 Modalverben</button>
+  <button class="phase-btn" data-phase="4">4 Transformation</button>
+  <button class="phase-btn" data-phase="5">5 Quiz</button>
+</div>
+<div class="score">Punkte: <span class="pts" id="pts">0</span></div>
+<main>
+
+<section class="phase active" data-phase="1">
+  <div class="card"><div class="card-header"><div class="eyebrow">Grammatik · B1</div><h1 class="card-title">DAS <em>PASSIV</em></h1><p class="card-sub">Bildung, Verwendung, Üben — die wichtigste Grammatik für B1</p></div><div class="card-accent"></div><div class="card-body">
+
+<div class="slabel">Wann nutzen wir Passiv?</div>
+<ul style="padding-left:1.3rem;font-size:.93rem;line-height:1.8;">
+<li>Der <strong>Täter ist unbekannt</strong> oder unwichtig: "Mein Auto wurde gestohlen."</li>
+<li>Allgemeine <strong>Regeln & Sitten</strong>: "In Deutschland wird viel Bier getrunken."</li>
+<li><strong>Wissenschaftlich</strong> / formell: "Es wurde festgestellt, dass…"</li>
+<li><strong>Höflich</strong>, distanziert: "Es wird gebeten, leise zu sein."</li>
+</ul>
+
+<div class="slabel">Die Grundformel</div>
+<div class="formel">PASSIV = <strong>werden</strong> (konjugiert) + <strong>Partizip II</strong> (am Satzende)</div>
+
+<div class="slabel">Aktiv → Passiv: Vergleich</div>
+<div class="ex"><div class="de">AKTIV: Der Koch <strong>kocht</strong> die Suppe.</div><div class="hint">Subjekt = wer macht? → Der Koch</div></div>
+<div class="ex"><div class="de">PASSIV: Die Suppe <strong>wird gekocht</strong>.</div><div class="hint">Subjekt = was wird gemacht? → Die Suppe (der Täter ist nicht wichtig!)</div></div>
+
+<div class="tip"><strong>💡 Merke:</strong> Im Passiv wird das AKKUSATIV-OBJEKT zum SUBJEKT. Der ursprüngliche Täter kann mit <strong>von</strong> + Dativ ergänzt werden (oder weggelassen werden).</div>
+
+</div></div>
+</section>
+
+<section class="phase" data-phase="2">
+  <div class="card"><div class="card-header"><div class="eyebrow">Zeitformen</div><h1 class="card-title">Passiv in <em>allen Zeiten</em></h1></div><div class="card-accent"></div><div class="card-body">
+
+<div class="slabel">Präsens · Präteritum · Perfekt</div>
+<table class="fmt">
+<tr><th>Zeit</th><th>Formel</th><th>Beispiel</th></tr>
+<tr><td>Präsens</td><td>werde / wirst / wird + P.II</td><td>Das Haus <strong>wird</strong> gebaut.</td></tr>
+<tr><td>Präteritum</td><td>wurde / wurdest + P.II</td><td>Das Haus <strong>wurde</strong> gebaut.</td></tr>
+<tr><td>Perfekt</td><td>bin/ist + P.II + <strong>worden</strong></td><td>Das Haus <strong>ist</strong> gebaut <strong>worden</strong>.</td></tr>
+</table>
+
+<div class="warn"><strong>⚠️ Achtung Perfekt!</strong> Nicht "geworden", sondern <strong>WORDEN</strong> (ohne ge-)! Das ist der häufigste Fehler.</div>
+
+<div class="slabel">Konjugation: werden</div>
+<table class="fmt">
+<tr><th>Person</th><th>Präsens</th><th>Präteritum</th></tr>
+<tr><td>ich</td><td>werde</td><td>wurde</td></tr>
+<tr><td>du</td><td>wirst</td><td>wurdest</td></tr>
+<tr><td>er/sie/es</td><td>wird</td><td>wurde</td></tr>
+<tr><td>wir</td><td>werden</td><td>wurden</td></tr>
+<tr><td>ihr</td><td>werdet</td><td>wurdet</td></tr>
+<tr><td>sie/Sie</td><td>werden</td><td>wurden</td></tr>
+</table>
+
+<div class="slabel">Zustandspassiv (sein + P.II)</div>
+<p style="margin-bottom:.6rem;font-size:.92rem;">Manchmal beschreibt Passiv nur einen ZUSTAND, nicht eine Handlung:</p>
+<div class="ex"><div class="de">Vorgang: Die Tür <strong>wird</strong> geschlossen. <span style="font-size:.78rem;color:#888;">(Handlung läuft gerade!)</span></div></div>
+<div class="ex"><div class="de">Zustand: Die Tür <strong>ist</strong> geschlossen. <span style="font-size:.78rem;color:#888;">(Sie ist schon zu — fertig!)</span></div></div>
+
+</div></div>
+</section>
+
+<section class="phase" data-phase="3">
+  <div class="card"><div class="card-header"><div class="eyebrow">Erweiterung</div><h1 class="card-title">Passiv mit <em>Modalverben</em></h1></div><div class="card-accent"></div><div class="card-body">
+
+<div class="slabel">Sehr wichtig für Regeln & Pflichten!</div>
+<div class="formel">Modalverb + <strong>Partizip II</strong> + <strong>werden</strong> (am Ende)</div>
+
+<div class="ex"><div class="de">Die Suppe <strong>muss</strong> gekocht <strong>werden</strong>.</div><div class="hint">müssen → Notwendigkeit / Pflicht</div></div>
+<div class="ex"><div class="de">Schuhe <strong>sollen</strong> ausgezogen <strong>werden</strong>.</div><div class="hint">sollen → Empfehlung / Regel</div></div>
+<div class="ex"><div class="de">Hier <strong>darf</strong> nicht geraucht <strong>werden</strong>.</div><div class="hint">dürfen → Verbot</div></div>
+<div class="ex"><div class="de">Das <strong>kann</strong> repariert <strong>werden</strong>.</div><div class="hint">können → Möglichkeit</div></div>
+
+<div class="tip"><strong>💡 Wortstellung:</strong> Modalverb steht auf Position 2. Partizip II und werden gehen ans SATZENDE — werden ganz hinten!</div>
+
+<div class="slabel">VON vs. DURCH</div>
+<p style="margin-bottom:.5rem;font-size:.92rem;">Wenn man den Täter doch nennen will:</p>
+<div class="ex"><div class="de"><strong>VON</strong> + Dativ → für Personen/Lebewesen</div><div class="hint">Der Kuchen wird VON Anna gebacken.</div></div>
+<div class="ex"><div class="de"><strong>DURCH</strong> + Akkusativ → für Ursachen/Mittel</div><div class="hint">Das Haus wurde DURCH ein Feuer zerstört.</div></div>
+
+</div></div>
+</section>
+
+<section class="phase" data-phase="4">
+  <div class="card"><div class="card-header"><div class="eyebrow">Übung · Transformation</div><h1 class="card-title">Aktiv → <em>Passiv</em></h1><p class="card-sub">Wandle die Sätze um. Tipp: Akkusativ → Subjekt!</p></div><div class="card-accent"></div><div class="card-body">
+
+<div class="transform"><div class="t-aktiv">AKTIV: Der Bäcker backt das Brot.</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Das Brot wird (vom Bäcker) gebacken." placeholder="Schreib den Passiv-Satz hier..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-aktiv">AKTIV: Anna schreibt einen Brief.</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Ein Brief wird (von Anna) geschrieben." placeholder="Schreib den Passiv-Satz hier..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-aktiv">AKTIV: Die Kinder essen den Kuchen.</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Der Kuchen wird (von den Kindern) gegessen." placeholder="Schreib den Passiv-Satz hier..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-aktiv">AKTIV: Man muss die Tür schließen.</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Die Tür muss geschlossen werden." placeholder="Mit Modalverb..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-aktiv">AKTIV (Präteritum): Der Mechaniker reparierte das Auto.</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Das Auto wurde (vom Mechaniker) repariert." placeholder="Passiv im Präteritum..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-aktiv">AKTIV (Perfekt): Wir haben das Haus gebaut.</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Das Haus ist (von uns) gebaut worden." placeholder="Passiv im Perfekt — Achtung: worden!"><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+</div></div>
+</section>
+
+<section class="phase" data-phase="5">
+  <div class="card"><div class="card-header"><div class="eyebrow">Quiz · Multiple Choice</div><h1 class="card-title">Teste dein <em>Wissen</em></h1><p class="card-sub">8 Fragen. Wähle die richtige Form!</p></div><div class="card-accent"></div><div class="card-body">
+
+<div class="quiz" data-correct="1"><div class="q-text">"Das Buch <span class="blank">___</span> gelesen." (Präsens-Passiv)</div><div class="q-opts">
+<button class="q-opt">ist</button><button class="q-opt">wird</button><button class="q-opt">wurde</button>
+</div><div class="q-explain">✓ "wird" — Präsens-Passiv: werden + Partizip II</div></div>
+
+<div class="quiz" data-correct="0"><div class="q-text">"Die Suppe <span class="blank">___</span> gekocht." (Präteritum-Passiv)</div><div class="q-opts">
+<button class="q-opt">wurde</button><button class="q-opt">wird</button><button class="q-opt">ist</button>
+</div><div class="q-explain">✓ "wurde" — Präteritum-Passiv: wurde + Partizip II</div></div>
+
+<div class="quiz" data-correct="2"><div class="q-text">"Das Haus ist gebaut <span class="blank">___</span>." (Perfekt-Passiv)</div><div class="q-opts">
+<button class="q-opt">geworden</button><button class="q-opt">geboren</button><button class="q-opt">worden</button>
+</div><div class="q-explain">✓ "worden" — im Perfekt-Passiv heißt es WORDEN (ohne ge-)!</div></div>
+
+<div class="quiz" data-correct="2"><div class="q-text">"Die Hausaufgaben müssen <span class="blank">___</span> werden." (Modalverb + Passiv)</div><div class="q-opts">
+<button class="q-opt">machen</button><button class="q-opt">macht</button><button class="q-opt">gemacht</button>
+</div><div class="q-explain">✓ "gemacht" — bei Modalverb + Passiv: Partizip II + werden</div></div>
+
+<div class="quiz" data-correct="1"><div class="q-text">"Der Kuchen wird <span class="blank">___</span> Oma gebacken."</div><div class="q-opts">
+<button class="q-opt">durch der</button><button class="q-opt">von der</button><button class="q-opt">mit der</button>
+</div><div class="q-explain">✓ "von der" — Personen mit VON + Dativ!</div></div>
+
+<div class="quiz" data-correct="0"><div class="q-text">Welcher Satz ist PASSIV?</div><div class="q-opts">
+<button class="q-opt">Die Tür wird geschlossen.</button><button class="q-opt">Die Tür schließt.</button><button class="q-opt">Die Tür hat geschlossen.</button>
+</div><div class="q-explain">✓ "Die Tür wird geschlossen." — werden + Partizip II = Passiv!</div></div>
+
+<div class="quiz" data-correct="1"><div class="q-text">"Das Geschäft IST geöffnet." Was ist das?</div><div class="q-opts">
+<button class="q-opt">Vorgangspassiv (Handlung läuft)</button><button class="q-opt">Zustandspassiv (Zustand)</button><button class="q-opt">Aktiv</button>
+</div><div class="q-explain">✓ Zustandspassiv! "sein + P.II" = Zustand, nicht Handlung. Vergleich: "Das Geschäft WIRD geöffnet" = wird gerade aufgemacht.</div></div>
+
+<div class="quiz" data-correct="2"><div class="q-text">"In Deutschland <span class="blank">___</span> viel Bier getrunken."</div><div class="q-opts">
+<button class="q-opt">ist</button><button class="q-opt">wurde</button><button class="q-opt">wird</button>
+</div><div class="q-explain">✓ "wird" — Allgemeine Aussage im Präsens-Passiv</div></div>
+
+<div style="text-align:center;margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--sand);"><p style="font-family:'Fraunces',serif;color:var(--brown);font-size:.95rem;">🎉 Geschafft! Übe weiter: Beschreibe deinen Tag im Passiv!</p></div>
+
+</div></div>
+</section>
+
+</main>
+<footer>deutschoderwas Sprechclub · B1 Grammatik Passiv</footer>
+
+<script>
+let score=0;
+document.querySelectorAll('.phase-btn').forEach(b=>{b.onclick=()=>{document.querySelectorAll('.phase-btn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.phase').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelector('[data-phase="'+b.dataset.phase+'"].phase').classList.add('active');window.scrollTo(0,0);};});
+
+document.querySelectorAll('.quiz').forEach(q=>{
+  const correct=parseInt(q.dataset.correct);
+  const opts=q.querySelectorAll('.q-opt');
+  const explain=q.querySelector('.q-explain');
+  opts.forEach((opt,i)=>{
+    opt.onclick=()=>{
+      if(q.dataset.done)return;
+      q.dataset.done='1';
+      if(i===correct){opt.classList.add('correct');score+=2;}
+      else{opt.classList.add('wrong');opts[correct].classList.add('correct');explain.classList.add('wrong');}
+      explain.classList.add('show');
+      document.getElementById('pts').textContent=score;
+    };
+  });
+});
+
+document.querySelectorAll('.t-check').forEach(b=>{
+  b.onclick=()=>{
+    const t=b.closest('.transform');
+    const inp=t.querySelector('.t-input');
+    const fb=t.querySelector('.t-feedback');
+    const sol=inp.dataset.sol;
+    const user=inp.value.toLowerCase().replace(/[.,!?]/g,'').replace(/\s+/g,' ').trim();
+    const cleanSol=sol.toLowerCase().replace(/[().,!?]/g,'').replace(/\s+/g,' ').trim();
+    const solNoOpt=cleanSol.replace(/(vom .+? |von .+? |von den .+? )/,'').replace(/\s+/g,' ').trim();
+    if(t.dataset.done)return;
+    if(user===cleanSol||user===solNoOpt||user.includes('gekocht')&&user.includes('wird')&&sol.includes('gekocht')||(user.split(' ').sort().join(' ')===cleanSol.split(' ').sort().join(' '))){
+      fb.className='t-feedback show right';fb.innerHTML='✓ Richtig! '+sol;score+=3;
+    } else {
+      fb.className='t-feedback show miss';fb.innerHTML='✗ Nicht ganz. <div class="sol">Lösung: '+sol+'</div>';
+    }
+    t.dataset.done='1';
+    document.getElementById('pts').textContent=score;
+  };
+});
+</script>
+</body></html>
