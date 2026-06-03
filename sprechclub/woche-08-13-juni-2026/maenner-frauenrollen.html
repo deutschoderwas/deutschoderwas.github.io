@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="de"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>B2/C1: Männer- und Frauenrollen heute · deutschoderwas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#2D6BB5;--acc-lt:#D6E3F2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;line-height:1.5;}
+.phase-nav{position:sticky;top:0;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.7rem 1.2rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;}
+.brand-tag{font-family:'Fraunces',serif;font-size:.85rem;font-weight:700;color:var(--sand);margin-right:.5rem;white-space:nowrap;}
+.brand-tag span{color:var(--rust-lt);}
+.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;font-family:inherit;}
+.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}
+.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1.2rem 5rem;}
+.phase{display:none;}.phase.active{display:block;animation:fade .3s;}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none;}}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card-header{background:var(--dark);padding:1.2rem 1.6rem;}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.3rem;}
+.card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;color:white;line-height:1.1;}
+.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-sub{font-size:.83rem;color:#aaa;margin-top:.4rem;}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-body{padding:1.6rem 1.8rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin:1.4rem 0 .9rem;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
+.slabel:first-child{margin-top:0;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.7rem;margin:.5rem 0 1rem;}
+.stat-card{background:white;border-radius:12px;padding:1rem 1.1rem;border-top:5px solid var(--acc);border:1.5px solid var(--sand);}
+.stat-num{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;color:var(--acc);line-height:1;}
+.stat-label{font-size:.78rem;color:var(--brown);margin-top:.3rem;font-weight:600;}
+.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.55rem;margin-bottom:.8rem;}
+.vok-card{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.7rem .9rem;cursor:pointer;border-top:4px solid var(--acc);transition:.2s;}
+.vok-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.08);}
+.vok-card.flipped{background:var(--acc-lt);}
+.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:.92rem;color:var(--brown);}
+.vok-back{font-size:.78rem;color:var(--dark);margin-top:.4rem;padding-top:.4rem;border-top:1px solid var(--sand);display:none;line-height:1.5;}
+.vok-card.flipped .vok-back{display:block;}
+.these{background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:.8rem;border-left:5px solid var(--acc);}
+.these-num{font-family:'Fraunces',serif;font-weight:900;color:var(--acc);font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;margin-bottom:.3rem;}
+.these-text{font-family:'Fraunces',serif;font-size:1.05rem;color:var(--brown);font-style:italic;font-weight:700;margin-bottom:.6rem;}
+.these-quote{background:var(--acc-lt);padding:.55rem .9rem;border-radius:8px;font-size:.83rem;color:var(--brown);margin-top:.4rem;}
+.these-quote .label{font-size:.7rem;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.05em;margin-right:.3rem;}
+.dialog{background:var(--sand-lt);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1rem;border:1.5px solid var(--sand);}
+.dialog-name{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);margin-bottom:.5rem;}
+.dl{display:flex;gap:.6rem;margin-bottom:.45rem;}
+.dl-spk{font-weight:700;font-size:.78rem;color:var(--acc);min-width:75px;}
+.dl-text{font-size:.88rem;flex:1;line-height:1.6;}
+.dl-text strong{color:var(--rust);background:var(--rust-lt);padding:.05em .3em;border-radius:4px;}
+.role{background:var(--acc-lt);border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:1rem;border-left:5px solid var(--acc);}
+.role-title{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:900;color:var(--brown);margin-bottom:.5rem;}
+.role-situation{font-size:.86rem;color:#666;font-style:italic;margin-bottom:.5rem;}
+.role-task{font-size:.9rem;line-height:1.7;}
+.matching{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.6rem;}
+.matching-left,.matching-right{padding:.55rem .85rem;border-radius:8px;font-size:.85rem;}
+.matching-left{background:var(--red-lt);color:var(--brown);font-family:'Fraunces',serif;font-style:italic;}
+.matching-right{background:var(--green-lt);color:var(--green);font-weight:600;}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.7rem;margin-bottom:.8rem;}
+.sp-card{background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1rem 1.2rem;border-top:5px solid var(--acc);}
+.sp-card-num{font-family:'Fraunces',serif;font-weight:900;color:var(--acc);font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;margin-bottom:.3rem;}
+.sp-card-text{font-size:.88rem;color:var(--brown);line-height:1.6;}
+.tip{background:var(--green-lt);border-left:4px solid var(--green);padding:.7rem 1.1rem;border-radius:8px;margin:.8rem 0;font-size:.88rem;color:var(--green);}
+.warn{background:var(--red-lt);border-left:4px solid var(--red);padding:.7rem 1.1rem;border-radius:8px;margin:.8rem 0;font-size:.88rem;color:var(--red);}
+footer{text-align:center;font-size:.75rem;color:#bbb;padding:2rem 1rem 1rem;}
+</style>
+</head>
+<body>
+<div class="phase-nav">
+  <div class="brand-tag">deutschoderwas <span>· Männer- &amp; Frauenrollen</span></div>
+  <button class="phase-btn active" data-phase="1">1 Wortschatz</button>
+  <button class="phase-btn" data-phase="2">2 Fakten 2026</button>
+  <button class="phase-btn" data-phase="3">3 Redemittel</button>
+  <button class="phase-btn" data-phase="4">4 Debatten</button>
+  <button class="phase-btn" data-phase="5">5 Sprechkarten</button>
+</div>
+<main>
+
+<section class="phase active" data-phase="1">
+  <div class="card"><div class="card-header"><div class="eyebrow">B2/C1 · Sprechtraining</div><h1 class="card-title">Männer- und <em>Frauenrollen</em> heute</h1><p class="card-sub">Tradition vs. moderner Wandel · provokant &amp; persönlich</p></div><div class="card-accent"></div><div class="card-body">
+
+<div class="slabel">Wortschatz: Grundbegriffe (klicke zum Umdrehen)</div>
+<div class="vok-grid">
+<div class="vok-card"><div class="vok-front">die Gleichberechtigung</div><div class="vok-back">= equality — gleiche Rechte und Chancen für alle Geschlechter</div></div>
+<div class="vok-card"><div class="vok-front">die Diskriminierung</div><div class="vok-back">= discrimination — ungerechte Benachteiligung wegen eines Merkmals</div></div>
+<div class="vok-card"><div class="vok-front">das Rollenbild</div><div class="vok-back">= gesellschaftliche Erwartungen an Männer und Frauen</div></div>
+<div class="vok-card"><div class="vok-front">der Stereotyp</div><div class="vok-back">= stereotype — vereinfachte, oft falsche Annahme</div></div>
+<div class="vok-card"><div class="vok-front">die Geschlechterrolle</div><div class="vok-back">= gender role — sozial definierte Erwartungen an ein Geschlecht</div></div>
+<div class="vok-card"><div class="vok-front">patriarchal</div><div class="vok-back">= von Männern dominiert (Gegenteil: matriarchal)</div></div>
+</div>
+
+<div class="slabel">Wortschatz: Arbeit &amp; Familie</div>
+<div class="vok-grid">
+<div class="vok-card"><div class="vok-front">die Care-Arbeit</div><div class="vok-back">= care work — Pflege, Erziehung, Haushalt (oft unbezahlt!)</div></div>
+<div class="vok-card"><div class="vok-front">der Mental Load</div><div class="vok-back">= die mentale Last — das unsichtbare Planen &amp; Organisieren</div></div>
+<div class="vok-card"><div class="vok-front">die Frauenquote</div><div class="vok-back">= gesetzliche Mindestanzahl von Frauen in Führungspositionen</div></div>
+<div class="vok-card"><div class="vok-front">die Vereinbarkeit</div><div class="vok-back">= reconciliation — Beruf und Familie unter einen Hut bringen</div></div>
+<div class="vok-card"><div class="vok-front">die Elternzeit</div><div class="vok-back">= parental leave — staatlich geförderte Auszeit für Eltern</div></div>
+<div class="vok-card"><div class="vok-front">das Elterngeld</div><div class="vok-back">= staatliche finanzielle Unterstützung in der Elternzeit</div></div>
+</div>
+
+<div class="slabel">Wortschatz: Männlichkeit &amp; Wandel</div>
+<div class="vok-grid">
+<div class="vok-card"><div class="vok-front">toxische Männlichkeit</div><div class="vok-back">= toxic masculinity — schädliche Männerbilder (Härte, keine Gefühle…)</div></div>
+<div class="vok-card"><div class="vok-front">die zarte Männlichkeit</div><div class="vok-back">= soft masculinity — sensible, emotional offene Männerbilder</div></div>
+<div class="vok-card"><div class="vok-front">die Vaterschaft</div><div class="vok-back">= fatherhood — aktive vs. nur "Ernährer"-Rolle</div></div>
+<div class="vok-card"><div class="vok-front">der Backlash</div><div class="vok-back">= Gegenreaktion (z.B. Anti-Feminismus-Bewegung)</div></div>
+<div class="vok-card"><div class="vok-front">die Selbstverwirklichung</div><div class="vok-back">= self-realization — eigene Wünsche &amp; Ziele leben</div></div>
+<div class="vok-card"><div class="vok-front">der Glasdeckenffekt</div><div class="vok-back">= glass ceiling — unsichtbare Barriere für Frauen-Karrieren</div></div>
+</div>
+
+</div></div>
+</section>
+
+<section class="phase" data-phase="2">
+  <div class="card"><div class="card-header"><div class="eyebrow">Zahlen aus Deutschland 2026</div><h1 class="card-title">Die <em>Fakten</em></h1><p class="card-sub">Was überrascht dich am meisten?</p></div><div class="card-accent"></div><div class="card-body">
+
+<div class="stat-grid">
+<div class="stat-card"><div class="stat-num">18%</div><div class="stat-label">Gender Pay Gap — Frauen verdienen so viel weniger</div></div>
+<div class="stat-card"><div class="stat-num">52%</div><div class="stat-label">Care-Gap — mehr unbezahlte Arbeit von Frauen</div></div>
+<div class="stat-card"><div class="stat-num">42%</div><div class="stat-label">der Väter nehmen Elternzeit (Mütter: fast 100%)</div></div>
+<div class="stat-card"><div class="stat-num">17%</div><div class="stat-label">Frauen in DAX-Vorständen</div></div>
+<div class="stat-card"><div class="stat-num">67%</div><div class="stat-label">der Teilzeit-Beschäftigten sind Frauen</div></div>
+<div class="stat-card"><div class="stat-num">1/3</div><div class="stat-label">der Frauen erfährt im Leben häusliche Gewalt</div></div>
+</div>
+
+<div class="slabel">Zeitlinie: Was hat sich geändert?</div>
+<div class="dialog">
+<div class="dl"><div class="dl-spk">1977</div><div class="dl-text">Frauen brauchen <strong>keinen Mann mehr</strong>, um arbeiten zu dürfen</div></div>
+<div class="dl"><div class="dl-spk">1997</div><div class="dl-text">Vergewaltigung in der Ehe wird <strong>zur Straftat</strong></div></div>
+<div class="dl"><div class="dl-spk">2002</div><div class="dl-text"><strong>Antidiskriminierungsgesetz</strong> tritt in Kraft</div></div>
+<div class="dl"><div class="dl-spk">2007</div><div class="dl-text">Elterngeld + <strong>Partnermonate</strong> für Väter</div></div>
+<div class="dl"><div class="dl-spk">2015</div><div class="dl-text">Frauenquote in <strong>Vorständen</strong> gesetzlich verankert</div></div>
+<div class="dl"><div class="dl-spk">2023</div><div class="dl-text"><strong>Pay Transparency Gesetz</strong> für Lohngerechtigkeit</div></div>
+</div>
+
+<div class="warn"><strong>⚠️ Wo Probleme bleiben:</strong> Lohnlücke, Karriere-Knick nach Schwangerschaft, Altersarmut bei Frauen, häusliche Gewalt, Sexismus im Beruf, Mental Load.</div>
+
+</div></div>
+</section>
+
+<section class="phase" data-phase="3">
+  <div class="card"><div class="card-header"><div class="eyebrow">Differenziert argumentieren</div><h1 class="card-title">Die wichtigsten <em>Redemittel</em></h1></div><div class="card-accent"></div><div class="card-body">
+
+<div class="slabel">Über Rollen sprechen</div>
+<div class="dialog">
+<div class="dl"><div class="dl-spk">1</div><div class="dl-text">"In meiner Heimat ist es <strong>üblich</strong>, dass…"</div></div>
+<div class="dl"><div class="dl-spk">2</div><div class="dl-text">"Ich finde es <strong>problematisch</strong>, wenn…"</div></div>
+<div class="dl"><div class="dl-spk">3</div><div class="dl-text">"Aus <strong>traditioneller Sicht</strong> wird erwartet, dass…"</div></div>
+<div class="dl"><div class="dl-spk">4</div><div class="dl-text">"Ich bin der Meinung, dass <strong>jede:r selbst entscheiden</strong> sollte…"</div></div>
+<div class="dl"><div class="dl-spk">5</div><div class="dl-text">"Die Statistik zeigt deutlich, dass…"</div></div>
+<div class="dl"><div class="dl-spk">6</div><div class="dl-text">"Das Rollenbild verändert sich, <strong>weil</strong>…"</div></div>
+</div>
+
+<div class="slabel">Differenziert und kritisch bleiben</div>
+<div class="dialog">
+<div class="dl"><div class="dl-spk">→</div><div class="dl-text">"Auf der einen Seite … <strong>auf der anderen Seite</strong> …"</div></div>
+<div class="dl"><div class="dl-spk">→</div><div class="dl-text">"Es ist wichtig zu <strong>differenzieren</strong> zwischen…"</div></div>
+<div class="dl"><div class="dl-spk">→</div><div class="dl-text">"Aus <strong>soziologischer</strong> Perspektive…"</div></div>
+<div class="dl"><div class="dl-spk">→</div><div class="dl-text">"Es ist nicht <strong>schwarz-weiß</strong>. Die Realität ist komplex."</div></div>
+</div>
+
+<div class="slabel">Provokative Thesen entkräften</div>
+<div class="dialog">
+<div class="dl"><div class="dl-spk">→</div><div class="dl-text">"Ich verstehe deinen Punkt, <strong>aber</strong>…"</div></div>
+<div class="dl"><div class="dl-spk">→</div><div class="dl-text">"Das ist eine <strong>Vereinfachung</strong>."</div></div>
+<div class="dl"><div class="dl-spk">→</div><div class="dl-text">"Das stimmt zum Teil, aber es ist <strong>nuancierter</strong>."</div></div>
+<div class="dl"><div class="dl-spk">→</div><div class="dl-text">"Das Argument <strong>lässt außer Acht</strong>, dass…"</div></div>
+<div class="dl"><div class="dl-spk">→</div><div class="dl-text">"Du machst es dir <strong>zu einfach</strong>."</div></div>
+</div>
+
+<div class="slabel">Match-Übung: traditionell vs. modern</div>
+<div class="matching"><div class="matching-left">"Das ist Frauenarbeit."</div><div class="matching-right">"Care-Arbeit ist Verantwortung beider Partner."</div></div>
+<div class="matching"><div class="matching-left">"Männer weinen nicht."</div><div class="matching-right">"Emotionen zu zeigen ist menschlich, nicht weiblich."</div></div>
+<div class="matching"><div class="matching-left">"Die Frau bleibt zu Hause."</div><div class="matching-right">"Wir teilen Elternzeit und Karriere gerecht auf."</div></div>
+<div class="matching"><div class="matching-left">"Männer als Erzieher? Komisch."</div><div class="matching-right">"Männer in Care-Berufen sind wertvoll."</div></div>
+
+</div></div>
+</section>
+
+<section class="phase" data-phase="4">
+  <div class="card"><div class="card-header"><div class="eyebrow">Diskussion</div><h1 class="card-title">5 Debatten-<em>Thesen</em></h1><p class="card-sub">In 5 Gruppen aufteilen — jede verteidigt eine These!</p></div><div class="card-accent"></div><div class="card-body">
+
+<div class="these">
+<div class="these-num">These 1 · Quoten</div>
+<div class="these-text">"Eine gesetzliche Frauenquote ist Diskriminierung von Männern."</div>
+<div class="these-quote"><span class="label">Pro</span>Reine Leistung sollte zählen, nicht Geschlecht.</div>
+<div class="these-quote"><span class="label">Contra</span>Ohne Quote ändert sich nichts — Geschichte beweist es.</div>
+</div>
+
+<div class="these">
+<div class="these-num">These 2 · Care-Arbeit</div>
+<div class="these-text">"Care-Arbeit zu Hause sollte vom Staat bezahlt werden."</div>
+<div class="these-quote"><span class="label">Pro</span>Hausarbeit ist Arbeit. Wer sie leistet, verdient Anerkennung.</div>
+<div class="these-quote"><span class="label">Contra</span>Verstaatlichung der Familie — wo endet das?</div>
+</div>
+
+<div class="these">
+<div class="these-num">These 3 · Männer-Krise</div>
+<div class="these-text">"Männer haben es in der heutigen Gesellschaft schwerer als Frauen."</div>
+<div class="these-quote"><span class="label">Pro</span>Männer sterben früher, sind häufiger obdachlos, häufiger Suizid.</div>
+<div class="these-quote"><span class="label">Contra</span>Strukturell haben Männer immer noch mehr Macht und Geld.</div>
+</div>
+
+<div class="these">
+<div class="these-num">These 4 · Männer als Erzieher</div>
+<div class="these-text">"Männer können keine guten Erzieher in Kitas sein — sie haben weniger Empathie."</div>
+<div class="these-quote"><span class="label">Pro</span>Statistik: Frauen entwickeln Care-Fähigkeiten schneller.</div>
+<div class="these-quote"><span class="label">Contra</span>Kinder brauchen männliche Vorbilder. Empathie ist kein Geschlecht.</div>
+</div>
+
+<div class="these">
+<div class="these-num">These 5 · Zukunft</div>
+<div class="these-text">"In 20 Jahren wird es keine Gender-Lohnlücke mehr geben."</div>
+<div class="these-quote"><span class="label">Pro</span>Pay Transparency, Frauenquote, junge Generation — alles bewegt sich.</div>
+<div class="these-quote"><span class="label">Contra</span>Strukturelle Probleme bleiben (Care-Arbeit, Teilzeit, Mental Load).</div>
+</div>
+
+<div class="tip"><strong>🎯 Aufgabe:</strong> Jede Gruppe argumentiert 3 Minuten für IHRE These. Andere stellen kritische Fragen. Mindestens 4 Redemittel pro Person!</div>
+
+</div></div>
+</section>
+
+<section class="phase" data-phase="5">
+  <div class="card"><div class="card-header"><div class="eyebrow">Persönliche Reflexion</div><h1 class="card-title">Sprech-<em>Karten</em></h1><p class="card-sub">Zieh eine Karte, sprich 2–3 Min — sei ehrlich!</p></div><div class="card-accent"></div><div class="card-body">
+
+<div class="cards-grid">
+<div class="sp-card"><div class="sp-card-num">Karte 1 · Generationen</div><div class="sp-card-text">Vergleiche die Rolle deiner <strong>Mutter</strong> und deiner <strong>Großmutter</strong>. Was hat sich verändert? Was ist gleich geblieben?</div></div>
+<div class="sp-card"><div class="sp-card-num">Karte 2 · Eigene Erfahrung</div><div class="sp-card-text">Hast du schon mal <strong>Diskriminierung</strong> wegen deines Geschlechts erfahren? Wann? Wie hast du reagiert?</div></div>
+<div class="sp-card"><div class="sp-card-num">Karte 3 · Haushalt</div><div class="sp-card-text">Wer macht in eurem Haushalt was? Wer denkt an <strong>Geburtstage, Termine, Einkauf</strong>? Ist das gerecht?</div></div>
+<div class="sp-card"><div class="sp-card-num">Karte 4 · Zukunft der Kinder</div><div class="sp-card-text">Welche Rolle wünschst du dir für deine (zukünftigen) <strong>Kinder</strong>? Sollen sie traditionell oder modern leben?</div></div>
+<div class="sp-card"><div class="sp-card-num">Karte 5 · Ärgernisse</div><div class="sp-card-text">Was nervt dich am <strong>MEISTEN</strong> am traditionellen Männer- oder Frauenbild? Sei direkt!</div></div>
+<div class="sp-card"><div class="sp-card-num">Karte 6 · Weltvergleich</div><div class="sp-card-text">In welchem <strong>Land der Welt</strong> sind die Rollen am modernsten — deiner Meinung nach? Warum?</div></div>
+</div>
+
+<div class="slabel">Rollenspiel: Karriere oder Familie?</div>
+<div class="role">
+<div class="role-title">🎭 Ein junges Paar plant ein Kind</div>
+<div class="role-situation">Beide arbeiten Vollzeit. Wer nimmt Elternzeit? Wer reduziert die Arbeitszeit?</div>
+<div class="role-task"><strong>Person A:</strong> "Du nimmst Elternzeit, ich verdiene mehr. Das ist doch logisch, oder?"<br><strong>Person B:</strong> "Warum immer ich? Lass uns 50/50 machen. Ich will auch Karriere machen!"<br><strong>Ziel:</strong> Findet eine faire Lösung für beide. Mindestens 6 Redemittel verwenden!</div>
+</div>
+
+<div class="role">
+<div class="role-title">🎭 Gehaltsverhandlung</div>
+<div class="role-situation">Eine Mitarbeiterin erfährt: ihr männlicher Kollege verdient 8.000 € mehr pro Jahr — für dieselbe Arbeit.</div>
+<div class="role-task"><strong>Person A — Mitarbeiterin:</strong> Bitte um sofortige Gleichstellung. Sei selbstbewusst und sachlich!<br><strong>Person B — HR:</strong> Verteidige die Entscheidung oder biete eine Lösung an.<br>Findet einen Kompromiss — oder eskaliert die Mutter zur HR-Beschwerde?</div>
+</div>
+
+<div class="tip"><strong>💪 Mission der Woche:</strong> Beobachte 1 Tag bewusst, wer in deinem Umfeld welche Care-Arbeit macht. Lies 1 Artikel zu "Mental Load" auf Deutsch. Sprich mit einer Person des anderen Geschlechts über EIN Thema von heute.</div>
+
+</div></div>
+</section>
+
+</main>
+<footer>deutschoderwas Sprechclub · B2/C1 Männer- &amp; Frauenrollen heute</footer>
+
+<script>
+document.querySelectorAll('.phase-btn').forEach(b=>{b.onclick=()=>{document.querySelectorAll('.phase-btn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.phase').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelector('[data-phase="'+b.dataset.phase+'"].phase').classList.add('active');window.scrollTo(0,0);};});
+document.querySelectorAll('.vok-card').forEach(c=>{c.onclick=()=>c.classList.toggle('flipped');});
+</script>
+</body></html>
