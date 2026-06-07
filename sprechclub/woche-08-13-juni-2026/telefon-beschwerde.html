@@ -1,280 +1,523 @@
 <!DOCTYPE html><html lang="de"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>B1/B2: Wie telefoniere ich + Beschwerde · deutschoderwas</title>
+<title>B1/B2: Telefonieren + Beschwerde mit Konjunktiv II · deutschoderwas</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900&family=DM+Sans:wght@300;400;500;600&display=swap');
-:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#E07060;--acc-lt:#FBE5E0;}
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#C8A870;--acc-lt:#EEE4D4;--pink:#FA95AE;--phone:#2C2C2E;--bubble-me:#007AFF;--bubble-them:#E9E9EB;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;line-height:1.5;}
 .phase-nav{position:sticky;top:0;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.7rem 1.2rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;}
 .brand-tag{font-family:'Fraunces',serif;font-size:.85rem;font-weight:700;color:var(--sand);margin-right:.5rem;white-space:nowrap;}
-.brand-tag span{color:var(--rust-lt);}
+.brand-tag span{color:var(--pink);}
 .phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;font-family:inherit;}
-.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}
-.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+.phase-btn:hover{border-color:var(--pink);color:var(--pink);}
+.phase-btn.active{background:var(--pink);border-color:var(--pink);color:white;}
 main{max-width:960px;margin:0 auto;padding:1.5rem 1.2rem 5rem;}
 .phase{display:none;}.phase.active{display:block;animation:fade .3s;}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none;}}
-.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;box-shadow:0 4px 18px rgba(0,0,0,.04);}
 .card-header{background:var(--dark);padding:1.2rem 1.6rem;}
-.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.3rem;}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);margin-bottom:.3rem;}
 .card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;color:white;line-height:1.1;}
-.card-title em{color:var(--acc);font-style:italic;}
+.card-title em{color:var(--pink);font-style:italic;}
 .card-sub{font-size:.83rem;color:#aaa;margin-top:.4rem;}
-.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-accent{height:4px;background:linear-gradient(90deg,#FA95AE,#C5C5C9);}
 .card-body{padding:1.6rem 1.8rem;}
-.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin:1.4rem 0 .9rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);display:flex;align-items:center;gap:.6rem;margin:1.4rem 0 .9rem;}
 .slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
 .slabel:first-child{margin-top:0;}
-.phase-step{background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:.8rem;border-left:5px solid var(--acc);position:relative;}
-.phase-step .num{position:absolute;top:1.1rem;right:1.4rem;background:var(--acc);color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-family:'Fraunces',serif;}
-.phase-step .name{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:900;color:var(--brown);margin-bottom:.5rem;padding-right:2.5rem;}
-.phase-step .lines{display:flex;flex-direction:column;gap:.3rem;font-size:.88rem;}
-.phase-step .lines .line{padding:.35rem .7rem;background:var(--acc-lt);border-radius:6px;color:var(--brown);}
-.phase-step .lines .line strong{color:var(--acc);}
-.vok-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem;margin-bottom:1rem;}
-.vok-card{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.7rem .9rem;cursor:pointer;border-top:4px solid var(--acc);transition:.2s;}
-.vok-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.08);}
-.vok-card.flipped{background:var(--acc-lt);}
-.vok-front{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--brown);}
-.vok-back{font-size:.8rem;color:var(--dark);margin-top:.4rem;padding-top:.4rem;border-top:1px solid var(--sand);display:none;}
-.vok-card.flipped .vok-back{display:block;}
-.match-game{background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1rem;}
-.match-pair{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.6rem;}
-.match-direct{padding:.6rem .9rem;background:var(--red-lt);color:var(--red);border-radius:8px;font-size:.88rem;font-family:'Fraunces',serif;font-style:italic;}
-.match-hoflich{padding:.6rem .9rem;background:var(--green-lt);color:var(--green);border-radius:8px;font-size:.88rem;font-weight:600;}
-.dialog{background:var(--sand-lt);border-radius:14px;padding:1.1rem 1.3rem;margin-bottom:1rem;border:1.5px solid var(--sand);}
-.dialog-name{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);margin-bottom:.5rem;}
-.dl{display:flex;gap:.6rem;margin-bottom:.4rem;}
-.dl-spk{font-weight:700;font-size:.78rem;color:var(--acc);min-width:60px;}
-.dl-text{font-size:.88rem;flex:1;line-height:1.6;}
-.dl-text strong{background:var(--acc-lt);color:var(--acc);padding:.05em .3em;border-radius:4px;}
-.quiz{background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1rem;}
-.q-text{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--brown);margin-bottom:.7rem;}
-.q-opts{display:flex;flex-direction:column;gap:.5rem;}
-.q-opt{background:var(--sand-lt);border:1.5px solid var(--sand);border-radius:10px;padding:.65rem 1rem;cursor:pointer;font-size:.9rem;font-family:inherit;text-align:left;color:var(--dark);}
-.q-opt:hover{border-color:var(--acc);background:var(--acc-lt);}
-.q-opt.correct{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:700;}
-.q-opt.wrong{background:var(--red-lt);border-color:var(--red);color:var(--red);text-decoration:line-through;}
-.q-explain{margin-top:.6rem;padding:.5rem .9rem;border-radius:8px;font-size:.82rem;display:none;font-weight:500;background:var(--green-lt);color:var(--green);}
-.q-explain.show{display:block;}
-.role{background:var(--acc-lt);border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:1rem;border-left:5px solid var(--acc);}
-.role-title{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:900;color:var(--brown);margin-bottom:.5rem;}
-.role-situation{font-size:.86rem;color:#666;font-style:italic;margin-bottom:.5rem;}
-.role-task{font-size:.9rem;line-height:1.7;}
+
+/* KONJUNKTIV-II-DRILL */
+.kdrill{background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1.3rem 1.5rem;margin-bottom:1rem;}
+.kd-direkt{background:#FFE4E4;border-left:5px solid var(--red);padding:.7rem 1rem;border-radius:8px;font-family:'Fraunces',serif;color:#8A2010;margin-bottom:.5rem;font-size:.95rem;}
+.kd-direkt::before{content:'❌ Direkt: ';font-weight:700;font-style:normal;color:var(--red);font-family:'DM Sans',sans-serif;font-size:.8rem;}
+.kd-input{width:100%;padding:.7rem .9rem;border:2px solid var(--sand);border-radius:10px;font-family:'Fraunces',serif;font-style:italic;font-size:.95rem;color:var(--brown);background:var(--cream);}
+.kd-input:focus{outline:none;border-color:var(--pink);background:white;}
+.kd-hint{font-size:.75rem;color:#888;margin-top:.3rem;font-style:italic;}
+.kd-check{background:var(--pink);color:white;border:none;padding:.5rem 1.3rem;border-radius:20px;font-weight:700;font-family:inherit;font-size:.82rem;cursor:pointer;margin-top:.6rem;}
+.kd-feedback{margin-top:.5rem;padding:.55rem .9rem;border-radius:8px;font-size:.84rem;display:none;font-weight:500;}
+.kd-feedback.show{display:block;}
+.kd-feedback.right{background:var(--green-lt);color:var(--green);}
+.kd-feedback.miss{background:var(--red-lt);color:var(--red);}
+.kd-feedback .sol{margin-top:.3rem;font-family:'Fraunces',serif;font-style:italic;}
+
+/* KEY VERBS */
+.kverbs{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin:1rem 0;}
+@media(max-width:700px){.kverbs{grid-template-columns:repeat(2,1fr);}}
+.kv-card{background:white;border:2px solid var(--pink);border-radius:14px;padding:.9rem;text-align:center;}
+.kv-word{font-family:'Fraunces',serif;font-weight:900;font-size:1.3rem;color:var(--pink);margin-bottom:.3rem;}
+.kv-use{font-size:.78rem;color:var(--brown);}
+
+/* PHASE CARDS */
+.phasewrap{display:grid;grid-template-columns:1fr;gap:.7rem;margin:1rem 0;}
+.pwc{background:white;border-radius:14px;padding:1rem 1.3rem;border-left:5px solid var(--pink);border:1.5px solid var(--sand);border-left:5px solid var(--pink);}
+.pwc-num{display:inline-block;background:var(--pink);color:white;font-weight:900;width:26px;height:26px;border-radius:50%;text-align:center;line-height:26px;font-size:.85rem;margin-right:.5rem;}
+.pwc-name{font-family:'Fraunces',serif;font-weight:900;color:var(--brown);font-size:1.05rem;margin-bottom:.5rem;display:flex;align-items:center;}
+.pwc-list{list-style:none;}
+.pwc-list li{padding:.3rem 0;font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.92rem;padding-left:1.2rem;position:relative;}
+.pwc-list li::before{content:'›';position:absolute;left:.2rem;color:var(--pink);font-weight:900;font-style:normal;font-family:'DM Sans',sans-serif;}
+
+/* VOCAB GRID */
+.vgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin:1rem 0;}
+@media(max-width:700px){.vgrid{grid-template-columns:1fr;}}
+.vc{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.7rem 1rem;}
+.vc-de{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);font-size:.92rem;}
+.vc-meaning{font-size:.78rem;color:#888;margin-top:.15rem;}
+
+/* PHONE MOCKUP for Musterdialog */
+.dialog-mockup{background:#F2F2F7;border-radius:18px;padding:1.2rem;border:2px solid var(--sand);max-width:480px;margin:1rem auto;}
+.dm-row{margin-bottom:.5rem;display:flex;}
+.dm-bubble{padding:.55rem .85rem;border-radius:18px;font-size:.85rem;line-height:1.4;max-width:80%;}
+.dm-row.a{justify-content:flex-end;}
+.dm-row.a .dm-bubble{background:var(--bubble-me);color:white;border-bottom-right-radius:4px;}
+.dm-row.b .dm-bubble{background:white;color:var(--dark);border:1px solid #ddd;border-bottom-left-radius:4px;}
+.dm-bubble mark{background:#FFE4F0;color:#A03450;padding:.05em .25em;border-radius:4px;font-weight:700;}
+
+/* GAP FILL */
+.gapfill{background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:.8rem;}
+.gf-text{font-family:'Fraunces',serif;font-size:.95rem;color:var(--brown);margin-bottom:.5rem;}
+.gf-text .gap{display:inline-block;min-width:120px;border-bottom:2px solid var(--pink);text-align:center;padding:0 .3em;font-weight:700;color:var(--pink);}
+.gf-options{display:flex;flex-wrap:wrap;gap:.4rem;}
+.gf-chip{background:var(--sand-lt);border:1.5px solid var(--sand);padding:.32rem .85rem;border-radius:18px;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--brown);}
+.gf-chip:hover{background:#FFE4F0;border-color:var(--pink);}
+.gf-chip.correct{background:var(--green-lt);border-color:var(--green);color:var(--green);}
+.gf-chip.wrong{background:var(--red-lt);border-color:var(--red);color:var(--red);text-decoration:line-through;}
+
+/* ROLLENSPIELE */
+.role-card{background:white;border-radius:14px;padding:1.3rem 1.5rem;margin-bottom:1rem;border:1.5px solid var(--sand);border-top:6px solid var(--pink);}
+.role-num{display:inline-block;background:var(--pink);color:white;font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:12px;margin-bottom:.6rem;letter-spacing:.05em;text-transform:uppercase;}
+.role-titel{font-family:'Fraunces',serif;font-weight:900;color:var(--brown);font-size:1.1rem;margin-bottom:.5rem;}
+.role-situation{background:var(--sand-lt);padding:.7rem 1rem;border-radius:8px;font-style:italic;color:var(--brown);font-size:.88rem;margin-bottom:.7rem;}
+.role-split{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;}
+@media(max-width:700px){.role-split{grid-template-columns:1fr;}}
+.role-person{background:var(--cream);padding:.8rem;border-radius:10px;border:1.5px solid var(--sand);}
+.role-person.a{border-color:var(--pink);background:#FFF4F8;}
+.role-person.b{border-color:var(--acc);}
+.role-label{font-weight:700;color:var(--brown);font-size:.82rem;margin-bottom:.4rem;}
+.role-tasks{list-style:disc;padding-left:1.2rem;font-size:.83rem;color:var(--brown);}
+.role-tasks li{margin-bottom:.2rem;}
+.role-ziel{background:#FFFAEC;border-left:4px solid #FFCE00;padding:.5rem .9rem;border-radius:6px;margin-top:.6rem;font-size:.82rem;color:#7A6300;}
+
+/* SPRECHKARTEN */
+.spk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin:1rem 0;}
+@media(max-width:700px){.spk-grid{grid-template-columns:1fr;}}
+.spk-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.1rem;}
+.spk-num{font-size:.65rem;font-weight:700;color:var(--pink);letter-spacing:.1em;text-transform:uppercase;}
+.spk-q{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);font-size:.95rem;margin:.3rem 0;}
+
 .tip{background:var(--green-lt);border-left:4px solid var(--green);padding:.7rem 1.1rem;border-radius:8px;margin:.8rem 0;font-size:.88rem;color:var(--green);}
+.warning{background:#FFFAEC;border-left:4px solid #FFCE00;padding:.7rem 1.1rem;border-radius:8px;margin:.8rem 0;font-size:.88rem;color:#7A6300;}
 footer{text-align:center;font-size:.75rem;color:#bbb;padding:2rem 1rem 1rem;}
 </style>
 </head>
 <body>
 <div class="phase-nav">
-  <div class="brand-tag">deutschoderwas <span>· Telefon-Beschwerde</span></div>
-  <button class="phase-btn active" data-phase="1">1 Wortschatz</button>
-  <button class="phase-btn" data-phase="2">2 5 Phasen</button>
-  <button class="phase-btn" data-phase="3">3 Höflichkeit</button>
-  <button class="phase-btn" data-phase="4">4 Dialog</button>
-  <button class="phase-btn" data-phase="5">5 Rollenspiele</button>
+  <div class="brand-tag">deutschoderwas <span>· Beschwerde + Konjunktiv II B1/B2</span></div>
+  <button class="phase-btn active" data-phase="0">0 Konjunktiv II Drill</button>
+  <button class="phase-btn" data-phase="1">1 Die 5 Phasen</button>
+  <button class="phase-btn" data-phase="2">2 Wortschatz-Quiz</button>
+  <button class="phase-btn" data-phase="3">3 Musterdialog Lücken</button>
+  <button class="phase-btn" data-phase="4">4 Rollenspiele</button>
+  <button class="phase-btn" data-phase="5">5 Mission</button>
 </div>
 <main>
 
-<section class="phase active" data-phase="1">
-  <div class="card"><div class="card-header"><div class="eyebrow">B1/B2 · Sprechtraining</div><h1 class="card-title">Wie telefoniere ich, wenn ich eine <em>Beschwerde</em> habe?</h1><p class="card-sub">Reklamationen am Telefon professionell und höflich führen</p></div><div class="card-accent"></div><div class="card-body">
+<!-- PHASE 0: KONJUNKTIV II DRILL -->
+<section class="phase active" data-phase="0">
+  <div class="card"><div class="card-header"><div class="eyebrow">B1/B2 · Höflichkeit am Telefon</div><h1 class="card-title">Aus DIREKT mach <em>HÖFLICH</em></h1><p class="card-sub">Konjunktiv II ist dein Werkzeug — schreib jeden Satz höflich um!</p></div><div class="card-accent"></div><div class="card-body">
 
-<div class="slabel">Wortschatz: Telefon-Grundbegriffe (klicken zum Umdrehen)</div>
-<div class="vok-grid">
-<div class="vok-card"><div class="vok-front">sich melden</div><div class="vok-back">= to answer the phone / introduce oneself</div></div>
-<div class="vok-card"><div class="vok-front">in der Warteschleife</div><div class="vok-back">= on hold</div></div>
-<div class="vok-card"><div class="vok-front">verbinden / weiterleiten</div><div class="vok-back">= to put through / forward</div></div>
-<div class="vok-card"><div class="vok-front">die Durchwahl</div><div class="vok-back">= extension number</div></div>
-<div class="vok-card"><div class="vok-front">der/die Ansprechpartner:in</div><div class="vok-back">= contact person</div></div>
-<div class="vok-card"><div class="vok-front">die Servicehotline</div><div class="vok-back">= service hotline</div></div>
+<div class="slabel">Die 4 Schlüssel-Verben</div>
+<div class="kverbs">
+<div class="kv-card"><div class="kv-word">KÖNNTEN</div><div class="kv-use">höfliche Bitte</div></div>
+<div class="kv-card"><div class="kv-word">WÄRE</div><div class="kv-use">Möglichkeit</div></div>
+<div class="kv-card"><div class="kv-word">HÄTTE</div><div class="kv-use">Wunsch</div></div>
+<div class="kv-card"><div class="kv-word">WÜRDEN</div><div class="kv-use">Handlung</div></div>
 </div>
 
-<div class="slabel">Wortschatz: Beschwerde-Anlässe</div>
-<div class="vok-grid">
-<div class="vok-card"><div class="vok-front">defekt / beschädigt</div><div class="vok-back">= defective / damaged</div></div>
-<div class="vok-card"><div class="vok-front">die Lieferung verspätet</div><div class="vok-back">= delayed delivery</div></div>
-<div class="vok-card"><div class="vok-front">falsche Bestellung</div><div class="vok-back">= wrong order</div></div>
-<div class="vok-card"><div class="vok-front">Doppelabbuchung</div><div class="vok-back">= double charge</div></div>
-<div class="vok-card"><div class="vok-front">die Erstattung</div><div class="vok-back">= refund</div></div>
-<div class="vok-card"><div class="vok-front">die Mängelrüge</div><div class="vok-back">= formal complaint</div></div>
+<div class="warning"><strong>⚡ Regel:</strong> Am Telefon = Konjunktiv II. KEIN „Ich will…" / „Schicken Sie!" / „Helfen Sie!" — IMMER „Ich hätte gerne…" / „Könnten Sie?" / „Wäre es möglich?"</div>
+
+<div class="slabel">Übung: 6 Sätze umformen</div>
+
+<div class="kdrill">
+<div class="kd-direkt">Ich will eine Erstattung.</div>
+<input class="kd-input" data-sol="Ich hätte gerne eine Erstattung." placeholder="Höflich mit HÄTTE GERNE…">
+<div class="kd-hint">Tipp: HÄTTE GERNE = höflicher Wunsch</div>
+<button class="kd-check">Prüfen</button>
+<div class="kd-feedback"></div>
 </div>
 
-<div class="slabel">Wortschatz: Lösungen</div>
-<div class="vok-grid">
-<div class="vok-card"><div class="vok-front">eine Lösung anbieten</div><div class="vok-back">= to offer a solution</div></div>
-<div class="vok-card"><div class="vok-front">Bestellung stornieren</div><div class="vok-back">= to cancel order</div></div>
-<div class="vok-card"><div class="vok-front">umtauschen</div><div class="vok-back">= to exchange</div></div>
-<div class="vok-card"><div class="vok-front">eine Gutschrift</div><div class="vok-back">= a credit note</div></div>
-<div class="vok-card"><div class="vok-front">Vorgang prüfen</div><div class="vok-back">= to check the case</div></div>
-<div class="vok-card"><div class="vok-front">an Vorgesetzten weiterleiten</div><div class="vok-back">= escalate to supervisor</div></div>
+<div class="kdrill">
+<div class="kd-direkt">Schicken Sie mir das Paket.</div>
+<input class="kd-input" data-sol="Könnten Sie mir das Paket bitte schicken?" placeholder="Höflich mit KÖNNTEN SIE…?">
+<div class="kd-hint">Tipp: KÖNNTEN SIE + bitte + ?</div>
+<button class="kd-check">Prüfen</button>
+<div class="kd-feedback"></div>
+</div>
+
+<div class="kdrill">
+<div class="kd-direkt">Helfen Sie mir!</div>
+<input class="kd-input" data-sol="Wäre es möglich, dass Sie mir helfen?" placeholder="Höflich mit WÄRE ES MÖGLICH…?">
+<div class="kd-hint">Tipp: WÄRE ES MÖGLICH, DASS…?</div>
+<button class="kd-check">Prüfen</button>
+<div class="kd-feedback"></div>
+</div>
+
+<div class="kdrill">
+<div class="kd-direkt">Wann kann ich die Lieferung bekommen?</div>
+<input class="kd-input" data-sol="Wann könnte ich die Lieferung bekommen?" placeholder="Höflich mit KÖNNTE…">
+<div class="kd-hint">Tipp: KÖNNTE statt KANN</div>
+<button class="kd-check">Prüfen</button>
+<div class="kd-feedback"></div>
+</div>
+
+<div class="kdrill">
+<div class="kd-direkt">Prüfen Sie das.</div>
+<input class="kd-input" data-sol="Könnten Sie das bitte prüfen?" placeholder="Höflich mit KÖNNTEN SIE…?">
+<div class="kd-hint">Tipp: KÖNNTEN SIE + bitte</div>
+<button class="kd-check">Prüfen</button>
+<div class="kd-feedback"></div>
+</div>
+
+<div class="kdrill">
+<div class="kd-direkt">Verbinden Sie mich mit dem Vorgesetzten!</div>
+<input class="kd-input" data-sol="Könnten Sie mich bitte mit dem Vorgesetzten verbinden?" placeholder="Höflich mit KÖNNTEN SIE…?">
+<div class="kd-hint">Tipp: KÖNNTEN SIE + bitte + verbinden</div>
+<button class="kd-check">Prüfen</button>
+<div class="kd-feedback"></div>
 </div>
 
 </div></div>
 </section>
 
+<!-- PHASE 1: 5 PHASEN -->
+<section class="phase" data-phase="1">
+  <div class="card"><div class="card-header"><div class="eyebrow">Struktur · 5 Phasen</div><h1 class="card-title">So läuft <em>jeder</em> Beschwerde-Anruf</h1><p class="card-sub">5 klare Phasen — jede Phase hat eigene Sätze</p></div><div class="card-accent"></div><div class="card-body">
+
+<div class="phasewrap">
+
+<div class="pwc">
+<div class="pwc-name"><span class="pwc-num">1</span>BEGINNEN</div>
+<ul class="pwc-list">
+<li>„Guten Tag, mein Name ist [Name]."</li>
+<li>„Ich rufe an wegen…"</li>
+<li>„Es geht um meine Bestellung Nummer …"</li>
+<li>„Sind Sie der/die richtige Ansprechpartner:in?"</li>
+<li>„Hätten Sie kurz Zeit für mich?"</li>
+</ul>
+</div>
+
+<div class="pwc">
+<div class="pwc-name"><span class="pwc-num">2</span>PROBLEM BESCHREIBEN <span style="font-size:.7em;font-weight:400;color:#888;margin-left:.5rem;">— sachlich!</span></div>
+<ul class="pwc-list">
+<li>„Ich habe folgendes Problem: …"</li>
+<li>„Am [Datum] habe ich [Produkt] bestellt — bis heute nicht angekommen."</li>
+<li>„Der Artikel ist leider defekt / beschädigt / unvollständig."</li>
+<li>„Was mich besonders stört, ist…"</li>
+<li>„Ich hatte eine andere Erwartung."</li>
+</ul>
+</div>
+
+<div class="pwc">
+<div class="pwc-name"><span class="pwc-num">3</span>LÖSUNG FORDERN <span style="font-size:.7em;font-weight:400;color:#888;margin-left:.5rem;">— Konjunktiv II!</span></div>
+<ul class="pwc-list">
+<li>„Ich hätte gerne, dass…"</li>
+<li>„Könnten Sie das bitte für mich prüfen?"</li>
+<li>„Wäre es möglich, dass…?"</li>
+<li>„Was wäre Ihre Lösung?"</li>
+<li>„Ich würde gerne eine Erstattung bekommen."</li>
+<li>„Was schlagen Sie vor?"</li>
+</ul>
+</div>
+
+<div class="pwc">
+<div class="pwc-name"><span class="pwc-num">4</span>BEI BLOCKADEN REAGIEREN</div>
+<ul class="pwc-list">
+<li>„Das ist nicht zufriedenstellend. Mit wem kann ich noch sprechen?"</li>
+<li>„Könnte ich bitte mit dem/der Vorgesetzten sprechen?"</li>
+<li>„Ich bestehe auf einer Lösung bis [Datum]."</li>
+<li>„Ich werde mich an die Verbraucherzentrale wenden, wenn keine Lösung gefunden wird."</li>
+<li>„Ich möchte das bitte schriftlich bestätigt bekommen."</li>
+</ul>
+</div>
+
+<div class="pwc">
+<div class="pwc-name"><span class="pwc-num">5</span>ABSCHLIESSEN</div>
+<ul class="pwc-list">
+<li>„Vielen Dank für Ihre Zeit."</li>
+<li>„Können Sie mir das bitte schriftlich bestätigen?"</li>
+<li>„Wann kann ich mit einer Antwort rechnen?"</li>
+<li>„Wo kann ich den Status meines Vorgangs verfolgen?"</li>
+<li>„Auf Wiederhören!"</li>
+</ul>
+</div>
+
+</div>
+
+<div class="tip"><strong>📝 NOTIERE IMMER:</strong> Vorgangsnummer, Name des Ansprechpartners und Datum!</div>
+
+</div></div>
+</section>
+
+<!-- PHASE 2: WORTSCHATZ -->
 <section class="phase" data-phase="2">
-  <div class="card"><div class="card-header"><div class="eyebrow">Struktur</div><h1 class="card-title">Das <em>5-Phasen-Modell</em></h1><p class="card-sub">So strukturierst du jeden Beschwerde-Anruf</p></div><div class="card-accent"></div><div class="card-body">
+  <div class="card"><div class="card-header"><div class="eyebrow">Vokabel-Check</div><h1 class="card-title">Telefon- &amp; Beschwerde-<em>Wortschatz</em></h1></div><div class="card-accent"></div><div class="card-body">
 
-<div class="phase-step"><div class="num">1</div>
-<div class="name">Anruf BEGINNEN</div>
-<div class="lines">
-<div class="line">"Guten Tag, mein Name ist <strong>[Name]</strong>."</div>
-<div class="line">"Ich rufe an wegen <strong>…</strong>"</div>
-<div class="line">"Es geht um meine Bestellung Nummer <strong>…</strong>"</div>
-<div class="line">"<strong>Hätten</strong> Sie kurz Zeit für mich?"</div>
-</div></div>
+<div class="slabel">Telefon-Grundbegriffe</div>
+<div class="vgrid">
+<div class="vc"><div class="vc-de">den Hörer abnehmen / auflegen</div><div class="vc-meaning">to pick up / hang up the phone</div></div>
+<div class="vc"><div class="vc-de">sich melden / sich vorstellen</div><div class="vc-meaning">to answer / introduce oneself</div></div>
+<div class="vc"><div class="vc-de">in der Warteschleife</div><div class="vc-meaning">on hold</div></div>
+<div class="vc"><div class="vc-de">verbinden / weiterleiten</div><div class="vc-meaning">to put through / transfer</div></div>
+<div class="vc"><div class="vc-de">die Durchwahl</div><div class="vc-meaning">extension number</div></div>
+<div class="vc"><div class="vc-de">der/die Ansprechpartner:in</div><div class="vc-meaning">contact person</div></div>
+</div>
 
-<div class="phase-step"><div class="num">2</div>
-<div class="name">Problem BESCHREIBEN</div>
-<div class="lines">
-<div class="line">"Ich habe folgendes Problem: <strong>…</strong>"</div>
-<div class="line">"Am [Datum] habe ich [Produkt] bestellt — heute ist es immer noch nicht angekommen."</div>
-<div class="line">"Der Artikel ist leider <strong>defekt / beschädigt / unvollständig</strong>."</div>
-<div class="line">"Was mich besonders stört, ist <strong>…</strong>"</div>
-</div></div>
+<div class="slabel">Beschwerde-Anlässe</div>
+<div class="vgrid">
+<div class="vc"><div class="vc-de">defekt / kaputt / beschädigt</div><div class="vc-meaning">defective / broken / damaged</div></div>
+<div class="vc"><div class="vc-de">die Lieferung verspätet sich</div><div class="vc-meaning">the delivery is delayed</div></div>
+<div class="vc"><div class="vc-de">die Mängelrüge</div><div class="vc-meaning">complaint about defects</div></div>
+<div class="vc"><div class="vc-de">Doppelabbuchung</div><div class="vc-meaning">double charge</div></div>
+<div class="vc"><div class="vc-de">die Erstattung / Rückzahlung</div><div class="vc-meaning">refund</div></div>
+<div class="vc"><div class="vc-de">die Garantie / Gewährleistung</div><div class="vc-meaning">warranty / guarantee</div></div>
+</div>
 
-<div class="phase-step"><div class="num">3</div>
-<div class="name">Lösung FORDERN</div>
-<div class="lines">
-<div class="line">"Ich <strong>hätte gerne</strong>, dass…"</div>
-<div class="line">"<strong>Könnten</strong> Sie das bitte für mich prüfen?"</div>
-<div class="line">"<strong>Wäre</strong> es möglich, dass…?"</div>
-<div class="line">"Was <strong>wäre</strong> Ihre Lösung?"</div>
-</div></div>
+<div class="slabel">Lösung &amp; Reaktion</div>
+<div class="vgrid">
+<div class="vc"><div class="vc-de">eine Lösung anbieten / vorschlagen</div><div class="vc-meaning">to offer / suggest a solution</div></div>
+<div class="vc"><div class="vc-de">die Bestellung stornieren</div><div class="vc-meaning">to cancel the order</div></div>
+<div class="vc"><div class="vc-de">den Artikel umtauschen / zurückschicken</div><div class="vc-meaning">to exchange / return</div></div>
+<div class="vc"><div class="vc-de">eine Gutschrift erhalten</div><div class="vc-meaning">to receive a credit note</div></div>
+<div class="vc"><div class="vc-de">den Vorgang prüfen</div><div class="vc-meaning">to check the case</div></div>
+<div class="vc"><div class="vc-de">an Vorgesetzte weitergeben (Eskalation)</div><div class="vc-meaning">to escalate to supervisor</div></div>
+</div>
 
-<div class="phase-step"><div class="num">4</div>
-<div class="name">Bei BLOCKADEN reagieren</div>
-<div class="lines">
-<div class="line">"Das ist nicht zufriedenstellend. Mit wem <strong>kann</strong> ich noch sprechen?"</div>
-<div class="line">"<strong>Könnte</strong> ich bitte mit dem/der Vorgesetzten sprechen?"</div>
-<div class="line">"Ich werde mich an die Verbraucherzentrale wenden, wenn keine Lösung gefunden wird."</div>
-<div class="line">"Ich bestehe auf einer Lösung bis [Datum]."</div>
-</div></div>
+<div class="slabel">Wortschatz-Quiz: Welches Wort passt?</div>
 
-<div class="phase-step"><div class="num">5</div>
-<div class="name">Anruf ABSCHLIESSEN</div>
-<div class="lines">
-<div class="line">"Vielen Dank für Ihre Zeit."</div>
-<div class="line">"<strong>Können</strong> Sie mir das bitte schriftlich bestätigen?"</div>
-<div class="line">"Wann <strong>kann</strong> ich mit einer Antwort rechnen?"</div>
-<div class="line">"Auf Wiederhören!"</div>
-</div></div>
+<div class="gapfill">
+<div class="gf-text">„Einen Moment bitte, ich verbinde Sie. Sie sind aber leider noch in der ___."</div>
+<div class="gf-options" data-correct="2"><div class="gf-chip">Mängelrüge</div><div class="gf-chip">Durchwahl</div><div class="gf-chip">Warteschleife</div></div>
+</div>
 
-<div class="tip"><strong>📝 Vor dem Anruf vorbereiten:</strong> Bestellnummer, Datum, Problem in Stichpunkten — und eine konkrete Lösung im Kopf!</div>
+<div class="gapfill">
+<div class="gf-text">„Ich rufe wegen einer ___ an — das Geld wurde zweimal abgebucht."</div>
+<div class="gf-options" data-correct="0"><div class="gf-chip">Doppelabbuchung</div><div class="gf-chip">Erstattung</div><div class="gf-chip">Gutschrift</div></div>
+</div>
+
+<div class="gapfill">
+<div class="gf-text">„Wenn Sie mir nicht helfen können, dann möchte ich an einen ___ weitergeleitet werden."</div>
+<div class="gf-options" data-correct="1"><div class="gf-chip">Hörer</div><div class="gf-chip">Vorgesetzten</div><div class="gf-chip">Ansprechpartner</div></div>
+</div>
+
+<div class="gapfill">
+<div class="gf-text">„Sie können den Artikel innerhalb von 14 Tagen ___."</div>
+<div class="gf-options" data-correct="2"><div class="gf-chip">stornieren</div><div class="gf-chip">eskalieren</div><div class="gf-chip">umtauschen</div></div>
+</div>
 
 </div></div>
 </section>
 
+<!-- PHASE 3: MUSTERDIALOG -->
 <section class="phase" data-phase="3">
-  <div class="card"><div class="card-header"><div class="eyebrow">Konjunktiv II für Höflichkeit</div><h1 class="card-title">Direkt → <em>höflich</em></h1><p class="card-sub">Am Telefon ist Höflichkeit GOLD! Wandle direkte Sätze mit Konjunktiv II höflicher um.</p></div><div class="card-accent"></div><div class="card-body">
+  <div class="card"><div class="card-header"><div class="eyebrow">Musterdialog · Lieferverzögerung</div><h1 class="card-title">Lies &amp; <em>fülle</em> die Konjunktiv-Lücken</h1></div><div class="card-accent"></div><div class="card-body">
 
-<div class="slabel">Die wichtigsten Höflichkeits-Formen</div>
-<div class="dialog">
-<div class="dl"><div class="dl-spk">KÖNNEN</div><div class="dl-text">→ <strong>KÖNNTEN</strong> "Könnten Sie das prüfen?"</div></div>
-<div class="dl"><div class="dl-spk">SEIN</div><div class="dl-text">→ <strong>WÄRE</strong> "Wäre es möglich, dass…?"</div></div>
-<div class="dl"><div class="dl-spk">HABEN</div><div class="dl-text">→ <strong>HÄTTE</strong> "Ich hätte gerne eine Erstattung."</div></div>
-<div class="dl"><div class="dl-spk">WERDEN</div><div class="dl-text">→ <strong>WÜRDEN</strong> "Würden Sie mir helfen?"</div></div>
+<div class="dialog-mockup">
+<div class="dm-row b"><div class="dm-bubble"><strong>Service:</strong> Guten Tag Frau Schmidt, ich höre.</div></div>
+<div class="dm-row a"><div class="dm-bubble"><strong>Kunde:</strong> Die Bestellung sollte vor drei Tagen ankommen. Bis heute ist nichts da. <mark>___</mark> Sie das bitte prüfen?</div></div>
+<div class="dm-row b"><div class="dm-bubble"><strong>Service:</strong> Einen Moment, ich schaue nach… Es scheint ein Problem mit dem Versand zu geben.</div></div>
+<div class="dm-row a"><div class="dm-bubble"><strong>Kunde:</strong> Verstehe. Was <mark>___</mark> jetzt Ihre Lösung?</div></div>
+<div class="dm-row b"><div class="dm-bubble"><strong>Service:</strong> Wir könnten die Lieferung kostenlos beschleunigen oder eine Erstattung anbieten.</div></div>
+<div class="dm-row a"><div class="dm-bubble"><strong>Kunde:</strong> Ich <mark>___ gerne</mark> die beschleunigte Lieferung. Wann <mark>___</mark> sie da sein?</div></div>
+<div class="dm-row b"><div class="dm-bubble"><strong>Service:</strong> Innerhalb von 24 Stunden. Ich schicke Ihnen die Bestätigung per E-Mail.</div></div>
+<div class="dm-row a"><div class="dm-bubble"><strong>Kunde:</strong> Vielen Dank. Auf Wiederhören!</div></div>
 </div>
 
-<div class="slabel">Direkt vs. Höflich — Vergleich</div>
-<div class="match-game">
-<div class="match-pair"><div class="match-direct">"Ich will eine Erstattung."</div><div class="match-hoflich">"Ich HÄTTE GERNE eine Erstattung."</div></div>
-<div class="match-pair"><div class="match-direct">"Schicken Sie mir das."</div><div class="match-hoflich">"KÖNNTEN Sie mir das bitte schicken?"</div></div>
-<div class="match-pair"><div class="match-direct">"Helfen Sie mir."</div><div class="match-hoflich">"WÄRE es möglich, dass Sie mir helfen?"</div></div>
-<div class="match-pair"><div class="match-direct">"Wann kann ich…?"</div><div class="match-hoflich">"Wann KÖNNTE ich…?"</div></div>
-<div class="match-pair"><div class="match-direct">"Geben Sie mir die Bestellnummer."</div><div class="match-hoflich">"KÖNNTEN Sie mir bitte die Bestellnummer geben?"</div></div>
-<div class="match-pair"><div class="match-direct">"Ich brauche das jetzt."</div><div class="match-hoflich">"Ich BRÄUCHTE das eigentlich heute noch."</div></div>
+<div class="slabel">Fülle die 4 Lücken im Dialog</div>
+
+<div class="gapfill">
+<div class="gf-text">Lücke 1 (Kunde bittet höflich um Prüfung):</div>
+<div class="gf-options" data-correct="1"><div class="gf-chip">Können</div><div class="gf-chip">Könnten</div><div class="gf-chip">Müssen</div></div>
 </div>
 
-<div class="slabel">Quick-Quiz: Welche Form ist höflicher?</div>
+<div class="gapfill">
+<div class="gf-text">Lücke 2 (Kunde fragt nach Lösung):</div>
+<div class="gf-options" data-correct="2"><div class="gf-chip">ist</div><div class="gf-chip">war</div><div class="gf-chip">wäre</div></div>
+</div>
 
-<div class="quiz" data-correct="1"><div class="q-text">"Wann ___ ich mit einer Antwort rechnen?"</div><div class="q-opts"><button class="q-opt">kann</button><button class="q-opt">könnte</button></div><div class="q-explain">✓ "könnte" — Konjunktiv II macht die Frage höflicher!</div></div>
+<div class="gapfill">
+<div class="gf-text">Lücke 3 (Kunde formuliert Wunsch):</div>
+<div class="gf-options" data-correct="1"><div class="gf-chip">habe</div><div class="gf-chip">hätte</div><div class="gf-chip">will</div></div>
+</div>
 
-<div class="quiz" data-correct="2"><div class="q-text">"___ Sie mir bitte einen Tausch anbieten?"</div><div class="q-opts"><button class="q-opt">Werden</button><button class="q-opt">Sind</button><button class="q-opt">Würden</button></div><div class="q-explain">✓ "Würden" — höflicher als "Werden Sie…?"</div></div>
+<div class="gapfill">
+<div class="gf-text">Lücke 4 (Kunde fragt nach Möglichkeit):</div>
+<div class="gf-options" data-correct="2"><div class="gf-chip">kann</div><div class="gf-chip">muss</div><div class="gf-chip">könnte</div></div>
+</div>
 
-<div class="quiz" data-correct="0"><div class="q-text">"Ich ___ gerne eine schriftliche Bestätigung."</div><div class="q-opts"><button class="q-opt">hätte</button><button class="q-opt">habe</button><button class="q-opt">brauche</button></div><div class="q-explain">✓ "hätte" — der höfliche Klassiker am Telefon!</div></div>
-
-<div class="quiz" data-correct="1"><div class="q-text">"___ es möglich, mit dem Vorgesetzten zu sprechen?"</div><div class="q-opts"><button class="q-opt">Ist</button><button class="q-opt">Wäre</button><button class="q-opt">War</button></div><div class="q-explain">✓ "Wäre" — Konjunktiv II für höfliches Eskalieren!</div></div>
+<div class="tip"><strong>🎯 Beobachtung:</strong> 4× Konjunktiv II in 1 kurzen Dialog — Höflichkeit auf höchstem Niveau!</div>
 
 </div></div>
 </section>
 
+<!-- PHASE 4: ROLLENSPIELE -->
 <section class="phase" data-phase="4">
-  <div class="card"><div class="card-header"><div class="eyebrow">Musterdialog</div><h1 class="card-title">Beschwerde wegen <em>Lieferverzögerung</em></h1></div><div class="card-accent"></div><div class="card-body">
+  <div class="card"><div class="card-header"><div class="eyebrow">Sprechclub · 3 Rollenspiele</div><h1 class="card-title">Im <em>Sprechclub</em> mit Tandempartner</h1><p class="card-sub">3 echte Beschwerde-Szenarien — übt mit Konjunktiv II!</p></div><div class="card-accent"></div><div class="card-body">
 
-<div class="dialog"><div class="dialog-name">Telefonat · Lieferverzögerung</div>
-<div class="dl"><div class="dl-spk">Kunde</div><div class="dl-text">"Guten Tag, mein Name ist Maria Schmidt. Ich rufe an wegen meiner Bestellung Nummer A-12345."</div></div>
-<div class="dl"><div class="dl-spk">Service</div><div class="dl-text">"Guten Tag Frau Schmidt, ich höre."</div></div>
-<div class="dl"><div class="dl-spk">Kunde</div><div class="dl-text">"Die Bestellung sollte vor drei Tagen ankommen. Bis heute ist nichts da. <strong>Könnten</strong> Sie das bitte prüfen?"</div></div>
-<div class="dl"><div class="dl-spk">Service</div><div class="dl-text">"Einen Moment, ich schaue nach… Es scheint ein Problem mit dem Versand zu geben."</div></div>
-<div class="dl"><div class="dl-spk">Kunde</div><div class="dl-text">"Verstehe. Was <strong>wäre</strong> jetzt Ihre Lösung?"</div></div>
-<div class="dl"><div class="dl-spk">Service</div><div class="dl-text">"Wir könnten die Lieferung kostenlos beschleunigen oder eine Erstattung anbieten."</div></div>
-<div class="dl"><div class="dl-spk">Kunde</div><div class="dl-text">"Ich <strong>hätte gerne</strong> die beschleunigte Lieferung. Wann <strong>könnte</strong> sie da sein?"</div></div>
-<div class="dl"><div class="dl-spk">Service</div><div class="dl-text">"Innerhalb von 24 Stunden. Ich schicke Ihnen die Bestätigung per E-Mail."</div></div>
-<div class="dl"><div class="dl-spk">Kunde</div><div class="dl-text">"Vielen Dank. Auf Wiederhören!"</div></div>
+<div class="role-card">
+<div class="role-num">Rollenspiel 1</div>
+<div class="role-titel">📻 Defekter Bluetooth-Lautsprecher</div>
+<div class="role-situation">Du hast vor 1 Woche einen Bluetooth-Lautsprecher für 89 € gekauft. Er schaltet sich nach 5 Minuten von selbst aus. Du rufst den Kundenservice an.</div>
+<div class="role-split">
+<div class="role-person a">
+<div class="role-label">🙋 Person A — Kunde</div>
+<ul class="role-tasks">
+<li>Rufe den Service an</li>
+<li>Beschreibe das Problem sachlich</li>
+<li>Verlange Tausch ODER Erstattung</li>
+<li>Nutze Konjunktiv II!</li>
+</ul>
+</div>
+<div class="role-person b">
+<div class="role-label">🎧 Person B — Kundenservice</div>
+<ul class="role-tasks">
+<li>Sei freundlich aber zurückhaltend</li>
+<li>Stelle Rückfragen zum Problem</li>
+<li>Biete schließlich eine Lösung an</li>
+<li>Reagiere auf Konjunktiv-Formen</li>
+</ul>
+</div>
+</div>
+<div class="role-ziel">🎯 <strong>Ziel:</strong> Mindestens 8 Konjunktiv-II-Formen im Dialog verwenden!</div>
 </div>
 
-<div class="tip"><strong>🎯 Übe diesen Dialog laut:</strong> Wechselt Rollen! Achtet auf die Konjunktiv-II-Formen.</div>
+<div class="role-card">
+<div class="role-num">Rollenspiel 2</div>
+<div class="role-titel">💡 Falsche Stromrechnung — Doppelabbuchung</div>
+<div class="role-situation">Du hast eine Stromrechnung mit doppelter Belastung bekommen — das Geld wurde zweimal abgebucht (240 €). Du rufst den Stromanbieter an.</div>
+<div class="role-split">
+<div class="role-person a">
+<div class="role-label">🙋 Person A — Kunde</div>
+<ul class="role-tasks">
+<li>Beschreibe die Situation sachlich</li>
+<li>Fordere Aufklärung über die Doppelabbuchung</li>
+<li>Frage nach Rückerstattung</li>
+<li>Verlange schriftliche Bestätigung</li>
+</ul>
+</div>
+<div class="role-person b">
+<div class="role-label">🎧 Person B — Service</div>
+<ul class="role-tasks">
+<li>Verteidige dich zunächst</li>
+<li>Prüfe den Vorgang</li>
+<li>Hilf dann bei der Lösung</li>
+<li>Erkläre, wann das Geld zurückkommt</li>
+</ul>
+</div>
+</div>
+<div class="role-ziel">⚠️ <strong>Wichtige Fragen:</strong> Wann wird zurückerstattet? Schriftliche Bestätigung verlangen!</div>
+</div>
+
+<div class="role-card">
+<div class="role-num">Rollenspiel 3 · SCHWER</div>
+<div class="role-titel">😤 Schwieriger Service-Mitarbeiter</div>
+<div class="role-situation">Du hast vor 2 Wochen eine Rückerstattung für eine kaputte Lampe beantragt — es ist nichts passiert. Du rufst wieder an, aber der Service-Mitarbeiter ist abweisend.</div>
+<div class="role-split">
+<div class="role-person a">
+<div class="role-label">🙋 Person A — Kunde</div>
+<ul class="role-tasks">
+<li>Sei höflich aber bestimmt</li>
+<li>Eskaliere wenn nötig</li>
+<li>Verlange den/die Vorgesetzte:n</li>
+<li>Erwähne die Verbraucherzentrale</li>
+</ul>
+</div>
+<div class="role-person b">
+<div class="role-label">🎧 Person B — Service</div>
+<ul class="role-tasks">
+<li>„Das ist nicht meine Zuständigkeit."</li>
+<li>„Da kann ich nichts machen."</li>
+<li>Abweisend und wenig hilfsbereit</li>
+<li>Erst nach Eskalation kooperativ</li>
+</ul>
+</div>
+</div>
+<div class="role-ziel">🏆 <strong>Bonus-Ziel:</strong> Höflich aber STARK bleiben — professionell eskalieren ohne die Fassung zu verlieren!</div>
+</div>
 
 </div></div>
 </section>
 
+<!-- PHASE 5: MISSION -->
 <section class="phase" data-phase="5">
-  <div class="card"><div class="card-header"><div class="eyebrow">Sprechübungen</div><h1 class="card-title">Rollenspiele &amp; <em>Sprechkarten</em></h1></div><div class="card-accent"></div><div class="card-body">
+  <div class="card"><div class="card-header"><div class="eyebrow">Sprechkarten + Mission</div><h1 class="card-title">Schwierige Situationen &amp; <em>Mission der Woche</em></h1></div><div class="card-accent"></div><div class="card-body">
 
-<div class="role">
-<div class="role-title">🎭 Rollenspiel 1 — Defektes Produkt</div>
-<div class="role-situation">Du hast einen kaputten Bluetooth-Lautsprecher gekauft.</div>
-<div class="role-task"><strong>Person A — Kunde:</strong> Rufe Service an. Beschreibe Problem. Verlange Lösung (Tausch oder Erstattung).<br><strong>Person B — Service:</strong> Freundlich aber zurückhaltend. Stelle Rückfragen.<br><strong>Ziel:</strong> Mindestens 8 Konjunktiv-II-Formen!</div>
+<div class="slabel">Sprechkarten · Was sagst du in diesen Situationen?</div>
+<div class="spk-grid">
+<div class="spk-card"><div class="spk-num">Karte 1</div><div class="spk-q">Rückerstattung kommt nicht</div><div style="font-size:.83rem;color:var(--brown);">Du hast 2 Wochen auf eine Rückerstattung gewartet — sie kommt nicht. Was sagst du?</div></div>
+<div class="spk-card"><div class="spk-num">Karte 2</div><div class="spk-q">Service spricht zu schnell</div><div style="font-size:.83rem;color:var(--brown);">Der Service-Mitarbeiter spricht zu schnell. Wie reagierst du höflich?</div></div>
+<div class="spk-card"><div class="spk-num">Karte 3</div><div class="spk-q">Man möchte dich abwimmeln</div><div style="font-size:.83rem;color:var(--brown);">„Das geht so nicht." — Man will dich loswerden. Wie bleibst du dran?</div></div>
+<div class="spk-card"><div class="spk-num">Karte 4</div><div class="spk-q">Unbekanntes Vokabular</div><div style="font-size:.83rem;color:var(--brown);">Du verstehst das technische Vokabular nicht. Wie fragst du höflich nach?</div></div>
 </div>
 
-<div class="role">
-<div class="role-title">🎭 Rollenspiel 2 — Falsche Rechnung</div>
-<div class="role-situation">Doppelbelastung bei der Stromrechnung.</div>
-<div class="role-task"><strong>Person A — Kunde:</strong> Sachlich, aber bestimmt. Fordere Aufklärung.<br><strong>Person B — Service:</strong> Verteidige dich zuerst, dann hilf bei der Lösung.<br><strong>Wichtig:</strong> Wann wird das Geld zurückerstattet? Schriftliche Bestätigung!</div>
+<div class="slabel">Tipps: Stimme &amp; Tonfall am Telefon</div>
+<div style="background:var(--sand-lt);border-radius:10px;padding:1rem 1.3rem;font-size:.9rem;color:var(--brown);line-height:1.8;">
+🐢 <strong>LANGSAM</strong> sprechen — du wirst besser verstanden<br>
+😮‍💨 <strong>ATME</strong> tief vor dem Anruf — beruhigt die Stimme<br>
+📝 <strong>NOTIZZETTEL</strong> mit Stichpunkten parat haben<br>
+🧊 Bleib <strong>SACHLICH</strong> — keine Vorwürfe, nur Fakten<br>
+🔁 <strong>WIEDERHOLE</strong> wichtige Infos: „Habe ich richtig verstanden, dass…?"<br>
+😊 <strong>LÄCHLE</strong> beim Sprechen — man hört das in der Stimme!
 </div>
 
-<div class="role">
-<div class="role-title">🎭 Rollenspiel 3 — Schwieriger Service-Mitarbeiter</div>
-<div class="role-situation">Der Service will dich abwimmeln.</div>
-<div class="role-task"><strong>Person A — Kunde:</strong> Höflich aber bestimmt. Eskaliere wenn nötig.<br><strong>Person B — Service:</strong> Sei abweisend ("Das ist nicht meine Zuständigkeit").<br><strong>Person A:</strong> Verlange Vorgesetzten / erwähne Verbraucherzentrale.</div>
-</div>
+<div class="tip">💬 Wenn du nervös bist, sag ruhig: <strong>„Entschuldigung, mein Deutsch ist noch nicht perfekt."</strong> — die meisten Menschen reagieren freundlich darauf!</div>
 
-<div class="role">
-<div class="role-title">🎴 Sprechkarten — Schwierige Situationen</div>
-<div class="role-task">
-<strong>Karte 1:</strong> 2 Wochen auf Rückerstattung gewartet — was sagst du?<br>
-<strong>Karte 2:</strong> Service-Mitarbeiter spricht zu schnell — wie reagierst du höflich?<br>
-<strong>Karte 3:</strong> Man will dich abwimmeln — wie bleibst du dran?<br>
-<strong>Karte 4:</strong> Du verstehst das technische Vokabular nicht — wie fragst du nach?
+<div class="slabel">🎯 Mission der Woche</div>
+<div style="background:#FFF4F8;border-left:5px solid var(--pink);padding:1.2rem 1.4rem;border-radius:10px;">
+<p style="font-family:'Fraunces',serif;font-weight:700;color:var(--brown);margin-bottom:.6rem;font-size:1rem;">📝 Bis zur nächsten Stunde:</p>
+<ol style="padding-left:1.3rem;color:var(--brown);font-size:.92rem;line-height:1.9;">
+<li><strong>Spickzettel schreiben</strong> — für deinen nächsten Reklamations-Anruf auf Deutsch (Phasen 1–5)</li>
+<li><strong>10 Sätze mit Konjunktiv II</strong> laut vor dem Spiegel üben (KÖNNTEN, WÄRE, HÄTTE, WÜRDEN)</li>
+<li><strong>🏆 Bonus-Challenge:</strong> Wenn du eine echte Beschwerde hast — wähle BEWUSST die deutsche Hotline und wende dein Wissen an!</li>
+</ol>
 </div>
-</div>
-
-<div class="tip"><strong>💡 Tipps für die Stimme:</strong> LANGSAM sprechen · ATMEN vor dem Anruf · LÄCHELN beim Sprechen (man hört es!) · "Entschuldigung, mein Deutsch ist noch nicht perfekt" — das ist okay!</div>
 
 </div></div>
 </section>
 
 </main>
-<footer>deutschoderwas Sprechclub · Wie telefoniere ich + Beschwerde</footer>
+<footer>deutschoderwas Sprechclub · B1/B2 Beschwerde mit Konjunktiv II · v3 (passend zur Gamma-Präsi)</footer>
 
 <script>
 document.querySelectorAll('.phase-btn').forEach(b=>{b.onclick=()=>{document.querySelectorAll('.phase-btn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.phase').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelector('[data-phase="'+b.dataset.phase+'"].phase').classList.add('active');window.scrollTo(0,0);};});
 
-document.querySelectorAll('.vok-card').forEach(c=>{c.onclick=()=>c.classList.toggle('flipped');});
+// Konjunktiv II drill check
+document.querySelectorAll('.kd-check').forEach(b=>{
+  b.onclick=()=>{
+    const c=b.closest('.kdrill');
+    const inp=c.querySelector('.kd-input');
+    const fb=c.querySelector('.kd-feedback');
+    const sol=inp.dataset.sol;
+    const u=inp.value.toLowerCase().replace(/[.,!?]/g,'').trim();
+    const s=sol.toLowerCase().replace(/[.,!?]/g,'').trim();
+    // Accept if user has the key konjunktiv verb + core meaning
+    const keyVerbs=['hätte','könnte','könnten','wäre','würde','würden'];
+    const hasK=keyVerbs.some(v=>u.includes(v));
+    if(u===s){fb.className='kd-feedback show right';fb.innerHTML='✓ Perfekt! '+sol;}
+    else if(hasK){fb.className='kd-feedback show right';fb.innerHTML='✓ Konjunktiv II verwendet — gut! <div class="sol">Musterlösung: '+sol+'</div>';}
+    else{fb.className='kd-feedback show miss';fb.innerHTML='✗ Kein Konjunktiv II erkannt. <div class="sol">Lösung: '+sol+'</div>';}
+  };
+});
 
-document.querySelectorAll('.quiz').forEach(q=>{
-  const correct=parseInt(q.dataset.correct);
-  const opts=q.querySelectorAll('.q-opt');
-  const explain=q.querySelector('.q-explain');
-  opts.forEach((opt,i)=>{
-    opt.onclick=()=>{
-      if(q.dataset.done)return;
-      q.dataset.done='1';
-      if(i===correct){opt.classList.add('correct');}
-      else{opt.classList.add('wrong');opts[correct].classList.add('correct');}
-      explain.classList.add('show');
+// Gap fill
+document.querySelectorAll('.gf-options').forEach(opts=>{
+  const correct=parseInt(opts.dataset.correct);
+  const chips=opts.querySelectorAll('.gf-chip');
+  chips.forEach((chip,i)=>{
+    chip.onclick=()=>{
+      if(opts.dataset.done)return;
+      opts.dataset.done='1';
+      if(i===correct)chip.classList.add('correct');
+      else{chip.classList.add('wrong');chips[correct].classList.add('correct');}
     };
   });
 });

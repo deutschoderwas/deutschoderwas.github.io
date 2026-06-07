@@ -1,247 +1,334 @@
 <!DOCTYPE html><html lang="de"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>B1/B2: Was passiert da? Situationen beschreiben · deutschoderwas</title>
+<title>B1/B2 Passiv: Was passiert da? · deutschoderwas</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900&family=DM+Sans:wght@300;400;500;600&display=swap');
-:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#4DB8A8;--acc-lt:#D4EDE9;}
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#C8A870;--acc-lt:#EEE4D4;--pink:#FA95AE;--blue:#4DB8A8;--orange:#E07060;--yellow:#FFCE00;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;line-height:1.5;}
 .phase-nav{position:sticky;top:0;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.7rem 1.2rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;}
 .brand-tag{font-family:'Fraunces',serif;font-size:.85rem;font-weight:700;color:var(--sand);margin-right:.5rem;white-space:nowrap;}
-.brand-tag span{color:var(--rust-lt);}
-.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;font-family:inherit;}
-.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}
-.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
-main{max-width:960px;margin:0 auto;padding:1.5rem 1.2rem 5rem;}
+.brand-tag span{color:var(--pink);}
+.phase-btn{font-size:.7rem;font-weight:700;padding:.32rem .8rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;font-family:inherit;}
+.phase-btn:hover{border-color:var(--pink);color:var(--pink);}
+.phase-btn.active{background:var(--pink);border-color:var(--pink);color:white;}
+main{max-width:980px;margin:0 auto;padding:1.5rem 1.2rem 5rem;}
 .phase{display:none;}.phase.active{display:block;animation:fade .3s;}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none;}}
-.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;box-shadow:0 4px 18px rgba(0,0,0,.04);}
 .card-header{background:var(--dark);padding:1.2rem 1.6rem;}
-.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.3rem;}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);margin-bottom:.3rem;}
 .card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;color:white;line-height:1.1;}
-.card-title em{color:var(--acc);font-style:italic;}
+.card-title em{color:var(--pink);font-style:italic;}
 .card-sub{font-size:.83rem;color:#aaa;margin-top:.4rem;}
-.card-accent{height:4px;background:linear-gradient(90deg,var(--acc),var(--rust),var(--rust-lt));}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--pink),var(--blue),var(--orange));}
 .card-body{padding:1.6rem 1.8rem;}
-.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin:1.4rem 0 .9rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);display:flex;align-items:center;gap:.6rem;margin:1.4rem 0 .9rem;}
 .slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
 .slabel:first-child{margin-top:0;}
-.scene-card{background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1.3rem 1.5rem;margin-bottom:1rem;border-top:5px solid var(--acc);}
-.scene-name{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:900;color:var(--brown);margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem;}
-.scene-name .emoji{font-size:1.5rem;}
-.scene-prompt{font-size:.88rem;color:#666;margin-bottom:1rem;font-style:italic;}
-.scene-bullets{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.5rem;margin-bottom:.8rem;}
-.scene-bullet{background:var(--acc-lt);border-radius:8px;padding:.5rem .8rem;font-size:.85rem;color:var(--brown);font-weight:500;cursor:pointer;}
-.scene-bullet:hover{background:var(--acc);color:white;}
-.example-passiv{background:var(--sand-lt);border-radius:10px;padding:.8rem 1.1rem;margin-top:.5rem;border-left:4px solid var(--acc);font-family:'Fraunces',serif;font-size:.93rem;color:var(--brown);line-height:1.6;font-style:italic;display:none;}
-.example-passiv.show{display:block;}
-.example-passiv strong{color:var(--rust);font-style:normal;}
-.toggle-example{background:transparent;border:1.5px solid var(--acc);color:var(--acc);padding:.35rem 1rem;border-radius:20px;font-size:.77rem;font-weight:700;cursor:pointer;font-family:inherit;}
-.toggle-example:hover{background:var(--acc);color:white;}
-.dialog-box{background:var(--sand-lt);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1rem;border:1.5px solid var(--sand);}
-.dialog-name{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);margin-bottom:.4rem;}
-.dialog-line{padding:.4rem 0;font-size:.92rem;border-bottom:1px solid var(--sand);}
-.dialog-line:last-child{border-bottom:none;}
-.dialog-line strong{color:var(--acc);background:var(--acc-lt);padding:.05em .3em;border-radius:4px;}
+.rule-box{background:#FFF4F8;border:2px solid var(--pink);border-radius:14px;padding:1.2rem 1.4rem;margin:1rem 0;text-align:center;}
+.rule-formula{font-family:'Fraunces',serif;font-weight:900;font-size:1.3rem;color:var(--pink);margin:.4rem 0;}
+.rule-formula span{background:#FFE4F0;padding:.05em .3em;border-radius:6px;margin:0 .2em;}
+.rule-eq{font-size:1.5rem;color:var(--brown);}
+.ap-compare{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;}
+@media(max-width:700px){.ap-compare{grid-template-columns:1fr;}}
+.ap-card{background:white;border:2px solid var(--blue);border-radius:14px;padding:1.2rem;}
+.ap-card.passiv{border-color:var(--orange);}
+.ap-title{font-family:'Fraunces',serif;font-weight:900;font-size:1.05rem;color:var(--blue);margin-bottom:.4rem;}
+.passiv .ap-title{color:var(--orange);}
+.ap-ex{font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.95rem;background:var(--cream);padding:.5rem .8rem;border-radius:8px;margin:.3rem 0;}
+.ap-when{font-size:.78rem;color:#888;font-style:italic;margin-top:.5rem;}
+.polaroids{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0;}
+@media(max-width:700px){.polaroids{grid-template-columns:1fr;}}
+.polaroid{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1.2rem;box-shadow:0 4px 14px rgba(0,0,0,.05);text-align:center;}
+.polaroid-icon{font-size:2.5rem;margin-bottom:.5rem;}
+.polaroid-name{font-family:'Fraunces',serif;font-weight:900;color:var(--pink);font-size:1rem;margin-bottom:.3rem;}
+.polaroid-sentence{font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.92rem;background:#FFF4F8;padding:.5rem .7rem;border-radius:6px;margin:.4rem 0;}
+.polaroid-explain{font-size:.78rem;color:#888;}
+.scene{background:white;border-radius:18px;padding:1.5rem;margin-bottom:1.2rem;border:1.5px solid var(--sand);}
+.scene-tag{display:inline-block;background:var(--pink);color:white;font-size:.7rem;font-weight:700;padding:.25rem .8rem;border-radius:14px;margin-bottom:.5rem;letter-spacing:.05em;text-transform:uppercase;}
+.scene-title{font-family:'Fraunces',serif;font-weight:900;color:var(--brown);font-size:1.2rem;margin-bottom:.4rem;}
+.scene-text{font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.92rem;line-height:1.7;}
+.scene-text .hl{background:#FFE4F0;padding:.05em .25em;border-radius:4px;color:#A03450;font-weight:700;font-style:normal;font-family:'DM Sans',sans-serif;}
+.scene-count{display:inline-block;background:var(--green-lt);color:var(--green);font-size:.75rem;font-weight:700;padding:.3rem .8rem;border-radius:14px;margin-top:.5rem;}
+.bekommen-stage{background:linear-gradient(135deg,#FFF4F8,#F0F8FF);border-radius:18px;padding:1.5rem;margin-bottom:1.2rem;border:1.5px solid var(--sand);}
+.bk-title{font-family:'Fraunces',serif;font-weight:900;color:var(--brown);font-size:1.1rem;margin-bottom:.7rem;text-align:center;}
+.bk-formula{background:white;border:2px dashed var(--orange);border-radius:12px;padding:1rem 1.3rem;text-align:center;font-family:'Fraunces',serif;font-size:1rem;color:var(--brown);margin:.6rem 0;}
+.bk-formula span.box{display:inline-block;background:#FFF4E5;padding:.15em .5em;border-radius:6px;color:var(--orange);font-weight:700;margin:0 .15em;border:1.5px solid var(--orange);}
+.bk-eq{display:grid;grid-template-columns:1fr 50px 1fr;gap:.5rem;align-items:center;margin-top:.7rem;}
+@media(max-width:700px){.bk-eq{grid-template-columns:1fr;text-align:center;}}
+.bk-eq-card{background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.8rem 1rem;}
+.bk-eq-card .label{font-size:.7rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem;}
+.bk-eq-card .ex{font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.92rem;}
+.bk-arrow{text-align:center;font-size:1.5rem;color:var(--orange);font-weight:900;}
 .transform{background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1rem;}
-.t-aktiv{font-family:'Fraunces',serif;font-size:1rem;color:var(--brown);font-style:italic;margin-bottom:.5rem;}
-.t-arrow{text-align:center;color:var(--acc);font-size:1.4rem;margin:.3rem 0;}
-.t-input{width:100%;font-family:inherit;font-size:.95rem;padding:.7rem 1rem;border:2px solid var(--sand);border-radius:10px;background:var(--cream);}
-.t-input:focus{outline:none;border-color:var(--acc);background:white;}
-.t-check{background:var(--acc);color:white;border:none;padding:.55rem 1.4rem;border-radius:20px;font-weight:700;font-family:inherit;font-size:.85rem;cursor:pointer;margin-top:.6rem;}
-.t-feedback{margin-top:.6rem;padding:.6rem .9rem;border-radius:8px;font-size:.85rem;display:none;font-weight:500;}
-.t-feedback.show{display:block;}
-.t-feedback.right{background:var(--green-lt);color:var(--green);}
-.t-feedback.miss{background:var(--red-lt);color:var(--red);}
-.t-feedback .sol{margin-top:.3rem;font-family:'Fraunces',serif;font-weight:700;}
-.role{background:var(--acc-lt);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1rem;border-left:5px solid var(--acc);}
-.role-title{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:900;color:var(--brown);margin-bottom:.6rem;}
-.role-situation{font-size:.88rem;color:#666;font-style:italic;margin-bottom:.6rem;}
-.role-task{font-size:.92rem;line-height:1.7;}
+.t-aktiv{font-family:'Fraunces',serif;font-size:.95rem;color:var(--brown);margin-bottom:.3rem;}
+.t-aktiv strong{color:var(--blue);background:#C4E8E0;padding:.05em .25em;border-radius:4px;}
+.t-arrow{text-align:center;color:var(--pink);font-size:1.2rem;margin:.2rem 0;}
+.t-input{width:100%;font-family:inherit;font-size:.92rem;padding:.65rem .9rem;border:2px solid var(--sand);border-radius:10px;background:var(--cream);}
+.t-input:focus{outline:none;border-color:var(--orange);background:white;}
+.t-check{background:var(--orange);color:white;border:none;padding:.5rem 1.3rem;border-radius:20px;font-weight:700;font-family:inherit;font-size:.82rem;cursor:pointer;margin-top:.5rem;}
+.t-feedback{margin-top:.5rem;padding:.55rem .9rem;border-radius:8px;font-size:.84rem;display:none;font-weight:500;}
+.t-feedback.show{display:block;}.t-feedback.right{background:var(--green-lt);color:var(--green);}.t-feedback.miss{background:var(--red-lt);color:var(--red);}
+.t-feedback .sol{margin-top:.3rem;font-family:'Fraunces',serif;font-style:italic;}
+.rm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin:1rem 0;}
+@media(max-width:700px){.rm-grid{grid-template-columns:1fr;}}
+.rm{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.7rem 1rem;}
+.rm-title{font-weight:700;color:var(--orange);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;}
+.rm-text{font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.88rem;margin-top:.3rem;}
+.szenario-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin:1rem 0;}
+@media(max-width:700px){.szenario-grid{grid-template-columns:1fr;}}
+.sz-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:.9rem 1.1rem;border-left:5px solid var(--pink);}
+.sz-title{font-family:'Fraunces',serif;font-weight:900;color:var(--brown);font-size:1rem;margin-bottom:.3rem;}
+.sz-items{font-size:.82rem;color:#888;line-height:1.5;}
 .tip{background:var(--green-lt);border-left:4px solid var(--green);padding:.7rem 1.1rem;border-radius:8px;margin:.8rem 0;font-size:.88rem;color:var(--green);}
+.warning{background:#FFFAEC;border-left:4px solid var(--yellow);padding:.7rem 1.1rem;border-radius:8px;margin:.8rem 0;font-size:.88rem;color:#7A6300;}
 footer{text-align:center;font-size:.75rem;color:#bbb;padding:2rem 1rem 1rem;}
 </style>
 </head>
 <body>
 <div class="phase-nav">
-  <div class="brand-tag">deutschoderwas <span>· Was passiert da?</span></div>
-  <button class="phase-btn active" data-phase="1">1 Wiederholung</button>
-  <button class="phase-btn" data-phase="2">2 Szenen</button>
-  <button class="phase-btn" data-phase="3">3 Wortketten</button>
-  <button class="phase-btn" data-phase="4">4 Rollenspiele</button>
+  <div class="brand-tag">deutschoderwas <span>· Passiv B1/B2</span></div>
+  <button class="phase-btn active" data-phase="0">0 Aktiv vs Passiv</button>
+  <button class="phase-btn" data-phase="1">1 Die 3 Polaroids</button>
+  <button class="phase-btn" data-phase="2">2 Szenen erkunden</button>
+  <button class="phase-btn" data-phase="3">3 BEKOMMEN-Passiv</button>
+  <button class="phase-btn" data-phase="4">4 Aktiv→Passiv Drill</button>
+  <button class="phase-btn" data-phase="5">5 Redemittel</button>
+  <button class="phase-btn" data-phase="6">6 Bildimpuls + Spiel</button>
 </div>
 <main>
 
-<section class="phase active" data-phase="1">
-  <div class="card"><div class="card-header"><div class="eyebrow">B1/B2 · Passiv-Anwendung</div><h1 class="card-title">Was passiert da? <em>Situationen beschreiben</em></h1><p class="card-sub">Passiv flüssig nutzen — Bildbeschreibung & Reporter-Sprache</p></div><div class="card-accent"></div><div class="card-body">
+<section class="phase active" data-phase="0">
+  <div class="card"><div class="card-header"><div class="eyebrow">B1/B2 · Der Fokus-Shift</div><h1 class="card-title">Wann nutzen wir das <em>Passiv</em>?</h1><p class="card-sub">Aktiv = WER macht. Passiv = WAS passiert.</p></div><div class="card-accent"></div><div class="card-body">
 
-<div class="slabel">Mini-Wiederholung Passiv</div>
-<div class="dialog-box"><div class="dialog-line">PRÄSENS-PASSIV: <strong>werden</strong> + Partizip II → "Hier <strong>wird</strong> gebaut."</div><div class="dialog-line">Mit Modalverb: <strong>muss/soll/darf</strong> + P.II + <strong>werden</strong> → "Das <strong>muss</strong> gemacht <strong>werden</strong>."</div></div>
+<div class="ap-compare">
+<div class="ap-card"><div class="ap-title">🌊 AKTIV</div><div class="ap-ex">„Anna schreibt etwas."</div><div class="ap-when"><strong>Wann?</strong> Wenn wir wissen UND betonen wollen, WER handelt!</div></div>
+<div class="ap-card passiv"><div class="ap-title">🌸 PASSIV</div><div class="ap-ex">„Etwas wird geschrieben."</div><div class="ap-when"><strong>Wann?</strong> Wenn die HANDLUNG wichtiger ist als die Person!</div></div>
+</div>
 
-<div class="slabel">Redemittel: Situationen einleiten</div>
-<div class="dialog-box"><div class="dialog-name">Bildbeschreibung</div>
-<div class="dialog-line">"Auf diesem Bild <strong>sieht man</strong>…"</div>
-<div class="dialog-line">"Hier <strong>wird gerade</strong>…"</div>
-<div class="dialog-line">"Im Vordergrund <strong>wird</strong>…"</div>
-<div class="dialog-line">"Im Hintergrund <strong>sieht man</strong>, wie…"</div>
-<div class="dialog-line">"Auf der linken/rechten Seite <strong>wird</strong>…"</div></div>
+<div class="rule-box">
+<div style="font-size:.75rem;font-weight:700;color:var(--brown);text-transform:uppercase;letter-spacing:.1em;">Die goldene Formel</div>
+<div class="rule-formula"><span>WERDEN</span> <span class="rule-eq">+</span> <span>Partizip II</span> <span class="rule-eq">=</span> <span>PASSIV</span></div>
+</div>
 
-<div class="dialog-box"><div class="dialog-name">Genauer beschreiben</div>
-<div class="dialog-line">"Während im Vordergrund X <strong>gemacht wird</strong>, <strong>wird</strong> im Hintergrund Y…"</div>
-<div class="dialog-line">"Anscheinend <strong>wird</strong> hier…"</div>
-<div class="dialog-line">"Was hier passiert, ist… (+ Passiv)"</div></div>
+<div class="tip"><strong>🎯 Ziel heute:</strong> Passiv FLÜSSIG nutzen, um Situationen lebendig zu beschreiben — wie ein Reporter vor Ort!</div>
 
-<div class="tip"><strong>🎯 Ziel heute:</strong> Mindestens 6 Passiv-Sätze pro Bildbeschreibung — flüssig und lebendig!</div>
+<div class="slabel">Warm-up: Schaue um dich</div>
+<div style="background:var(--sand-lt);border-radius:10px;padding:1rem 1.2rem;font-size:.9rem;color:var(--brown);">
+🔍 <strong>Mini-Detektive:</strong> Was passiert gerade um dich herum? Wer macht was — und wer ist „betroffen"? Versuche 3 Sätze: <em>einer im Aktiv, einer im Passiv, einer im BEKOMMEN-Passiv!</em>
+</div>
+
+</div></div>
+</section>
+
+<section class="phase" data-phase="1">
+  <div class="card"><div class="card-header"><div class="eyebrow">Beispiele · Polaroids</div><h1 class="card-title">Drei <em>Schnappschüsse</em> aus dem Alltag</h1></div><div class="card-accent"></div><div class="card-body">
+
+<div class="polaroids">
+<div class="polaroid"><div class="polaroid-icon">🏗️</div><div class="polaroid-name">POLAROID 1</div><div class="polaroid-sentence">„Hier <strong>wird</strong> gebaut."</div><div class="polaroid-explain">Baustellen-Passiv — die AKTION läuft, die Arbeiter sind zweitrangig.</div></div>
+<div class="polaroid"><div class="polaroid-icon">🍲</div><div class="polaroid-name">POLAROID 2</div><div class="polaroid-sentence">„Die Suppe <strong>wird</strong> gekocht."</div><div class="polaroid-explain">Küchen-Passiv — das OBJEKT (Suppe) rückt in den Vordergrund.</div></div>
+<div class="polaroid"><div class="polaroid-icon">🔧</div><div class="polaroid-name">POLAROID 3</div><div class="polaroid-sentence">„Das Auto <strong>wird</strong> repariert."</div><div class="polaroid-explain">Werkstatt-Passiv — was MIT dem Auto passiert, ist entscheidend.</div></div>
+</div>
+
+<div class="slabel">Aktions-Raster: Verben für die Beschreibung</div>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;font-size:.85rem;color:var(--brown);">
+<div style="background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.8rem 1rem;"><strong style="color:var(--pink);">🔨 Handwerk &amp; Technik</strong><br>bauen · reparieren · herstellen · transportieren · liefern · abholen</div>
+<div style="background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.8rem 1rem;"><strong style="color:var(--blue);">🍳 Haushalt &amp; Pflege</strong><br>waschen · putzen · saugen · kochen · backen · braten · schneiden</div>
+<div style="background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.8rem 1rem;"><strong style="color:var(--orange);">💬 Kommunikation</strong><br>diskutieren · besprechen · verhandeln · spielen · tanzen · singen</div>
+<div style="background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.8rem 1rem;"><strong style="color:#9B59B6;">🎨 Kunst &amp; Handel</strong><br>malen · zeichnen · fotografieren · verkaufen · kaufen · bezahlen</div>
+</div>
 
 </div></div>
 </section>
 
 <section class="phase" data-phase="2">
-  <div class="card"><div class="card-header"><div class="eyebrow">Szenen-Galerie</div><h1 class="card-title">Beschreibe die <em>Szene</em></h1><p class="card-sub">Klicke "Beispiel" für eine Muster-Beschreibung im Passiv</p></div><div class="card-accent"></div><div class="card-body">
+  <div class="card"><div class="card-header"><div class="eyebrow">Fallstudien · 3 Szenen</div><h1 class="card-title">Drei <em>komplexe</em> Beschreibungen</h1><p class="card-sub">Lies — zähle die Passiv-Sätze!</p></div><div class="card-accent"></div><div class="card-body">
 
-<div class="scene-card">
-<div class="scene-name"><span class="emoji">🏗️</span>Auf der Baustelle</div>
-<div class="scene-prompt">Was passiert hier? Beschreibe mit 6+ Passiv-Sätzen!</div>
-<div class="scene-bullets">
-<div class="scene-bullet">ein Haus bauen</div>
-<div class="scene-bullet">Steine herauftragen</div>
-<div class="scene-bullet">Mauer streichen</div>
-<div class="scene-bullet">Kran bedienen</div>
-<div class="scene-bullet">Material transportieren</div>
-<div class="scene-bullet">hart arbeiten</div>
-</div>
-<button class="toggle-example">💡 Beispiel zeigen</button>
-<div class="example-passiv">Auf diesem Bild sieht man eine Baustelle. Im Vordergrund <strong>wird</strong> ein Haus <strong>gebaut</strong>. Steine <strong>werden</strong> von Arbeitern <strong>heraufgetragen</strong>. Im Hintergrund <strong>wird</strong> eine Mauer <strong>gestrichen</strong>. Ein Kran <strong>wird bedient</strong>, um schwere Materialien zu transportieren. Insgesamt <strong>wird</strong> hier hart <strong>gearbeitet</strong>.</div>
+<div class="scene">
+<div class="scene-tag">Fallstudie 1 · Baustelle</div>
+<div class="scene-title">🏗️ Auf der Baustelle</div>
+<div class="scene-text">Auf diesem Bild sieht man eine Baustelle. Im Vordergrund <span class="hl">wird</span> ein Haus <span class="hl">gebaut</span>. Steine <span class="hl">werden</span> von Arbeitern <span class="hl">heraufgetragen</span>. Im Hintergrund <span class="hl">wird</span> eine Mauer <span class="hl">gestrichen</span>. Ein Kran <span class="hl">wird</span> <span class="hl">bedient</span>, um schwere Materialien zu transportieren. Insgesamt <span class="hl">wird</span> hier hart <span class="hl">gearbeitet</span>.</div>
+<div class="scene-count">✓ 5 Passiv-Konstruktionen</div>
 </div>
 
-<div class="scene-card">
-<div class="scene-name"><span class="emoji">🍳</span>In der Küche (Festessen)</div>
-<div class="scene-prompt">Großes Festessen wird vorbereitet — beschreibe!</div>
-<div class="scene-bullets">
-<div class="scene-bullet">Suppe kochen</div>
-<div class="scene-bullet">Hähnchen braten</div>
-<div class="scene-bullet">Gemüse schneiden</div>
-<div class="scene-bullet">Salat waschen</div>
-<div class="scene-bullet">Kuchen dekorieren</div>
-<div class="scene-bullet">Teller spülen</div>
-</div>
-<button class="toggle-example">💡 Beispiel zeigen</button>
-<div class="example-passiv">Hier <strong>wird</strong> ein Festessen <strong>vorbereitet</strong>. Auf dem Herd <strong>wird</strong> eine Suppe <strong>gekocht</strong>. Im Ofen <strong>wird</strong> ein Hähnchen <strong>gebraten</strong>. Auf dem Tisch <strong>werden</strong> Gemüse <strong>geschnitten</strong> und Salat <strong>gewaschen</strong>. Ein Kuchen <strong>wird</strong> gerade <strong>dekoriert</strong>. Im Hintergrund <strong>werden</strong> Teller und Gläser <strong>gespült</strong>.</div>
+<div class="scene">
+<div class="scene-tag">Fallstudie 2 · Küche</div>
+<div class="scene-title">🍲 In der Küche</div>
+<div class="scene-text">Hier <span class="hl">wird</span> ein Festessen <span class="hl">vorbereitet</span>. Auf dem Herd <span class="hl">wird</span> eine Suppe <span class="hl">gekocht</span>. Im Ofen <span class="hl">wird</span> ein Hähnchen <span class="hl">gebraten</span>. Auf dem Tisch <span class="hl">werden</span> Gemüse <span class="hl">geschnitten</span> und Salat <span class="hl">gewaschen</span>. Ein Kuchen <span class="hl">wird</span> gerade <span class="hl">dekoriert</span>. Im Hintergrund <span class="hl">werden</span> Teller und Gläser <span class="hl">gespült</span>.</div>
+<div class="scene-count">✓ 6 Passiv-Konstruktionen</div>
 </div>
 
-<div class="scene-card">
-<div class="scene-name"><span class="emoji">💇</span>Im Friseursalon</div>
-<div class="scene-prompt">Viel los — viele Aktivitäten gleichzeitig!</div>
-<div class="scene-bullets">
-<div class="scene-bullet">Haare schneiden</div>
-<div class="scene-bullet">Tönung auftragen</div>
-<div class="scene-bullet">Haare waschen</div>
-<div class="scene-bullet">an Kasse bezahlen</div>
-<div class="scene-bullet">geplaudert</div>
-</div>
-<button class="toggle-example">💡 Beispiel zeigen</button>
-<div class="example-passiv">Im Friseursalon <strong>werden</strong> viele Dinge gleichzeitig <strong>gemacht</strong>. Eine Kundin <strong>bekommt</strong> die Haare <strong>geschnitten</strong>. Einer anderen <strong>wird</strong> eine Tönung <strong>aufgetragen</strong>. Im Hintergrund <strong>werden</strong> Haare <strong>gewaschen</strong>. An der Kasse <strong>wird bezahlt</strong>. Es <strong>wird</strong> viel <strong>geplaudert</strong>.</div>
+<div class="scene">
+<div class="scene-tag">Fallstudie 3 · Friseursalon</div>
+<div class="scene-title">💇‍♀️ Im Friseursalon</div>
+<div class="scene-text">Im Friseursalon <span class="hl">werden</span> viele Dinge gleichzeitig <span class="hl">gemacht</span>. Eine Kundin <span class="hl">bekommt</span> die Haare <span class="hl">geschnitten</span>. Einer anderen <span class="hl">wird</span> eine Tönung <span class="hl">aufgetragen</span>. Im Hintergrund <span class="hl">werden</span> Haare <span class="hl">gewaschen</span>. An der Kasse <span class="hl">wird</span> <span class="hl">bezahlt</span>. Es <span class="hl">wird</span> viel <span class="hl">geplaudert</span>.</div>
+<div class="scene-count">✓ 6 Passiv-Konstruktionen (1× BEKOMMEN-Passiv!)</div>
 </div>
 
-<div class="scene-card">
-<div class="scene-name"><span class="emoji">🚉</span>Bahnhof zur Hauptverkehrszeit</div>
-<div class="scene-prompt">Reisende, Schaffner, Koffer — alles in Bewegung!</div>
-<div class="scene-bullets">
-<div class="scene-bullet">Tickets kontrollieren</div>
-<div class="scene-bullet">Koffer schleppen</div>
-<div class="scene-bullet">Durchsagen machen</div>
-<div class="scene-bullet">Zeitungen verkaufen</div>
-<div class="scene-bullet">Kaffee bestellen</div>
-</div>
-<button class="toggle-example">💡 Beispiel zeigen</button>
-<div class="example-passiv">Im Bahnhof <strong>werden</strong> viele Dinge gleichzeitig <strong>erledigt</strong>. An den Schaltern <strong>werden</strong> Tickets <strong>verkauft</strong>. Im Bahnsteig <strong>werden</strong> Durchsagen <strong>gemacht</strong>. Koffer <strong>werden geschleppt</strong>. Im Café <strong>wird</strong> Kaffee <strong>bestellt</strong>. Tickets <strong>werden</strong> von Schaffnern <strong>kontrolliert</strong>.</div>
-</div>
+<div class="tip"><strong>🎯 Beobachtet:</strong> Im Friseursalon kommt eine NEUE Form vor — das BEKOMMEN-Passiv. Mehr dazu in Phase 3!</div>
 
 </div></div>
 </section>
 
 <section class="phase" data-phase="3">
-  <div class="card"><div class="card-header"><div class="eyebrow">Übung · Transformation</div><h1 class="card-title">Aktiv → <em>Passiv</em></h1><p class="card-sub">Wandle in Passiv um, um die Situation zu beschreiben.</p></div><div class="card-accent"></div><div class="card-body">
+  <div class="card"><div class="card-header"><div class="eyebrow">B2 · Achtung Spezial</div><h1 class="card-title">Das <em>BEKOMMEN-Passiv</em></h1><p class="card-sub">Alternative für Passiv mit „lassen"</p></div><div class="card-accent"></div><div class="card-body">
 
-<div class="transform"><div class="t-aktiv">Der Koch bereitet das Essen vor.</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Das Essen wird vorbereitet." placeholder="Passiv..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+<div class="bekommen-stage">
+<div class="bk-title">Die Formel</div>
+<div class="bk-formula"><span class="box">Person (Empfänger)</span> + <span class="box">BEKOMMEN</span> + <span class="box">Objekt</span> + <span class="box">PARTIZIP II</span></div>
 
-<div class="transform"><div class="t-aktiv">Die Putzfrau reinigt die Räume.</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Die Räume werden gereinigt." placeholder="Passiv..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+<div class="bk-eq">
+<div class="bk-eq-card"><div class="label">Bekommen-Passiv</div><div class="ex">„Sie <strong style="color:var(--orange);">bekommt</strong> die Haare <strong>geschnitten</strong>."</div></div>
+<div class="bk-arrow">=</div>
+<div class="bk-eq-card"><div class="label">Werden-Passiv</div><div class="ex">„Ihr <strong style="color:var(--orange);">werden</strong> die Haare <strong>geschnitten</strong>."</div></div>
+</div>
+</div>
 
-<div class="transform"><div class="t-aktiv">Die Schüler lernen Vokabeln.</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Vokabeln werden gelernt." placeholder="Passiv..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+<div class="slabel">Mehr Beispiele aus dem Alltag</div>
+<div class="rm-grid">
+<div class="rm"><div class="rm-title">Beim Friseur</div><div class="rm-text">„Ich <strong>bekomme</strong> die Haare <strong>gefärbt</strong>."</div></div>
+<div class="rm"><div class="rm-title">Beim Arzt</div><div class="rm-text">„Er <strong>bekommt</strong> einen Verband <strong>angelegt</strong>."</div></div>
+<div class="rm"><div class="rm-title">In der Werkstatt</div><div class="rm-text">„Sie <strong>bekommt</strong> ihr Auto <strong>repariert</strong>."</div></div>
+<div class="rm"><div class="rm-title">Zum Geburtstag</div><div class="rm-text">„Er <strong>bekommt</strong> ein Geschenk <strong>geschickt</strong>."</div></div>
+</div>
 
-<div class="transform"><div class="t-aktiv">Der Mechaniker repariert das Auto.</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Das Auto wird repariert." placeholder="Passiv..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
-
-<div class="transform"><div class="t-aktiv">Die Bauarbeiter bauen ein neues Hochhaus.</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Ein neues Hochhaus wird gebaut." placeholder="Passiv..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
-
-<div class="transform"><div class="t-aktiv">Die Kellnerin bringt die Speisekarte.</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Die Speisekarte wird gebracht." placeholder="Passiv..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+<div class="warning"><strong>⚡ Wichtig:</strong> BEKOMMEN-Passiv geht NUR, wenn jemand etwas EMPFÄNGT (Person bekommt etwas gemacht). „Hier bekommt gebaut" ❌ — funktioniert nicht!</div>
 
 </div></div>
 </section>
 
 <section class="phase" data-phase="4">
-  <div class="card"><div class="card-header"><div class="eyebrow">Sprechübungen · Rollenspiele</div><h1 class="card-title">Lebendig <em>erzählen</em></h1></div><div class="card-accent"></div><div class="card-body">
+  <div class="card"><div class="card-header"><div class="eyebrow">Übung · Transformation</div><h1 class="card-title">Aktiv → <em>Passiv</em> umformen</h1><p class="card-sub">Das direkte Objekt wird zum neuen Subjekt!</p></div><div class="card-accent"></div><div class="card-body">
 
-<div class="role">
-<div class="role-title">🎭 Rollenspiel 1 — Telefonische Bildbeschreibung</div>
-<div class="role-situation">Du beschreibst ein Bild oder eine Szene am Telefon. Dein Partner zeichnet es nur aus deinen Worten!</div>
-<div class="role-task"><strong>Person A:</strong> Beschreibe Szene mit Passiv-Sätzen ("Auf dem Bild wird…")<br><strong>Person B:</strong> Zeichne nur basierend auf der Beschreibung<br><strong>Vergleicht</strong> am Ende: Wie nahe seid ihr am Original?</div>
+<div class="rule-box">
+<div style="font-size:.85rem;color:var(--brown);">„<strong>Der Koch</strong> bereitet <span style="color:var(--orange);font-weight:700;">das Essen</span> vor."</div>
+<div style="font-size:1.3rem;color:var(--pink);margin:.3rem 0;">↓</div>
+<div style="font-size:.85rem;color:var(--brown);">„<span style="color:var(--orange);font-weight:700;">Das Essen</span> <strong>wird</strong> vorbereitet."</div>
+<div style="font-size:.75rem;color:#888;margin-top:.4rem;">Das direkte Objekt (Akkusativ) wird zum Subjekt im Passiv!</div>
 </div>
 
-<div class="role">
-<div class="role-title">🎭 Rollenspiel 2 — Reporter vor Ort</div>
-<div class="role-situation">Live-Berichterstattung von einem Event (Konzert, Demo, Sportveranstaltung).</div>
-<div class="role-task"><strong>Person A — Reporter:</strong> Beschreibe das Geschehen LIVE im Passiv. "Hier wird gerade…"<br><strong>Person B — Studio:</strong> Stelle Nachfragen: "Was passiert jetzt? Wer wird interviewt?"<br><strong>Ziel:</strong> Mindestens 10 Passiv-Sätze + lebendige Beschreibung!</div>
+<div class="slabel">Drill: 6 Sätze umformen</div>
+
+<div class="transform"><div class="t-aktiv">Aktiv: „<strong>Die Putzfrau</strong> reinigt <strong>die Räume</strong>."</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Die Räume werden gereinigt." placeholder="Passiv: Die Räume…"><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-aktiv">Aktiv: „<strong>Die Schüler</strong> lernen <strong>Vokabeln</strong>."</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Vokabeln werden gelernt." placeholder="Passiv: Vokabeln…"><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-aktiv">Aktiv: „<strong>Der Mechaniker</strong> repariert <strong>das Auto</strong>."</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Das Auto wird repariert." placeholder="Passiv: Das Auto…"><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-aktiv">Aktiv: „<strong>Die Bauarbeiter</strong> bauen <strong>ein neues Hochhaus</strong>."</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Ein neues Hochhaus wird gebaut." placeholder="Passiv: Ein neues Hochhaus…"><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-aktiv">Aktiv: „<strong>Die Kellnerin</strong> serviert <strong>den Kaffee</strong>."</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Der Kaffee wird serviert." placeholder="Passiv: Der Kaffee…"><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-aktiv">Aktiv: „<strong>Die Friseurin</strong> schneidet <strong>der Kundin</strong> die Haare." <span style="font-size:.8em;color:#888;">(Bekommen-Passiv möglich!)</span></div><div class="t-arrow">↓</div><input class="t-input" data-sol="Die Kundin bekommt die Haare geschnitten." placeholder="Bekommen-Passiv: Die Kundin bekommt…"><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+</div></div>
+</section>
+
+<section class="phase" data-phase="5">
+  <div class="card"><div class="card-header"><div class="eyebrow">Werkzeugkasten</div><h1 class="card-title">Redemittel für die <em>Bildbeschreibung</em></h1></div><div class="card-accent"></div><div class="card-body">
+
+<div class="slabel">B1 — Situationen einleiten</div>
+<div class="rm-grid">
+<div class="rm"><div class="rm-title">Räumlich</div><div class="rm-text">„Auf der linken Seite WIRD…"</div></div>
+<div class="rm"><div class="rm-title">Aktion läuft</div><div class="rm-text">„Es WIRD GERADE… (gekocht/gebaut/repariert)."</div></div>
+<div class="rm"><div class="rm-title">Allgemein</div><div class="rm-text">„Auf diesem Bild SIEHT MAN…"</div></div>
+<div class="rm"><div class="rm-title">Vordergrund</div><div class="rm-text">„Im Vordergrund STEHT eine Person, die…"</div></div>
+<div class="rm"><div class="rm-title">Hintergrund</div><div class="rm-text">„Im Hintergrund SIEHT MAN, wie…"</div></div>
+<div class="rm"><div class="rm-title">Hier &amp; jetzt</div><div class="rm-text">„Hier WIRD GERADE…"</div></div>
 </div>
 
-<div class="role">
-<div class="role-title">🎯 Wortketten-Spiel im Kreis</div>
-<div class="role-situation">Jede:r beschreibt EINE Sache, die an einem Ort gemacht wird. Die Kette wird länger!</div>
-<div class="role-task"><strong>Beispiel "Schule":</strong><br>→ "In der Schule wird gelernt."<br>→ "In der Schule wird gelernt UND es werden Pausen gemacht."<br>→ "In der Schule wird gelernt, es werden Pausen gemacht UND Aufsätze werden geschrieben."<br>… immer länger, bis jemand stockt!</div>
+<div class="slabel">B2 — Genauer beschreiben</div>
+<div class="rm-grid">
+<div class="rm"><div class="rm-title">Gleichzeitigkeit</div><div class="rm-text">„Während im Vordergrund X <strong>gemacht wird</strong>, <strong>wird</strong> im Hintergrund Y…"</div></div>
+<div class="rm"><div class="rm-title">Vermutung</div><div class="rm-text">„Anscheinend <strong>wird</strong> hier… / Es macht den Eindruck, dass…"</div></div>
+<div class="rm"><div class="rm-title">Aktiv + Passiv</div><div class="rm-text">„Die Person scheint gerade zu… (Aktiv), während sie selbst… (Passiv)."</div></div>
+<div class="rm"><div class="rm-title">Zusammenfassung</div><div class="rm-text">„Was hier passiert, ist…"</div></div>
 </div>
 
-<div class="role">
-<div class="role-title">🎴 Sprechkarten — 2 Min pro Karte</div>
-<div class="role-task">
-<strong>Karte 1:</strong> Wochenmarkt am Samstagmorgen<br>
-<strong>Karte 2:</strong> Kindergeburtstag (6 Jahre alt)<br>
-<strong>Karte 3:</strong> Yoga-Stunde im Park<br>
-<strong>Karte 4:</strong> Fitness-Studio am Abend<br>
-<strong>Karte 5:</strong> Buchhandlung am Sonntag
+<div class="tip"><strong>💎 B2-Tipp:</strong> Kombiniere mehrere Redemittel für eine fließende, natürliche Beschreibung!</div>
+
+<div class="slabel">Die Karte: Wo passiert was?</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;font-size:.82rem;color:var(--brown);">
+<div style="background:white;border:1.5px solid var(--sand);border-radius:8px;padding:.6rem;text-align:center;"><strong style="color:var(--pink);">🔨 Arbeit</strong><br><small>auf der Baustelle · in der Werkstatt · in der Fabrik · im Büro · im Klassenzimmer</small></div>
+<div style="background:white;border:1.5px solid var(--sand);border-radius:8px;padding:.6rem;text-align:center;"><strong style="color:var(--blue);">🌳 Öffentlich</strong><br><small>im Park · auf der Straße · im Bahnhof · im Krankenhaus · im Museum · in der Bibliothek</small></div>
+<div style="background:white;border:1.5px solid var(--sand);border-radius:8px;padding:.6rem;text-align:center;"><strong style="color:var(--orange);">🛒 Freizeit</strong><br><small>im Supermarkt · auf dem Markt · im Café · im Friseursalon · im Fitnessstudio</small></div>
+</div>
+
+</div></div>
+</section>
+
+<section class="phase" data-phase="6">
+  <div class="card"><div class="card-header"><div class="eyebrow">Sprechclub · Mission</div><h1 class="card-title">Bildimpuls + <em>Sprechspiel</em></h1></div><div class="card-accent"></div><div class="card-body">
+
+<div class="slabel">Einsatzbesprechung — wähle EIN Szenario</div>
+<div class="szenario-grid">
+<div class="sz-card"><div class="sz-title">a) 💼 Büroszene</div><div class="sz-items">Computer · Telefon · Meeting · Drucker · Pause</div></div>
+<div class="sz-card"><div class="sz-title">b) 🍽️ Restaurant</div><div class="sz-items">Kellner · Gäste · Küche · Bestellungen · Wein</div></div>
+<div class="sz-card"><div class="sz-title">c) 🚉 Bahnhofshalle</div><div class="sz-items">Reisende · Schaffner · Koffer · Tickets · Durchsagen</div></div>
+<div class="sz-card"><div class="sz-title">d) 🔧 Werkstatt</div><div class="sz-items">Mechaniker · Werkzeug · Auto · Öl · Hebebühne</div></div>
+</div>
+
+<div style="background:#FFF4F8;border-left:5px solid var(--pink);padding:1rem 1.3rem;border-radius:10px;margin-top:.7rem;">
+<strong style="color:var(--pink);">🎯 Aufgabe:</strong> Beschreibe DEIN Szenario in 5 Minuten — <strong>mindestens 8 Passiv-Sätze!</strong>
+</div>
+
+<div class="slabel">Live-Einsatz: 2 Rollenspiele</div>
+
+<div class="sz-card" style="border-left-color:var(--blue);">
+<div class="sz-title">📞 Rollenspiel 1: Telefonische Bildbeschreibung</div>
+<div style="font-size:.88rem;color:var(--brown);margin-top:.4rem;line-height:1.6;">
+<strong>Person A (Beschreiber):</strong> Beschreibt ein Bild am Telefon — so viele Passiv-Konstruktionen wie möglich!<br>
+<strong>Person B (Zeichner):</strong> Zeichnet die Szene NUR basierend auf As Beschreibung. Kein Original sehen!<br>
+<strong>🎯 Am Ende:</strong> Vergleichen — wie genau ist das Bild geworden?
 </div>
 </div>
 
-<div class="tip"><strong>🎉 Mission der Woche:</strong> Beschreibe jeden Tag EINE Szene aus deinem Alltag im Passiv (5 Sätze). Schau eine deutsche Nachrichten-Reportage und zähle die Passiv-Sätze!</div>
+<div class="sz-card" style="border-left-color:var(--orange);margin-top:.7rem;">
+<div class="sz-title">📺 Rollenspiel 2: Reporter vor Ort</div>
+<div style="font-size:.88rem;color:var(--brown);margin-top:.4rem;line-height:1.6;">
+<strong>Szenario:</strong> Live-Event (Konzert, Demo, Festival).<br>
+<strong>Person A (Reporter):</strong> Beschreibe LIVE. Was wird gemacht? <strong>Mindestens 10 Passiv-Sätze!</strong><br>
+<strong>Person B (Studio):</strong> Stelle Nachfragen — „Was wird gerade vorbereitet?"
+</div>
+</div>
+
+<div class="slabel">🎮 Die Kettenreaktion — das große Sprechspiel</div>
+<div style="background:white;border:2px dashed var(--orange);border-radius:14px;padding:1.2rem 1.4rem;">
+<div style="font-family:'Fraunces',serif;font-weight:700;color:var(--brown);margin-bottom:.5rem;">Beschreibe EINE Sache, die gemacht wird — und wiederhole alles Vorherige!</div>
+<div style="font-size:.88rem;color:var(--brown);line-height:1.8;">
+<strong>Runde 1:</strong> „In der Schule <em>wird gelernt</em>."<br>
+<strong>Runde 2:</strong> „…<em>wird gelernt</em> UND es <em>werden Pausen gemacht</em>."<br>
+<strong>Runde 3:</strong> „…<em>Pausen gemacht</em> UND Aufsätze <em>werden geschrieben</em>."<br>
+<strong>Runde 4+:</strong> Immer länger!
+</div>
+<div style="font-size:.78rem;color:#888;margin-top:.5rem;font-style:italic;">⚠️ Wer einen Fehler macht, scheidet aus!</div>
+</div>
+
+<div class="slabel">🎯 Mission der Woche</div>
+<div style="background:#FFF4F8;border-left:5px solid var(--pink);padding:1.2rem 1.4rem;border-radius:10px;">
+<ol style="padding-left:1.3rem;color:var(--brown);font-size:.92rem;line-height:1.9;">
+<li><strong>Tägliche Beschreibung:</strong> Beschreibe jeden Tag EINE Szene aus deinem Alltag PASSIV (5 Sätze)</li>
+<li><strong>Nachrichten zählen:</strong> Schau eine deutsche Nachrichten-Reportage und zähle die Passiv-Sätze!</li>
+<li><strong>🏆 Bonus:</strong> Beschreibe einer Person am Telefon, was bei dir zu Hause gerade passiert — KOMPLETT passiv!</li>
+</ol>
+</div>
 
 </div></div>
 </section>
 
 </main>
-<footer>deutschoderwas Sprechclub · Was passiert da? Situationen beschreiben</footer>
+<footer>deutschoderwas Sprechclub · B1/B2 Passiv-Beschreibung · v3 (Baustelle · Küche · Friseursalon + BEKOMMEN-Passiv)</footer>
 
 <script>
 document.querySelectorAll('.phase-btn').forEach(b=>{b.onclick=()=>{document.querySelectorAll('.phase-btn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.phase').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelector('[data-phase="'+b.dataset.phase+'"].phase').classList.add('active');window.scrollTo(0,0);};});
-
-document.querySelectorAll('.toggle-example').forEach(b=>{
-  b.onclick=()=>{
-    const ex=b.nextElementSibling;
-    if(ex.classList.contains('show')){ex.classList.remove('show');b.textContent='💡 Beispiel zeigen';}
-    else{ex.classList.add('show');b.textContent='🔼 Beispiel verstecken';}
-  };
-});
-
 document.querySelectorAll('.t-check').forEach(b=>{
   b.onclick=()=>{
-    const t=b.closest('.transform');
-    const inp=t.querySelector('.t-input');
-    const fb=t.querySelector('.t-feedback');
-    const sol=inp.dataset.sol;
-    const user=inp.value.toLowerCase().replace(/[.,!?]/g,'').replace(/\s+/g,' ').trim();
-    const cleanSol=sol.toLowerCase().replace(/[.,!?]/g,'').replace(/\s+/g,' ').trim();
-    if(user===cleanSol||user.split(' ').sort().join(' ')===cleanSol.split(' ').sort().join(' ')){
-      fb.className='t-feedback show right';fb.innerHTML='✓ Richtig! '+sol;
-    } else {
-      fb.className='t-feedback show miss';fb.innerHTML='✗ Nicht ganz. <div class="sol">Lösung: '+sol+'</div>';
-    }
+    const t=b.closest('.transform');const inp=t.querySelector('.t-input');const fb=t.querySelector('.t-feedback');const sol=inp.dataset.sol;
+    const u=inp.value.toLowerCase().replace(/[.,!?]/g,'').replace(/\s+/g,' ').trim();
+    const s=sol.toLowerCase().replace(/[.,!?]/g,'').replace(/\s+/g,' ').trim();
+    if(u===s||u.split(' ').sort().join(' ')===s.split(' ').sort().join(' ')){fb.className='t-feedback show right';fb.innerHTML='✓ Richtig! '+sol;}
+    else{fb.className='t-feedback show miss';fb.innerHTML='✗ Nicht ganz. <div class="sol">Lösung: '+sol+'</div>';}
   };
 });
 </script>

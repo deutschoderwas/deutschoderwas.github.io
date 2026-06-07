@@ -1,212 +1,470 @@
 <!DOCTYPE html><html lang="de"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>B1 Grammatik: Konnektoren · deutschoderwas</title>
+<title>B1 Grammatik: Konnektoren — das Baukasten-System · deutschoderwas</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900&family=DM+Sans:wght@300;400;500;600&display=swap');
-:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--rust-lt:#E8896A;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#C8A870;--acc-lt:#EEE4D4;--p1:#FA95AE;--p2:#4DB8A8;--p3:#E07060;}
+:root{--cream:#F7F3EE;--dark:#1A1410;--brown:#5C3D2E;--rust:#C4622D;--sand:#D9C4A8;--sand-lt:#EEE4D4;--green:#3D6B4F;--green-lt:#D4E8DC;--red:#C0392B;--red-lt:#F5DDD9;--acc:#C8A870;--acc-lt:#EEE4D4;--pink:#FA95AE;--blue:#4DB8A8;--orange:#E07060;--yellow:#FFCE00;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;line-height:1.5;}
 .phase-nav{position:sticky;top:0;z-index:100;background:var(--dark);border-bottom:3px solid var(--acc);padding:.7rem 1.2rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;}
 .brand-tag{font-family:'Fraunces',serif;font-size:.85rem;font-weight:700;color:var(--sand);margin-right:.5rem;white-space:nowrap;}
-.brand-tag span{color:var(--rust-lt);}
-.phase-btn{font-size:.72rem;font-weight:700;padding:.32rem .9rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;font-family:inherit;}
-.phase-btn:hover{border-color:var(--acc);color:var(--acc-lt);}
-.phase-btn.active{background:var(--acc);border-color:var(--acc);color:white;}
+.brand-tag span{color:var(--pink);}
+.phase-btn{font-size:.7rem;font-weight:700;padding:.32rem .8rem;border-radius:20px;border:1.5px solid #444;color:#888;cursor:pointer;background:transparent;white-space:nowrap;font-family:inherit;}
+.phase-btn:hover{border-color:var(--pink);color:var(--pink);}
+.phase-btn.active{background:var(--pink);border-color:var(--pink);color:white;}
 main{max-width:960px;margin:0 auto;padding:1.5rem 1.2rem 5rem;}
 .phase{display:none;}.phase.active{display:block;animation:fade .3s;}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none;}}
-.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;}
+.card{background:white;border-radius:18px;border:1.5px solid var(--sand);overflow:hidden;margin-bottom:1.2rem;box-shadow:0 4px 18px rgba(0,0,0,.04);}
 .card-header{background:var(--dark);padding:1.2rem 1.6rem;}
-.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-lt);margin-bottom:.3rem;}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);margin-bottom:.3rem;}
 .card-title{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;color:white;line-height:1.1;}
-.card-title em{color:var(--rust-lt);font-style:italic;}
+.card-title em{color:var(--pink);font-style:italic;}
 .card-sub{font-size:.83rem;color:#aaa;margin-top:.4rem;}
-.card-accent{height:4px;background:linear-gradient(90deg,var(--p1),var(--p2),var(--p3));}
+.card-accent{height:4px;background:linear-gradient(90deg,var(--pink),var(--blue),var(--orange));}
 .card-body{padding:1.6rem 1.8rem;}
-.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:.6rem;margin:1.4rem 0 .9rem;}
+.slabel{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);display:flex;align-items:center;gap:.6rem;margin:1.4rem 0 .9rem;}
 .slabel::after{content:'';flex:1;height:1px;background:var(--sand);}
 .slabel:first-child{margin-top:0;}
-.family{background:white;border-radius:14px;padding:1.3rem 1.5rem;margin-bottom:1rem;border-top:6px solid var(--p1);border:1.5px solid var(--sand);}
-.family.f2{border-top-color:var(--p2);}.family.f3{border-top-color:var(--p3);}
-.fam-tag{display:inline-block;background:var(--p1);color:white;font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:12px;margin-bottom:.5rem;letter-spacing:.05em;text-transform:uppercase;}
-.f2 .fam-tag{background:var(--p2);}.f3 .fam-tag{background:var(--p3);}
-.fam-name{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:900;color:var(--brown);margin-bottom:.5rem;}
-.fam-rule{background:var(--acc-lt);border-radius:8px;padding:.6rem 1rem;margin:.6rem 0;font-size:.9rem;color:var(--brown);font-weight:600;}
-.fam-words{font-size:.92rem;color:var(--dark);margin:.5rem 0;font-family:'Fraunces',serif;font-weight:700;}
-.fam-words span{display:inline-block;background:var(--sand-lt);padding:.15rem .55rem;margin:.15rem .2rem .15rem 0;border-radius:6px;color:var(--brown);}
-.fam-example{font-style:italic;color:#666;font-size:.88rem;margin-top:.4rem;padding:.5rem .9rem;background:var(--cream);border-radius:8px;border-left:3px solid var(--acc);}
-.fam-example strong{color:var(--rust);font-style:normal;background:var(--rust-lt);padding:.05em .25em;border-radius:4px;}
+
+/* LIVE DEMO */
+.demo-stage{background:linear-gradient(135deg,#FFF5F5,#F0F8FF);border-radius:18px;padding:1.5rem;margin-bottom:1.2rem;border:1.5px solid var(--sand);}
+.demo-title{font-family:'Fraunces',serif;font-weight:900;color:var(--brown);font-size:1.05rem;margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem;}
+.demo-picker{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;}
+.demo-pick{padding:.5rem 1rem;border:2px solid;border-radius:20px;font-weight:700;font-size:.82rem;cursor:pointer;font-family:inherit;background:white;transition:.2s;}
+.demo-pick.f1{border-color:var(--pink);color:var(--pink);}
+.demo-pick.f2{border-color:var(--blue);color:var(--blue);}
+.demo-pick.f3{border-color:var(--orange);color:var(--orange);}
+.demo-pick.active{color:white;transform:scale(1.05);}
+.demo-pick.f1.active{background:var(--pink);}.demo-pick.f2.active{background:var(--blue);}.demo-pick.f3.active{background:var(--orange);}
+.sentence-stage{background:white;border-radius:14px;padding:1.3rem;border:2px solid var(--sand);min-height:140px;display:flex;flex-direction:column;justify-content:center;transition:opacity .3s;}
+.sentence-display{font-family:'Fraunces',serif;font-size:1.1rem;line-height:1.8;color:var(--brown);text-align:center;}
+.sentence-display .word{display:inline-block;padding:.2em .5em;margin:.15em;border-radius:6px;background:var(--cream);}
+.sentence-display .connector.f1{background:#FFD8E0;color:#A03450;font-weight:900;}
+.sentence-display .connector.f2{background:#C4E8E0;color:#1A5048;font-weight:900;}
+.sentence-display .connector.f3{background:#FBD8CE;color:#8A3D2D;font-weight:900;}
+.sentence-display .verb{background:#FFF4C2;color:#8B6B00;font-weight:700;border:2px solid var(--yellow);}
+.sentence-display .subject{background:#D4EDE9;color:#1A5048;font-weight:600;}
+.demo-explain{background:#FFFAEC;border-left:4px solid var(--yellow);padding:.7rem 1rem;margin-top:1rem;font-size:.85rem;color:var(--brown);border-radius:6px;}
+.demo-explain strong{color:var(--rust);}
+
+/* FAMILY CARDS */
+.family{background:white;border-radius:14px;padding:1.3rem 1.5rem;margin-bottom:1rem;border-top:6px solid var(--pink);border:1.5px solid var(--sand);}
+.family.f2{border-top-color:var(--blue);}.family.f3{border-top-color:var(--orange);}
+.fam-tag{display:inline-block;background:var(--pink);color:white;font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:12px;margin-bottom:.5rem;letter-spacing:.05em;text-transform:uppercase;}
+.f2 .fam-tag{background:var(--blue);}.f3 .fam-tag{background:var(--orange);}
+.fam-name{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:900;color:var(--brown);margin-bottom:.5rem;}
+.fam-rule{background:var(--acc-lt);border-radius:8px;padding:.6rem 1rem;margin:.6rem 0;font-size:.88rem;color:var(--brown);font-weight:600;font-family:'Fraunces',serif;font-style:italic;}
+.fam-words{font-size:.92rem;margin:.5rem 0;display:flex;flex-wrap:wrap;gap:.3rem;}
+.fam-words span{background:var(--sand-lt);padding:.2rem .65rem;border-radius:6px;color:var(--brown);font-family:'Fraunces',serif;font-weight:700;font-size:.85rem;}
+.fam-example{margin-top:.7rem;padding:.6rem 1rem;background:#FAFAFA;border-left:3px solid var(--sand);border-radius:6px;font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.9rem;}
+.fam-example strong{color:var(--pink);background:#FFE4F0;padding:.05em .25em;border-radius:4px;font-style:normal;font-family:'DM Sans',sans-serif;font-weight:700;}
+.f2 .fam-example strong{color:var(--blue);background:#C4E8E0;}
+.f3 .fam-example strong{color:var(--orange);background:#FBD8CE;}
+
+/* VERGLEICH TABLE */
 .compare{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:1rem 0;}
-.cmp-card{background:white;border-radius:12px;padding:.9rem 1rem;border-top:5px solid var(--p1);border:1.5px solid var(--sand);font-size:.85rem;}
-.cmp-card.c2{border-top-color:var(--p2);}.cmp-card.c3{border-top-color:var(--p3);}
-.cmp-label{font-weight:700;color:var(--brown);font-size:.78rem;margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em;}
-.cmp-text{font-family:'Fraunces',serif;font-style:italic;color:var(--dark);}
-.cmp-text strong{color:var(--rust);background:var(--rust-lt);padding:.05em .25em;border-radius:4px;font-style:normal;}
+.cmp-card{background:white;border-radius:12px;padding:.9rem 1rem;border-top:5px solid var(--pink);border:1.5px solid var(--sand);font-size:.85rem;}
+.cmp-card.c2{border-top-color:var(--blue);}.cmp-card.c3{border-top-color:var(--orange);}
+.cmp-label{font-weight:700;color:var(--brown);font-size:.75rem;margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em;}
+.cmp-text{font-family:'Fraunces',serif;font-style:italic;color:var(--dark);font-size:.85rem;line-height:1.5;}
+.cmp-text strong{color:var(--rust);background:#FFE4F0;padding:.05em .25em;border-radius:4px;font-style:normal;font-family:'DM Sans',sans-serif;}
 @media(max-width:700px){.compare{grid-template-columns:1fr;}}
-.match-game{background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1rem;}
+
+/* UM-ZU vs DAMIT */
+.umzudamit{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;}
+@media(max-width:700px){.umzudamit{grid-template-columns:1fr;}}
+.uz-card{background:white;border:2px solid var(--blue);border-radius:14px;padding:1.2rem;}
+.uz-card.damit{border-color:var(--orange);}
+.uz-title{font-family:'Fraunces',serif;font-weight:900;color:var(--blue);font-size:1.15rem;margin-bottom:.5rem;}
+.damit .uz-title{color:var(--orange);}
+.uz-rule{background:#F0F8FF;padding:.5rem .8rem;border-radius:8px;font-size:.83rem;color:var(--brown);margin:.5rem 0;font-weight:600;}
+.damit .uz-rule{background:#FFF0EC;}
+.uz-ex{font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.9rem;padding:.5rem 0;border-top:1px solid var(--sand-lt);margin-top:.5rem;}
+
+/* QUIZ */
 .fillgap{background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:.8rem;}
-.fg-text{font-family:'Fraunces',serif;font-size:1rem;color:var(--brown);margin-bottom:.6rem;}
-.fg-options{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.5rem;}
-.fg-chip{background:var(--sand-lt);border:1.5px solid var(--sand);padding:.35rem .9rem;border-radius:18px;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--brown);transition:.15s;}
-.fg-chip:hover{background:var(--acc-lt);border-color:var(--acc);}
+.fg-text{font-family:'Fraunces',serif;font-size:.95rem;color:var(--brown);margin-bottom:.6rem;}
+.fg-text .gap{display:inline-block;min-width:80px;border-bottom:2px solid var(--pink);text-align:center;padding:0 .3em;color:var(--pink);font-weight:700;}
+.fg-options{display:flex;flex-wrap:wrap;gap:.4rem;}
+.fg-chip{background:var(--sand-lt);border:1.5px solid var(--sand);padding:.32rem .85rem;border-radius:18px;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--brown);}
+.fg-chip:hover{background:#FFE4F0;border-color:var(--pink);}
 .fg-chip.correct{background:var(--green-lt);border-color:var(--green);color:var(--green);}
 .fg-chip.wrong{background:var(--red-lt);border-color:var(--red);color:var(--red);text-decoration:line-through;}
-.fg-explain{margin-top:.5rem;font-size:.82rem;color:var(--green);background:var(--green-lt);padding:.5rem .9rem;border-radius:8px;display:none;font-weight:500;}
+.fg-explain{margin-top:.5rem;font-size:.8rem;color:var(--green);background:var(--green-lt);padding:.45rem .9rem;border-radius:8px;display:none;}
 .fg-explain.show{display:block;}
+
+/* TRANSFORM */
 .transform{background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1rem;}
-.t-aktiv{font-family:'Fraunces',serif;font-size:.95rem;color:var(--brown);margin-bottom:.4rem;}
-.t-arrow{text-align:center;color:var(--acc);font-size:1.2rem;margin:.2rem 0;}
+.t-given{font-family:'Fraunces',serif;font-size:.92rem;color:var(--brown);margin-bottom:.3rem;}
+.t-given strong{color:var(--rust);}
+.t-arrow{text-align:center;color:var(--pink);font-size:1.2rem;margin:.2rem 0;}
 .t-input{width:100%;font-family:inherit;font-size:.92rem;padding:.65rem .9rem;border:2px solid var(--sand);border-radius:10px;background:var(--cream);}
-.t-input:focus{outline:none;border-color:var(--acc);background:white;}
-.t-check{background:var(--acc);color:white;border:none;padding:.5rem 1.3rem;border-radius:20px;font-weight:700;font-family:inherit;font-size:.82rem;cursor:pointer;margin-top:.5rem;}
+.t-input:focus{outline:none;border-color:var(--pink);background:white;}
+.t-check{background:var(--pink);color:white;border:none;padding:.5rem 1.3rem;border-radius:20px;font-weight:700;font-family:inherit;font-size:.82rem;cursor:pointer;margin-top:.5rem;}
 .t-feedback{margin-top:.5rem;padding:.55rem .9rem;border-radius:8px;font-size:.84rem;display:none;font-weight:500;}
 .t-feedback.show{display:block;}.t-feedback.right{background:var(--green-lt);color:var(--green);}.t-feedback.miss{background:var(--red-lt);color:var(--red);}
-.t-feedback .sol{margin-top:.3rem;font-family:'Fraunces',serif;font-weight:700;}
+.t-feedback .sol{margin-top:.3rem;font-family:'Fraunces',serif;font-style:italic;}
+
+/* SPRECHKARTEN */
+.spk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin:1rem 0;}
+@media(max-width:700px){.spk-grid{grid-template-columns:1fr;}}
+.spk-card{background:white;border:1.5px solid var(--sand);border-radius:12px;padding:1rem 1.2rem;border-left:5px solid var(--pink);}
+.spk-num{font-size:.65rem;font-weight:700;color:var(--pink);letter-spacing:.1em;text-transform:uppercase;}
+.spk-q{font-family:'Fraunces',serif;font-weight:700;color:var(--brown);font-size:.95rem;margin:.3rem 0;}
+.spk-hint{font-size:.78rem;color:#888;font-style:italic;}
+
 .tip{background:var(--green-lt);border-left:4px solid var(--green);padding:.7rem 1.1rem;border-radius:8px;margin:.8rem 0;font-size:.88rem;color:var(--green);}
-.warn{background:var(--red-lt);border-left:4px solid var(--red);padding:.7rem 1.1rem;border-radius:8px;margin:.8rem 0;font-size:.88rem;color:var(--red);}
 footer{text-align:center;font-size:.75rem;color:#bbb;padding:2rem 1rem 1rem;}
 </style>
 </head>
 <body>
 <div class="phase-nav">
-  <div class="brand-tag">deutschoderwas <span>· Konnektoren</span></div>
-  <button class="phase-btn active" data-phase="1">1 Die 3 Familien</button>
+  <div class="brand-tag">deutschoderwas <span>· Konnektoren B1</span></div>
+  <button class="phase-btn active" data-phase="0">0 Live-Demo 🎬</button>
+  <button class="phase-btn" data-phase="1">1 Die 3 Familien</button>
   <button class="phase-btn" data-phase="2">2 Vergleich</button>
-  <button class="phase-btn" data-phase="3">3 Quiz</button>
-  <button class="phase-btn" data-phase="4">4 Sätze bilden</button>
+  <button class="phase-btn" data-phase="3">3 UM…ZU vs DAMIT</button>
+  <button class="phase-btn" data-phase="4">4 ZEIT &amp; BEDINGUNG</button>
+  <button class="phase-btn" data-phase="5">5 Diagnose-Quiz</button>
+  <button class="phase-btn" data-phase="6">6 Sätze verbinden</button>
+  <button class="phase-btn" data-phase="7">7 Sprechkarten</button>
 </div>
 <main>
 
-<section class="phase active" data-phase="1">
-  <div class="card"><div class="card-header"><div class="eyebrow">B1 Grammatik</div><h1 class="card-title">Konnektoren — <em>die 3 Familien</em></h1><p class="card-sub">Verbindungswörter haben 3 verschiedene Wortstellungs-Regeln</p></div><div class="card-accent"></div><div class="card-body">
+<!-- PHASE 0: LIVE DEMO -->
+<section class="phase active" data-phase="0">
+  <div class="card"><div class="card-header"><div class="eyebrow">B1 · Live-Demo</div><h1 class="card-title">Wo steht das <em>Verb</em>?</h1><p class="card-sub">Klick einen Konnektor — sieh, wie der Satz sich verändert!</p></div><div class="card-accent"></div><div class="card-body">
+
+<div class="demo-stage">
+<div class="demo-title">🎬 Wähle einen Konnektor</div>
+<div class="demo-picker" id="picker">
+<button class="demo-pick f1" data-c="aber" data-fam="1">aber (F1)</button>
+<button class="demo-pick f1" data-c="denn" data-fam="1">denn (F1)</button>
+<button class="demo-pick f2 active" data-c="deshalb" data-fam="2">deshalb (F2)</button>
+<button class="demo-pick f2" data-c="trotzdem" data-fam="2">trotzdem (F2)</button>
+<button class="demo-pick f3" data-c="weil" data-fam="3">weil (F3)</button>
+<button class="demo-pick f3" data-c="obwohl" data-fam="3">obwohl (F3)</button>
+</div>
+
+<div class="sentence-stage">
+<div class="sentence-display" id="sentence">
+<span class="word">Es</span>
+<span class="word verb">regnet</span>
+<span class="word">,</span>
+<span class="word connector f2">deshalb</span>
+<span class="word verb">bleibe</span>
+<span class="word subject">ich</span>
+<span class="word">zu Hause.</span>
+</div>
+</div>
+
+<div class="demo-explain" id="explain">
+<strong>Familie 2 (Adverbien):</strong> Inversion! Verb springt nach vorne — direkt nach dem Konnektor, Subjekt erst danach.
+</div>
+</div>
+
+<div style="background:var(--sand-lt);border-radius:10px;padding:1rem 1.2rem;font-size:.9rem;line-height:1.8;color:var(--brown);">
+<strong>Schnell-Merker:</strong><br>
+🌸 <strong>Familie 1 (aber/denn):</strong> Verb bleibt auf Pos. 2 — alles normal<br>
+🌊 <strong>Familie 2 (deshalb/trotzdem):</strong> INVERSION! Verb-Subjekt vertauscht<br>
+🔥 <strong>Familie 3 (weil/obwohl):</strong> Verb springt ans ENDE des Nebensatzes
+</div>
+
+<div class="tip"><strong>🎯 Goldene Regel:</strong> Im Zweifel — frag dich: <em>Wo steht das Verb?</em> Das verrät dir die Familie!</div>
+
+</div></div>
+</section>
+
+<!-- PHASE 1: DIE 3 FAMILIEN -->
+<section class="phase" data-phase="1">
+  <div class="card"><div class="card-header"><div class="eyebrow">Grammatik · Baukasten</div><h1 class="card-title">Die <em>3 Familien</em> der Konnektoren</h1><p class="card-sub">Jede Familie hat eigene Wortstellungs-Regeln</p></div><div class="card-accent"></div><div class="card-body">
 
 <div class="family f1">
-<div class="fam-tag">Familie 1 · Konjunktionen</div>
-<div class="fam-name">Verb bleibt auf Position 2 — kein Stress!</div>
+<div class="fam-tag">Familie 1 · Konjunktionen (Pos 0)</div>
+<div class="fam-name">Verb bleibt auf Position 2 — normale Wortstellung</div>
 <div class="fam-words"><span>und</span><span>aber</span><span>oder</span><span>denn</span><span>sondern</span></div>
-<div class="fam-rule">Diese Wörter stehen auf Pos 0 — sie ÄNDERN die Wortstellung NICHT.</div>
-<div class="fam-example">"Es regnet, <strong>aber</strong> wir gehen spazieren." (Verb "gehen" auf Pos 2 — normal!)</div>
-<div class="fam-example">"Ich bleibe, <strong>denn</strong> es regnet." (Verb "regnet" auf Pos 2 — wie immer!)</div>
+<div class="fam-rule">Struktur: Hauptsatz, KONNEKTOR + Subjekt + VERB + …</div>
+<div class="fam-example">„Ich lerne Deutsch <strong>UND</strong> ich lerne Französisch."</div>
+<div class="fam-example">„Es regnet, <strong>ABER</strong> wir gehen spazieren."</div>
+<div class="fam-example">„Es ist nicht warm, <strong>SONDERN</strong> kalt." <span style="font-size:.75rem;color:#888;">(nur nach Verneinung!)</span></div>
 </div>
 
 <div class="family f2">
-<div class="fam-tag">Familie 2 · Konjunktionaladverbien</div>
-<div class="fam-name">INVERSION! Verb springt nach vorne</div>
-<div class="fam-words"><span>deshalb</span><span>deswegen</span><span>darum</span><span>trotzdem</span><span>dann</span><span>jedoch</span><span>allerdings</span></div>
-<div class="fam-rule">Struktur: KONNEKTOR + VERB + Subjekt + … (Verb-Subjekt vertauscht!)</div>
-<div class="fam-example">"Es regnet, <strong>deshalb bleibe</strong> ich zu Hause." (deshalb + Verb + Subjekt!)</div>
-<div class="fam-example">"Es regnet, <strong>trotzdem gehe</strong> ich joggen." (trotzdem + Verb + Subjekt!)</div>
+<div class="fam-tag">Familie 2 · Konjunktionaladverbien (Pos 1)</div>
+<div class="fam-name">INVERSION — Verb springt nach vorne</div>
+<div class="fam-words"><span>deshalb</span><span>deswegen</span><span>darum</span><span>trotzdem</span><span>dann</span><span>danach</span><span>jedoch</span><span>allerdings</span></div>
+<div class="fam-rule">Struktur: KONNEKTOR + VERB + Subjekt + …</div>
+<div class="fam-example">„Es regnet, <strong>DESHALB BLEIBE</strong> ich zu Hause."</div>
+<div class="fam-example">„Es regnet, <strong>TROTZDEM GEHE</strong> ich joggen."</div>
+<div class="fam-example">„Wir essen, <strong>DANN SEHEN</strong> wir fern."</div>
 </div>
 
 <div class="family f3">
-<div class="fam-tag">Familie 3 · Subjunktionen</div>
-<div class="fam-name">Verb springt ans ENDE — Nebensatz!</div>
-<div class="fam-words"><span>weil</span><span>obwohl</span><span>damit</span><span>wenn</span><span>dass</span><span>ob</span><span>als</span><span>bevor</span><span>nachdem</span><span>während</span></div>
-<div class="fam-rule">Struktur: Hauptsatz, KONNEKTOR + Subjekt + ... + VERB (am ENDE).</div>
-<div class="fam-example">"Ich bleibe, <strong>weil</strong> es <strong>regnet</strong>." (Verb am Ende!)</div>
-<div class="fam-example">"Ich gehe raus, <strong>obwohl</strong> es <strong>regnet</strong>." (Verb am Ende!)</div>
+<div class="fam-tag">Familie 3 · Subjunktionen (Nebensatz)</div>
+<div class="fam-name">Verb springt ans ENDE des Nebensatzes</div>
+<div class="fam-words"><span>weil</span><span>obwohl</span><span>damit</span><span>wenn</span><span>dass</span><span>ob</span><span>als</span><span>während</span><span>bevor</span><span>nachdem</span><span>sobald</span><span>seitdem</span><span>falls</span></div>
+<div class="fam-rule">Struktur: Hauptsatz, KONNEKTOR + Subjekt + … + VERB (am ENDE).</div>
+<div class="fam-example">„Ich bleibe zu Hause, <strong>WEIL</strong> es <strong>REGNET</strong>."</div>
+<div class="fam-example">„Ich lerne, <strong>DAMIT</strong> ich besser <strong>SPRECHE</strong>."</div>
+<div class="fam-example">„Ich frage mich, <strong>OB</strong> er <strong>KOMMT</strong>."</div>
 </div>
 
-<div class="tip"><strong>🎯 Trick:</strong> Wenn Verb am Satzende ist → Subjunktion (Familie 3). Wenn Verb auf Pos 2 nach Konnektor → Familie 1 oder 2. Wenn Verb-Subjekt vertauscht → Familie 2.</div>
+<div class="tip"><strong>⚠️ Achtung:</strong> „<em>weil</em>" (Verb am Ende) ≠ „<em>denn</em>" (Verb auf Pos 2) — gleiche Bedeutung, andere Wortstellung!</div>
 
 </div></div>
 </section>
 
+<!-- PHASE 2: VERGLEICH -->
 <section class="phase" data-phase="2">
-  <div class="card"><div class="card-header"><div class="eyebrow">Vergleich</div><h1 class="card-title">Gleiche <em>Bedeutung</em>, andere Struktur</h1><p class="card-sub">3 Wege, einen Grund auszudrücken</p></div><div class="card-accent"></div><div class="card-body">
+  <div class="card"><div class="card-header"><div class="eyebrow">Vergleich</div><h1 class="card-title">Gleiche <em>Bedeutung</em>, andere Struktur</h1></div><div class="card-accent"></div><div class="card-body">
 
-<div class="slabel">GRUND: "Es regnet." → FOLGE: "Ich bleibe zu Hause."</div>
+<div class="slabel">GRUND: „Es regnet" + „Ich bleibe zu Hause"</div>
 <div class="compare">
-<div class="cmp-card"><div class="cmp-label">weil (Familie 3)</div><div class="cmp-text">"Ich bleibe zu Hause, <strong>weil</strong> es <strong>regnet</strong>." (Verb am Ende!)</div></div>
-<div class="cmp-card c1"><div class="cmp-label">denn (Familie 1)</div><div class="cmp-text">"Ich bleibe zu Hause, <strong>denn</strong> es <strong>regnet</strong>." (Verb auf Pos 2!)</div></div>
-<div class="cmp-card c2"><div class="cmp-label">deshalb (Familie 2)</div><div class="cmp-text">"Es <strong>regnet</strong>, <strong>deshalb bleibe</strong> ich zu Hause." (Inversion!)</div></div>
+<div class="cmp-card"><div class="cmp-label">weil (Fam 3)</div><div class="cmp-text">„Ich bleibe zu Hause, <strong>weil</strong> es <strong>regnet</strong>." <span style="color:#999;font-size:.8em;">(Verb am Ende!)</span></div></div>
+<div class="cmp-card c2"><div class="cmp-label">denn (Fam 1)</div><div class="cmp-text">„Ich bleibe zu Hause, <strong>denn</strong> es <strong>regnet</strong>." <span style="color:#999;font-size:.8em;">(Pos 2!)</span></div></div>
+<div class="cmp-card c3"><div class="cmp-label">deshalb (Fam 2)</div><div class="cmp-text">„Es <strong>regnet</strong>, <strong>deshalb bleibe</strong> ich zu Hause." <span style="color:#999;font-size:.8em;">(Inversion!)</span></div></div>
 </div>
 
-<div class="slabel">GEGENSATZ: "Es regnet" + "Ich gehe raus"</div>
+<div class="slabel">GEGENSATZ: „Es regnet" + „Ich gehe raus"</div>
 <div class="compare">
-<div class="cmp-card"><div class="cmp-label">obwohl (Familie 3)</div><div class="cmp-text">"Ich gehe raus, <strong>obwohl</strong> es <strong>regnet</strong>."</div></div>
-<div class="cmp-card c1"><div class="cmp-label">aber (Familie 1)</div><div class="cmp-text">"Es <strong>regnet</strong>, <strong>aber</strong> ich <strong>gehe</strong> raus."</div></div>
-<div class="cmp-card c2"><div class="cmp-label">trotzdem (Familie 2)</div><div class="cmp-text">"Es <strong>regnet</strong>, <strong>trotzdem gehe</strong> ich raus."</div></div>
+<div class="cmp-card"><div class="cmp-label">obwohl (Fam 3)</div><div class="cmp-text">„Ich gehe raus, <strong>obwohl</strong> es <strong>regnet</strong>."</div></div>
+<div class="cmp-card c2"><div class="cmp-label">aber (Fam 1)</div><div class="cmp-text">„Es <strong>regnet</strong>, <strong>aber</strong> ich <strong>gehe</strong> raus."</div></div>
+<div class="cmp-card c3"><div class="cmp-label">trotzdem (Fam 2)</div><div class="cmp-text">„Es <strong>regnet</strong>, <strong>trotzdem gehe</strong> ich raus."</div></div>
 </div>
 
-<div class="slabel">DAMIT vs. UM…ZU (Zweck)</div>
-<div class="compare">
-<div class="cmp-card"><div class="cmp-label">DAMIT (versch. Subjekte)</div><div class="cmp-text">"Ich lerne, <strong>damit MEIN VATER stolz ist</strong>." (Ich ≠ Vater)</div></div>
-<div class="cmp-card c2"><div class="cmp-label">UM…ZU (gleiches Subjekt)</div><div class="cmp-text">"Ich lerne, <strong>um besser zu sprechen</strong>." (Ich = Ich)</div></div>
-<div class="cmp-card c3"><div class="cmp-label">Faustregel</div><div class="cmp-text">Subjekt gleich → UM…ZU. Verschieden → DAMIT.</div></div>
-</div>
-
-<div class="slabel">Zeit-Konnektoren</div>
-<table style="width:100%;border-collapse:collapse;font-size:.87rem;margin-bottom:.8rem;">
-<tr><th style="background:var(--acc-lt);padding:.5rem;text-align:left;border-bottom:1px solid var(--sand);">Konnektor</th><th style="background:var(--acc-lt);padding:.5rem;text-align:left;border-bottom:1px solid var(--sand);">Bedeutung</th><th style="background:var(--acc-lt);padding:.5rem;text-align:left;border-bottom:1px solid var(--sand);">Beispiel</th></tr>
-<tr><td style="padding:.4rem .5rem;font-weight:700;color:var(--brown);">ALS</td><td style="padding:.4rem .5rem;">einmal Vergangenheit</td><td style="padding:.4rem .5rem;font-style:italic;">"Als ich Kind war, …"</td></tr>
-<tr><td style="padding:.4rem .5rem;font-weight:700;color:var(--brown);">WENN</td><td style="padding:.4rem .5rem;">Wiederholung / Bedingung</td><td style="padding:.4rem .5rem;font-style:italic;">"Wenn es regnet, bleibe ich."</td></tr>
-<tr><td style="padding:.4rem .5rem;font-weight:700;color:var(--brown);">WÄHREND</td><td style="padding:.4rem .5rem;">gleichzeitig</td><td style="padding:.4rem .5rem;font-style:italic;">"Während ich koche, hört er Musik."</td></tr>
-<tr><td style="padding:.4rem .5rem;font-weight:700;color:var(--brown);">BEVOR</td><td style="padding:.4rem .5rem;">vorher</td><td style="padding:.4rem .5rem;font-style:italic;">"Bevor ich gehe, schließe ich ab."</td></tr>
-<tr><td style="padding:.4rem .5rem;font-weight:700;color:var(--brown);">NACHDEM</td><td style="padding:.4rem .5rem;">nachher</td><td style="padding:.4rem .5rem;font-style:italic;">"Nachdem ich gegessen hatte, ging ich."</td></tr>
-<tr><td style="padding:.4rem .5rem;font-weight:700;color:var(--brown);">SOBALD</td><td style="padding:.4rem .5rem;">sofort danach</td><td style="padding:.4rem .5rem;font-style:italic;">"Sobald ich ankomme, rufe ich an."</td></tr>
-<tr><td style="padding:.4rem .5rem;font-weight:700;color:var(--brown);">SEITDEM</td><td style="padding:.4rem .5rem;">seit dem Zeitpunkt</td><td style="padding:.4rem .5rem;font-style:italic;">"Seitdem er weg ist, ist es ruhig."</td></tr>
-</table>
+<div class="tip"><strong>💡 Häufigster Fehler:</strong> „Es regnet, <em>trotzdem ich gehe raus.</em>" ❌ — Inversion vergessen! Richtig: „<em>trotzdem gehe ich</em>"</div>
 
 </div></div>
 </section>
 
+<!-- PHASE 3: UM-ZU vs DAMIT -->
 <section class="phase" data-phase="3">
-  <div class="card"><div class="card-header"><div class="eyebrow">Quiz · Wähle den Konnektor</div><h1 class="card-title">Welcher <em>Konnektor</em> passt?</h1></div><div class="card-accent"></div><div class="card-body">
+  <div class="card"><div class="card-header"><div class="eyebrow">Zweck-Konnektoren</div><h1 class="card-title"><em>UM…ZU</em> vs <em>DAMIT</em> — die Subjekt-Regel</h1><p class="card-sub">Beide bedeuten „Ziel" — aber die Wahl hängt vom Subjekt ab</p></div><div class="card-accent"></div><div class="card-body">
 
-<div class="fillgap"><div class="fg-text">"Ich bleibe zu Hause, ___ es regnet." (Grund + Verb am Ende)</div><div class="fg-options" data-correct="0"><div class="fg-chip">weil</div><div class="fg-chip">deshalb</div><div class="fg-chip">obwohl</div></div><div class="fg-explain">✓ weil — Grund + Subjunktion → Verb am Ende ("…es regnet.")</div></div>
+<div class="umzudamit">
+<div class="uz-card">
+<div class="uz-title">UM … ZU</div>
+<div class="uz-rule">✓ Gleiche Subjekte in Haupt- &amp; Nebensatz<br>→ Kürzer und eleganter</div>
+<div class="uz-ex">„<strong>ICH</strong> lerne, <strong>um</strong> besser <strong>zu</strong> sprechen." <br><span style="font-size:.75rem;color:#888;">(ICH lerne — ICH spreche → gleiches Subjekt)</span></div>
+<div class="uz-ex">„<strong>SIE</strong> geht ins Café, <strong>um</strong> Freunde <strong>zu</strong> treffen."</div>
+</div>
 
-<div class="fillgap"><div class="fg-text">"Es regnet, ___ ich gehe raus." (Gegensatz, Verb auf Pos 2)</div><div class="fg-options" data-correct="0"><div class="fg-chip">aber</div><div class="fg-chip">obwohl</div><div class="fg-chip">trotzdem</div></div><div class="fg-explain">✓ aber — Konjunktion → normale Wortstellung ("ich GEHE raus")</div></div>
+<div class="uz-card damit">
+<div class="uz-title">DAMIT</div>
+<div class="uz-rule">✓ Verschiedene Subjekte<br>→ Verb am Ende des Nebensatzes</div>
+<div class="uz-ex">„<strong>ICH</strong> lerne, <strong>damit MEIN VATER</strong> stolz <strong>ist</strong>." <br><span style="font-size:.75rem;color:#888;">(ICH lerne — VATER ist stolz → andere Subjekte)</span></div>
+<div class="uz-ex">„<strong>SIE</strong> hilft, <strong>damit WIR</strong> es <strong>schaffen</strong>."</div>
+</div>
+</div>
 
-<div class="fillgap"><div class="fg-text">"Es ist spät, ___ gehe ich ins Bett." (Folge mit Inversion)</div><div class="fg-options" data-correct="2"><div class="fg-chip">weil</div><div class="fg-chip">aber</div><div class="fg-chip">deshalb</div></div><div class="fg-explain">✓ deshalb — Konjunktionaladverb → Verb springt nach vorne ("deshalb GEHE ich")</div></div>
+<div class="slabel">Quiz: UM…ZU oder DAMIT?</div>
 
-<div class="fillgap"><div class="fg-text">"Ich frage, ___ er kommt." (indirekte Frage)</div><div class="fg-options" data-correct="1"><div class="fg-chip">dass</div><div class="fg-chip">ob</div><div class="fg-chip">wenn</div></div><div class="fg-explain">✓ ob — für indirekte Ja/Nein-Fragen ("Kommt er?")</div></div>
+<div class="fillgap">
+<div class="fg-text">„Ich gehe einkaufen, <span class="gap">?</span> wir heute Abend kochen können." <span style="font-size:.8em;color:#888;">(ICH → WIR)</span></div>
+<div class="fg-options" data-correct="1"><div class="fg-chip">um…zu</div><div class="fg-chip">damit</div></div>
+<div class="fg-explain">✓ damit — verschiedene Subjekte (ICH einkaufen vs WIR kochen)</div>
+</div>
 
-<div class="fillgap"><div class="fg-text">"___ ich Zeit habe, besuche ich dich." (Bedingung)</div><div class="fg-options" data-correct="0"><div class="fg-chip">Wenn</div><div class="fg-chip">Als</div><div class="fg-chip">Während</div></div><div class="fg-explain">✓ Wenn — Bedingung in der Gegenwart/Zukunft</div></div>
+<div class="fillgap">
+<div class="fg-text">„Sie spart Geld, <span class="gap">?</span> nach Japan reisen <span class="gap">?</span>." <span style="font-size:.8em;color:#888;">(SIE → SIE)</span></div>
+<div class="fg-options" data-correct="0"><div class="fg-chip">um…zu</div><div class="fg-chip">damit</div></div>
+<div class="fg-explain">✓ um…zu — gleiches Subjekt SIE</div>
+</div>
 
-<div class="fillgap"><div class="fg-text">"___ ich klein war, habe ich Geige gespielt." (Vergangenheit, einmal)</div><div class="fg-options" data-correct="1"><div class="fg-chip">Wenn</div><div class="fg-chip">Als</div><div class="fg-chip">Während</div></div><div class="fg-explain">✓ Als — für einmalige Ereignisse in der Vergangenheit</div></div>
+<div class="fillgap">
+<div class="fg-text">„Ich erkläre es noch einmal, <span class="gap">?</span> alle es verstehen." <span style="font-size:.8em;color:#888;">(ICH → ALLE)</span></div>
+<div class="fg-options" data-correct="1"><div class="fg-chip">um…zu</div><div class="fg-chip">damit</div></div>
+<div class="fg-explain">✓ damit — verschiedene Subjekte</div>
+</div>
 
-<div class="fillgap"><div class="fg-text">"Ich gehe ins Bett, ___ ich müde bin." (Grund — formell)</div><div class="fg-options" data-correct="1"><div class="fg-chip">denn</div><div class="fg-chip">da</div><div class="fg-chip">trotzdem</div></div><div class="fg-explain">✓ da — formellere Alternative zu "weil", auch Verb am Ende!</div></div>
-
-<div class="fillgap"><div class="fg-text">"Sie lernt fleißig, ___ sie die Prüfung besteht." (Zweck, verschiedene Subjekte)</div><div class="fg-options" data-correct="0"><div class="fg-chip">damit</div><div class="fg-chip">um zu</div><div class="fg-chip">weil</div></div><div class="fg-explain">✓ damit — Zweck. (Sie lernt = Sie besteht? Ja gleich. Hier funktioniert aber damit auch.)</div></div>
-
-<div class="fillgap"><div class="fg-text">"Sie lernt fleißig, ___ besser zu werden." (Zweck, gleiches Subjekt)</div><div class="fg-options" data-correct="1"><div class="fg-chip">damit</div><div class="fg-chip">um</div><div class="fg-chip">weil</div></div><div class="fg-explain">✓ um (…zu) — bei gleichem Subjekt: kürzer & eleganter</div></div>
-
-<div class="fillgap"><div class="fg-text">"___ ich nach Hause kam, war alles dunkel." (Vergangenheit nachher)</div><div class="fg-options" data-correct="2"><div class="fg-chip">Bevor</div><div class="fg-chip">Während</div><div class="fg-chip">Als</div></div><div class="fg-explain">✓ Als — einmaliges Ereignis in der Vergangenheit</div></div>
+<div class="fillgap">
+<div class="fg-text">„Er trainiert hart, <span class="gap">?</span> den Marathon <span class="gap">?</span> gewinnen." <span style="font-size:.8em;color:#888;">(ER → ER)</span></div>
+<div class="fg-options" data-correct="0"><div class="fg-chip">um…zu</div><div class="fg-chip">damit</div></div>
+<div class="fg-explain">✓ um…zu — gleiches Subjekt ER</div>
+</div>
 
 </div></div>
 </section>
 
+<!-- PHASE 4: ZEIT + BEDINGUNG -->
 <section class="phase" data-phase="4">
-  <div class="card"><div class="card-header"><div class="eyebrow">Übung · Sätze verbinden</div><h1 class="card-title">Verbinde die <em>Sätze</em></h1><p class="card-sub">Schreibe einen ganzen Satz mit dem Konnektor in Klammern.</p></div><div class="card-accent"></div><div class="card-body">
+  <div class="card"><div class="card-header"><div class="eyebrow">Zeit + Bedingung</div><h1 class="card-title"><em>ZEIT</em>- und <em>BEDINGUNG</em>-Konnektoren</h1></div><div class="card-accent"></div><div class="card-body">
 
-<div class="transform"><div class="t-aktiv">"Ich habe Hunger." + "Ich esse." (weil)</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Ich esse, weil ich Hunger habe." placeholder="Mit weil..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+<div class="slabel">ZEIT-Konnektoren (alle Subjunktionen — Verb am Ende!)</div>
 
-<div class="transform"><div class="t-aktiv">"Sie ist müde." + "Sie geht arbeiten." (obwohl)</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Sie geht arbeiten, obwohl sie müde ist." placeholder="Mit obwohl..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;">
+<div style="background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.8rem 1rem;">
+<div style="font-weight:700;color:var(--orange);font-family:'Fraunces',serif;font-size:1rem;">ALS</div>
+<div style="font-size:.78rem;color:#888;">Vergangenheit · einmalig</div>
+<div style="font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.85rem;margin-top:.3rem;">„<strong>ALS</strong> ich Kind war, spielte ich draußen."</div>
+</div>
+<div style="background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.8rem 1rem;">
+<div style="font-weight:700;color:var(--orange);font-family:'Fraunces',serif;font-size:1rem;">WENN</div>
+<div style="font-size:.78rem;color:#888;">Gegenwart / Wiederholung</div>
+<div style="font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.85rem;margin-top:.3rem;">„<strong>WENN</strong> es regnet, bleibe ich zu Hause."</div>
+</div>
+<div style="background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.8rem 1rem;">
+<div style="font-weight:700;color:var(--orange);font-family:'Fraunces',serif;font-size:1rem;">WÄHREND</div>
+<div style="font-size:.78rem;color:#888;">Gleichzeitig</div>
+<div style="font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.85rem;margin-top:.3rem;">„<strong>WÄHREND</strong> ich koche, hört er Musik."</div>
+</div>
+<div style="background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.8rem 1rem;">
+<div style="font-weight:700;color:var(--orange);font-family:'Fraunces',serif;font-size:1rem;">BEVOR / NACHDEM</div>
+<div style="font-size:.78rem;color:#888;">Vorher / Nachher</div>
+<div style="font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.85rem;margin-top:.3rem;">„<strong>BEVOR</strong> ich gehe, putze ich die Zähne."</div>
+</div>
+<div style="background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.8rem 1rem;">
+<div style="font-weight:700;color:var(--orange);font-family:'Fraunces',serif;font-size:1rem;">SOBALD</div>
+<div style="font-size:.78rem;color:#888;">Startpunkt</div>
+<div style="font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.85rem;margin-top:.3rem;">„<strong>SOBALD</strong> ich ankomme, rufe ich an."</div>
+</div>
+<div style="background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.8rem 1rem;">
+<div style="font-weight:700;color:var(--orange);font-family:'Fraunces',serif;font-size:1rem;">SEITDEM</div>
+<div style="font-size:.78rem;color:#888;">Zeitraum ab…</div>
+<div style="font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.85rem;margin-top:.3rem;">„<strong>SEITDEM</strong> er weg ist, bin ich traurig."</div>
+</div>
+</div>
 
-<div class="transform"><div class="t-aktiv">"Er lernt fleißig." + "Er besteht die Prüfung." (damit)</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Er lernt fleißig, damit er die Prüfung besteht." placeholder="Mit damit..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+<div class="slabel">BEDINGUNG-Konnektoren (4 Stufen — von Standard bis sehr formell)</div>
 
-<div class="transform"><div class="t-aktiv">"Es regnet." + "Wir nehmen den Bus." (deshalb)</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Es regnet, deshalb nehmen wir den Bus." placeholder="Mit deshalb (Inversion!)..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+<div style="display:grid;grid-template-columns:1fr;gap:.6rem;">
+<div style="background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.8rem 1rem;border-left:4px solid var(--pink);">
+<div><strong style="color:var(--pink);">Level 1 · Standard:</strong> <span style="font-family:'Fraunces',serif;font-weight:900;">WENN</span></div>
+<div style="font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.88rem;margin-top:.3rem;">„WENN du Zeit hast, komm vorbei."</div>
+</div>
+<div style="background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.8rem 1rem;border-left:4px solid var(--blue);">
+<div><strong style="color:var(--blue);">Level 2 · Unsicher:</strong> <span style="font-family:'Fraunces',serif;font-weight:900;">FALLS</span></div>
+<div style="font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.88rem;margin-top:.3rem;">„FALLS du krank wirst, ruf an."</div>
+</div>
+<div style="background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.8rem 1rem;border-left:4px solid var(--orange);">
+<div><strong style="color:var(--orange);">Level 3 · Formell:</strong> <span style="font-family:'Fraunces',serif;font-weight:900;">SOFERN</span></div>
+<div style="font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.88rem;margin-top:.3rem;">„SOFERN nichts dazwischen kommt, sehen wir uns."</div>
+</div>
+<div style="background:white;border:1.5px solid var(--sand);border-radius:10px;padding:.8rem 1rem;border-left:4px solid var(--rust);">
+<div><strong style="color:var(--rust);">Level 4 · Sehr formell:</strong> <span style="font-family:'Fraunces',serif;font-weight:900;">VORAUSGESETZT, DASS</span></div>
+<div style="font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.88rem;margin-top:.3rem;">„VORAUSGESETZT, DASS das Wetter gut ist, machen wir ein Picknick."</div>
+</div>
+</div>
 
-<div class="transform"><div class="t-aktiv">"Ich rufe an." + "Du kommst nach Hause." (sobald)</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Ich rufe an, sobald du nach Hause kommst." placeholder="Mit sobald..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+<div class="tip"><strong>🌈 Bonus:</strong> Unreale Bedingung mit <em>WENN + Konjunktiv II</em>: „WENN ich reich <strong>wäre</strong>, <strong>würde</strong> ich reisen."</div>
 
-<div class="transform"><div class="t-aktiv">"Ich glaube." + "Er kommt morgen." (dass)</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Ich glaube, dass er morgen kommt." placeholder="Mit dass..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+</div></div>
+</section>
 
-<div class="transform"><div class="t-aktiv">"Es ist kalt." + "Wir gehen schwimmen." (trotzdem)</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Es ist kalt, trotzdem gehen wir schwimmen." placeholder="Mit trotzdem (Inversion!)..."><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+<!-- PHASE 5: DIAGNOSE QUIZ -->
+<section class="phase" data-phase="5">
+  <div class="card"><div class="card-header"><div class="eyebrow">Diagnose-Quiz</div><h1 class="card-title">Welcher <em>Konnektor</em>?</h1><p class="card-sub">Achte auf die Wortstellung — das verrät die Familie!</p></div><div class="card-accent"></div><div class="card-body">
 
-<div class="transform"><div class="t-aktiv">"Ich gehe ins Bett." + "Ich putze die Zähne." (bevor)</div><div class="t-arrow">↓</div><input class="t-input" data-sol="Bevor ich ins Bett gehe, putze ich die Zähne." placeholder="Mit bevor — Nebensatz vorne!"><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+<div class="fillgap"><div class="fg-text">„Ich bleibe zu Hause, <span class="gap">?</span> es regnet." <span style="font-size:.8em;color:#888;">(Grund + Verb am Ende)</span></div><div class="fg-options" data-correct="0"><div class="fg-chip">weil</div><div class="fg-chip">deshalb</div><div class="fg-chip">obwohl</div></div><div class="fg-explain">✓ weil — Subjunktion → Verb am Ende</div></div>
 
-<div class="tip"><strong>🎯 Mission der Woche:</strong> Notiere täglich 5 Sätze mit verschiedenen Konnektoren. Markiere in einem deutschen Artikel ALLE Konnektoren — welche Familie?</div>
+<div class="fillgap"><div class="fg-text">„Es ist spät, <span class="gap">?</span> gehe ich ins Bett." <span style="font-size:.8em;color:#888;">(Inversion!)</span></div><div class="fg-options" data-correct="2"><div class="fg-chip">weil</div><div class="fg-chip">aber</div><div class="fg-chip">deshalb</div></div><div class="fg-explain">✓ deshalb — Adverb (F2) → Verb springt nach vorne</div></div>
+
+<div class="fillgap"><div class="fg-text">„Er bleibt, <span class="gap">?</span> er gehen will." <span style="font-size:.8em;color:#888;">(Gegensatz · Verb am Ende)</span></div><div class="fg-options" data-correct="0"><div class="fg-chip">obwohl</div><div class="fg-chip">trotzdem</div><div class="fg-chip">aber</div></div><div class="fg-explain">✓ obwohl — Subjunktion (F3)</div></div>
+
+<div class="fillgap"><div class="fg-text">„Ich frage, <span class="gap">?</span> er kommt." <span style="font-size:.8em;color:#888;">(indirekte Frage)</span></div><div class="fg-options" data-correct="1"><div class="fg-chip">dass</div><div class="fg-chip">ob</div><div class="fg-chip">wenn</div></div><div class="fg-explain">✓ ob — für indirekte Ja/Nein-Fragen</div></div>
+
+<div class="fillgap"><div class="fg-text">„<span class="gap">?</span> ich klein war, habe ich Geige gespielt." <span style="font-size:.8em;color:#888;">(Vergangenheit · einmalig)</span></div><div class="fg-options" data-correct="1"><div class="fg-chip">Wenn</div><div class="fg-chip">Als</div><div class="fg-chip">Während</div></div><div class="fg-explain">✓ Als — einmalige Ereignisse in der Vergangenheit</div></div>
+
+<div class="fillgap"><div class="fg-text">„<span class="gap">?</span> du krank wirst, ruf bitte an." <span style="font-size:.8em;color:#888;">(unsichere Bedingung)</span></div><div class="fg-options" data-correct="1"><div class="fg-chip">Wenn</div><div class="fg-chip">Falls</div><div class="fg-chip">Bevor</div></div><div class="fg-explain">✓ Falls — bei unsicherer Bedingung</div></div>
+
+<div class="fillgap"><div class="fg-text">„Ich gehe nach Hause, <span class="gap">?</span> ich bin müde." <span style="font-size:.8em;color:#888;">(Grund · Pos 2)</span></div><div class="fg-options" data-correct="2"><div class="fg-chip">weil</div><div class="fg-chip">obwohl</div><div class="fg-chip">denn</div></div><div class="fg-explain">✓ denn — Konjunktion (F1) → Pos 2</div></div>
+
+<div class="fillgap"><div class="fg-text">„Sie lernt fleißig, <span class="gap">?</span> besser zu werden." <span style="font-size:.8em;color:#888;">(Zweck · gleiches Subjekt SIE→SIE)</span></div><div class="fg-options" data-correct="1"><div class="fg-chip">damit</div><div class="fg-chip">um</div><div class="fg-chip">weil</div></div><div class="fg-explain">✓ um (…zu) — bei gleichem Subjekt: kürzer &amp; eleganter</div></div>
+
+</div></div>
+</section>
+
+<!-- PHASE 6: TRANSFORMATIONEN -->
+<section class="phase" data-phase="6">
+  <div class="card"><div class="card-header"><div class="eyebrow">Übung · Sätze verbinden</div><h1 class="card-title">Verbinde die <em>Sätze</em></h1></div><div class="card-accent"></div><div class="card-body">
+
+<div class="transform"><div class="t-given">„Ich habe Hunger." + „Ich esse." <strong>(weil)</strong></div><div class="t-arrow">↓</div><input class="t-input" data-sol="Ich esse, weil ich Hunger habe." placeholder="Mit weil…"><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-given">„Sie ist müde." + „Sie geht arbeiten." <strong>(obwohl)</strong></div><div class="t-arrow">↓</div><input class="t-input" data-sol="Sie geht arbeiten, obwohl sie müde ist." placeholder="Mit obwohl…"><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-given">„Es regnet." + „Wir nehmen den Bus." <strong>(deshalb · Inversion!)</strong></div><div class="t-arrow">↓</div><input class="t-input" data-sol="Es regnet, deshalb nehmen wir den Bus." placeholder="Mit deshalb…"><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-given">„Ich lerne Deutsch." + „Ich will in Deutschland arbeiten." <strong>(um…zu)</strong></div><div class="t-arrow">↓</div><input class="t-input" data-sol="Ich lerne Deutsch, um in Deutschland zu arbeiten." placeholder="Mit um…zu…"><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-given">„Ich erkläre es laut." + „Alle verstehen es." <strong>(damit)</strong></div><div class="t-arrow">↓</div><input class="t-input" data-sol="Ich erkläre es laut, damit alle es verstehen." placeholder="Mit damit…"><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-given">„Ich gehe ins Bett." + „Ich putze die Zähne." <strong>(bevor)</strong></div><div class="t-arrow">↓</div><input class="t-input" data-sol="Bevor ich ins Bett gehe, putze ich die Zähne." placeholder="Mit bevor…"><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-given">„Du wirst krank." + „Ruf mich an." <strong>(falls)</strong></div><div class="t-arrow">↓</div><input class="t-input" data-sol="Falls du krank wirst, ruf mich an." placeholder="Mit falls…"><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+<div class="transform"><div class="t-given">„Es ist kalt." + „Wir gehen schwimmen." <strong>(trotzdem · Inversion!)</strong></div><div class="t-arrow">↓</div><input class="t-input" data-sol="Es ist kalt, trotzdem gehen wir schwimmen." placeholder="Mit trotzdem…"><button class="t-check">Prüfen</button><div class="t-feedback"></div></div>
+
+</div></div>
+</section>
+
+<!-- PHASE 7: SPRECHKARTEN -->
+<section class="phase" data-phase="7">
+  <div class="card"><div class="card-header"><div class="eyebrow">Sprechclub</div><h1 class="card-title"><em>Sprechkarten</em> + Mission</h1></div><div class="card-accent"></div><div class="card-body">
+
+<div class="slabel">Wähle eine Karte und sprich frei</div>
+
+<div class="spk-grid">
+<div class="spk-card"><div class="spk-num">Karte 1 · Gegensatz</div><div class="spk-q">Erzähle eine Geschichte mit OBWOHL und TROTZDEM (mind. 3 Sätze).</div></div>
+<div class="spk-card"><div class="spk-num">Karte 2 · Zweck</div><div class="spk-q">Beschreibe deinen Wunsch mit DAMIT und UM…ZU (mind. 5 Sätze).</div></div>
+<div class="spk-card"><div class="spk-num">Karte 3 · Zeit</div><div class="spk-q">Erzähle deine Wochenplanung mit BEVOR, NACHDEM, WÄHREND.</div></div>
+<div class="spk-card"><div class="spk-num">Karte 4 · Argumentation</div><div class="spk-q">Argumentiere Pro/Contra zu einem Thema mit WEIL und DESHALB.</div></div>
+</div>
+
+<div class="slabel">Mini-Rollenspiel mit Partner</div>
+<div style="background:white;border:1.5px solid var(--sand);border-radius:14px;padding:1rem 1.3rem;border-left:5px solid var(--pink);">
+<div style="font-family:'Fraunces',serif;font-weight:700;color:var(--brown);font-size:.95rem;margin-bottom:.4rem;">💢 Streitet mit eurem Partner</div>
+<div style="font-family:'Fraunces',serif;font-style:italic;color:var(--brown);font-size:.88rem;line-height:1.6;">
+<strong style="color:var(--pink);">Person A:</strong> „Du hörst mir nie zu, WEIL…"<br>
+<strong style="color:var(--blue);">Person B:</strong> „…ABER ich muss arbeiten."<br>
+<strong style="color:var(--pink);">Person A:</strong> „TROTZDEM könntest du…"<br>
+<strong style="color:var(--blue);">Person B:</strong> „Ich mache das, DAMIT wir…"
+</div>
+<div style="font-size:.78rem;color:#888;margin-top:.5rem;font-style:italic;">Nutzt mindestens 6 verschiedene Konnektoren!</div>
+</div>
+
+<div class="slabel">🎯 Mission der Woche</div>
+<div style="background:#FFF4F8;border-left:5px solid var(--pink);padding:1.2rem 1.4rem;border-radius:10px;">
+<ol style="padding-left:1.3rem;color:var(--brown);font-size:.92rem;line-height:1.9;">
+<li><strong>Tägliches Schreiben:</strong> Notiere täglich 5 Sätze mit verschiedenen Konnektoren — jeden Tag eine andere Familie (Pos 0, Inversion, Nebensatz)</li>
+<li><strong>Artikel analysieren:</strong> Markiere in einem deutschen Artikel ALLE Konnektoren. Welche Familie? Wo steht das Verb?</li>
+<li><strong>🏆 Bonus-Challenge:</strong> Diskutiere ein Thema (Klimawandel, Social Media) mit <strong>10 verschiedenen Konnektoren</strong>, ohne dich zu wiederholen!</li>
+</ol>
+</div>
+
+<div class="tip"><strong>🌟 Ziel erreicht:</strong> Du kennst die 3 Konnektoren-Familien auswendig und wendest sie fehlerfrei an!</div>
 
 </div></div>
 </section>
 
 </main>
-<footer>deutschoderwas Sprechclub · B1 Grammatik Konnektoren</footer>
+<footer>deutschoderwas Sprechclub · B1 Konnektoren-Baukasten · v3 (passend zur NotebookLM-Präsi)</footer>
 
 <script>
 document.querySelectorAll('.phase-btn').forEach(b=>{b.onclick=()=>{document.querySelectorAll('.phase-btn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.phase').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelector('[data-phase="'+b.dataset.phase+'"].phase').classList.add('active');window.scrollTo(0,0);};});
 
+// Live demo
+const variants = {
+  '1-aber':{html:'<span class="word">Es</span><span class="word verb">regnet</span><span class="word">,</span><span class="word connector f1">aber</span><span class="word subject">ich</span><span class="word verb">gehe</span><span class="word">raus.</span>', explain:'<strong>Familie 1 (aber):</strong> Verb bleibt auf Pos. 2 wie immer — KEINE Änderung.'},
+  '1-denn':{html:'<span class="word">Es</span><span class="word verb">regnet</span><span class="word">,</span><span class="word connector f1">denn</span><span class="word subject">ich</span><span class="word verb">bin</span><span class="word">müde.</span>', explain:'<strong>Familie 1 (denn):</strong> Verb auf Pos. 2. Achtung: ähnlich wie „weil", aber Wortstellung anders!'},
+  '2-deshalb':{html:'<span class="word">Es</span><span class="word verb">regnet</span><span class="word">,</span><span class="word connector f2">deshalb</span><span class="word verb">bleibe</span><span class="word subject">ich</span><span class="word">zu Hause.</span>', explain:'<strong>Familie 2 (deshalb):</strong> INVERSION! Verb springt nach vorne, SUBJEKT danach.'},
+  '2-trotzdem':{html:'<span class="word">Es</span><span class="word verb">regnet</span><span class="word">,</span><span class="word connector f2">trotzdem</span><span class="word verb">gehe</span><span class="word subject">ich</span><span class="word">raus.</span>', explain:'<strong>Familie 2 (trotzdem):</strong> INVERSION! Gegensatz-Folge.'},
+  '3-weil':{html:'<span class="word subject">Ich</span><span class="word verb">bleibe</span><span class="word">zu Hause</span><span class="word">,</span><span class="word connector f3">weil</span><span class="word subject">es</span><span class="word verb">regnet</span><span class="word">.</span>', explain:'<strong>Familie 3 (weil):</strong> Verb am ENDE des Nebensatzes! Subjekt direkt nach „weil".'},
+  '3-obwohl':{html:'<span class="word subject">Ich</span><span class="word verb">gehe</span><span class="word">raus</span><span class="word">,</span><span class="word connector f3">obwohl</span><span class="word subject">es</span><span class="word verb">regnet</span><span class="word">.</span>', explain:'<strong>Familie 3 (obwohl):</strong> Verb am ENDE. Bedeutung wie „trotzdem", aber andere Struktur!'}
+};
+document.querySelectorAll('.demo-pick').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('.demo-pick').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const v=variants[b.dataset.fam+'-'+b.dataset.c];
+    if(!v)return;
+    const sent=document.getElementById('sentence');
+    sent.style.opacity='0';
+    setTimeout(()=>{sent.innerHTML=v.html;sent.style.opacity='1';document.getElementById('explain').innerHTML=v.explain;},200);
+  };
+});
+
+// Quizzes
 document.querySelectorAll('.fg-options').forEach(opts=>{
   const correct=parseInt(opts.dataset.correct);
   const chips=opts.querySelectorAll('.fg-chip');
@@ -215,22 +473,23 @@ document.querySelectorAll('.fg-options').forEach(opts=>{
     chip.onclick=()=>{
       if(opts.dataset.done)return;
       opts.dataset.done='1';
-      if(i===correct){chip.classList.add('correct');}
+      if(i===correct)chip.classList.add('correct');
       else{chip.classList.add('wrong');chips[correct].classList.add('correct');}
-      explain.classList.add('show');
+      if(explain)explain.classList.add('show');
     };
   });
 });
 
+// Transformations
 document.querySelectorAll('.t-check').forEach(b=>{
   b.onclick=()=>{
     const t=b.closest('.transform');
     const inp=t.querySelector('.t-input');
     const fb=t.querySelector('.t-feedback');
     const sol=inp.dataset.sol;
-    const user=inp.value.toLowerCase().replace(/[.,!?]/g,'').replace(/\s+/g,' ').trim();
-    const cleanSol=sol.toLowerCase().replace(/[.,!?]/g,'').replace(/\s+/g,' ').trim();
-    if(user===cleanSol||user.split(' ').sort().join(' ')===cleanSol.split(' ').sort().join(' ')){
+    const u=inp.value.toLowerCase().replace(/[.,!?]/g,'').replace(/\s+/g,' ').trim();
+    const s=sol.toLowerCase().replace(/[.,!?]/g,'').replace(/\s+/g,' ').trim();
+    if(u===s||u.split(' ').sort().join(' ')===s.split(' ').sort().join(' ')){
       fb.className='t-feedback show right';fb.innerHTML='✓ Richtig! '+sol;
     } else {
       fb.className='t-feedback show miss';fb.innerHTML='✗ Nicht ganz. <div class="sol">Lösung: '+sol+'</div>';
